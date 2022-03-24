@@ -78,6 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Diagrams\Class.puml" />
+    <Content Include="Documentation\420-C46-JO_TP1_Regles_Echec.pdf" />
+    <Content Include="Documentation\Information.md" />
+    <Content Include="Documentation\Remises.md" />
+    <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers" />
