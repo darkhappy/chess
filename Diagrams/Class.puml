@@ -1,0 +1,82 @@
+@startuml
+'https://plantuml.com/class-diagram
+namespace Models {
+    class Piece {
+        - _color : Colour
+        + Move() : bool
+    }
+    class Pawn extends Piece {
+        + EnPassant()
+        + Promote()
+    }
+    class Rook extends Piece {}
+    class Knight extends Piece {}
+    class Bishop extends Piece {}
+    class Queen extends Piece {}
+    class King extends Piece {
+        - _canCastle : bool
+        + Castle()
+    }
+    class Match {
+        - _board : Board
+        - _current : Colour
+        + Export() : string
+        + Turn (int start, int target) : bool
+    }
+    class Board {
+        - _cells : Cell[]
+        + ToString() : string
+    }
+    class Cell {
+        - _item : Nullable<Piece>
+        + ToString() : string
+    }
+    class Players {
+        - _name : string
+        - _points : int
+    }
+    enum Colour {
+        Black
+        White
+    }
+}
+
+namespace Controllers {
+    class Chess {
+        + main() 
+        + StartGame()
+        + Exit()
+    }
+    class GameController  {
+        - _main : Chess
+        + Turn (int start, int target) : bool
+    }
+    class ViewController  {
+        - _main : Chess
+    }
+}
+
+namespace Views {
+    class FormMenu {
+        + BtnStart_Click() : void
+        + BtnExit_Click() : void
+    }
+    class FormMatch {
+        + Grid_Click() : void
+    }
+    class FormLeaderboard {}
+    class FormPromotion {}
+}
+
+Controllers.Chess *-- Controllers.GameController
+Controllers.Chess *-- Controllers.ViewController
+Controllers.GameController *-- Models.Match
+Controllers.Chess *-- Views.FormMenu
+Controllers.ViewController *-- Views.FormMatch
+Controllers.ViewController *-- Views.FormLeaderboard
+Controllers.ViewController *-- Views.FormPromotion
+Models.Match *-- Models.Board
+Models.Board *-- Models.Cell
+Models.Cell *-- Models.Piece
+
+@enduml
