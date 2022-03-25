@@ -1,0 +1,22 @@
+@startuml sequence
+
+header Sequence diagram
+
+title When a piece eat an other
+
+
+FormMatch -> ViewController: Grid_Click()
+
+ViewController -> Chess: 
+
+Chess -> GameController:
+
+GameController -> Match:
+
+Match -> Board:
+
+Board -> Cell:
+
+Cell -> Piece:
+
+@enduml

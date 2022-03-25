@@ -119,7 +119,8 @@ namespace Views {
         + BtnExit_Click() : void
     }
     class FormMatch {
-        + Grid_Click() : void
+        + Grid_Click(object sender, System.EventArgs e) : void
+        + DrawBoard(string board) : void
     }
     class FormLeaderboard {
                    
