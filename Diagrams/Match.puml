@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/salt
+
+salt
+scale 1.3
+skinparam dpi 200
+header darkhappy/chess
+
+{^"FormMatch"
+Whites turn baby
+..
+{+
+.
+.
+very cool chess board
+.
+.
+} | {
+player 1 
+vs.
+player 2
+.
+[resign lol    ]
+}
+}
+@enduml

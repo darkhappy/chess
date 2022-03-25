@@ -1,17 +1,15 @@
 @startuml Class
+!theme toy
 
 'https://plantuml.com/class-diagram
 namespace Models {
     abstract class Piece {
         - _colour : Colour
-        - _previous : Nullable<Cell>
-        - _current : Cell
-        + Move() : bool
+        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ToString() : bool
     }
 
     class Pawn extends Piece {
-        + EnPassant()
-        + Promote()
     }
     note bottom of Pawn
         Moves 1 cell <b>up</b>
@@ -80,7 +78,7 @@ namespace Models {
         + ToString() : string
 
     }
-    class Players {
+    class Player {
         - _name : string
         - _points : int
     }
@@ -88,15 +86,19 @@ namespace Models {
         Black
         White
     }
+    enum Speciality {
+        NoCollisions
+        
+    }
 
-    Match *-- Board
-    Board *-- Cell
-    Cell *-- Piece
-    Piece o-- Cell
+    Match *--> Board
+    Board *--> Cell
+    Cell *--> Piece
 }
 
 namespace Controllers {
     class Chess {
+        - _listGames : List<GameController>
         + main() 
         + StartGame()
         + Exit()
@@ -107,32 +109,59 @@ namespace Controllers {
     }
     class ViewController  {
         - _main : Chess
+        - _match : FormMatch
+    }
+    class PlayerController {
+        - _main : Chess
+        - _players : List<Player>
+        + Add() : void
+        + Remove() : void
     }
 
-    Chess *-- GameController
-    Chess *-- ViewController
+    Chess *--> GameController
+    Chess *--> ViewController
+    Chess *--> PlayerController
+    GameController o--> Chess
+    ViewController o--> Chess
+    PlayerController o--> Chess
 }
 
 namespace Views {
     class FormMenu {
-        + BtnStart_Click() : void
-        + BtnExit_Click() : void
+        - _main : Chess
+        + BtnStart(object sender, System.EventArgs e) : void
+        + BtnExit(object sender, System.EventArgs e) : void
+        + Manage
     }
     class FormMatch {
-        + Grid_Click() : void
+        - _controller : ViewController
+        - _previousClick : int
+        + GridClick(object sender, System.EventArgs e) : void
     }
     class FormLeaderboard {
-                   
+        - _controller : ViewController
+        + ShowList(List<Player>) : void
+        + Back() : void
     }
     class FormPromotion {
-        
+        - _controller : ViewController
+        + Choice(object sender, System.EventArgs e) : void
+    }
+    class FormPlayer {
+        + SubmitNames() : string[2]
     }
 }
 
-Controllers.GameController *-- Models.Match
-Controllers.Chess *-- Views.FormMenu
-                      Controllers.ViewController *-- Views.FormMatch
-                      Controllers.ViewController *-- Views.FormLeaderboard
-Controllers.ViewController *-- Views.FormPromotion
+Controllers.GameController *-left-> Models.Match
+Controllers.PlayerController *-left-> Models.Player
+Controllers.PlayerController *-left-> Views.FormPlayer
+Controllers.ViewController *-down-> Views.FormMatch
+Controllers.ViewController *-down-> Views.FormLeaderboard
+Controllers.ViewController *-down-> Views.FormPromotion
+Views.FormMatch o-up-> Controllers.ViewController
+Views.FormLeaderboard o-up-> Controllers.ViewController
+Views.FormPromotion o-up-> Controllers.ViewController
+Views.FormMenu o-up-> Controllers.Chess
+Views.FormPlayer o-up-> Controllers.PlayerController
 
 @enduml

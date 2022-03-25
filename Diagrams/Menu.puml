@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/salt
+
+salt
+scale 1.3
+skinparam dpi 200
+header darkhappy/chess
+
+{^"FormMenu"
+Welcome to CHESS MY BOY
+  [lets play some chess]
+  [manager players     ]
+  [no                  ]
+}
+@enduml
