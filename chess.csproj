@@ -85,6 +85,7 @@
     <Content Include="Diagrams\Promotion.puml" />
     <Content Include="Diagrams\Sequence.puml" />
     <Content Include="Documentation\420-C46-JO_TP1_Regles_Echec.pdf" />
+    <Content Include="Documentation\Dictionary.tex" />
     <Content Include="Documentation\Information.md" />
     <Content Include="Documentation\Remises.md" />
     <Content Include="README.md" />
