@@ -106,16 +106,14 @@ namespace Controllers {
 
     class GameController  {
         - _main : Chess
-        - _isPat: bool
-        - _isMat: bool
-        - _canPromote: bool
+        - _match : Match
+        - _view : FormMatch
+        - Check() : bool
+        - Mate() : bool
+        - Promotion() : bool 
         + Turn (int start, int target) : bool
     }
 
-    class ViewController  {
-        - _main : Chess
-        - _match : FormMatch
-    }
     class PlayerController {
         - _main : Chess
         - _players : List<Player>
@@ -124,10 +122,8 @@ namespace Controllers {
     }
 
     Chess *--> GameController
-    Chess *--> ViewController
     Chess *--> PlayerController
     GameController o--> Chess
-    ViewController o--> Chess
     PlayerController o--> Chess
 }
 
@@ -140,10 +136,11 @@ namespace Views {
     }
     class FormMatch {
         - _controller : ViewController
-        - _previousClick : int
+        - _selected : int
         + GridClick(object sender, System.EventArgs e) : void
         + DrawBoard(string board) : void
     }
+    
     class FormLeaderboard {
         - _controller : ViewController
         + ShowList(List<Player>) : void
@@ -156,17 +153,18 @@ namespace Views {
     class FormPlayer {
         + SubmitNames() : string[2]
     }
+    
 }
 
 Controllers.GameController *-left-> Models.Match
 Controllers.PlayerController *-left-> Models.Player
 Controllers.PlayerController *-left-> Views.FormPlayer
-Controllers.ViewController *-down-> Views.FormMatch
-Controllers.ViewController *-down-> Views.FormLeaderboard
-Controllers.ViewController *-down-> Views.FormPromotion
-Views.FormMatch o-up-> Controllers.ViewController
-Views.FormLeaderboard o-up-> Controllers.ViewController
-Views.FormPromotion o-up-> Controllers.ViewController
+Controllers.GameController *-down-> Views.FormMatch
+Controllers.PlayerController *-down-> Views.FormLeaderboard
+Controllers.GameController *-down-> Views.FormPromotion
+Views.FormMatch o-up-> Controllers.GameController
+Views.FormLeaderboard o-up-> Controllers.PlayerController
+Views.FormPromotion o-up-> Controllers.GameController
 Views.FormMenu o-up-> Controllers.Chess
 Views.FormPlayer o-up-> Controllers.PlayerController
 
