@@ -6,7 +6,7 @@ namespace Models {
         - _colour : Colour
         - _previous : Nullable<Cell>
         - _current : Cell
-        + Move() : bool
+        + isMovementValid() : bool
     }
 
     class Pawn extends Piece {
@@ -98,19 +98,34 @@ namespace Models {
 namespace Controllers {
     class Chess {
         + main() 
-        + StartGame()
+        + NewGame()
         + Exit()
     }
+
     class GameController  {
         - _main : Chess
+        - _isPat: bool
+        - _isMat: bool
+        - _canPromote: bool
         + Turn (int start, int target) : bool
     }
+
     class ViewController  {
         - _main : Chess
+        - _lastClick : bool
+        - _lastCell : int
+    }
+
+    class PlayerController  {
+        - _main : Chess
+        + Add() : void
+        + Delete() : void
+        + Save() : void
     }
 
     Chess *-- GameController
     Chess *-- ViewController
+    Chess *-- PlayerController
 }
 
 namespace Views {
