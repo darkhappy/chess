@@ -100,13 +100,18 @@ namespace Controllers {
     class Chess {
         - _listGames : List<GameController>
         + main() 
-        + StartGame()
+        + NewGame()
         + Exit()
     }
+
     class GameController  {
         - _main : Chess
+        - _isPat: bool
+        - _isMat: bool
+        - _canPromote: bool
         + Turn (int start, int target) : bool
     }
+
     class ViewController  {
         - _main : Chess
         - _match : FormMatch
@@ -137,6 +142,7 @@ namespace Views {
         - _controller : ViewController
         - _previousClick : int
         + GridClick(object sender, System.EventArgs e) : void
+        + DrawBoard(string board) : void
     }
     class FormLeaderboard {
         - _controller : ViewController
