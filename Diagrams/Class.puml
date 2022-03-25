@@ -1,24 +1,72 @@
 @startuml
+
 'https://plantuml.com/class-diagram
 namespace Models {
-    class Piece {
-        - _color : Colour
+    abstract class Piece {
+        - _colour : Colour
+        - _previous : Nullable<Cell>
+        - _current : Cell
         + Move() : bool
     }
+
     class Pawn extends Piece {
         + EnPassant()
         + Promote()
     }
-    class Rook extends Piece {}
-    class Knight extends Piece {}
-    class Bishop extends Piece {}
-    class Queen extends Piece {}
+    note bottom of Pawn
+        Moves 1 cell <b>up</b>
+        Attacks 1 cell <b>up-left</b> or <b>up-right</b>
+        On initial position, can move 2 cells <b>up</b>
+        Can en passant
+    end note
+
+    class Rook  extends Piece {
+
+    }
+    note bottom of Rook
+        Moves and attacks 
+        n cells <b>horizontally</b> or <b>vertically</b>
+    end note
+
+    class Knight extends Piece {
+
+    }
+    note bottom of Knight
+        Moves and attacks 
+        in an <b>L shape</b>
+        Can go over other pieces
+    end note
+
+    class Bishop extends Piece {
+
+    }
+    note bottom of Bishop
+        Moves and attacks 
+        n cells <b>diagonally</b>
+    end note
+
+    class Queen extends Piece {
+
+    }
+    note bottom of Queen
+        Moves and attacks 
+        n cells <b>horizontally, vertically or diagonally</b>
+    end note
+
     class King extends Piece {
         - _canCastle : bool
         + Castle()
     }
+    note bottom of King
+        Moves and attacks 
+        1 cells <b>horizontally, vertically or diagonally</b>
+        Can castle
+    end note
+
     class Match {
         - _board : Board
+        - _history : string[]
+        - _tieCounter : int
         - _current : Colour
         + Export() : string
         + Turn (int start, int target) : bool
@@ -30,6 +78,7 @@ namespace Models {
     class Cell {
         - _item : Nullable<Piece>
         + ToString() : string
+
     }
     class Players {
         - _name : string
@@ -39,6 +88,11 @@ namespace Models {
         Black
         White
     }
+
+    Match *-- Board
+    Board *-- Cell
+    Cell *-- Piece
+    Piece o-- Cell
 }
 
 namespace Controllers {
@@ -54,6 +108,9 @@ namespace Controllers {
     class ViewController  {
         - _main : Chess
     }
+
+    Chess *-- GameController
+    Chess *-- ViewController
 }
 
 namespace Views {
@@ -64,19 +121,18 @@ namespace Views {
     class FormMatch {
         + Grid_Click() : void
     }
-    class FormLeaderboard {}
-    class FormPromotion {}
+    class FormLeaderboard {
+                   
+    }
+    class FormPromotion {
+        
+    }
 }
 
-Controllers.Chess *-- Controllers.GameController
-Controllers.Chess *-- Controllers.ViewController
 Controllers.GameController *-- Models.Match
 Controllers.Chess *-- Views.FormMenu
-Controllers.ViewController *-- Views.FormMatch
-Controllers.ViewController *-- Views.FormLeaderboard
+                      Controllers.ViewController *-- Views.FormMatch
+                      Controllers.ViewController *-- Views.FormLeaderboard
 Controllers.ViewController *-- Views.FormPromotion
-Models.Match *-- Models.Board
-Models.Board *-- Models.Cell
-Models.Cell *-- Models.Piece
 
 @enduml
