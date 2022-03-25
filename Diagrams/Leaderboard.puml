@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/salt
+
+salt
+scale 1.3
+skinparam dpi 200
+header darkhappy/chess
+
+{^"FormLeaderboard"
+Players baby
+.
+{SI
+Benjamin | 200
+Jeanne-Philipette | 90
+Charlovik | 2
+Michel | -1 
+. 
+}
+.
+  [add new       ]
+  [remove select ]
+  [close         ]
+}
+@enduml

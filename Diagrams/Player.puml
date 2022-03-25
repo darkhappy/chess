@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/salt
+
+salt
+scale 1.3
+skinparam dpi 200
+header darkhappy/chess
+
+{^"FormLeaderboard"
+Who fighting
+.
+White | ^   Player^
+Black | ^   Player^
+.
+  [begin match]
+  [view players ]
+  [cancel match ]
+}
+@enduml

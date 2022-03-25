@@ -1,83 +1,56 @@
 @startuml Class
-!theme toy
+!theme vibrant
 
 'https://plantuml.com/class-diagram
-namespace Models {
+package Models {
     abstract class Piece {
         - _colour : Colour
+        - _hasMoved : bool
         + ValidMove(int x1, int y1, int x2, int y2) : bool
-        + ToString() : bool
+        + ToString() : string
     }
 
     class Pawn extends Piece {
     }
-    note bottom of Pawn
-        Moves 1 cell <b>up</b>
-        Attacks 1 cell <b>up-left</b> or <b>up-right</b>
-        On initial position, can move 2 cells <b>up</b>
-        Can en passant
-    end note
 
     class Rook  extends Piece {
 
     }
-    note bottom of Rook
-        Moves and attacks 
-        n cells <b>horizontally</b> or <b>vertically</b>
-    end note
 
     class Knight extends Piece {
 
     }
-    note bottom of Knight
-        Moves and attacks 
-        in an <b>L shape</b>
-        Can go over other pieces
-    end note
 
     class Bishop extends Piece {
 
     }
-    note bottom of Bishop
-        Moves and attacks 
-        n cells <b>diagonally</b>
-    end note
 
     class Queen extends Piece {
 
     }
-    note bottom of Queen
-        Moves and attacks 
-        n cells <b>horizontally, vertically or diagonally</b>
-    end note
 
     class King extends Piece {
-        - _canCastle : bool
-        + Castle()
     }
-    note bottom of King
-        Moves and attacks 
-        1 cells <b>horizontally, vertically or diagonally</b>
-        Can castle
-    end note
-
+    
     class Match {
         - _board : Board
-        - _history : string[]
-        - _tieCounter : int
         - _current : Colour
+        - _history : string[]
+        - _turnNumber : int
         + Export() : string
         + Turn (int start, int target) : bool
+        
     }
     class Board {
         - _cells : Cell[]
         + ToString() : string
+        + Collision(int start, int target) : bool
     }
     class Cell {
         - _item : Nullable<Piece>
-        + ToString() : string
-
+        + GetCellType(int cell) : CellType
     }
+    
     class Player {
         - _name : string
         - _points : int
@@ -88,30 +61,44 @@ namespace Models {
     }
     enum Speciality {
         NoCollisions
-        
     }
+    enum CellType {
+    Black
+    White
+    Empty
+    }
+        
 
     Match *--> Board
-    Board *--> Cell
+    Board *-left-> Cell
     Cell *--> Piece
 }
 
-namespace Controllers {
+package Controllers {
     class Chess {
         - _listGames : List<GameController>
-        + main() 
-        + NewGame()
-        + Exit()
+        + main() : void 
+        + NewGame() : void
+        + StartGame(Player[2] players) : void
+        + ManagePlayers() : void
+        + Exit() : void
     }
 
     class GameController  {
         - _main : Chess
         - _match : Match
+        - _playerA : Player
+        - _playerB : Player
+        - _tieCounter : int
         - _view : FormMatch
         - Check() : bool
-        - Mate() : bool
+        - Checkmate() : bool
+        - Castle() : bool
         - Promotion() : bool 
-        + Turn (int start, int target) : bool
+        - FiftyTurns() : bool
+        - SameBoard() : bool
+        + Turn (int start, int target) : void
+        + Resign() : void
     }
 
     class PlayerController {
@@ -122,50 +109,57 @@ namespace Controllers {
     }
 
     Chess *--> GameController
-    Chess *--> PlayerController
     GameController o--> Chess
-    PlayerController o--> Chess
+    PlayerController o-up-> Chess
 }
 
-namespace Views {
+package Views {
     class FormMenu {
         - _main : Chess
-        + BtnStart(object sender, System.EventArgs e) : void
-        + BtnExit(object sender, System.EventArgs e) : void
-        + Manage
+        + Start(object sender, System.EventArgs e) : void
+        + Exit(object sender, System.EventArgs e) : void
+        + ManagePlayers(object sender, System.EventArgs e) : void
     }
     class FormMatch {
-        - _controller : ViewController
+        - _controller : GameController
         - _selected : int
         + GridClick(object sender, System.EventArgs e) : void
         + DrawBoard(string board) : void
+        + ShowMessage(string message) : void
+        + VictoryMessage() : void
     }
     
     class FormLeaderboard {
-        - _controller : ViewController
+        - _controller : PlayerController
         + ShowList(List<Player>) : void
+        + Add() : void
+        + Remove() : void 
         + Back() : void
     }
     class FormPromotion {
-        - _controller : ViewController
-        + Choice(object sender, System.EventArgs e) : void
+        - _controller : GameController
+        + Submit(object sender, System.EventArgs e) : void
     }
-    class FormPlayer {
-        + SubmitNames() : string[2]
+    class FormSelection {
+        - _controller : main
+        + OpenLeaderboard() : void
+        + Start() : Player[2]
+        + Cancel() : void
     }
     
 }
 
-Controllers.GameController *-left-> Models.Match
-Controllers.PlayerController *-left-> Models.Player
-Controllers.PlayerController *-left-> Views.FormPlayer
-Controllers.GameController *-down-> Views.FormMatch
-Controllers.PlayerController *-down-> Views.FormLeaderboard
-Controllers.GameController *-down-> Views.FormPromotion
-Views.FormMatch o-up-> Controllers.GameController
-Views.FormLeaderboard o-up-> Controllers.PlayerController
-Views.FormPromotion o-up-> Controllers.GameController
-Views.FormMenu o-up-> Controllers.Chess
-Views.FormPlayer o-up-> Controllers.PlayerController
+GameController *-left-> Match
+GameController o-left-> Player
+PlayerController *-left-> Player
+Chess *-down-> FormSelection
+GameController *-down-> FormMatch
+PlayerController *-down-> FormLeaderboard
+GameController *-down-> FormPromotion
+FormMatch o-up-> GameController
+FormLeaderboard o-up-> PlayerController
+FormPromotion o-up-> GameController
+FormMenu o-up-> Chess
+FormSelection o-up-> Chess
 
 @enduml
