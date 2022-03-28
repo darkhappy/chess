@@ -5,31 +5,45 @@
 package Models {
     abstract class Piece {
         - _colour : Colour
+        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ToString() : string
+        + CanCollide() : bool
+    }
+    
+    abstract class StartingPiece extends Piece {
         - _hasMoved : bool
         + ValidMove(int x1, int y1, int x2, int y2) : bool
         + ToString() : string
     }
 
-    class Pawn extends Piece {
+    class Pawn extends StartingPiece {
+        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ToString() : string
     }
 
-    class Rook  extends Piece {
-
+    class Rook extends StartingPiece {
+        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ToString() : string
     }
 
     class Knight extends Piece {
-
+        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ToString() : string
     }
 
     class Bishop extends Piece {
-
+        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ToString() : string
     }
 
     class Queen extends Piece {
-
+        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ToString() : string
     }
 
-    class King extends Piece {
+    class King extends StartingPiece {
+        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ToString() : string
     }
     
     class Match {
@@ -38,8 +52,9 @@ package Models {
         - _history : string[]
         - _turnNumber : int
         + Export() : string
-        + Turn (int start, int target) : bool
-        
+        + ValidTurn (int start, int target) : bool
+        + MakeTurn (int start, int target) : void 
+        + ValidSelection (int cell, bool firstClick) : bool
     }
     class Board {
         - _cells : Cell[]
@@ -48,7 +63,7 @@ package Models {
     }
     class Cell {
         - _item : Nullable<Piece>
-        + GetCellType(int cell) : CellType
+        + IsEmpty() : bool
     }
     
     class Player {
@@ -59,19 +74,10 @@ package Models {
         Black
         White
     }
-    enum Speciality {
-        NoCollisions
-    }
-    enum CellType {
-    Black
-    White
-    Empty
-    }
-        
 
-    Match *--> Board
-    Board *-left-> Cell
-    Cell *--> Piece
+    Match "1" *--> "1" Board
+    Board "1" *--> "64" Cell
+    Cell "1" *--> "0..1" Piece
 }
 
 package Controllers {
@@ -86,6 +92,7 @@ package Controllers {
 
     class GameController  {
         - _main : Chess
+        - _selected : int
         - _match : Match
         - _playerA : Player
         - _playerB : Player
@@ -98,12 +105,12 @@ package Controllers {
         - FiftyTurns() : bool
         - SameBoard() : bool
         + Turn (int start, int target) : void
+        + Selection(int cell) : void
         + Resign() : void
     }
 
     class PlayerController {
         - _main : Chess
-        - _players : List<Player>
         + Add() : void
         + Remove() : void
     }
@@ -122,9 +129,9 @@ package Views {
     }
     class FormMatch {
         - _controller : GameController
-        - _selected : int
         + GridClick(object sender, System.EventArgs e) : void
         + DrawBoard(string board) : void
+        + DrawSelection(int cell) : void
         + ShowMessage(string message) : void
         + VictoryMessage() : void
     }
@@ -149,8 +156,8 @@ package Views {
     
 }
 
-GameController *-left-> Match
-GameController o-left-> Player
+GameController "1" *--> "1" Match
+GameController "1" o--> "2" Player
 PlayerController *-left-> Player
 Chess *-down-> FormSelection
 GameController *-down-> FormMatch
