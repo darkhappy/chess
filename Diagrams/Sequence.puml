@@ -5,19 +5,17 @@ header Sequence diagram
 title When a piece eat an other
 
 
-FormMatch -> ViewController ++ : Grid_Click()
+FormMatch -> GameController ++ : Grid_Click()
 
-ViewController -> Chess ++: 
-ViewController -> Chess ++: 
+GameController -> Match ++: Selection()
 
-Chess -> GameController ++:
+Match -> Board ++: IsEmpty()
+Match <-- Board --: 
+Match -> Board ++: GetCell()
 
-GameController -> Match ++:
+Board -> Cell ++: GetColour()
+Board <-- Cell --:
 
-Match -> Board ++:
-
-Board -> Cell ++:
-
-Cell -> Piece ++:
+Match <-- Board --:
 
 @enduml
