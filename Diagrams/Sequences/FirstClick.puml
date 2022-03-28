@@ -1,0 +1,32 @@
+@startuml first_sequence
+
+header Sequence diagram
+
+title First selection of a piece 
+
+actor user
+
+user -> FormMatch ++ : Grid_Click(object sender, system.EventArgs e)
+FormMatch -> GameController ++ : Selection(int cell)
+
+GameController -> Match ++: ValidSelection(int cell, bool firstClick)
+
+
+Match -> Board ++: SameColour(int cell, Colour colour)
+Board -> Cell ++: IsEmpty()
+return false
+
+Board -> Cell ++: PieceColour
+Cell -> Piece ++: Colour
+return White
+return White
+return true
+return true
+
+GameController -> FormMatch ++: DrawSelection(int cell) 
+return
+return
+return
+
+
+@enduml

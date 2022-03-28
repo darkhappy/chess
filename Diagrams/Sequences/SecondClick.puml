@@ -1,12 +1,11 @@
-@startuml first_sequence
+@startuml second_sequence
 
 header Sequence diagram
 
-title First (valid) selection of a piece 
+title Second selection of a piece 
 
 actor user
 
-'First selection of a piece
 user -> FormMatch ++ : Grid_Click(object sender, system.EventArgs e)
 FormMatch -> GameController ++ : Selection(int cell)
 

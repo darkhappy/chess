@@ -60,10 +60,13 @@ package Models {
         - _cells : Cell[]
         + ToString() : string
         + Collision(int start, int target) : bool
+        + SameColour (int cell, Colour colour) : bool
+        + ReplaceWith (int origin, int target) : void
     }
     class Cell {
         - _item : Nullable<Piece>
         + IsEmpty() : bool
+        + Colour() : Colour
     }
     
     class Player {
