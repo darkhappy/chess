@@ -1,0 +1,32 @@
+@startuml second_sequence
+
+header Sequence diagram
+
+title Second selection of a piece 
+
+actor user
+
+user -> FormMatch ++ : Grid_Click(object sender, system.EventArgs e)
+FormMatch -> GameController ++ : Selection(int cell)
+
+GameController -> Match ++: Selection(int cell)
+
+Match -> Board ++: ValidSelection(int cell, bool firstClick)
+
+Board -> Cell ++: IsEmpty()
+return true
+Board -> Cell ++: GetCell()
+return Cell
+Board -> Cell ++: GetColour()
+return white
+
+return true
+return
+
+GameController -> FormMatch ++: DrawSelection(int cell) 
+return
+return
+return
+
+
+@enduml

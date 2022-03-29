@@ -60,10 +60,13 @@ package Models {
         - _cells : Cell[]
         + ToString() : string
         + Collision(int start, int target) : bool
+        + SameColour (int cell, Colour colour) : bool
+        + ReplaceWith (int origin, int target) : void
     }
     class Cell {
         - _item : Nullable<Piece>
         + IsEmpty() : bool
+        + Colour() : Colour
     }
     
     class Player {
@@ -158,7 +161,7 @@ package Views {
 
 GameController "1" *--> "1" Match
 GameController "1" o--> "2" Player
-PlayerController *-left-> Player
+SSPlayerController *-left-> Player
 Chess *-down-> FormSelection
 GameController *-down-> FormMatch
 PlayerController *-down-> FormLeaderboard
