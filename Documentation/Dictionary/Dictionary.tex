@@ -37,13 +37,13 @@ clearer for the programmer where to implement his code.
 
 \section{Models}
 
-\subsection{Classe `Piece'}
+\subsection{Classe Piece}
 
 This is an abstract class for a base piece for the game.
 \begin{table}[H]
     \begin{tabular}{|l|}
     \hline
-    \cellcolor[HTML]{A9A9A9}\textbf{Piece}            \\ \hline
+    \cellcolor[HTML]{A9A9A9}\textbf{(Abstract) Piece}            \\ \hline
     \cellcolor[HTML]{E8E8E8}-\_colour : Colour        \\ \hline
     +CanCollide() : bool                                \\ \hline
     +ValidMove(int x1, int y1, int x2, int y2) : bool \\ \hline
@@ -51,7 +51,7 @@ This is an abstract class for a base piece for the game.
     \end{tabular}
 \end{table}
 
-\subsection{Fields}
+\subsubsection{Fields}
 
 \begin{table}[H]
     \begin{tabular}{llllll}
@@ -65,7 +65,7 @@ This is an abstract class for a base piece for the game.
 black or white as it is for a regular chess game.
 
 
-\subsection{Methods}
+\subsubsection{Methods}
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -102,10 +102,9 @@ it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Returns true if the piece can't go over other pieces, otherwise
-it returns false.
+\textbf{Description :} Empty method te be overrided by child classes.
 
-\subsection{Properties}
+\subsubsection{Properties}
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -116,8 +115,279 @@ it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Returns de colour of a piece.
+\textbf{Description :} Returns the colour of a piece.
 
+\subsection{Class StartingPiece : Piece}
 
-   
+Another abstract Class that inherits to the base Class Piece.
+This Class is for pieces that have different behaviour after they
+have mouved for the first time.
+
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \cellcolor[HTML]{A9A9A9}\textbf{(Abstract) StartingPiece}            \\ \hline
+    \cellcolor[HTML]{E8E8E8}-\_hasMoved : bool        \\ \hline
+    +ValidMove(int x1, int y1, int x2, int y2) : bool \\ \hline
+    +ToString()                                       \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Fields}
+
+\begin{table}[H]
+    \begin{tabular}{llllll}
+    \hline
+    \multicolumn{1}{|l|}{\cellcolor[HTML]{E8E8E8}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{E8E8E8}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{E8E8E8}\textbf{Visibility}} \\ \hline
+    \multicolumn{1}{|l|}{\_hasMoved}                                  & \multicolumn{1}{l|}{bool}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This field is used to tell if the piece has
+already made its first move.
+
+\subsubsection{Methods}
+Same as Class Piece.
+\subsubsection{Properties}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Property Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    HasMoved                                       & None                 & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Gets or Sets the property \_hasMoved of a piece to true or false.
+
+% Pawn Class
+
+\subsection{Class Pawn : StartingPiece}
+
+This Class inherits the Class StartingPiece. It represents de pawn 
+piece of a regular chess game.
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \cellcolor[HTML]{A9A9A9}\textbf{Pawn} \\ \hline
+    \cellcolor[HTML]{E8E8E8}                    \\ \hline
+    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
+    +ToString() : string                        \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Fields}
+
+\textbf{Description :} This Class doesn't provide a new field. It just
+inherits the fields of its parent.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
+and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+\\
+\textbf{Description :} This method is overrided to check specifically
+if the move provided is valid considering the basic moves of a pawn which
+are 1 or 2 cells ahead, or 1 diagonal cell if an opponent piece is
+present. In thoses cases it returns true, otherwise it returns false. 
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ToString                                   & None                 & String                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method overrides ToString virtual
+method and returns minus "p" if the piece is white and upper "P"
+if it is black.
+\subsubsection{Properties}
+
+Same as parent.
+
+%Rook Class
+
+\subsection{Class Rook : StartingPiece}
+
+This Class inherits the Class StartingPiece. It represents de rook 
+piece of a regular chess game.
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \cellcolor[HTML]{A9A9A9}\textbf{Rook} \\ \hline
+    \cellcolor[HTML]{E8E8E8}                    \\ \hline
+    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
+    +ToString() : string                        \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Fields}
+
+\textbf{Description :} This Class doesn't provide a new field. It just
+inherits the fields of its parent.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
+and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+\\
+\textbf{Description :} This method is overrided to check specifically
+if the move provided is valid considering the basic moves of a rook which
+are forward, backward or sideways to any empty cell. In thoses cases it returns true, otherwise it returns false. 
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ToString                                   & None                 & String                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method overrides ToString virtual
+method and returns minus "r" if the piece is white and upper "R"
+if it is black.
+
+\subsubsection{Properties}
+
+Same as parent.
+
+%King Class
+
+\subsection{Class King : StartingPiece}
+
+This Class inherits the Class StartingPiece. It represents de rook 
+piece of a regular chess game.
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \cellcolor[HTML]{A9A9A9}\textbf{King} \\ \hline
+    \cellcolor[HTML]{E8E8E8}                    \\ \hline
+    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
+    +ToString() : string                        \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Fields}
+
+\textbf{Description :} This Class doesn't provide a new field. It just
+inherits the fields of its parent.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
+and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+\\
+\textbf{Description :} This method is overrided to check specifically
+if the move provided is valid considering the basic moves of a king which
+are one square horizontally, vertically, or diagonally unless the square is already occupied by a 
+friendly piece or the move would place the king in check. In thoses 
+cases it returns true, otherwise it returns false. 
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ToString                                   & None                 & String                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method overrides ToString virtual
+method and returns minus "k" if the piece is white and upper "K"
+if it is black.
+
+\subsubsection{Properties}
+
+Same as parent.
+
+%Knight Class
+
+\subsection{Class Knight : Piece}
+
+This Class inherits the Class Piece. It represents de knight 
+piece of a regular chess game.
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \cellcolor[HTML]{A9A9A9}\textbf{Knight} \\ \hline
+    \cellcolor[HTML]{E8E8E8}                    \\ \hline
+    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
+    +ToString() : string                        \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{Fields}
+
+\textbf{Description :} This Class doesn't provide a new field. It just
+inherits the fields of its parent.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
+and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+\\
+\textbf{Description :} This method is overrided to check specifically
+if the move provided is valid considering the basic moves of a king which
+are “L-shape”—that is, they can move two squares in any direction
+vertically followed by one square horizontally, or two squares in any
+direction horizontally followed by one square vertically. In thoses 
+cases it returns true, otherwise it returns false. 
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ToString                                   & None                 & String                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method overrides ToString virtual
+method and returns minus "n" if the piece is white and upper "N"
+if it is black.
+
+\subsubsection{Properties}
+
+Same as parent.
+
 \end{document}
