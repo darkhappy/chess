@@ -1,4 +1,4 @@
-@startuml second_sequence
+@startuml first_sequence
 
 header Sequence diagram
 
@@ -6,27 +6,39 @@ title Second selection of a piece
 
 actor user
 
+header Sequence diagram
+
+title First selection of a piece 
+
+actor user
+
 user -> FormMatch ++ : Grid_Click(object sender, system.EventArgs e)
 FormMatch -> GameController ++ : Selection(int cell)
 
-GameController -> Match ++: Selection(int cell)
+GameController -> Match ++: ValidSelection(int cell, bool firstClick)
 
-Match -> Board ++: ValidSelection(int cell, bool firstClick)
 
+Match -> Board ++: SameColour(int cell, Colour colour)
 Board -> Cell ++: IsEmpty()
+return false
+
+Board -> Cell ++: PieceColour
+Cell -> Piece ++: Colour
+return Black
+return Black
+return false
 return true
-Board -> Cell ++: GetCell()
-return Cell
-Board -> Cell ++: GetColour()
-return white
 
-return true
-return
 
-GameController -> FormMatch ++: DrawSelection(int cell) 
-return
-return
-return
 
+GameController -> GameController ++: Turn(int start, int target)
+GameController -> Match ++: ValidTurn(int start, int target)
+
+Match -> Board ++: Colision(int start, int target)
+
+Board -> Cell ++: Piece
+
+Cell -> Piece ++: ValidMove
+Cell <-- Piece: 
 
 @enduml
