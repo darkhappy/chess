@@ -16,7 +16,7 @@ Match -> Board ++: SameColour(int cell, Colour colour)
 Board -> Cell ++: IsEmpty()
 return false
 
-Board -> Cell ++: PieceColour
+Board -> Cell ++: Colour
 Cell -> Piece ++: Colour
 return White
 return White
