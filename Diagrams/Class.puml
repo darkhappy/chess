@@ -8,6 +8,8 @@ package Models {
         + ValidMove(int x1, int y1, int x2, int y2) : bool
         + ToString() : string
         + CanCollide() : bool
+        + CanPromote() : bool
+        + IsEssential() : bool
     }
     
     abstract class StartingPiece {
@@ -17,6 +19,7 @@ package Models {
     class Pawn {
         + ValidMove(int x1, int y1, int x2, int y2) : bool
         + ToString() : string
+        + CanPromote() : bool
     }
 
     class Rook{
@@ -27,6 +30,7 @@ package Models {
     class Knight{
         + ValidMove(int x1, int y1, int x2, int y2) : bool
         + ToString() : string
+        + CanCollide() : bool
     }
 
     class Bishop{
@@ -42,6 +46,7 @@ package Models {
     class King {
         + ValidMove(int x1, int y1, int x2, int y2) : bool
         + ToString() : string
+        + IsEssential() : bool
     }
     
     class Match {
@@ -61,10 +66,14 @@ package Models {
         + SameColour (int cell, Colour colour) : bool
         + ValidMove (int origin, int target) : bool
         + MoveCellTo (int origin, int target) : void
+        + BoardFromString (string board) : void
     }
     class Cell {
-        - _item : Nullable<Piece>
+        - _piece : Nullable<Piece>
         + IsEmpty() : bool
+        + HasCollision() : bool
+        + HasPromotable() : bool
+        + HasEssential() : bool
         + ValidMove (int x1, int y1, int x2, int y2) : bool
         + Colour() : Colour
     }
@@ -109,6 +118,7 @@ package Controllers {
         - _tieCounter : int
         - _view : FormMatch
         - Check() : bool
+        - SelfCheck() : bool
         - Checkmate() : bool
         - Castle() : bool
         - Promotion() : bool 
@@ -126,9 +136,9 @@ package Controllers {
         + Remove() : void
     }
 
+    PlayerController "1" o--> "1" Chess
     Chess "1" *--> "0..*" GameController
     GameController "1" o-> "1" Chess
-    PlayerController "1" o--> "1" Chess
 }
 
 package Views {
