@@ -40,9 +40,37 @@ Board -> Cell ++: HasCollision()
 Cell -> Piece ++: CanCollide()
 return true
 return true
+loop for each cell between origin and target
+    Board -> Cell ++: isEmpty()
+    return true
+end
 return false
 return true
+
+'Check Selfcheck
+Match -> Board ++: IsEssentialExposed(Color color)
+
+loop for each cell until it finds a essential piece in the parameters color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return White
+    return White
+    Board -> Cell ++: IsEssential()
+    return true
+end
+
+loop for each cell until it finds a piece that can attack the essential piece
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return Black
+    return Black
+    Board -> Cell ++: ValidMove(int x1, int y1, int x2, int y2)
+    return false
+end
+
+return false
 return true
+
 
 'Make the turn (Modals)
 GameController -> Match ++: MakeTurn(int origin, int target)
@@ -55,5 +83,18 @@ GameController -> Match ++: Export()
 return String
 GameController -> FormMatch ++: DrawBoard(string board)
 return
+
+GameController -> GameController ++: FiftyTurns()
+return false
+
+GameController -> GameController ++: SameBoard()
+GameController -> Match ++: History()
+return string
+return false
+
+'TODO Check
+'TODO Checkmate
+'TODO Castle
+'TODO Promotion
 
 @enduml
