@@ -1,4 +1,4 @@
-@startuml second_sequence
+@startuml first_sequence
 
 header Sequence diagram
 
@@ -6,27 +6,54 @@ title Second selection of a piece
 
 actor user
 
+'---------'Check if is not the same colour---------'
 user -> FormMatch ++ : Grid_Click(object sender, system.EventArgs e)
 FormMatch -> GameController ++ : Selection(int cell)
 
-GameController -> Match ++: Selection(int cell)
+GameController -> Match ++: ValidSelection(int cell, bool firstClick)
 
-Match -> Board ++: ValidSelection(int cell, bool firstClick)
-
+Match -> Board ++: SameColour(int cell, Colour colour)
 Board -> Cell ++: IsEmpty()
+return false
+
+Board -> Cell ++: Colour
+Cell -> Piece ++: Colour
+return Black
+return Black
+return false
 return true
-Board -> Cell ++: GetCell()
-return Cell
-Board -> Cell ++: GetColour()
-return white
 
+'---------Check if turn is valid---------'
+GameController -> GameController ++: Turn(int start, int target)
+GameController -> Match ++: ValidTurn(int start, int target)
+
+'Check if move is valid
+Match -> Board ++: ValidMove(int origin, int target)
+Board -> Cell ++: ValidMove(int x1, int y1, int x2, int y2)
+Cell -> Piece ++: ValidMove(int x1, int y1, int x2, int y2)
 return true
+return true
+
+'Check if there are a collision
+Board -> Board ++: Collision(int origin, int target)
+Board -> Cell ++: HasCollision()
+Cell -> Piece ++: CanCollide()
+return true
+return true
+return false
+return true
+return true
+
+'Make the turn (Modals)
+GameController -> Match ++: MakeTurn(int origin, int target)
+Match -> Board ++: MoveCellTo(int origin, int target)
+return
 return
 
-GameController -> FormMatch ++: DrawSelection(int cell) 
+'Make the turn (Views)
+GameController -> Match ++: Export()
+return String
+GameController -> FormMatch ++: DrawBoard(string board)
 return
-return
-return
-
 
 @enduml
