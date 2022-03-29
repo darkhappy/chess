@@ -83,7 +83,8 @@
     <Content Include="Diagrams\Match.puml" />
     <Content Include="Diagrams\Selection.puml" />
     <Content Include="Diagrams\Promotion.puml" />
-    <Content Include="Diagrams\Sequence.puml" />
+    <Content Include="Diagrams\Sequences\FirstClick.puml" />
+    <Content Include="Diagrams\Sequences\SecondClick.puml" />
     <Content Include="Documentation\420-C46-JO_TP1_Regles_Echec.pdf" />
     <Content Include="Documentation\Dictionary\Dictionary.pdf" />
     <Content Include="Documentation\Dictionary\Dictionary.tex" />
