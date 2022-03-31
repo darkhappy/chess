@@ -59,6 +59,7 @@ package Models {
         + ValidTurn (int origin, int target) : bool
         + MakeTurn (int origin, int target) : void 
         + ValidSelection (int cell, bool firstClick) : bool
+        + HasPromotable (int target) : bool
     }
     class Board {
         - _cells : Cell[]
@@ -69,6 +70,7 @@ package Models {
         + MoveCellTo (int origin, int target) : void
         + BoardFromString (string board) : void
         + IsEssentialExposed (Color color) : bool
+        + HasPromotable (int target) : bool
     }
     class Cell {
         - _piece : Nullable<Piece>
