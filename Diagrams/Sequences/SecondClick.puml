@@ -40,9 +40,55 @@ Board -> Cell ++: HasCollision()
 Cell -> Piece ++: CanCollide()
 return true
 return true
+loop for each cell between origin and target
+    Board -> Cell ++: isEmpty()
+    return true
+end
 return false
 return true
 return true
+
+'Check Selfcheck
+GameController -> Match ++: GetAssailants(Color color)
+Match -> Board ++: GetAssailants(Color color)
+Board -> Board ++: GetEssentialPiece(Color color)
+loop for each cell until it finds a essential piece in the parameters color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return White
+    return White
+    Board -> Cell ++: IsEssential()
+    return true
+end
+note right
+    Return essential position of 
+    the chosen color
+end note
+return int
+
+Board -> Board ++: GetAttackingPieces (Color color, int target)
+loop for each cell that is the chosen color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return Black
+    return Black
+    Board -> Cell ++: ValidMove(int x1, int y1, int x2, int y2)
+    return false
+end
+
+note right
+    Add each piece that can 
+    attack to the attacking list
+end note
+
+return List<int>() 
+return List<int>()
+return List<int>()
+note right
+    If the list is empty, (like this 
+    case) no piece are cheking
+end note
+
 
 'Make the turn (Modals)
 GameController -> Match ++: MakeTurn(int origin, int target)
@@ -51,9 +97,92 @@ return
 return
 
 'Make the turn (Views)
-GameController -> Match ++: Export()
+GameController -> Match ++: ExportBoard()
 return String
 GameController -> FormMatch ++: DrawBoard(string board)
+return
+
+'TODO Promotion
+GameController -> GameController ++: Pomotions()
+GameController -> Match ++: HasPromotable(int target)
+Match -> Board ++: HasPromotable(int target)
+Board -> Cell ++: CanPromote()
+return false
+return false
+return false
+return false
+
+note right
+    If it returns true, it will open FormPromotion.
+    Afterwards, the current player will promote.
+end note
+
+'TODO Castle
+
+'Check if it make fifty turn
+GameController -> GameController ++: FiftyTurns()
+return false
+
+note right
+    If it return true, it will cause a draw.
+end note
+
+'Check if it make fifty turn
+GameController -> GameController ++: SameBoard()
+GameController -> Match ++: History()
+return string
+return false
+
+note right
+    If it return true, it will cause a draw.
+end note
+
+return
+
+
+'TODO Check
+'TODO Checkmate
+'TODO Stalemate
+GameController -> GameController ++: Check()
+GameController -> Match ++: GetAssailants(Color color)
+Match -> Board ++: GetAssailants(Color color)
+Board -> Board ++: GetEssentialPiece(Color color)
+loop for each cell until it finds a essential piece in the parameters color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return Black
+    return Black
+    Board -> Cell ++: IsEssential()
+    return true
+end
+note right
+    Return essential position of 
+    the chosen color
+end note
+return int
+
+Board -> Board ++: GetAttackingPieces(Color color, int target)
+loop for each cell that is the chosen color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return White
+    return White
+    Board -> Cell ++: ValidMove(int x1, int y1, int x2, int y2)
+    return bool
+end
+
+note right
+    Add each piece that can 
+    attack to the attacking list
+end note
+
+return List<int>() 
+return List<int>()
+return List<int>()
+return false
+
+
+
 return
 
 @enduml
