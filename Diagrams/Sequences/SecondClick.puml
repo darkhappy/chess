@@ -1,4 +1,4 @@
-@startuml first_sequence
+@startuml
 
 header Sequence diagram
 
@@ -93,9 +93,9 @@ note right
     attack to the attacking list
 end note
 
-return List<int>() 
-return List<int>()
-return List<int>()
+return true 
+return true
+return true
 note right
     If the list is empty, (like this 
     case) no piece are cheking
@@ -115,11 +115,10 @@ GameController -> FormMatch ++: DrawBoard(string board)
 return
 
 'TODO Promotion
-GameController -> GameController ++: Pomotions()
+GameController -> GameController ++: Rules(int origin, int target)
 GameController -> Match ++: HasPromotable(int target)
 Match -> Board ++: HasPromotable(int target)
 Board -> Cell ++: CanPromote()
-return false
 return false
 return false
 return false
@@ -148,9 +147,6 @@ return false
 note right
     If it return true, it will cause a draw.
 end note
-
-return
-
 
 'TODO Check
 'TODO Checkmate
@@ -261,7 +257,16 @@ note right
 end note
 return false
 
-return true
-return fuckoff
+' Show a message that you're in check, but not checkmate
+GameController -> FormMatch ++: ShowMessage(string message)
+note right
+    Shows a message that the player is in check
+end note
+
+return
+return
+return
+return
+return
 
 @enduml

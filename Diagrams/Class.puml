@@ -60,7 +60,11 @@ package Models {
         + MakeTurn (int origin, int target) : void 
         + ValidSelection (int cell, bool firstClick) : bool
         + HasPromotable (int target) : bool
-        + GetAssailants (Color color) : List<int>
+        + Check() : bool
+        + Checkmate() : bool
+        + Stalemate() : bool
+        + Castle(int origin, int target) : void
+        + GetAssailants (Colour colour) : List<int>
     }
     class Board {
         - _cells : Cell[]
@@ -69,11 +73,13 @@ package Models {
         + SameColour (int cell, Colour colour) : bool
         + ValidMove (int origin, int target) : bool
         + MoveCellTo (int origin, int target) : void
-        + BoardFromString (string board) : void
-        + IsEssentialExposed (Color color) : bool
+        + GenerateBoard (string board) : void
+        + IsEssentialExposed (Colour colour) : bool
         + HasPromotable (int target) : bool
-        + GetAssailants (Color color) : List<int>
-        + GetAttackingPieces (Color color, int target)
+        + GetAssailants (Colour colour) : List<int>
+        - GetEssentialPiece (Colour colour) : int
+        - GetAttackingPieces (Colour colour, int target) : List<int>
+        + HasAttackersAroundEssential(Colour colour) : bool
     }
     class Cell {
         - _piece : Nullable<Piece>
@@ -122,15 +128,16 @@ package Controllers {
         - _match : Match
         - _playerA : Player
         - _playerB : Player
-        - _tieCounter : int
+        - _fiftyTurns : int
         - _view : FormMatch
+        - Rules(int origin, int target) : void
         - Check() : bool
         - Checkmate() : bool
         - Castle() : bool
-        - Promotion() : bool 
+        - Stalemate() : bool
         - FiftyTurns() : bool
         - SameBoard() : bool
-        + Turn (int origin, int target) : void
+        - Turn (int origin, int target) : void
         + Selection(int cell) : void
         + Resign() : void
     }
