@@ -46,9 +46,11 @@ loop for each cell between origin and target
 end
 return false
 return true
+return true
 
 'Check Selfcheck
-Match -> Board ++: GetCheckingPieces(Color color)
+GameController -> Match ++: GetAssailants(Color color)
+Match -> Board ++: GetAssailants(Color color)
 Board -> Board ++: GetEssentialPiece(Color color)
 loop for each cell until it finds a essential piece in the parameters color
     Board -> Cell ++: Colour()
@@ -64,7 +66,7 @@ note right
 end note
 return int
 
-Board -> Board ++: GetAttackingPiece(Color color, int target)
+Board -> Board ++: GetAttackingPieces (Color color, int target)
 loop for each cell that is the chosen color
     Board -> Cell ++: Colour()
     Cell -> Piece ++: Colour()
@@ -81,20 +83,11 @@ end note
 
 return List<int>() 
 return List<int>()
-
+return List<int>()
 note right
     If the list is empty, (like this 
     case) no piece are cheking
 end note
-
-
-
-
-
-
-
-
-return true
 
 
 'Make the turn (Modals)
@@ -151,8 +144,8 @@ return
 'TODO Checkmate
 'TODO Stalemate
 GameController -> GameController ++: Check()
-GameController -> Match ++: GetCheckingPieces(Color color)
-Match -> Board ++: GetCheckingPieces(Color color)
+GameController -> Match ++: GetAssailants(Color color)
+Match -> Board ++: GetAssailants(Color color)
 Board -> Board ++: GetEssentialPiece(Color color)
 loop for each cell until it finds a essential piece in the parameters color
     Board -> Cell ++: Colour()
@@ -168,7 +161,7 @@ note right
 end note
 return int
 
-Board -> Board ++: GetAttackingPiece(Color color, int target)
+Board -> Board ++: GetAttackingPieces(Color color, int target)
 loop for each cell that is the chosen color
     Board -> Cell ++: Colour()
     Cell -> Piece ++: Colour()

@@ -60,6 +60,7 @@ package Models {
         + MakeTurn (int origin, int target) : void 
         + ValidSelection (int cell, bool firstClick) : bool
         + HasPromotable (int target) : bool
+        + GetAssailants (Color color) : List<int>
     }
     class Board {
         - _cells : Cell[]
@@ -71,6 +72,8 @@ package Models {
         + BoardFromString (string board) : void
         + IsEssentialExposed (Color color) : bool
         + HasPromotable (int target) : bool
+        + GetAssailants (Color color) : List<int>
+        + GetAttackingPieces (Color color, int target)
     }
     class Cell {
         - _piece : Nullable<Piece>
@@ -122,7 +125,6 @@ package Controllers {
         - _tieCounter : int
         - _view : FormMatch
         - Check() : bool
-        - SelfCheck() : bool
         - Checkmate() : bool
         - Castle() : bool
         - Promotion() : bool 
