@@ -48,8 +48,8 @@ return false
 return true
 
 'Check Selfcheck
-Match -> Board ++: IsEssentialExposed(Color color)
-
+Match -> Board ++: GetCheckingPieces(Color color)
+Board -> Board ++: GetEssentialPiece(Color color)
 loop for each cell until it finds a essential piece in the parameters color
     Board -> Cell ++: Colour()
     Cell -> Piece ++: Colour()
@@ -58,8 +58,14 @@ loop for each cell until it finds a essential piece in the parameters color
     Board -> Cell ++: IsEssential()
     return true
 end
+note right
+    Return essential position of 
+    the chosen color
+end note
+return int
 
-loop for each cell until it finds a piece that can attack the essential piece
+Board -> Board ++: GetAttackingPiece(Color color, int target)
+loop for each cell that is the chosen color
     Board -> Cell ++: Colour()
     Cell -> Piece ++: Colour()
     return Black
@@ -68,7 +74,26 @@ loop for each cell until it finds a piece that can attack the essential piece
     return false
 end
 
-return false
+note right
+    Add each piece that can 
+    attack to the attacking list
+end note
+
+return List<int>() 
+return List<int>()
+
+note right
+    If the list is empty, (like this 
+    case) no piece are cheking
+end note
+
+
+
+
+
+
+
+
 return true
 
 
@@ -79,7 +104,7 @@ return
 return
 
 'Make the turn (Views)
-GameController -> Match ++: Export()
+GameController -> Match ++: ExportBoard()
 return String
 GameController -> FormMatch ++: DrawBoard(string board)
 return
@@ -99,9 +124,6 @@ note right
     Afterwards, the current player will promote.
 end note
 
-
-'TODO Check
-'TODO Checkmate
 'TODO Castle
 
 'Check if it make fifty turn
@@ -122,5 +144,52 @@ note right
     If it return true, it will cause a draw.
 end note
 
+return
+
+
+'TODO Check
+'TODO Checkmate
+'TODO Stalemate
+GameController -> GameController ++: Check()
+GameController -> Match ++: GetCheckingPieces(Color color)
+Match -> Board ++: GetCheckingPieces(Color color)
+Board -> Board ++: GetEssentialPiece(Color color)
+loop for each cell until it finds a essential piece in the parameters color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return Black
+    return Black
+    Board -> Cell ++: IsEssential()
+    return true
+end
+note right
+    Return essential position of 
+    the chosen color
+end note
+return int
+
+Board -> Board ++: GetAttackingPiece(Color color, int target)
+loop for each cell that is the chosen color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return White
+    return White
+    Board -> Cell ++: ValidMove(int x1, int y1, int x2, int y2)
+    return bool
+end
+
+note right
+    Add each piece that can 
+    attack to the attacking list
+end note
+
+return List<int>() 
+return List<int>()
+return List<int>()
+return false
+
+
+
+return
 
 @enduml
