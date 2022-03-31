@@ -768,6 +768,7 @@ match. It will return all changes to the match.
     +ValidMove(int origin, int target) : bool   \\ \hline
     +MoveCellTo(int origin, int target) : void  \\ \hline
     +BoardFromString(string board) : void       \\ \hline
+    +IsEssetialExposed(Colour colour) : bool
     \end{tabular}
 \end{table}
 
@@ -863,6 +864,22 @@ a board state(tells where the pieces are supposed to be).
 
 \textbf{Description :} This method takes a string as board and transforms
 each of the 64 char as the content of each of the 64 cells.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    IsEssentialExposed                           & Colour colour           & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} The parameter colour represent the colour
+to test.
+\\
+
+\textbf{Description :} Checks if the essential piece of the colour white or black
+is exposed.
 
 \newpage
 
@@ -1028,7 +1045,20 @@ This Class represents a player in a chess game.
 
 \subsection{Class Chess}
 
-
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{Chess}                                             \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_listGames : List\textless{}GameController\textgreater{} \\ \hline
+    +main() : void                                             \\ \hline
+    +NewGame() : void                                          \\ \hline
+    +StartGame(Player{[}2{]} players) : void                   \\ \hline
+    +ManagePlayers() : void                                    \\ \hline
+    +Exit() : void                                             \\ \hline
+    \end{tabular}
+\end{table}
 
 \newpage
 
@@ -1036,12 +1066,62 @@ This Class represents a player in a chess game.
 %%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Class GameController}
+
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{GameController}              \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_main : Chess                      \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_selected : int                    \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_match : Match                     \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_playerA : Player                  \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_playerB : Player                  \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_tieCounter : int                  \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_view : FormMatch                  \\ \hline
+    -Check() : bool                      \\ \hline
+    -SelfCheck() : bool                  \\ \hline
+    -Checkmate() : bool                  \\ \hline
+    -Castle() : bool                     \\ \hline
+    -Promotion() : bool                  \\ \hline
+    -FiftyTurns() : bool                 \\ \hline
+    -SameBoard() : bool                  \\ \hline
+    +Turn(int origin, int target) : void \\ \hline
+    +Selection(int cell) : void          \\ \hline
+    +Resign() : void                     \\ \hline
+    \end{tabular}
+\end{table}
+
 \newpage
 
 %PlayerController Class%
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Class PlayerController}
+
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{PlayerController}                       \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_main : Chess                               \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_list : List\textless{}Player\textgreater{} \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +Add() : void                                 \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +Remove() : void                              \\ \hline
+    \end{tabular}
+    \end{table}
+
 \newpage
 
 %NEW SECTION VIEWS%
