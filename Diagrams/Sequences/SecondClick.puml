@@ -84,17 +84,43 @@ return String
 GameController -> FormMatch ++: DrawBoard(string board)
 return
 
+'TODO Promotion
+GameController -> GameController ++: Pomotions()
+GameController -> Match ++: HasPromotable(int target)
+Match -> Board ++: HasPromotable(int target)
+Board -> Cell ++: CanPromote()
+return false
+return false
+return false
+return false
+
+note right
+    If it returns true, it will open FormPromotion.
+    Afterwards, the current player will promote.
+end note
+
+
+'TODO Check
+'TODO Checkmate
+'TODO Castle
+
+'Check if it make fifty turn
 GameController -> GameController ++: FiftyTurns()
 return false
 
+note right
+    If it return true, it will cause a draw.
+end note
+
+'Check if it make fifty turn
 GameController -> GameController ++: SameBoard()
 GameController -> Match ++: History()
 return string
 return false
 
-'TODO Check
-'TODO Checkmate
-'TODO Castle
-'TODO Promotion
+note right
+    If it return true, it will cause a draw.
+end note
+
 
 @enduml
