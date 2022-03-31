@@ -54,7 +54,8 @@ package Models {
         - _current : Colour
         - _history : string[]
         - _turnNumber : int
-        + Export() : string
+        + ExportBoard() : string
+        + ExportHistory() : string[]
         + ValidTurn (int origin, int target) : bool
         + MakeTurn (int origin, int target) : void 
         + ValidSelection (int cell, bool firstClick) : bool
@@ -62,11 +63,12 @@ package Models {
     class Board {
         - _cells : Cell[]
         + ToString() : string
-        + Collision(int origin, int target) : bool
+        + Collision (int origin, int target) : bool
         + SameColour (int cell, Colour colour) : bool
         + ValidMove (int origin, int target) : bool
         + MoveCellTo (int origin, int target) : void
         + BoardFromString (string board) : void
+        + IsEssentialExposed (Color color) : bool
     }
     class Cell {
         - _piece : Nullable<Piece>
