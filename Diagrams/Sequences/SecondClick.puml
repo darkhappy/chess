@@ -45,12 +45,7 @@ loop for each cell between origin and target
     return true
 end
 return false
-return true
-return true
-
-'Check Selfcheck
-GameController -> Match ++: GetAssailants(Color color)
-Match -> Board ++: GetAssailants(Color color)
+Board -> Board ++: GetAssailants(Color color)
 Board -> Board ++: GetEssentialPiece(Color color)
 loop for each cell until it finds a essential piece in the parameters color
     Board -> Cell ++: Colour()
@@ -73,8 +68,25 @@ loop for each cell that is the chosen color
     return Black
     return Black
     Board -> Cell ++: ValidMove(int x1, int y1, int x2, int y2)
+    Cell -> Piece ++: ValidMove(int x1, int y1, int x2, int y2)
+    return true
+    return true
+    'Check if there are a collision
+    Board -> Board ++: Collision(int origin, int target)
+    Board -> Cell ++: HasCollision()
+    Cell -> Piece ++: CanCollide()
+    return true
+    return true
+    loop for each cell between origin and target, except for the origin cell
+        Board -> Cell ++: isEmpty()
+        return true
+    end
     return false
+    return true
+
 end
+
+
 
 note right
     Add each piece that can 
@@ -143,15 +155,14 @@ return
 'TODO Check
 'TODO Checkmate
 'TODO Stalemate
-GameController -> GameController ++: Check()
-GameController -> Match ++: GetAssailants(Color color)
+GameController -> Match ++: Check()
 Match -> Board ++: GetAssailants(Color color)
 Board -> Board ++: GetEssentialPiece(Color color)
 loop for each cell until it finds a essential piece in the parameters color
     Board -> Cell ++: Colour()
     Cell -> Piece ++: Colour()
-    return Black
-    return Black
+    return White
+    return White
     Board -> Cell ++: IsEssential()
     return true
 end
@@ -161,14 +172,29 @@ note right
 end note
 return int
 
-Board -> Board ++: GetAttackingPieces(Color color, int target)
+Board -> Board ++: GetAttackingPieces (Color color, int target)
 loop for each cell that is the chosen color
     Board -> Cell ++: Colour()
     Cell -> Piece ++: Colour()
-    return White
-    return White
+    return Black
+    return Black
     Board -> Cell ++: ValidMove(int x1, int y1, int x2, int y2)
-    return bool
+    Cell -> Piece ++: ValidMove(int x1, int y1, int x2, int y2)
+    return true
+    return true
+    'Check if there are a collision
+    Board -> Board ++: Collision(int origin, int target)
+    Board -> Cell ++: HasCollision()
+    Cell -> Piece ++: CanCollide()
+    return true
+    return true
+    loop for each cell between origin and target
+        Board -> Cell ++: isEmpty()
+        return true
+    end
+    return false
+    return true
+
 end
 
 note right
@@ -177,12 +203,65 @@ note right
 end note
 
 return List<int>() 
-return List<int>()
-return List<int>()
+return true
+
+GameController -> Match ++: Checkmate()
+Match -> Board ++: HasAttackersAroundEssential()
+Board -> Board ++: GetEssentialPiece(Color color)
+loop for each cell until it finds a essential piece in the parameters color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return White
+    return White
+    Board -> Cell ++: IsEssential()
+    return true
+end
+note right
+    Return essential position of 
+    the chosen color
+end note
+return int
+
+loop until one of the lists return a cell
+Board -> Board ++: GetAttackingPieces (Color color, int target)
+loop for each cell that is the chosen color
+    Board -> Cell ++: Colour()
+    Cell -> Piece ++: Colour()
+    return Black
+    return Black
+    Board -> Cell ++: ValidMove(int x1, int y1, int x2, int y2)
+    Cell -> Piece ++: ValidMove(int x1, int y1, int x2, int y2)
+    return true
+    return true
+    'Check if there are a collision
+    Board -> Board ++: Collision(int origin, int target)
+    Board -> Cell ++: HasCollision()
+    Cell -> Piece ++: CanCollide()
+    return true
+    return true
+    loop for each cell between origin and target
+        Board -> Cell ++: isEmpty()
+        return true
+    end
+    return false
+    
+end
+    return List<int>
+end
+
+note right
+    Add each piece that can 
+    attack to the attacking list
+end note
+
+return false
+note right
+    For all 8 cells around the essential piece, check if an opponent can go on this cell. 
+    If one cell is exposed to an opponent, this will return true, otherwise false.
+end note
 return false
 
-
-
-return
+return true
+return fuckoff
 
 @enduml
