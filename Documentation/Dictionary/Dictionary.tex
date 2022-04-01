@@ -64,9 +64,7 @@ This is an abstract class for a base piece for the game.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field represent the colour a piece, wich can only be
-black or white as it is for a regular chess game.
-
+    \textbf{Description :} Represents the colour of the piece, which is either white or black.
 
 \subsubsection{Methods}
 
@@ -79,10 +77,10 @@ black or white as it is for a regular chess game.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
-and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece.
+    x2 and y2 are the coordinates of the target location.
 \\
-\textbf{Description :} The method returns true if the piece can move to the 2nd position.
+    \textbf{Description :} This method is used to check if the piece can move from position (x1, y1) to position (x2, y2).
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -93,8 +91,7 @@ and x2 and y2 are the coordinates of the position after the move. These are all 
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Returns true if the piece can't go over other pieces, otherwise
-it returns false.
+    \textbf{Description :} By default, this method returns true, meaning that the piece can collide with other pieces.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -105,7 +102,8 @@ it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Empty method te be overrided by child classes.
+    \textbf{Description :} This method returns the string representation of the piece.
+    This method gets overridden by the subclasses.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -116,7 +114,7 @@ it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Returns true if the piece is promotable.
+    \textbf{Description :} By default, this method returns false, meaning that the piece cannot be promoted.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -127,7 +125,7 @@ it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Returns true if the piece is essential.
+    \textbf{Description :} By default, this method returns false, meaning that the piece is not essential.
 
 \subsubsection{Properties}
 
@@ -140,7 +138,7 @@ it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Gets the colour of a piece.
+    \textbf{Description :} Gets the colour of the piece.
 \newpage
 
 %%%%%%%%%%%%%%%
@@ -148,9 +146,7 @@ it returns false.
 
 \subsection{Class StartingPiece : Piece}
 
-Another abstract Class that inherits to the base Class Piece.
-This Class is for pieces that have different behaviour after they
-have mouved for the first time.
+    Extended from the Piece class, the StartingPiece class represents a piece that keeps track of whether it has been moved or not.
 
 \begin{table}[H]
     \begin{tabular}{|l|}
@@ -170,11 +166,10 @@ have mouved for the first time.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field is used to tell if the piece has
-already made its first move.
+\textbf{Description :} Represents whether the piece has been moved or not.
 
 \subsubsection{Methods}
-Same as Class Piece.
+    Inherited from the Piece class.
 \subsubsection{Properties}
 
 \begin{table}[H]
@@ -186,7 +181,7 @@ Same as Class Piece.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Gets or Sets the property \_hasMoved of a piece to true or false.
+    \textbf{Description :} Gets or Sets whether the piece has been moved or not.
 \newpage
 
 %%%%%%%%%%%%
@@ -194,8 +189,7 @@ Same as Class Piece.
 
 \subsection{Class Pawn : StartingPiece}
 
-This Class inherits the Class StartingPiece. It represents the pawn 
-piece of a regular chess game.
+    Extended from the StartingPiece class, the Pawn class represents a pawn.
 \begin{table}[H]
     \begin{tabular}{|l|}
     \hline
@@ -209,8 +203,7 @@ piece of a regular chess game.
 
 \subsubsection{Fields}
 
-\textbf{Description :} This Class doesn't provide a new field. It just
-inherits the fields of its parent.
+    Inherited from the StartingPiece class.
 
 \subsubsection{Methods}
 
@@ -223,13 +216,13 @@ inherits the fields of its parent.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
-and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
+    x2 and y2 are the coordinates of the destination.
 \\
-\textbf{Description :} This method checks
-if the move provided is valid considering the basic moves of a pawn which
-are 1 or 2 cells ahead, or 1 diagonal cell if an opponent piece is
-present. In thoses cases it returns true, otherwise it returns false. 
+    \textbf{Description :} This method checks if the move is valid for the pawn. 
+    Valid moves are forward by one, forward by two if the pawn has not moved, and forward diagonally if the pawn is attacking.
+    In these cases, the method returns true.
+    Otherwise, the method returns false.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -240,7 +233,8 @@ present. In thoses cases it returns true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Returns true if the piece can promote.
+    \textbf{Description :} Overrides the CanPromote method in the Piece class.
+    Returns true. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -251,13 +245,12 @@ present. In thoses cases it returns true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method overrides ToString virtual
-method and returns minus "p" if the piece is white and upper "P"
-if it is black.
+    \textbf{Description :} Overrides the ToString method in the Piece class.
+    Returns the string "p" if the piece is white, and "P" if the piece is black. 
 
 \subsubsection{Properties}
 
-Same as parent.
+    Inherited from the StartingPiece class.
 \newpage
 
 %%%%%%%%%%%%
@@ -265,8 +258,7 @@ Same as parent.
 
 \subsection{Class Rook : StartingPiece}
 
-This Class inherits the Class StartingPiece. It represents the rook 
-piece of a regular chess game.
+    Extended from the StartingPiece class, the Rook class represents a rook.
 \begin{table}[H]
     \begin{tabular}{|l|}
     \hline
@@ -279,8 +271,7 @@ piece of a regular chess game.
 
 \subsubsection{Fields}
 
-\textbf{Description :} This Class doesn't provide a new field. It just
-inherits the fields of its parent.
+    Inherited from the StartingPiece class.
 
 \subsubsection{Methods}
 
@@ -293,14 +284,12 @@ inherits the fields of its parent.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
-and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position. x2 and y2 are the coordinates of the destination. 
 \\
-\textbf{Description :} This method checks if the move provided is
-valid considering the basic moves of a rook which are forward,
-backward or sideways to any empty cell. In thoses cases it returns
-true, otherwise it returns false. 
-
+    \textbf{Description :} This method checks if the move is valid for the rook. 
+    Valid moves are horizontal and vertical directions.
+    In these cases, the method returns true.
+    Otherwise, the method returns false.
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
     \hline
@@ -310,13 +299,12 @@ true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method overrides ToString virtual
-method and returns minus "r" if the piece is white and upper "R"
-if it is black.
+    \textbf{Description :} Overrides the ToString method in the Piece class.
+    Returns the string "r" if the piece is white, and "R" if the piece is black. 
 
 \subsubsection{Properties}
 
-Same as parent.
+    Inherited from the StartingPiece class.
 \newpage
 
 %%%%%%%%%%%%
@@ -324,8 +312,7 @@ Same as parent.
 
 \subsection{Class King : StartingPiece}
 
-This Class inherits the Class StartingPiece. It represents the king 
-piece of a regular chess game.
+    Extended from the StartingPiece class, the King class represents a king.
 \begin{table}[H]
     \begin{tabular}{|l|}
     \hline
@@ -339,8 +326,7 @@ piece of a regular chess game.
 
 \subsubsection{Fields}
 
-\textbf{Description :} This Class doesn't provide a new field. It just
-inherits the fields of its parent.
+    Inherited from the StartingPiece class.
 
 \subsubsection{Methods}
 
@@ -353,14 +339,14 @@ inherits the fields of its parent.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
-and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
+    x2 and y2 are the coordinates of the destination.  
 \\
-\textbf{Description :} This method checks if the move provided is
-valid considering the basic moves of a king which are one square
-horizontally, vertically, or diagonally unless the square is already
-occupied by a friendly piece or the move would place the king in
-check. In thoses cases it returns true, otherwise it returns false.
+    \textbf{Description :} This method checks if the move is valid for the king. 
+    Valid moves are horizontally, vertically and diagonally by one square.
+    Additionally, the king can move by two squares on the left and right if it has not moved, called castling.
+    In these cases, the method returns true.
+    Otherwise, the method returns false.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -371,7 +357,8 @@ check. In thoses cases it returns true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Returns true if the piece is essential.
+    \textbf{Description :} Overrides the IsEssential method in the Piece class.
+    Returns true.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -382,13 +369,12 @@ check. In thoses cases it returns true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method overrides ToString virtual
-method and returns minus "k" if the piece is white and upper "K"
-if it is black.
+    \textbf{Description :} Overrides the ToString method in the Piece class.
+    Returns the string "k" if the piece is white, and "K" if the piece is black. 
 
 \subsubsection{Properties}
 
-Same as parent.
+    Inherited from the StartingPiece class.
 \newpage
 
 %%%%%%%%%%%%%%
@@ -396,8 +382,7 @@ Same as parent.
 
 \subsection{Class Knight : Piece}
 
-This Class inherits the Class Piece. It represents the knight 
-piece of a regular chess game.
+    Extended from the Piece class, the Knight class represents a knight.
 \begin{table}[H]
     \begin{tabular}{|l|}
     \hline
@@ -411,8 +396,7 @@ piece of a regular chess game.
 
 \subsubsection{Fields}
 
-\textbf{Description :} This Class doesn't provide a new field. It just
-inherits the fields of its parent.
+    Inherited from the Piece class.
 
 \subsubsection{Methods}
 
@@ -425,14 +409,15 @@ inherits the fields of its parent.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
-and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
+    x2 and y2 are the coordinates of the destination.  
 \\
-\textbf{Description :} This method checks if the move provided is valid considering the basic moves of a knight which
-are “L-shape”—that is, they can move two squares in any direction
-vertically followed by one square horizontally, or two squares in any
-direction horizontally followed by one square vertically. In thoses 
-cases it returns true, otherwise it returns false. 
+    \textbf{Description :} This method checks if the move is valid for the knight. 
+    Valid moves are moves in an L shape.
+    An L shape is composed of two forward moves and one move to the left or right.
+    Alternatively, it can be composed of two moves to the left or right and one forward move.
+    The method returns true if the move is valid.
+    Otherwise, the method returns false.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -443,7 +428,8 @@ cases it returns true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Returns true if the piece can collide.
+    \textbf{Description :} Overrides the CanCollide method in the Piece class.
+    Returns false.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -454,13 +440,12 @@ cases it returns true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method overrides ToString virtual
-method and returns minus "n" if the piece is white and upper "N"
-if it is black.
+    \textbf{Description :} Overrides the ToString method in the Piece class.
+    Returns the string "n" if the piece is white, and "N" if the piece is black. 
 
 \subsubsection{Properties}
 
-Same as parent.
+    Inherited from the StartingPiece class.
 
 \newpage
 
@@ -469,8 +454,7 @@ Same as parent.
 
 \subsection{Class Bishop : Piece}
 
-This Class inherits the Class Piece. It represents the bishop 
-piece of a regular chess game.
+    Extended from the Piece class, the Bishop class represents a bishop.
 \begin{table}[H]
     \begin{tabular}{|l|}
     \hline
@@ -483,8 +467,7 @@ piece of a regular chess game.
 
 \subsubsection{Fields}
 
-\textbf{Description :} This Class doesn't provide a new field. It just
-inherits the fields of its parent.
+    Inherited from the Piece class.
 
 \subsubsection{Methods}
 
@@ -497,13 +480,14 @@ inherits the fields of its parent.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
-and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
+    x2 and y2 are the coordinates of the destination.  
 \\
-\textbf{Description :} This method checks if the move provided is valid considering the basic moves of a bishop which
-are any direction diagonally with no limit of cells unless there is another piece obstructing its path. In thoses 
-cases it returns true, otherwise it returns false. 
-
+    \textbf{Description :} This method checks if the move is valid for the bishop. 
+    Valid moves are moves in a diagonal direction.
+    The method returns true if the move is valid.
+    Otherwise, the method returns false.
+    
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
     \hline
@@ -513,13 +497,12 @@ cases it returns true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method overrides ToString virtual
-method and returns minus "b" if the piece is white and upper "B"
-if it is black.
+    \textbf{Description :} Overrides the ToString method in the Piece class.
+    Returns the string "b" if the piece is white, and "B" if the piece is black. 
 
 \subsubsection{Properties}
 
-Same as parent.
+    Inherited from the StartingPiece class.
 
 \newpage
 
@@ -528,8 +511,7 @@ Same as parent.
 
 \subsection{Class Queen : Piece}
 
-This Class inherits the Class Piece. It represents the queen 
-piece of a regular chess game.
+    Extended from the Piece class, the Queen class represents a queen.
 \begin{table}[H]
     \begin{tabular}{|l|}
     \hline
@@ -542,8 +524,7 @@ piece of a regular chess game.
 
 \subsubsection{Fields}
 
-\textbf{Description :} This Class doesn't provide a new field. It just
-inherits the fields of its parent.
+    Inherited from the Piece class.
 
 \subsubsection{Methods}
 
@@ -556,12 +537,13 @@ inherits the fields of its parent.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
-and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
+    x2 and y2 are the coordinates of the destination.  
 \\
-\textbf{Description :} This method checks if the move provided is valid considering the basic moves of a bishop which
-are any direction diagonally with no limit of cells unless there is another piece obstructing its path. In thoses 
-cases it returns true, otherwise it returns false. 
+    \textbf{Description :} This method checks if the move is valid for the queen. 
+    Valid moves are moves in a horizontal, vertical, or diagonal direction.
+    The method returns true if the move is valid.
+    Otherwise, the method returns false.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -572,13 +554,12 @@ cases it returns true, otherwise it returns false.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method overrides ToString virtual
-method and returns minus "q" if the piece is white and upper "Q"
-if it is black.
+    \textbf{Description :} Overrides the ToString method in the Piece class.
+    Returns the string "q" if the piece is white, and "Q" if the piece is black. 
 
 \subsubsection{Properties}
 
-Same as parent.
+    Inherited from the Piece class.
 
 \newpage
 
@@ -587,8 +568,7 @@ Same as parent.
 
 \subsection{Class Match}
 
-This Class represents the model of a chess match wich compose the
-GameController. It will keep all changes that the game controller will return.
+The Match class represents a chess match. It contains the board, it's history, the current turn and has methods for the Game Controller.
 
 \begin{table}[H]
     \begin{tabular}{|l|}
@@ -613,7 +593,6 @@ GameController. It will keep all changes that the game controller will return.
     +Checkmate() : bool                               \\ \hline
     +Stalemate() : bool                               \\ \hline
     +Castle(int origin, int target) : void            \\ \hline
-    +GetAssailants(Colour) : List\textless{} int \textgreater{}                \\ \hline
 \end{tabular}
 \end{table}
 
@@ -627,8 +606,7 @@ GameController. It will keep all changes that the game controller will return.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field represent the board of a match wich compose
-the match. Its type is Board wich is the next class to discuss.
+\textbf{Description :}  Represents the board of the match. 
 
 \begin{table}[H]
     \begin{tabular}{llllll}
@@ -638,8 +616,7 @@ the match. Its type is Board wich is the next class to discuss.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field tells us wich piece colour is
-currently playing, white or black.
+\textbf{Description :} Represents the current Colour that is playing, which is either white or black. 
 
 \begin{table}[H]
     \begin{tabular}{llllll}
@@ -649,9 +626,9 @@ currently playing, white or black.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field is a table that contains strings that
-represent previous board states to keep track of what has been played. For exemple,
-the first string would look like that :
+\textbf{Description :} Represents the history of the match.
+Each board is represented by a string, which is a concatenation of the piece's name.
+For example, an initial board is represented as:
 \\"RNBKQBNRPPPPPPPP.................................pppppppprnkqbnr". 
 
 \begin{table}[H]
@@ -662,7 +639,7 @@ the first string would look like that :
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field tracks the number of turns that have been played.
+\textbf{Description :} Represents the number of turns that has been played. 
 
 \subsubsection{Methods}
 
@@ -675,7 +652,7 @@ the first string would look like that :
     \end{tabular}
 \end{table}
 
-\textbf{Description :} The method returns the the board as a string of 64 char.
+\textbf{Description :} Exports the board to a string. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -686,7 +663,7 @@ the first string would look like that :
     \end{tabular}
 \end{table}
 
-\textbf{Description :} The method returns the table \_history.
+\textbf{Description :} Exports the history to an array of strings.   
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -697,11 +674,10 @@ the first string would look like that :
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} Parameter origin represents the cell
-where the piece is before the move and target is the targeted cell.
+\textbf{Parameters :} Origin represents the piece's starting position, while target represents the piece's end position. 
 \\
 
-\textbf{Description :} The method returns true if the turn is valid.
+\textbf{Description :} Evaluates whether the turn is valid.  
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -712,11 +688,10 @@ where the piece is before the move and target is the targeted cell.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} Parameter origin represents the cell
-where the piece is before the move and target is the targeted cell.
+\textbf{Parameters :} Origin represents the piece's starting position, while target represents the piece's end position.  
 \\
 
-\textbf{Description :} The method makes all changes to the board in order to make the turn.
+\textbf{Description :} Makes a turn, updating the board, history, turn number and current colour. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -727,13 +702,12 @@ where the piece is before the move and target is the targeted cell.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} Parameter cell represents the cell
-where the player clicks and the parameter firstClick is a bool
-that returns true if its the first click.
+\textbf{Parameters :} Cell represents the cell's position, while firstClick represents whether this is the first click of the turn. 
 \\
 
-\textbf{Description :} The method checks if the selection made
-in the board is valid.
+\textbf{Description :} Evaluates whether the selection is valid.
+On the first click, the method checks if the cell has a piece of the current colour.
+On the second click, the method checks if the cell is empty, or has a piece of the other colour.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -745,8 +719,8 @@ in the board is valid.
 \end{table}
 
 
-\textbf{Parameters :} The parameter target represents the targeted cell for a piece move.
-\textbf{Description :} This method returns true if the cell contains a promotable piece.
+\textbf{Parameters :} Target represents the cell's position.  
+\textbf{Description :} Evaluates whether the cell has a promotable piece. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -757,7 +731,7 @@ in the board is valid.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns true if the current turn makes a check.
+\textbf{Description :} Checks if the essential piece is under attack.  
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -768,7 +742,7 @@ in the board is valid.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns true if the current turn makes a checkmate.
+\textbf{Description :} Checks if the essential piece is under attack and there are no valid moves.    
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -779,7 +753,7 @@ in the board is valid.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns true if the current turn makes a Stalemate.
+\textbf{Description :} Checks if there are no valid moves for the current colour.    
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -790,19 +764,8 @@ in the board is valid.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns true if the move will make a castle.
+\textbf{Description :} Checks if the move is a castle.   
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    GetAsaillants                                & Colour colour           & List\textless{}int\textgreater{}                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
-
-\textbf{Parameters :} The parameter colour represents the piece colour specified.
-\textbf{Description :} This method returns a list of all possible asaillants by the index of their cell.
 
 \subsubsection{Properties}
 
@@ -815,7 +778,7 @@ in the board is valid.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} Gets or Sets the property \_current of a match (Colour white or black).
+\textbf{Description :} Gets or Sets the current colour. 
 
 \newpage
 
@@ -824,8 +787,8 @@ in the board is valid.
 
 \subsection{Class Board}
 
-This Class represents the model of a chess board wich compose the
-match. It will return all changes to the match.
+The Board class represents the board of the game.
+It contains all 64 cells, as well as methods to manipulate them.
 
 \begin{table}[H]
     \begin{tabular}{|l|}
@@ -859,7 +822,7 @@ match. It will return all changes to the match.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field represent all 64 cells on a chess board. Each cell will contain a piece or be empty.
+\textbf{Description :}  Represents the board. 
 
 \subsubsection{Methods}
 
@@ -872,13 +835,10 @@ match. It will return all changes to the match.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} Parameter origin represents the cell
-where the piece is before the move and target is the targeted
-cell.
+\textbf{Parameters :} Origin represents the starting cell, target represents the target cell. 
 \\
 
-\textbf{Description :} This method returns true if it detects a
-possible collision in the path to the targeted cell.
+\textbf{Description :} Evaluates if the move is valid by calculating collisions between the origin and the target. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -889,12 +849,10 @@ possible collision in the path to the targeted cell.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} Parameter cell represents the index of one of
-the 64 cells that is selected and colour is the colour of the selected cell.
+\textbf{Parameters :} Cell represents the cell to be evaluated, colour represents the colour to be evaluated. 
 \\
 
-\textbf{Description :} This method returns true the cell selected
-contains a piece at the same colour of the current turn.
+\textbf{Description :} Evaluates if the cell is of the same colour as the parameter colour. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -905,11 +863,10 @@ contains a piece at the same colour of the current turn.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} Parameter origin represents the index of
-the origin cell and the target parameter is the cell targeted.
+\textbf{Parameters :} Origin represents the starting cell, target represents the target cell.  
 \\
 
-\textbf{Description :} This method returns true if the move is valid.
+\textbf{Description :} Evaluates if the move is valid.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -920,11 +877,10 @@ the origin cell and the target parameter is the cell targeted.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} Parameter origin represents the index of
-the origin cell and the target parameter is the cell targeted.
+\textbf{Parameters :} Origin represents the starting cell, target represents the target cell. 
 \\
 
-\textbf{Description :} This method swaps cells origin and target.
+\textbf{Description :} Moves the cell from the origin to the target, and sets the origin cell to an empty cell. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -935,12 +891,10 @@ the origin cell and the target parameter is the cell targeted.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} Board parameter is a 64 char string that represent
-a board state(tells where the pieces are supposed to be).
+\textbf{Parameters :} Board represents a string to be parsed. 
 \\
 
-\textbf{Description :} This method takes a string as board and transforms
-each of the 64 char as the content of each of the 64 cells.
+\textbf{Description :} Generates a new board from a string.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -951,12 +905,10 @@ each of the 64 char as the content of each of the 64 cells.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} The parameter colour represent the colour
-to test.
+\textbf{Parameters :} Colour represents the colour of the essential piece to be evaluated. 
 \\
 
-\textbf{Description :} Checks if the essential piece of the colour white or black
-is exposed.
+\textbf{Description :} Evaluates if the essential piece is exposed to attackers.
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -967,10 +919,10 @@ is exposed.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} The parameter target represent the targeted cell.
+\textbf{Parameters :} Target represents the target cell.  
 \\
 
-\textbf{Description :} Checks if the targeted cell has the promotable attribute.
+\textbf{Description :} Evaluates if the target cell has a promotable piece. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -981,8 +933,8 @@ is exposed.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} The parameter colour represents the piece colour specified.
-\textbf{Description :} This method returns a list of all possible asaillants by the index of their cell.
+\textbf{Parameters :} Colour represents the colour of the assailant pieces. 
+\textbf{Description :} Returns a list of pieces of the specified colour that can attack the essential piece.  
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -993,8 +945,8 @@ is exposed.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} The parameter colour represents the piece colour specified.
-\textbf{Description :} This method returns the index of the cell that contains the essential piece.
+\textbf{Parameters :} Colour represents the colour of the essential piece to be evaluated.  
+\textbf{Description :} Returns the index of the essential piece.  
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -1005,8 +957,8 @@ is exposed.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} The parameter colour represents the piece colour specified and target is the targeted piece.
-\textbf{Description :} This method returns a list of all attacking pieces.
+\textbf{Parameters :} Colour represents the colour of the assailant pieces, while target represents the target cell.   
+\textbf{Description :} Returns a list of pieces of the specified colour that can attack the target cell. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -1017,8 +969,8 @@ is exposed.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} The parameter colour represents the piece colour specified.
-\textbf{Description :} This method returns true if there's attackers around the essential piece.
+\textbf{Parameters :}  Colour represents the colour of the assailant pieces.  
+\textbf{Description :} Evaluates if the specified colour has pieces that can attack the essential piece, as well as all eight cells around it. 
 
 \newpage
 
@@ -1027,7 +979,7 @@ is exposed.
 
 \subsection{Class Cell}
 
-This Class represents the model of a chess cell and its content.
+The Cell class represents a single cell on the board.
 
 \begin{table}[H]
     \begin{tabular}{|l|}
@@ -1055,8 +1007,7 @@ This Class represents the model of a chess cell and its content.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field represents de content of a cell if it is a piece
-or null if it's empty.
+\textbf{Description :} Represents the piece that is currently in the cell. Can be null. 
 
 \subsubsection{Methods}
 
@@ -1069,7 +1020,7 @@ or null if it's empty.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns true if the \_piece is null, so it's empty.
+\textbf{Description :} Returns true if the cell is empty, false otherwise.  
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -1080,7 +1031,7 @@ or null if it's empty.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns true if the cell contains a piece that can collide.
+\textbf{Description :} Returns true if the cell has a piece that can collide with others, false otherwise.   
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -1091,7 +1042,7 @@ or null if it's empty.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns true if the cell contains a promotable piece.
+\textbf{Description :} Returns true if the cell has a piece that can be promoted, false otherwise.  
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -1102,7 +1053,7 @@ or null if it's empty.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns true if the cell contains a piece that is essential.
+\textbf{Description :} Returns true if the cell has a piece that is essential, false otherwise.   
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -1113,11 +1064,11 @@ or null if it's empty.
     \end{tabular}
 \end{table}
 
-\textbf{Parameters :} x1 ans y1 represent the coordinates of the position before a possible move
-and x2 and y2 are the coordinates of the position after the move. These are all of Integer(16) type.
+\textbf{Parameters :} x1 and y1 are the coordinates of the piece.
+x2 and y2 are the coordinates of the target location. 
 \\
 
-\textbf{Description :} This method returns true if the move is valid.
+\textbf{Description :} Evaluates whether the piece can move to the target location. 
 
 \begin{table}[H]
     \begin{tabular}{|l|l|l|l|}
@@ -1128,7 +1079,7 @@ and x2 and y2 are the coordinates of the position after the move. These are all 
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This method returns the colour if the field \_piece is not null.
+\textbf{Description :} Returns the colour of the piece.  
 
 \newpage
 
@@ -1137,7 +1088,7 @@ and x2 and y2 are the coordinates of the position after the move. These are all 
 
 \subsection{Class Player}
 
-This Class represents a player in a chess game.
+The Player class represents a player that can play the game. 
 
 \begin{table}[H]
     \begin{tabular}{|l|}
@@ -1160,7 +1111,7 @@ This Class represents a player in a chess game.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field is the name of the player.
+\textbf{Description :} Represents the name of the player.  
 
 \begin{table}[H]
     \begin{tabular}{llllll}
@@ -1170,7 +1121,7 @@ This Class represents a player in a chess game.
     \end{tabular}
 \end{table}
 
-\textbf{Description :} This field is the points that the player collects during a game.
+\textbf{Description :} Represents the amount of victory points the player has.  
 
 \newpage
 
