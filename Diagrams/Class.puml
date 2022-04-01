@@ -1,7 +1,5 @@
 @startuml Class
 !theme vibrant
-skinparam linetype ortho 
-skinparam arrowthickness 2
 
 'https://plantuml.com/class-diagram
 package Models {
@@ -101,16 +99,16 @@ package Models {
         White
     }
 
-    Match "1" *--> "1" Board
-    Board "1" *--> "64" Cell
-    Cell "1" *--> "0..1" Piece
-    Pawn -up-|> StartingPiece
-    Rook -up-|> StartingPiece
-    Knight -up-|> Piece
-    Bishop -up-|> Piece
-    Queen -up-|> Piece
-    King -up-|> StartingPiece
-    StartingPiece -up-|> Piece
+    Match "1" *---> "1" Board
+    Board "1" *---> "64" Cell
+    Cell "1" *---> "0..1" Piece
+    Pawn -u-|> StartingPiece
+    Rook -u-|> StartingPiece
+    Knight -u-|> Piece
+    Bishop -u-|> Piece
+    Queen -u-|> Piece
+    King -u-|> StartingPiece
+    StartingPiece -u-|> Piece
 }
 
 package Controllers {
@@ -150,9 +148,9 @@ package Controllers {
         + Remove() : void
     }
 
-    PlayerController "1" o--> "1" Chess
+    PlayerController "1" o---> "1" Chess
     Chess "1" *--> "0..*" GameController
-    GameController "1" o-> "1" Chess
+    GameController "1" o---> "1" Chess
 }
 
 package Views {
@@ -191,17 +189,17 @@ package Views {
     
 }
 
-GameController "1" *-right-> "1" Match
-GameController "1" o-right-> "2" Player
-Chess -down-> FormSelection
-GameController "1" *-down-> "1" FormMatch
-PlayerController "1" *-down-> "0..1" FormLeaderboard
-PlayerController "1" *-down-> "0..n" Player
-GameController "1" *-down-> "0..1" FormPromotion
-FormMatch "1" o-up-> "1" GameController
-FormLeaderboard "1" o-up-> "1" PlayerController
-FormPromotion o-up-> "1" GameController
-FormMenu "1" o-up-> "1" Chess
-FormSelection "1" o-up-> "1" Chess
+GameController "1" *----> "1" Match
+GameController "1" o--right--> "2" Player
+Chess -up-> FormSelection
+GameController "1" *-up-> "1" FormMatch
+PlayerController "1" *-up-> "0..1" FormLeaderboard
+PlayerController "1" *---> "0..n" Player
+GameController "1" *---> "0..1" FormPromotion
+FormMatch "1" o--> "1" GameController
+FormLeaderboard "1" o--> "1" PlayerController
+FormPromotion o--> "1" GameController
+FormMenu "1" o--> "1" Chess
+FormSelection "1" o--> "1" Chess
 
 @enduml
