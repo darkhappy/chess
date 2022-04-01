@@ -1592,7 +1592,52 @@ This Class represents a player in a chess game.
     \end{tabular}
 \end{table}
 
+\subsubsection{Fields}
 
+\begin{table}[H]
+    \begin{tabular}{llllll}
+    \hline
+    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+    \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{Chess}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This field is the controller of the selection menu, it helps to access the list of players.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    OpenLeaderboard                              & none                   & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method opens a form listing all the best players.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Start                                        & none                   & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method returns a table of 2 players and starts the game.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Cancel                                        & none                   & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method cancels the player selection.
 
 \newpage
 
@@ -1617,6 +1662,59 @@ This Class represents a player in a chess game.
     \end{tabular}
 \end{table}
 
+\subsubsection{Fields}
+
+\begin{table}[H]
+    \begin{tabular}{llllll}
+    \hline
+    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+    \multicolumn{1}{|l|}{\_main}                                      & \multicolumn{1}{l|}{Chess}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This field makes the link between the menu and the chess game.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Start                                        & object sender, System.EventArgs e      & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter sender is the button and e is the event listener.
+
+\textbf{Description :} This method is for the start button. Starts the game.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Exit                                        & object sender, System.EventArgs e      & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter sender is the button and e is the event listener.
+
+\textbf{Description :} This method is for the exit button. Stops the game.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ManagePlayers                                        & object sender, System.EventArgs e      & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter sender is the button and e is the event listener.
+
+\textbf{Description :} This method is to manage players, add or remove.
+
 \newpage
 
 %FormPromotion Class%
@@ -1636,7 +1734,32 @@ This Class represents a player in a chess game.
     \end{tabular}
 \end{table}
 
+\subsubsection{Fields}
 
+\begin{table}[H]
+    \begin{tabular}{llllll}
+    \hline
+    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+    \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{GameController}                        & \multicolumn{1}{l|}{Private}                                     \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This field makes the link between the promotion form and the players.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ManagePlayers                                        & object sender, System.EventArgs e      & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter sender is the button and e is the event listener.
+
+\textbf{Description :} This method is to submit changes to players.
 
 \newpage
 
@@ -1661,6 +1784,85 @@ This Class represents a player in a chess game.
     \end{tabular}
 \end{table}
 
+\subsubsection{Fields}
+
+\begin{table}[H]
+    \begin{tabular}{llllll}
+    \hline
+    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+    \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{GameController}                        & \multicolumn{1}{l|}{Private}                                     \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This field makes the link between the match form and the chess game.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    GridClick                                    & object sender, System.EventArgs e      & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter sender is the button and e is the event listener.
+
+\textbf{Description :} This method sends the coordinates of the cell clicked on the match board to the game controller.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    DrawBoard                                    & string board                           & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter board is a string that represents a board as each char represents a cell.
+
+\textbf{Description :} This method paints the board with all pieces at the right places.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    DrawSelection                                    & int cell                           & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter cell is a index of a cell that represents the selected cell.
+
+\textbf{Description :} This method paints the selected cell as selected.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ShowMessage                                    & string message                       & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter message is a string that represents a specific message depending on the situation.
+
+\textbf{Description :} This method paints the message.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    VictoryMessage                               & none                                   & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter message is a string that represents a specific message depending on the situation.
+
+\textbf{Description :} This method paints the victory message.
+
 \newpage
 
 %FormLeaderboard Class%
@@ -1682,6 +1884,66 @@ This Class represents a player in a chess game.
     +Back() : void                                        \\ \hline
     \end{tabular}
 \end{table}
+
+\subsubsection{Fields}
+
+\begin{table}[H]
+    \begin{tabular}{llllll}
+    \hline
+    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+    \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{PlayerController}                        & \multicolumn{1}{l|}{Private}                                     \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This field is the controller for the leader board.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ShowList                                     & List\textless{}Player\textgreater{}    & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Parameter List is a list of players.
+
+\textbf{Description :} This method paints the list of all players.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Add                                          & none                                   & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Adds a player to list.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Remove                                       & none                                   & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Removes a player from list.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Back                                         & none                                   & void                   & Public             \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} Gets back to main menu.
 
 \newpage
 
