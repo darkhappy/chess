@@ -66,7 +66,6 @@ package Models {
         + Checkmate() : bool
         + Stalemate() : bool
         + Castle(int origin, int target) : void
-        + GetAssailants (Colour colour) : List<int>
     }
     class Board {
         - _cells : Cell[]
