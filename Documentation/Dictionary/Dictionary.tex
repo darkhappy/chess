@@ -1,6 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage[T1]{fontenc}
-\usepackage{booktabs}
+\usepackage[margin=0.75in]{geometry}
 \usepackage{float}
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{graphicx}
@@ -50,7 +49,7 @@ clearer for the programmer where to implement his code.
     +CanCollide() : bool                               \\ \hline
     +ValidMove(int x1, int y1, int x2, int y2) : bool  \\ \hline
     +ToString() : string                               \\ \hline
-    +Canpromote() : bool                               \\ \hline
+    +CanPromote() : bool                               \\ \hline
     +IsEssential() : bool                              \\ \hline
     \end{tabular}
 \end{table}
@@ -154,8 +153,6 @@ clearer for the programmer where to implement his code.
     \hline
     \cellcolor[HTML]{C0C0C0}\textbf{(Abstract) StartingPiece}            \\ \hline
     \cellcolor[HTML]{EFEFEF}-\_hasMoved : bool        \\ \hline
-    +ValidMove(int x1, int y1, int x2, int y2) : bool \\ \hline
-    +ToString()                                       \\ \hline
     \end{tabular}
 \end{table}
 
@@ -592,7 +589,13 @@ GameController. It will keep all changes that the game controller will return.
     +ValidTurn(int origin, int target) : bool         \\ \hline
     +MakeTurn(int origin, int target) : void          \\ \hline
     +ValidSelection(int cell, bool firstClick) : bool \\ \hline
-    \end{tabular}
+    +HasPromotable(int target) : bool                 \\ \hline
+    +Check() : bool                                   \\ \hline
+    +Checkmate() : bool                               \\ \hline
+    +Stalemate() : bool                               \\ \hline
+    +Castle(int origin, int target) : void            \\ \hline
+    +GetAssailants(Colour) : List<int>                \\ \hline
+\end{tabular}
 \end{table}
 
 \subsubsection{Fields}
@@ -713,6 +716,75 @@ that returns true if its the first click.
 \textbf{Description :} The method checks if the selection made
 in the board is valid.
 
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    HasPromotable                                & int target                    & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\textbf{Parameters :} The parameter target represents the targeted cell for a piece move.
+\textbf{Description :} This method returns true if the cell contains a promotable piece.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Check                                        & none                    & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method returns true if the current turn makes a check.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Checkmate                                        & none                    & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method returns true if the current turn makes a checkmate.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Stalemate                                    & none                    & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method returns true if the current turn makes a Stalemate.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}      & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Castle                                       & int origin, int target   & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method returns true if the move will make a castle.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    GetAsaillants                                & Colour colour           & List<int>                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} The parameter colour represents the piece colour specified.
+\textbf{Description :} This method returns a list of all possible asaillants by the index of their cell.
+
 \subsubsection{Properties}
 
 \begin{table}[H]
@@ -740,16 +812,21 @@ match. It will return all changes to the match.
     \begin{tabular}{|l|}
     \hline
     \rowcolor[HTML]{C0C0C0} 
-    \textbf{Board}                              \\ \hline
-    \rowcolor[HTML]{EFEFEF}                     
-    -\_cells : Cell[]                           \\ \hline
-    +ToString() : string                        \\ \hline
-    +Collision(int origin, int target) : bool   \\ \hline
-    +SameColour (int cell, Colour colour) : bool\\ \hline
-    +ValidMove(int origin, int target) : bool   \\ \hline
-    +MoveCellTo(int origin, int target) : void  \\ \hline
-    +BoardFromString(string board) : void       \\ \hline
-    +IsEssetialExposed(Colour colour) : bool
+    \textbf{Board}                                             \\ \hline
+    \rowcolor[HTML]{EFEFEF}                                    
+    -\_cells : Cell[]                                          \\ \hline
+    +ToString() : string                                       \\ \hline
+    +Collision(int origin, int target) : bool                  \\ \hline
+    +SameColour (int cell, Colour colour) : bool               \\ \hline
+    +ValidMove(int origin, int target) : bool                  \\ \hline
+    +MoveCellTo(int origin, int target) : void                 \\ \hline
+    +GenerateBoard(string board) : void                        \\ \hline
+    +IsEssetialExposed(Colour colour) : bool                   \\ \hline
+    +HasPromotable(int target) : bool                          \\ \hline
+    +GetAssaillants(Colour colour) : List<int>                 \\ \hline
+    -GetEssentialPiece(Colour colour) : int                    \\ \hline
+    -GetAttackingPieces(Colour colour, int target) : List<int> \\ \hline
+    -HasAttackersAroundEssential(Colour colour) : bool          \\ \hline
     \end{tabular}
 \end{table}
 
@@ -835,7 +912,7 @@ the origin cell and the target parameter is the cell targeted.
     \hline
     \rowcolor[HTML]{EFEFEF} 
     \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    BoardFromString                              & string board            & void                   & Public              \\ \hline
+    GenerateBoard                              & string board            & void                   & Public              \\ \hline
     \end{tabular}
 \end{table}
 
@@ -861,6 +938,68 @@ to test.
 
 \textbf{Description :} Checks if the essential piece of the colour white or black
 is exposed.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    HasPromotable                                & int target              & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} The parameter target represent the targeted cell.
+\\
+
+\textbf{Description :} Checks if the targeted cell has the promotable attribute.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    GetAsaillants                                & Colour colour           & List<int>                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} The parameter colour represents the piece colour specified.
+\textbf{Description :} This method returns a list of all possible asaillants by the index of their cell.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    GetEssentialPiece                            & Colour colour           & int                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} The parameter colour represents the piece colour specified.
+\textbf{Description :} This method returns the index of the cell that contains the essential piece.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}        & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    GetAttackingPieces                           & Colour colour, int target  & List<int>                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} The parameter colour represents the piece colour specified and target is the targeted piece.
+\textbf{Description :} This method returns a list of all attacking pieces.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    HasAttackersAroundEssential                  & Colour colour           & bool                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Parameters :} The parameter colour represents the piece colour specified.
+\textbf{Description :} This method returns true if there's attackers around the essential piece.
 
 \newpage
 
@@ -1041,6 +1180,75 @@ This Class represents a player in a chess game.
     \end{tabular}
 \end{table}
 
+\subsubsection{Fields}
+
+\begin{table}[H]
+    \begin{tabular}{llllll}
+    \hline
+    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+    \multicolumn{1}{|l|}{\_listGames}                                 & \multicolumn{1}{l|}{List<GameController>}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This field is a list of the active games.
+
+\subsubsection{Methods}
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    main                                         & none                   & void                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This is the entry point of the program.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    NewGame                                      & none                   & void                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method creates a new game with its own GameController, Match, Board etc\dots
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    StartGame                                    & Player[2] players      & void                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method starts the game with the players given.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    ManagePlayers                                & none                   & void                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This method makes the link between FormMenu and FormLeaderboard.
+
+\begin{table}[H]
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+    Exit                                         & none                   & void                   & Public              \\ \hline
+    \end{tabular}
+\end{table}
+
+\textbf{Description :} This is the exit point method.
+
 \newpage
 
 %GameController Class%
@@ -1080,6 +1288,8 @@ This Class represents a player in a chess game.
     \end{tabular}
 \end{table}
 
+
+
 \newpage
 
 %PlayerController Class%
@@ -1104,7 +1314,7 @@ This Class represents a player in a chess game.
     \end{table}
 
 \newpage
-alloooo
+
 %NEW SECTION VIEWS%
 %%%%%%%%%%%%%%%%%%%
 
@@ -1114,30 +1324,114 @@ alloooo
 %%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Class FormSelection}
+
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{FormSelection}    \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_controller : Chess      \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +OpenLeaderboard() : void \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +Start() : Player{[}2{]}  \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +Cancel() : void          \\ \hline
+    \end{tabular}
+\end{table}
+
+
+
 \newpage
 
 %FormMenu Class%
 %%%%%%%%%%%%%%%%
 
 \subsection{Class FormMenu}
+
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{FormMenu}                                   \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_main : Chess                                          \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +Start(object sender, System.EventArgs e) : void         \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +Exit(object sender, System.EventArgs e) : void          \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +ManagePlayers(object sender, System.EventArgs e) : void \\ \hline
+    \end{tabular}
+\end{table}
+
 \newpage
 
 %FormPromotion Class%
 %%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Class FormPromotion}
+
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{FormPromotion}                            \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_controller : GameController                    \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +Submit(object sender, System.EventArgs e) : void \\ \hline
+    \end{tabular}
+\end{table}
+
+
+
 \newpage
 
 %FormMatch Class%
 %%%%%%%%%%%%%%%%%
 
 \subsection{Class FormMatch}
+
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{FormMatch}                                   \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_controller : GameController                       \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +GridClick(object sender, System.EventArgs e) : void \\ \hline
+    +DrawBoard(string board) : void                      \\ \hline
+    +DrawSelection(int cell) : void                      \\ \hline
+    +ShowMessage(string message) : void                  \\ \hline
+    +VictoryMessage() : void                             \\ \hline
+    \end{tabular}
+\end{table}
+
 \newpage
 
 %FormLeaderboard Class%
 %%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Class FormLeaderboard}
+
+\begin{table}[H]
+    \begin{tabular}{|l|}
+    \hline
+    \rowcolor[HTML]{C0C0C0} 
+    \textbf{FormLeaderboard}                                    \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    -\_controller : PlayerController                      \\ \hline
+    \rowcolor[HTML]{FFFFFF} 
+    +ShowList(List\textless{}Player\textgreater{}) : void \\ \hline
+    +Add() : void                                         \\ \hline
+    +Remove() : void                                      \\ \hline
+    +Back() : void                                        \\ \hline
+    \end{tabular}
+\end{table}
+
 \newpage
 
 \end{document}
