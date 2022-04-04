@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-
+﻿
 namespace chess.Views
 {
   partial class FormMatch
@@ -7,7 +6,7 @@ namespace chess.Views
     /// <summary>
     /// Required designer variable.
     /// </summary>
-    private IContainer components = null;
+    private System.ComponentModel.IContainer components = null;
 
     /// <summary>
     /// Clean up any resources being used.
@@ -19,7 +18,6 @@ namespace chess.Views
       {
         components.Dispose();
       }
-
       base.Dispose(disposing);
     }
 
@@ -31,35 +29,24 @@ namespace chess.Views
     /// </summary>
     private void InitializeComponent()
     {
-      this.ChessBoard = new System.Windows.Forms.Panel();
-      this.PlayerBoard = new System.Windows.Forms.Panel();
+      this.panel1 = new System.Windows.Forms.Panel();
       this.SuspendLayout();
       // 
-      // ChessBoard
+      // panel1
       // 
-      this.ChessBoard.BackColor = System.Drawing.SystemColors.Control;
-      this.ChessBoard.Location = new System.Drawing.Point(372, 9);
-      this.ChessBoard.Name = "ChessBoard";
-      this.ChessBoard.Size = new System.Drawing.Size(800, 800);
-      this.ChessBoard.TabIndex = 0;
-      this.ChessBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.ChessBoard_Paint);
-      // 
-      // PlayerBoard
-      // 
-      this.PlayerBoard.BackColor = System.Drawing.SystemColors.Control;
-      this.PlayerBoard.Location = new System.Drawing.Point(11, 9);
-      this.PlayerBoard.Name = "PlayerBoard";
-      this.PlayerBoard.Size = new System.Drawing.Size(350, 799);
-      this.PlayerBoard.TabIndex = 1;
+      this.panel1.BackColor = System.Drawing.SystemColors.Control;
+      this.panel1.Location = new System.Drawing.Point(332, 12);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(800, 800);
+      this.panel1.TabIndex = 0;
       // 
       // FormMatch
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-      this.ClientSize = new System.Drawing.Size(1184, 821);
-      this.Controls.Add(this.PlayerBoard);
-      this.Controls.Add(this.ChessBoard);
+      this.ClientSize = new System.Drawing.Size(1144, 826);
+      this.Controls.Add(this.panel1);
       this.Name = "FormMatch";
       this.Text = "FormMatch";
       this.ResumeLayout(false);
@@ -68,7 +55,6 @@ namespace chess.Views
 
     #endregion
 
-    private System.Windows.Forms.Panel ChessBoard;
-    private System.Windows.Forms.Panel PlayerBoard;
+    private System.Windows.Forms.Panel panel1;
   }
 }
