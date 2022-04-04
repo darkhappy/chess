@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace chess.Models
@@ -18,23 +17,35 @@ namespace chess.Models
     /// Create a new cell with a piece within
     /// </summary>
     /// <param name="piece"></param>
-    public Cell(Piece piece)
+    public Cell(char piece)
     {
-      _piece = piece;
+      _piece = piece switch
+      {
+        'p' => new Pawn(Models.Colour.White),
+        'P' => new Pawn(Models.Colour.Black),
+        'r' => new Rook(Models.Colour.White),
+        'R' => new Rook(Models.Colour.Black),
+        'n' => new Knight(Models.Colour.White),
+        'N' => new Knight(Models.Colour.Black),
+        'b' => new Bishop(Models.Colour.White),
+        'B' => new Bishop(Models.Colour.Black),
+        'q' => new Queen(Models.Colour.White),
+        'Q' => new Queen(Models.Colour.Black),
+        'k' => new King(Models.Colour.White),
+        'K' => new King(Models.Colour.Black),
+        _ => null
+      };
     }
 
     /// <summary>
     /// Return the piece color in the cell
     /// </summary>
-    public Colour Colour
-    {
-      get => _piece.Colour;
-    }
+    public Colour? Colour => _piece?.Colour;
 
     /// <summary>
     /// Get or set a piece in the cell
     /// </summary>
-    public Piece Piece
+    public Piece? Piece
     {
       get => _piece;
       set => _piece = value;
@@ -55,7 +66,7 @@ namespace chess.Models
     /// <returns></returns>
     public bool HasCollision()
     {
-      return _piece.CanCollide();
+      return _piece != null && _piece.CanCollide();
     }
 
     /// <summary>
@@ -64,7 +75,7 @@ namespace chess.Models
     /// <returns></returns>
     public bool HasPromotable()
     {
-      return _piece.CanPromote();
+      return _piece != null && _piece.CanPromote();
     }
 
     /// <summary>
@@ -73,7 +84,7 @@ namespace chess.Models
     /// <returns></returns>
     public bool HasEssential()
     {
-      return _piece.IsEssential();
+      return _piece != null && _piece.IsEssential();
     }
 
     /// <summary>
@@ -83,7 +94,12 @@ namespace chess.Models
     /// <returns></returns>
     public List<Position> ValidMove(Position origin)
     {
-      return _piece.ValidMove(origin);
+      return _piece == null ? new List<Position>() : _piece.ValidMove(origin);
+    }
+
+    public override string ToString()
+    {
+      return _piece == null ? "." : _piece.ToString();
     }
   }
 }

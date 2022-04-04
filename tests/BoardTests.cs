@@ -60,9 +60,10 @@ namespace tests
     [Test]
     [TestCase(0, 0, 7, 0)]
     [TestCase(0, 7, 7, 7)]
+    [TestCase(3, 0, 7, 4)]
     public void CantMoveDueToCollision(int x1, int y1, int x2, int y2)
     {
-      Assert.That(_board.Collision(new Position(x1, y1), new Position(x2, y2)), Is.False);
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
     }
 
     [Test]
@@ -76,7 +77,7 @@ namespace tests
     [TestCase(6, 7, 5, 5)]
     public void CanMoveDespiteCollision(int x1, int y1, int x2, int y2)
     {
-      Assert.That(_board.Collision(new Position(x1, y1), new Position(x2, y2)), Is.True);
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.True);
     }
 
     [Test]

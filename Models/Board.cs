@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace chess.Models
 {
@@ -9,32 +10,71 @@ namespace chess.Models
 
     public Board()
     {
-      throw new NotImplementedException();
+      _cell = new Cell[64];
+      GenerateBoard("................................................................");
     }
 
     public Board(string board)
     {
-      throw new NotImplementedException();
+      _cell = new Cell[64];
+      GenerateBoard(board);
     }
 
     private void GenerateBoard(string board)
     {
-      throw new NotImplementedException();
+      var array = board.ToCharArray();
+      for (var i = 0; i < array.Length; i++)
+      {
+        _cell[i] = new Cell(array[i]);
+      }
     }
 
     public override string ToString()
     {
-      throw new NotImplementedException();
+      return _cell.Aggregate("", (current, t) => current + t);
     }
 
-    public bool Collision(int origin, int target)
+    public bool Collision(Position origin, Position target, List<Position> moves)
     {
-      throw new NotImplementedException();
+      var originCell = _cell[ConvertToIndex(origin)];
+      var targetCell = _cell[ConvertToIndex(target)];
+      var toCheck = PositionsBetween(origin, target, moves);
+      foreach (var position in toCheck)
+      {
+        if (!_cell[ConvertToIndex(position)].IsEmpty())
+        {
+          return false;
+        }
+      }
+
+      return true;
     }
 
-    public bool SameColour(int origin, int target)
+    public List<Position> PositionsBetween(Position origin, Position target, List<Position> allPositions)
     {
-      throw new NotImplementedException();
+      // In the list of all positions, find the positions between the origin and target
+      var positionsBetween =
+        allPositions.Where(p => p.X >= origin.X && p.X <= target.X && p.Y >= origin.Y && p.Y <= target.Y);
+      var positionsBetweenList = positionsBetween.ToList();
+      positionsBetweenList.Remove(origin);
+      positionsBetweenList.Remove(target);
+      return positionsBetweenList;
+    }
+
+    private static int ConvertToIndex(Position position)
+    {
+      var x = position.X;
+      var y = position.Y;
+
+      return y * 8 + x;
+    }
+
+    public bool SameColour(Position origin, Position target)
+    {
+      var originIndex = ConvertToIndex(origin);
+      var targetIndex = ConvertToIndex(target);
+
+      return _cell[originIndex].Colour == _cell[targetIndex].Colour;
     }
 
     public bool IsEssentialExposed(Colour colour)
@@ -42,9 +82,9 @@ namespace chess.Models
       throw new NotImplementedException();
     }
 
-    public bool HasPromotable(int target)
+    public bool HasPromotable(Position target)
     {
-      throw new NotImplementedException();
+      return _cell[ConvertToIndex(target)].HasPromotable();
     }
 
     public List<int> GetAssailants(Colour colour)
@@ -57,19 +97,32 @@ namespace chess.Models
       throw new NotImplementedException();
     }
 
-    private List<int> GetAttackingPieces(Colour colour, int target)
+    private List<int> GetAttackingPieces(Colour colour, Position target)
     {
       throw new NotImplementedException();
     }
 
-    public bool ValidMove(int origin, int target)
+    public bool ValidMove(Position origin, Position target)
     {
-      throw new NotImplementedException();
+      // Get valid moves
+      var cell = _cell[ConvertToIndex(origin)];
+      var moves = cell.ValidMove(origin);
+
+      if (!moves.Contains(target)) return false;
+
+      // Check for collisions
+      if (cell.HasCollision())
+      {
+        return Collision(origin, target, moves);
+      }
+
+      return true;
     }
 
-    public void MoveCellTo(int origin, int target)
+    public void MoveCellTo(Position origin, Position target)
     {
-      throw new NotImplementedException();
+      _cell[ConvertToIndex(target)] = _cell[ConvertToIndex(origin)];
+      _cell[ConvertToIndex(origin)] = new Cell('.');
     }
   }
 }
