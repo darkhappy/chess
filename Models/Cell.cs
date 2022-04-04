@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace chess.Models
 {
@@ -6,48 +7,83 @@ namespace chess.Models
   {
     private Piece? _piece;
 
+    /// <summary>
+    /// Create a new cell
+    /// </summary>
     public Cell()
     {
-      throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Create a new cell with a piece within
+    /// </summary>
+    /// <param name="piece"></param>
     public Cell(Piece piece)
     {
-      throw new NotImplementedException();
+      _piece = piece;
     }
 
-    public Colour Colour => throw new NotImplementedException();
+    /// <summary>
+    /// Return the piece color in the cell
+    /// </summary>
+    public Colour Colour
+    {
+      get => _piece.Colour;
+    }
 
+    /// <summary>
+    /// Get or set a piece in the cell
+    /// </summary>
     public Piece Piece
     {
-      get => throw new NotImplementedException();
-      set => throw new NotImplementedException();
+      get => _piece;
+      set => _piece = value;
     }
 
+    /// <summary>
+    /// Check if the cell is empty
+    /// </summary>
+    /// <returns></returns>
     public bool IsEmpty()
     {
-      throw new NotImplementedException();
+      return _piece == null;
     }
 
+    /// <summary>
+    /// Check if the piece in the cell can collide
+    /// </summary>
+    /// <returns></returns>
     public bool HasCollision()
     {
-      throw new NotImplementedException();
+      return _piece.CanCollide();
     }
 
+    /// <summary>
+    /// Check if the piece in the cell can promote
+    /// </summary>
+    /// <returns></returns>
     public bool HasPromotable()
     {
-      throw new NotImplementedException();
+      return _piece.CanPromote();
     }
 
+    /// <summary>
+    /// Check if the piece in the cell is an essential one
+    /// </summary>
+    /// <returns></returns>
     public bool HasEssential()
     {
-      throw new NotImplementedException();
+      return _piece.IsEssential();
     }
 
-    public bool ValidMove(int x1, int y1, int x2, int y2)
+    /// <summary>
+    /// Return all possible move for the piece within the cell
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <returns></returns>
+    public List<Position> ValidMove(Position origin)
     {
-      throw new NotImplementedException();
+      return _piece.ValidMove(origin);
     }
-#nullable enable
   }
 }
