@@ -12,6 +12,7 @@ namespace chess.Controllers
 
     FormMenu _frmMenu;
     FormSelection _frmSelect;
+    FormMatch _frmMatch;
 
     FormMatch _dummyMatch;
 
@@ -30,12 +31,10 @@ namespace chess.Controllers
     /// </summary>
     public Chess()
     {
-      //_frmMenu = new FormMenu();
-      //Application.Run(_frmMenu);
-      _listGames = new List<GameController>();
-      _dummyMatch = new FormMatch();
-      Application.Run(_dummyMatch);
-
+      _frmMatch = new FormMatch();
+      Application.Run(_frmMatch);
+      /*_frmMenu = new FormMenu(this);
+      Application.Run(_frmMenu);*/
     }
 
     /// <summary>
