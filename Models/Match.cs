@@ -9,14 +9,12 @@ namespace chess.Models
     private Colour _current;
     private List<string> _history;
     private int _turnCount;
-    
-    public Match() {}
 
     public string ExportBoard()
     {
       throw new NotImplementedException();
     }
-    
+
     public List<string> ExportHistory()
     {
       throw new NotImplementedException();
@@ -26,7 +24,7 @@ namespace chess.Models
     {
       throw new NotImplementedException();
     }
-    
+
     public void MakeTurn(int origin, int target)
     {
       throw new NotImplementedException();
@@ -46,25 +44,25 @@ namespace chess.Models
     {
       throw new NotImplementedException();
     }
-    
+
     public bool Checkmate()
     {
       throw new NotImplementedException();
     }
-    
+
     public bool Stalemate()
     {
       throw new NotImplementedException();
     }
-    
-    public bool Castle() {
+
+    public bool Castle()
+    {
       throw new NotImplementedException();
     }
-    
+
     public List<int> GetAssailants(int cell)
     {
       throw new NotImplementedException();
     }
-    
   }
 }

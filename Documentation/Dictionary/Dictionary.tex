@@ -13,1889 +13,1895 @@
 
 \begin{document}
 
-\begin{titlepage}
-\maketitle
-\includegraphics[width=\textwidth]{CHESS}
-\begin{center}Presented to : Charles Jacob\end{center}
-\end{titlepage}
+    \begin{titlepage}
+        \maketitle
+        \includegraphics[width=\textwidth]{CHESS}
+        \begin{center}
+            Presented to : Charles Jacob
+        \end{center}
+    \end{titlepage}
 
-\tableofcontents
+    \tableofcontents
 
-\newpage
+    \newpage
 
-\section{Introduction}
 
-The goal of this document is to inform the programmer about
-classes used to create a C\#\ OOP Chess game.
-\\
+    \section{Introduction}
 
-We'll go through this with the MVC model approch to make it
-clearer for the programmer where to implement his code. 
+    The goal of this document is to inform the programmer about
+    classes used to create a C\#\ OOP Chess game.
+    \\
 
-\newpage
+    We'll go through this with the MVC model approch to make it
+    clearer for the programmer where to implement his code.
 
-\section{Models}
+    \newpage
+
+
+    \section{Models}
 %%%%%%%%%%%%%
 %Piece Class%
 
-\subsection{Classe Piece}
+    \subsection{Classe Piece}
 
-This is an abstract class for a base piece for the game.
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \cellcolor[HTML]{C0C0C0}\textbf{(Abstract) Piece}  \\ \hline
-    \cellcolor[HTML]{EFEFEF}-\_colour : Colour         \\ \hline
-    +CanCollide() : bool                               \\ \hline
-    +ValidMove(int x1, int y1, int x2, int y2) : bool  \\ \hline
-    +ToString() : string                               \\ \hline
-    +CanPromote() : bool                               \\ \hline
-    +IsEssential() : bool                              \\ \hline
-    \end{tabular}
-\end{table}
+    This is an abstract class for a base piece for the game.
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \cellcolor[HTML]{C0C0C0}\textbf{(Abstract) Piece} \\ \hline
+            \cellcolor[HTML]{EFEFEF}-\_colour : Colour        \\ \hline
+            +CanCollide() : bool                              \\ \hline
+            +ValidMove(int x1, int y1, int x2, int y2) : bool \\ \hline
+            +ToString() : string                              \\ \hline
+            +CanPromote() : bool                              \\ \hline
+            +IsEssential() : bool                             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_colour}                                    & \multicolumn{1}{l|}{Colour}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_colour}                                    & \multicolumn{1}{l|}{Colour}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Represents the colour of the piece, which is either white or black.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Parameters :} x1 and y1 are the coordinates of the piece.
     x2 and y2 are the coordinates of the target location.
-\\
+    \\
     \textbf{Description :} This method is used to check if the piece can move from position (x1, y1) to position (x2, y2).
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    CanCollide                                   & None                 & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            CanCollide                                   & None                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} By default, this method returns true, meaning that the piece can collide with other pieces.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ToString                                   & None                 & String                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ToString                                     & None                & String                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} This method returns the string representation of the piece.
     This method gets overridden by the subclasses.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    CanPromote                                   & None                 & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            CanPromote                                   & None                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} By default, this method returns false, meaning that the piece cannot be promoted.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    IsEssential                                  & None                 & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            IsEssential                                  & None                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} By default, this method returns false, meaning that the piece is not essential.
 
-\subsubsection{Properties}
+    \subsubsection{Properties}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Property Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Colour                                         & None                 & Colour                 & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Property Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Colour                                         & None                & Colour                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Gets the colour of the piece.
-\newpage
+    \newpage
 
 %%%%%%%%%%%%%%%
 %StartingPiece%
 
-\subsection{Class StartingPiece : Piece}
+    \subsection{Class StartingPiece : Piece}
 
     Extended from the Piece class, the StartingPiece class represents a piece that keeps track of whether it has been moved or not.
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \cellcolor[HTML]{C0C0C0}\textbf{(Abstract) StartingPiece}            \\ \hline
-    \cellcolor[HTML]{EFEFEF}-\_hasMoved : bool        \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \cellcolor[HTML]{C0C0C0}\textbf{(Abstract) StartingPiece} \\ \hline
+            \cellcolor[HTML]{EFEFEF}-\_hasMoved : bool                \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_hasMoved}                                  & \multicolumn{1}{l|}{bool}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_hasMoved}                                  & \multicolumn{1}{l|}{bool}                                  & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Represents whether the piece has been moved or not.
+    \textbf{Description :} Represents whether the piece has been moved or not.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
     Inherited from the Piece class.
-\subsubsection{Properties}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Property Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    HasMoved                                       & None                 & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \subsubsection{Properties}
+
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Property Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            HasMoved                                       & None                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Gets or Sets whether the piece has been moved or not.
-\newpage
+    \newpage
 
 %%%%%%%%%%%%
 %Pawn Class%
 
-\subsection{Class Pawn : StartingPiece}
+    \subsection{Class Pawn : StartingPiece}
 
     Extended from the StartingPiece class, the Pawn class represents a pawn.
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \cellcolor[HTML]{C0C0C0}\textbf{Pawn} \\ \hline
-    \cellcolor[HTML]{EFEFEF}                    \\ \hline
-    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
-    +CanPromote() : bool                        \\ \hline
-    +ToString() : string                        \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \cellcolor[HTML]{C0C0C0}\textbf{Pawn} \\ \hline
+            \cellcolor[HTML]{EFEFEF}              \\ \hline
+            +ValidMove(x1, y1, x2, y2) : bool     \\ \hline
+            +CanPromote() : bool                  \\ \hline
+            +ToString() : string                  \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
     Inherited from the StartingPiece class.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
     x2 and y2 are the coordinates of the destination.
-\\
-    \textbf{Description :} This method checks if the move is valid for the pawn. 
+    \\
+    \textbf{Description :} This method checks if the move is valid for the pawn.
     Valid moves are forward by one, forward by two if the pawn has not moved, and forward diagonally if the pawn is attacking.
     In these cases, the method returns true.
     Otherwise, the method returns false.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    CanPromote                                   & None                 & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            CanPromote                                   & None                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the CanPromote method in the Piece class.
-    Returns true. 
+    Returns true.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ToString                                   & None                 & String                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ToString                                     & None                & String                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the ToString method in the Piece class.
-    Returns the string "p" if the piece is white, and "P" if the piece is black. 
+    Returns the string "p" if the piece is white, and "P" if the piece is black.
 
-\subsubsection{Properties}
+    \subsubsection{Properties}
 
     Inherited from the StartingPiece class.
-\newpage
+    \newpage
 
 %%%%%%%%%%%%
 %Rook Class%
 
-\subsection{Class Rook : StartingPiece}
+    \subsection{Class Rook : StartingPiece}
 
     Extended from the StartingPiece class, the Rook class represents a rook.
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \cellcolor[HTML]{C0C0C0}\textbf{Rook} \\ \hline
-    \cellcolor[HTML]{EFEFEF}                    \\ \hline
-    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
-    +ToString() : string                        \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \cellcolor[HTML]{C0C0C0}\textbf{Rook} \\ \hline
+            \cellcolor[HTML]{EFEFEF}              \\ \hline
+            +ValidMove(x1, y1, x2, y2) : bool     \\ \hline
+            +ToString() : string                  \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
     Inherited from the StartingPiece class.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-    \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position. x2 and y2 are the coordinates of the destination. 
-\\
-    \textbf{Description :} This method checks if the move is valid for the rook. 
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position. x2 and y2 are the coordinates of the destination.
+    \\
+    \textbf{Description :} This method checks if the move is valid for the rook.
     Valid moves are horizontal and vertical directions.
     In these cases, the method returns true.
     Otherwise, the method returns false.
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ToString                                   & None                 & String                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ToString                                     & None                & String                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the ToString method in the Piece class.
-    Returns the string "r" if the piece is white, and "R" if the piece is black. 
+    Returns the string "r" if the piece is white, and "R" if the piece is black.
 
-\subsubsection{Properties}
+    \subsubsection{Properties}
 
     Inherited from the StartingPiece class.
-\newpage
+    \newpage
 
 %%%%%%%%%%%%
 %King Class%
 
-\subsection{Class King : StartingPiece}
+    \subsection{Class King : StartingPiece}
 
     Extended from the StartingPiece class, the King class represents a king.
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \cellcolor[HTML]{C0C0C0}\textbf{King} \\ \hline
-    \cellcolor[HTML]{EFEFEF}                    \\ \hline
-    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
-    +IsEssential() : bool                       \\ \hline
-    +ToString() : string                        \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \cellcolor[HTML]{C0C0C0}\textbf{King} \\ \hline
+            \cellcolor[HTML]{EFEFEF}              \\ \hline
+            +ValidMove(x1, y1, x2, y2) : bool     \\ \hline
+            +IsEssential() : bool                 \\ \hline
+            +ToString() : string                  \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
     Inherited from the StartingPiece class.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
-    x2 and y2 are the coordinates of the destination.  
-\\
-    \textbf{Description :} This method checks if the move is valid for the king. 
+    x2 and y2 are the coordinates of the destination.
+    \\
+    \textbf{Description :} This method checks if the move is valid for the king.
     Valid moves are horizontally, vertically and diagonally by one square.
     Additionally, the king can move by two squares on the left and right if it has not moved, called castling.
     In these cases, the method returns true.
     Otherwise, the method returns false.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    IsEssential                                  & None                 & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            IsEssential                                  & None                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the IsEssential method in the Piece class.
     Returns true.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ToString                                   & None                 & String                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ToString                                     & None                & String                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the ToString method in the Piece class.
-    Returns the string "k" if the piece is white, and "K" if the piece is black. 
+    Returns the string "k" if the piece is white, and "K" if the piece is black.
 
-\subsubsection{Properties}
+    \subsubsection{Properties}
 
     Inherited from the StartingPiece class.
-\newpage
+    \newpage
 
 %%%%%%%%%%%%%%
 %Knight Class%
 
-\subsection{Class Knight : Piece}
+    \subsection{Class Knight : Piece}
 
     Extended from the Piece class, the Knight class represents a knight.
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \cellcolor[HTML]{C0C0C0}\textbf{Knight} \\ \hline
-    \cellcolor[HTML]{EFEFEF}                    \\ \hline
-    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
-    +CanCollide() : bool                        \\ \hline
-    +ToString() : string                        \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \cellcolor[HTML]{C0C0C0}\textbf{Knight} \\ \hline
+            \cellcolor[HTML]{EFEFEF}                \\ \hline
+            +ValidMove(x1, y1, x2, y2) : bool       \\ \hline
+            +CanCollide() : bool                    \\ \hline
+            +ToString() : string                    \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
     Inherited from the Piece class.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
-    x2 and y2 are the coordinates of the destination.  
-\\
-    \textbf{Description :} This method checks if the move is valid for the knight. 
+    x2 and y2 are the coordinates of the destination.
+    \\
+    \textbf{Description :} This method checks if the move is valid for the knight.
     Valid moves are moves in an L shape.
     An L shape is composed of two forward moves and one move to the left or right.
     Alternatively, it can be composed of two moves to the left or right and one forward move.
     The method returns true if the move is valid.
     Otherwise, the method returns false.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    CanCollide                                   & None                 & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            CanCollide                                   & None                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the CanCollide method in the Piece class.
     Returns false.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ToString                                   & None                 & String                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ToString                                     & None                & String                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the ToString method in the Piece class.
-    Returns the string "n" if the piece is white, and "N" if the piece is black. 
+    Returns the string "n" if the piece is white, and "N" if the piece is black.
 
-\subsubsection{Properties}
+    \subsubsection{Properties}
 
     Inherited from the StartingPiece class.
 
-\newpage
+    \newpage
 
 %Bishop Class%
 %%%%%%%%%%%%%%
 
-\subsection{Class Bishop : Piece}
+    \subsection{Class Bishop : Piece}
 
     Extended from the Piece class, the Bishop class represents a bishop.
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \cellcolor[HTML]{C0C0C0}\textbf{Bishop} \\ \hline
-    \cellcolor[HTML]{EFEFEF}                    \\ \hline
-    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
-    +ToString() : string                        \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \cellcolor[HTML]{C0C0C0}\textbf{Bishop} \\ \hline
+            \cellcolor[HTML]{EFEFEF}                \\ \hline
+            +ValidMove(x1, y1, x2, y2) : bool       \\ \hline
+            +ToString() : string                    \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
     Inherited from the Piece class.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
-    x2 and y2 are the coordinates of the destination.  
-\\
-    \textbf{Description :} This method checks if the move is valid for the bishop. 
+    x2 and y2 are the coordinates of the destination.
+    \\
+    \textbf{Description :} This method checks if the move is valid for the bishop.
     Valid moves are moves in a diagonal direction.
     The method returns true if the move is valid.
     Otherwise, the method returns false.
-    
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ToString                                   & None                 & String                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ToString                                     & None                & String                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the ToString method in the Piece class.
-    Returns the string "b" if the piece is white, and "B" if the piece is black. 
+    Returns the string "b" if the piece is white, and "B" if the piece is black.
 
-\subsubsection{Properties}
+    \subsubsection{Properties}
 
     Inherited from the StartingPiece class.
 
-\newpage
+    \newpage
 
 %Queen%
 %%%%%%%
 
-\subsection{Class Queen : Piece}
+    \subsection{Class Queen : Piece}
 
     Extended from the Piece class, the Queen class represents a queen.
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \cellcolor[HTML]{C0C0C0}\textbf{Queen} \\ \hline
-    \cellcolor[HTML]{EFEFEF}                    \\ \hline
-    +ValidMove(x1, y1, x2, y2) : bool           \\ \hline
-    +ToString() : string                        \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \cellcolor[HTML]{C0C0C0}\textbf{Queen} \\ \hline
+            \cellcolor[HTML]{EFEFEF}               \\ \hline
+            +ValidMove(x1, y1, x2, y2) : bool      \\ \hline
+            +ToString() : string                   \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
     Inherited from the Piece class.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                          & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & x1, y1, x2, y2 : int & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Parameters :} x1 and y1 are the coordinates of the piece's current position.
-    x2 and y2 are the coordinates of the destination.  
-\\
-    \textbf{Description :} This method checks if the move is valid for the queen. 
+    x2 and y2 are the coordinates of the destination.
+    \\
+    \textbf{Description :} This method checks if the move is valid for the queen.
     Valid moves are moves in a horizontal, vertical, or diagonal direction.
     The method returns true if the move is valid.
     Otherwise, the method returns false.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ToString                                   & None                 & String                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ToString                                     & None                & String                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
     \textbf{Description :} Overrides the ToString method in the Piece class.
-    Returns the string "q" if the piece is white, and "Q" if the piece is black. 
+    Returns the string "q" if the piece is white, and "Q" if the piece is black.
 
-\subsubsection{Properties}
+    \subsubsection{Properties}
 
     Inherited from the Piece class.
 
-\newpage
+    \newpage
 
 %Match Class%
 %%%%%%%%%%%%%
 
-\subsection{Class Match}
+    \subsection{Class Match}
 
-The Match class represents a chess match. It contains the board, it's history, the current turn and has methods for the Game Controller.
+    The Match class represents a chess match. It contains the board, it's history, the current turn and has methods for the Game Controller.
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{Match}                                    \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_board : Board                                  \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_current : Colour                               \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_history : string{[}{]}                         \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_turnNumber : int                               \\ \hline
-    +ExportBoard() : string                           \\ \hline
-    +ExportHistory() : string[]                       \\ \hline
-    +ValidTurn(int origin, int target) : bool         \\ \hline
-    +MakeTurn(int origin, int target) : void          \\ \hline
-    +ValidSelection(int cell, bool firstClick) : bool \\ \hline
-    +HasPromotable(int target) : bool                 \\ \hline
-    +Check() : bool                                   \\ \hline
-    +Checkmate() : bool                               \\ \hline
-    +Stalemate() : bool                               \\ \hline
-    +Castle(int origin, int target) : void            \\ \hline
-\end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{Match}                                    \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_board : Board                                  \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_current : Colour                               \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_history : string{[}{]}                         \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_turnNumber : int                               \\ \hline
+            +ExportBoard() : string                           \\ \hline
+            +ExportHistory() : string[]                       \\ \hline
+            +ValidTurn(int origin, int target) : bool         \\ \hline
+            +MakeTurn(int origin, int target) : void          \\ \hline
+            +ValidSelection(int cell, bool firstClick) : bool \\ \hline
+            +HasPromotable(int target) : bool                 \\ \hline
+            +Check() : bool                                   \\ \hline
+            +Checkmate() : bool                               \\ \hline
+            +Stalemate() : bool                               \\ \hline
+            +Castle(int origin, int target) : void            \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_board}                                     & \multicolumn{1}{l|}{Board}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_board}                                     & \multicolumn{1}{l|}{Board}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :}  Represents the board of the match. 
+    \textbf{Description :}  Represents the board of the match.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_current}                                     & \multicolumn{1}{l|}{Colour}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_current}                                   & \multicolumn{1}{l|}{Colour}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Represents the current Colour that is playing, which is either white or black. 
+    \textbf{Description :} Represents the current Colour that is playing, which is either white or black.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_history}                                     & \multicolumn{1}{l|}{string[]}                            & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_history}                                   & \multicolumn{1}{l|}{string[]}                              & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Represents the history of the match.
-Each board is represented by a string, which is a concatenation of the piece's name.
-For example, an initial board is represented as:
-\\"RNBKQBNRPPPPPPPP.................................pppppppprnkqbnr". 
+    \textbf{Description :} Represents the history of the match.
+    Each board is represented by a string, which is a concatenation of the piece's name.
+    For example, an initial board is represented as:
+    \\"RNBKQBNRPPPPPPPP.................................pppppppprnkqbnr".
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_turnNumber}                                & \multicolumn{1}{l|}{int}                                   & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_turnNumber}                                & \multicolumn{1}{l|}{int}                                   & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Represents the number of turns that has been played. 
+    \textbf{Description :} Represents the number of turns that has been played.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ExportBoard                                  & none                 & string                 & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ExportBoard                                  & none                & string                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Exports the board to a string. 
+    \textbf{Description :} Exports the board to a string.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ExportHistory                                & none                 & string[]                 & Public            \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ExportHistory                                & none                & string[]               & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Exports the history to an array of strings.   
+    \textbf{Description :} Exports the history to an array of strings.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidTurn                                    & int origin, int target & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidTurn                                    & int origin, int target & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Origin represents the piece's starting position, while target represents the piece's end position. 
-\\
+    \textbf{Parameters :} Origin represents the piece's starting position, while target represents the piece's end position.
+    \\
 
-\textbf{Description :} Evaluates whether the turn is valid.  
+    \textbf{Description :} Evaluates whether the turn is valid.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    MakeTurn                                     & int origin, int target & void                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            MakeTurn                                     & int origin, int target & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Origin represents the piece's starting position, while target represents the piece's end position.  
-\\
+    \textbf{Parameters :} Origin represents the piece's starting position, while target represents the piece's end position.
+    \\
 
-\textbf{Description :} Makes a turn, updating the board, history, turn number and current colour. 
+    \textbf{Description :} Makes a turn, updating the board, history, turn number and current colour.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}       & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidSelection                               & int cell, bool firstClick & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}       & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidSelection                               & int cell, bool firstClick & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Cell represents the cell's position, while firstClick represents whether this is the first click of the turn. 
-\\
+    \textbf{Parameters :} Cell represents the cell's position, while firstClick represents whether this is the first click of the turn.
+    \\
 
-\textbf{Description :} Evaluates whether the selection is valid.
-On the first click, the method checks if the cell has a piece of the current colour.
-On the second click, the method checks if the cell is empty, or has a piece of the other colour.
+    \textbf{Description :} Evaluates whether the selection is valid.
+    On the first click, the method checks if the cell has a piece of the current colour.
+    On the second click, the method checks if the cell is empty, or has a piece of the other colour.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    HasPromotable                                & int target                    & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
-
-
-\textbf{Parameters :} Target represents the cell's position.  
-\textbf{Description :} Evaluates whether the cell has a promotable piece. 
-
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Check                                        & none                    & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
-
-\textbf{Description :} Checks if the essential piece is under attack.  
-
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Checkmate                                        & none                    & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
-
-\textbf{Description :} Checks if the essential piece is under attack and there are no valid moves.    
-
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Stalemate                                    & none                    & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
-
-\textbf{Description :} Checks if there are no valid moves for the current colour.    
-
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}      & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Castle                                       & int origin, int target   & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
-
-\textbf{Description :} Checks if the move is a castle.   
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            HasPromotable                                & int target          & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
 
-\subsubsection{Properties}
+    \textbf{Parameters :} Target represents the cell's position.
+    \textbf{Description :} Evaluates whether the cell has a promotable piece.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Property Name} & \textbf{Parameters}  & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Current                                        & None                 & Colour                 & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Check                                        & none                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Gets or Sets the current colour. 
+    \textbf{Description :} Checks if the essential piece is under attack.
 
-\newpage
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Checkmate                                    & none                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \textbf{Description :} Checks if the essential piece is under attack and there are no valid moves.
+
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Stalemate                                    & none                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \textbf{Description :} Checks if there are no valid moves for the current colour.
+
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Castle                                       & int origin, int target & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \textbf{Description :} Checks if the move is a castle.
+
+    \subsubsection{Properties}
+
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Property Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Current                                        & None                & Colour                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \textbf{Description :} Gets or Sets the current colour.
+
+    \newpage
 
 %Board Class%
 %%%%%%%%%%%%%
 
-\subsection{Class Board}
+    \subsection{Class Board}
 
-The Board class represents the board of the game.
-It contains all 64 cells, as well as methods to manipulate them.
+    The Board class represents the board of the game.
+    It contains all 64 cells, as well as methods to manipulate them.
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{Board}                                             \\ \hline
-    \rowcolor[HTML]{EFEFEF}                                    
-    -\_cells : Cell[]                                          \\ \hline
-    +ToString() : string                                       \\ \hline
-    +Collision(int origin, int target) : bool                  \\ \hline
-    +SameColour (int cell, Colour colour) : bool               \\ \hline
-    +ValidMove(int origin, int target) : bool                  \\ \hline
-    +MoveCellTo(int origin, int target) : void                 \\ \hline
-    +GenerateBoard(string board) : void                        \\ \hline
-    +IsEssetialExposed(Colour colour) : bool                   \\ \hline
-    +HasPromotable(int target) : bool                          \\ \hline
-    +GetAssaillants(Colour colour) : List\textless{}int\textgreater{}                 \\ \hline
-    -GetEssentialPiece(Colour colour) : int                    \\ \hline
-    -GetAttackingPieces(Colour colour, int target) : List\textless{}int\textgreater{} \\ \hline
-    -HasAttackersAroundEssential(Colour colour) : bool          \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{Board}                                                                    \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_cells : Cell[]                                                                 \\ \hline
+            +ToString() : string                                                              \\ \hline
+            +Collision(int origin, int target) : bool                                         \\ \hline
+            +SameColour (int cell, Colour colour) : bool                                      \\ \hline
+            +ValidMove(int origin, int target) : bool                                         \\ \hline
+            +MoveCellTo(int origin, int target) : void                                        \\ \hline
+            +GenerateBoard(string board) : void                                               \\ \hline
+            +IsEssetialExposed(Colour colour) : bool                                          \\ \hline
+            +HasPromotable(int target) : bool                                                 \\ \hline
+            +GetAssaillants(Colour colour) : List\textless{}int\textgreater{}                 \\ \hline
+            -GetEssentialPiece(Colour colour) : int                                           \\ \hline
+            -GetAttackingPieces(Colour colour, int target) : List\textless{}int\textgreater{} \\ \hline
+            -HasAttackersAroundEssential(Colour colour) : bool                                \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_cells}                                     & \multicolumn{1}{l|}{Cell[]}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_cells}                                     & \multicolumn{1}{l|}{Cell[]}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :}  Represents the board. 
+    \textbf{Description :}  Represents the board.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Collision                                    & int origin, int target & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Collision                                    & int origin, int target & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Origin represents the starting cell, target represents the target cell. 
-\\
+    \textbf{Parameters :} Origin represents the starting cell, target represents the target cell.
+    \\
 
-\textbf{Description :} Evaluates if the move is valid by calculating collisions between the origin and the target. 
+    \textbf{Description :} Evaluates if the move is valid by calculating collisions between the origin and the target.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    SameColour                                   & int cell, Colour colour & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            SameColour                                   & int cell, Colour colour & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Cell represents the cell to be evaluated, colour represents the colour to be evaluated. 
-\\
+    \textbf{Parameters :} Cell represents the cell to be evaluated, colour represents the colour to be evaluated.
+    \\
 
-\textbf{Description :} Evaluates if the cell is of the same colour as the parameter colour. 
+    \textbf{Description :} Evaluates if the cell is of the same colour as the parameter colour.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                                   & int origin, int target   & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & int origin, int target & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Origin represents the starting cell, target represents the target cell.  
-\\
+    \textbf{Parameters :} Origin represents the starting cell, target represents the target cell.
+    \\
 
-\textbf{Description :} Evaluates if the move is valid.
+    \textbf{Description :} Evaluates if the move is valid.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    MoveCellTo                                   & int origin, int target  & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            MoveCellTo                                   & int origin, int target & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Origin represents the starting cell, target represents the target cell. 
-\\
+    \textbf{Parameters :} Origin represents the starting cell, target represents the target cell.
+    \\
 
-\textbf{Description :} Moves the cell from the origin to the target, and sets the origin cell to an empty cell. 
+    \textbf{Description :} Moves the cell from the origin to the target, and sets the origin cell to an empty cell.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    GenerateBoard                              & string board            & void                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            GenerateBoard                                & string board        & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Board represents a string to be parsed. 
-\\
+    \textbf{Parameters :} Board represents a string to be parsed.
+    \\
 
-\textbf{Description :} Generates a new board from a string.
+    \textbf{Description :} Generates a new board from a string.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    IsEssentialExposed                           & Colour colour           & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            IsEssentialExposed                           & Colour colour       & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Colour represents the colour of the essential piece to be evaluated. 
-\\
+    \textbf{Parameters :} Colour represents the colour of the essential piece to be evaluated.
+    \\
 
-\textbf{Description :} Evaluates if the essential piece is exposed to attackers.
+    \textbf{Description :} Evaluates if the essential piece is exposed to attackers.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    HasPromotable                                & int target              & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            HasPromotable                                & int target          & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Target represents the target cell.  
-\\
+    \textbf{Parameters :} Target represents the target cell.
+    \\
 
-\textbf{Description :} Evaluates if the target cell has a promotable piece. 
+    \textbf{Description :} Evaluates if the target cell has a promotable piece.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    GetAsaillants                                & Colour colour           & List\textless{}int\textgreater{}                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            GetAsaillants                                & Colour colour       & List\textless{}int\textgreater{} & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Colour represents the colour of the assailant pieces. 
-\textbf{Description :} Returns a list of pieces of the specified colour that can attack the essential piece.  
+    \textbf{Parameters :} Colour represents the colour of the assailant pieces.
+    \textbf{Description :} Returns a list of pieces of the specified colour that can attack the essential piece.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    GetEssentialPiece                            & Colour colour           & int                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            GetEssentialPiece                            & Colour colour       & int                    & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Colour represents the colour of the essential piece to be evaluated.  
-\textbf{Description :} Returns the index of the essential piece.  
+    \textbf{Parameters :} Colour represents the colour of the essential piece to be evaluated.
+    \textbf{Description :} Returns the index of the essential piece.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}        & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    GetAttackingPieces                           & Colour colour, int target  & List\textless{}int\textgreater{}                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}       & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            GetAttackingPieces                           & Colour colour, int target & List\textless{}int\textgreater{} & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Colour represents the colour of the assailant pieces, while target represents the target cell.   
-\textbf{Description :} Returns a list of pieces of the specified colour that can attack the target cell. 
+    \textbf{Parameters :} Colour represents the colour of the assailant pieces, while target represents the target cell.
+    \textbf{Description :} Returns a list of pieces of the specified colour that can attack the target cell.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    HasAttackersAroundEssential                  & Colour colour           & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            HasAttackersAroundEssential                  & Colour colour       & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :}  Colour represents the colour of the assailant pieces.  
-\textbf{Description :} Evaluates if the specified colour has pieces that can attack the essential piece, as well as all eight cells around it. 
+    \textbf{Parameters :}  Colour represents the colour of the assailant pieces.
+    \textbf{Description :} Evaluates if the specified colour has pieces that can attack the essential piece, as well as all eight cells around it.
 
-\newpage
+    \newpage
 
 %Cell Class%
 %%%%%%%%%%%%%
 
-\subsection{Class Cell}
+    \subsection{Class Cell}
 
-The Cell class represents a single cell on the board.
+    The Cell class represents a single cell on the board.
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{Cell}                                    \\ \hline
-    \rowcolor[HTML]{EFEFEF}
-    -\_piece : Nullable\textless{}Piece\textgreater{}                        \\ \hline
-    +IsEmpty() : bool                                 \\ \hline
-    +HasCollision() : bool                            \\ \hline
-    +HasPromotable() : bool                           \\ \hline
-    +HasEssetial() : bool                             \\ \hline
-    +ValidMove(int x1, int y1, int x2, int y2) : bool \\ \hline
-    +Colour() : Colour                                \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{Cell}                                     \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_piece : Nullable\textless{}Piece\textgreater{} \\ \hline
+            +IsEmpty() : bool                                 \\ \hline
+            +HasCollision() : bool                            \\ \hline
+            +HasPromotable() : bool                           \\ \hline
+            +HasEssetial() : bool                             \\ \hline
+            +ValidMove(int x1, int y1, int x2, int y2) : bool \\ \hline
+            +Colour() : Colour                                \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_piece}                                     & \multicolumn{1}{l|}{Nullable\textless{}Piece\textgreater{}}                       & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_piece}                                     & \multicolumn{1}{l|}{Nullable\textless{}Piece\textgreater{}}                       & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Represents the piece that is currently in the cell. Can be null. 
+    \textbf{Description :} Represents the piece that is currently in the cell. Can be null.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    IsEmpty                                      & none                   & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            IsEmpty                                      & none                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Returns true if the cell is empty, false otherwise.  
+    \textbf{Description :} Returns true if the cell is empty, false otherwise.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    HasCollision                                 & none                    & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            HasCollision                                 & none                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Returns true if the cell has a piece that can collide with others, false otherwise.   
+    \textbf{Description :} Returns true if the cell has a piece that can collide with others, false otherwise.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    HasPromotable                                & none                    & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            HasPromotable                                & none                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Returns true if the cell has a piece that can be promoted, false otherwise.  
+    \textbf{Description :} Returns true if the cell has a piece that can be promoted, false otherwise.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    HasEssential                                 & none                    & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            HasEssential                                 & none                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Returns true if the cell has a piece that is essential, false otherwise.   
+    \textbf{Description :} Returns true if the cell has a piece that is essential, false otherwise.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}            & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ValidMove                                    & int x1, int y1, int x2, int y2 & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}            & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ValidMove                                    & int x1, int y1, int x2, int y2 & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} x1 and y1 are the coordinates of the piece.
-x2 and y2 are the coordinates of the target location. 
-\\
+    \textbf{Parameters :} x1 and y1 are the coordinates of the piece.
+    x2 and y2 are the coordinates of the target location.
+    \\
 
-\textbf{Description :} Evaluates whether the piece can move to the target location. 
+    \textbf{Description :} Evaluates whether the piece can move to the target location.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}     & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Colour                                       & none                    & Colour                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Colour                                       & none                & Colour                 & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Returns the colour of the piece.  
+    \textbf{Description :} Returns the colour of the piece.
 
-\newpage
+    \newpage
 
 %Player Class%
 %%%%%%%%%%%%%%
 
-\subsection{Class Player}
+    \subsection{Class Player}
 
-The Player class represents a player that can play the game. 
+    The Player class represents a player that can play the game.
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{Player}          \\ \hline
-    \rowcolor[HTML]{EFEFEF}
-    -\_name : string        \\ \hline
-    -\_points : int         \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{Player}  \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_name : string \\ \hline
+            -\_points : int  \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_name}                                      & \multicolumn{1}{l|}{string}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_name}                                      & \multicolumn{1}{l|}{string}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Represents the name of the player.  
+    \textbf{Description :} Represents the name of the player.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_points}                                      & \multicolumn{1}{l|}{int}                                 & \multicolumn{1}{l|}{Private}                                   \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_points}                                    & \multicolumn{1}{l|}{int}                                   & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Represents the amount of victory points the player has.  
+    \textbf{Description :} Represents the amount of victory points the player has.
 
-\newpage
+    \newpage
 
 %NEW SECTION CONTROLLERS%
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Controllers}
+
+    \section{Controllers}
 
 %Chess Class%
 %%%%%%%%%%%%%
 
-\subsection{Class Chess}
+    \subsection{Class Chess}
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{Chess}                                             \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_listGames : List\textless{}{}GameController\textgreater{}{} \\ \hline
-    +main() : void                                             \\ \hline
-    +NewGame() : void                                          \\ \hline
-    +StartGame(Player{[}2{]} players) : void                   \\ \hline
-    +ManagePlayers() : void                                    \\ \hline
-    +Exit() : void                                             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{Chess}                                                 \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_listGames : List\textless{}{}GameController\textgreater{}{} \\ \hline
+            +main() : void                                                 \\ \hline
+            +NewGame() : void                                              \\ \hline
+            +StartGame(Player{[}2{]} players) : void                       \\ \hline
+            +ManagePlayers() : void                                        \\ \hline
+            +Exit() : void                                                 \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_listGames}                                 & \multicolumn{1}{l|}{List\textless{}GameController\textgreater{}}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_listGames}                                 & \multicolumn{1}{l|}{List\textless{}GameController\textgreater{}}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field is a list of the active games.
+    \textbf{Description :} This field is a list of the active games.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    main                                         & none                   & void                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            main                                         & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This is the entry point of the program.
+    \textbf{Description :} This is the entry point of the program.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    NewGame                                      & none                   & void                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            NewGame                                      & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method creates a new game with its own GameController, Match, Board etc\dots
+    \textbf{Description :} This method creates a new game with its own GameController, Match, Board etc\dots
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    StartGame                                    & Player[2] players      & void                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            StartGame                                    & Player[2] players   & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method starts the game with the players given.
+    \textbf{Description :} This method starts the game with the players given.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ManagePlayers                                & none                   & void                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ManagePlayers                                & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method makes the link between FormMenu and FormLeaderboard.
+    \textbf{Description :} This method makes the link between FormMenu and FormLeaderboard.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Exit                                         & none                   & void                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Exit                                         & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This is the exit point method.
+    \textbf{Description :} This is the exit point method.
 
-\newpage
+    \newpage
 
 %GameController Class%
 %%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Class GameController}
+    \subsection{Class GameController}
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{GameController}              \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_main : Chess                      \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_selected : int                    \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_match : Match                     \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_playerA : Player                  \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_playerB : Player                  \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_tieCounter : int                  \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_view : FormMatch                  \\ \hline
-    -Rules(int origin, int target) : void\\ \hline
-    -Check() : bool                      \\ \hline
-    -Checkmate() : bool                  \\ \hline
-    -Castle() : bool                     \\ \hline
-    -Stalemate() : bool                  \\ \hline
-    -FiftyTurns() : bool                 \\ \hline
-    -SameBoard() : bool                  \\ \hline
-    -Turn(int origin, int target) : void \\ \hline
-    +Selection(int cell) : void          \\ \hline
-    +Resign() : void                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{GameController}               \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_main : Chess                       \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_selected : int                     \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_match : Match                      \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_playerA : Player                   \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_playerB : Player                   \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_tieCounter : int                   \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_view : FormMatch                   \\ \hline
+            -Rules(int origin, int target) : void \\ \hline
+            -Check() : bool                       \\ \hline
+            -Checkmate() : bool                   \\ \hline
+            -Castle() : bool                      \\ \hline
+            -Stalemate() : bool                   \\ \hline
+            -FiftyTurns() : bool                  \\ \hline
+            -SameBoard() : bool                   \\ \hline
+            -Turn(int origin, int target) : void  \\ \hline
+            +Selection(int cell) : void           \\ \hline
+            +Resign() : void                      \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_main}                                      & \multicolumn{1}{l|}{Chess}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_main}                                      & \multicolumn{1}{l|}{Chess}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field represent the chess which the game controller will talk to.
+    \textbf{Description :} This field represent the chess which the game controller will talk to.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_selected}                                      & \multicolumn{1}{l|}{int}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_selected}                                  & \multicolumn{1}{l|}{int}                                   & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field represent the selected cell.
+    \textbf{Description :} This field represent the selected cell.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_match}                                      & \multicolumn{1}{l|}{Match}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_match}                                     & \multicolumn{1}{l|}{Match}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field represent the match of a game.
+    \textbf{Description :} This field represent the match of a game.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_playerA}                                      & \multicolumn{1}{l|}{Player}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_playerA}                                   & \multicolumn{1}{l|}{Player}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field represent the first player in the game.
+    \textbf{Description :} This field represent the first player in the game.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_playerB}                                      & \multicolumn{1}{l|}{Player}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_playerB}                                   & \multicolumn{1}{l|}{Player}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field represent the second player in the game.
+    \textbf{Description :} This field represent the second player in the game.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_tieCounter}                                      & \multicolumn{1}{l|}{int}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_tieCounter}                                & \multicolumn{1}{l|}{int}                                   & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field counts the number of ties in the game.
+    \textbf{Description :} This field counts the number of ties in the game.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_view}                                      & \multicolumn{1}{l|}{FormMatch}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_view}                                      & \multicolumn{1}{l|}{FormMatch}                             & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field represent the view to paint in a match.
+    \textbf{Description :} This field represent the view to paint in a match.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Rules                                        & int origin, int target & void                   & Private             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Rules                                        & int origin, int target & void                   & Private             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Origin and target represent the index of the origin cell and the targeted cell for the path.
-\textbf{Description :} This method calls Check(), Checkmate(), Castle() and Stalemate() to check the state of the game if the move is valid.
+    \textbf{Parameters :} Origin and target represent the index of the origin cell and the targeted cell for the path.
+    \textbf{Description :} This method calls Check(), Checkmate(), Castle() and Stalemate() to check the state of the game if the move is valid.
 
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Check                                        & none                   & bool                   & Public              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Check                                        & none                & bool                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method returns true if the match has a check.
+    \textbf{Description :} This method returns true if the match has a check.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Checkmate                                    & None                   & bool                   & Private              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Checkmate                                    & None                & bool                   & Private             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method returns true if the match has a checkmate.
+    \textbf{Description :} This method returns true if the match has a checkmate.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Castle                                       & None                   & bool                   & Private              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Castle                                       & None                & bool                   & Private             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method returns true if the match has a Castle.
+    \textbf{Description :} This method returns true if the match has a Castle.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Stalemate                                    & None                   & bool                   & Private              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Stalemate                                    & None                & bool                   & Private             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method returns true if the match has a stalemate.
+    \textbf{Description :} This method returns true if the match has a stalemate.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    FiftyTurns                                   & None                   & bool                   & Private              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            FiftyTurns                                   & None                & bool                   & Private             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method returns true if the match has 50 turns to count.
+    \textbf{Description :} This method returns true if the match has 50 turns to count.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    SameBoard                                    & None                   & bool                   & Private              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            SameBoard                                    & None                & bool                   & Private             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method returns true if history list of boards has 3 same boards.
+    \textbf{Description :} This method returns true if history list of boards has 3 same boards.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Turn                                         & int origin, int target & void                   & Private             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Turn                                         & int origin, int target & void                   & Private             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Origin and target represent the index of the origin cell and the targeted cell for the path.
-\textbf{Description :} Makes the turn, and send it to the view.
+    \textbf{Parameters :} Origin and target represent the index of the origin cell and the targeted cell for the path.
+    \textbf{Description :} Makes the turn, and send it to the view.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Selection                                    & int cell               & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Selection                                    & int cell            & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameeter cell is the index of the cell to be selected.
-\textbf{Description :} Selects the cell.
+    \textbf{Parameters :} Parameeter cell is the index of the cell to be selected.
+    \textbf{Description :} Selects the cell.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Resign                                       & none                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Resign                                       & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Make the end and exit the game.
+    \textbf{Description :} Make the end and exit the game.
 
-\newpage
+    \newpage
 
 %PlayerController Class%
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Class PlayerController}
+    \subsection{Class PlayerController}
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{PlayerController}                       \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_main : Chess                               \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_list : List\textless{}{}Player\textgreater{}{} \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +Add() : void                                 \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +Remove() : void                              \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{PlayerController}                         \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_main : Chess                                   \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_list : List\textless{}{}Player\textgreater{}{} \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +Add() : void                                     \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +Remove() : void                                  \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_main}                                      & \multicolumn{1}{l|}{Chess}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_main}                                      & \multicolumn{1}{l|}{Chess}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field represent the chess which the game controller will talk to.
+    \textbf{Description :} This field represent the chess which the game controller will talk to.
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_list}                                      & \multicolumn{1}{l|}{List\textless{}Player\textgreater{}}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_list}                                      & \multicolumn{1}{l|}{List\textless{}Player\textgreater{}}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field represent the list of all players.
+    \textbf{Description :} This field represent the list of all players.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Add                                          & none                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Add                                          & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method adds the player to the list.
+    \textbf{Description :} This method adds the player to the list.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Remove                                       & none                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Remove                                       & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method removes the player to the list.
+    \textbf{Description :} This method removes the player to the list.
 
-\newpage
+    \newpage
 
 %NEW SECTION VIEWS%
 %%%%%%%%%%%%%%%%%%%
 
-\section{Views}
+
+    \section{Views}
 
 %FormSelection Class%
 %%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Class FormSelection}
+    \subsection{Class FormSelection}
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{FormSelection}    \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_controller : Chess      \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +OpenLeaderboard() : void \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +Start() : Player{[}2{]}  \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +Cancel() : void          \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{FormSelection}    \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_controller : Chess     \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +OpenLeaderboard() : void \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +Start() : Player{[}2{]}  \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +Cancel() : void          \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{Chess}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{Chess}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field is the controller of the selection menu, it helps to access the list of players.
+    \textbf{Description :} This field is the controller of the selection menu, it helps to access the list of players.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    OpenLeaderboard                              & none                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            OpenLeaderboard                              & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method opens a form listing all the best players.
+    \textbf{Description :} This method opens a form listing all the best players.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Start                                        & none                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Start                                        & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method returns a table of 2 players and starts the game.
+    \textbf{Description :} This method returns a table of 2 players and starts the game.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Cancel                                        & none                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Cancel                                       & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This method cancels the player selection.
+    \textbf{Description :} This method cancels the player selection.
 
-\newpage
+    \newpage
 
 %FormMenu Class%
 %%%%%%%%%%%%%%%%
 
-\subsection{Class FormMenu}
+    \subsection{Class FormMenu}
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{FormMenu}                                   \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_main : Chess                                          \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +Start(object sender, System.EventArgs e) : void         \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +Exit(object sender, System.EventArgs e) : void          \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +ManagePlayers(object sender, System.EventArgs e) : void \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{FormMenu}                                        \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_main : Chess                                          \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +Start(object sender, System.EventArgs e) : void         \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +Exit(object sender, System.EventArgs e) : void          \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +ManagePlayers(object sender, System.EventArgs e) : void \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_main}                                      & \multicolumn{1}{l|}{Chess}                                & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_main}                                      & \multicolumn{1}{l|}{Chess}                                 & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field makes the link between the menu and the chess game.
+    \textbf{Description :} This field makes the link between the menu and the chess game.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Start                                        & object sender, System.EventArgs e      & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}               & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Start                                        & object sender, System.EventArgs e & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter sender is the button and e is the event listener.
+    \textbf{Parameters :} Parameter sender is the button and e is the event listener.
 
-\textbf{Description :} This method is for the start button. Starts the game.
+    \textbf{Description :} This method is for the start button. Starts the game.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Exit                                        & object sender, System.EventArgs e      & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}               & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Exit                                         & object sender, System.EventArgs e & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter sender is the button and e is the event listener.
+    \textbf{Parameters :} Parameter sender is the button and e is the event listener.
 
-\textbf{Description :} This method is for the exit button. Stops the game.
+    \textbf{Description :} This method is for the exit button. Stops the game.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ManagePlayers                                        & object sender, System.EventArgs e      & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}               & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ManagePlayers                                & object sender, System.EventArgs e & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter sender is the button and e is the event listener.
+    \textbf{Parameters :} Parameter sender is the button and e is the event listener.
 
-\textbf{Description :} This method is to manage players, add or remove.
+    \textbf{Description :} This method is to manage players, add or remove.
 
-\newpage
+    \newpage
 
 %FormPromotion Class%
 %%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Class FormPromotion}
+    \subsection{Class FormPromotion}
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{FormPromotion}                            \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_controller : GameController                    \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +Submit(object sender, System.EventArgs e) : void \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{FormPromotion}                            \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_controller : GameController                    \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +Submit(object sender, System.EventArgs e) : void \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{GameController}                        & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{GameController}                        & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field makes the link between the promotion form and the players.
+    \textbf{Description :} This field makes the link between the promotion form and the players.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ManagePlayers                                        & object sender, System.EventArgs e      & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}               & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ManagePlayers                                & object sender, System.EventArgs e & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter sender is the button and e is the event listener.
+    \textbf{Parameters :} Parameter sender is the button and e is the event listener.
 
-\textbf{Description :} This method is to submit changes to players.
+    \textbf{Description :} This method is to submit changes to players.
 
-\newpage
+    \newpage
 
 %FormMatch Class%
 %%%%%%%%%%%%%%%%%
 
-\subsection{Class FormMatch}
+    \subsection{Class FormMatch}
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{FormMatch}                                   \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_controller : GameController                       \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +GridClick(object sender, System.EventArgs e) : void \\ \hline
-    +DrawBoard(string board) : void                      \\ \hline
-    +DrawSelection(int cell) : void                      \\ \hline
-    +ShowMessage(string message) : void                  \\ \hline
-    +VictoryMessage() : void                             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{FormMatch}                                   \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_controller : GameController                       \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +GridClick(object sender, System.EventArgs e) : void \\ \hline
+            +DrawBoard(string board) : void                      \\ \hline
+            +DrawSelection(int cell) : void                      \\ \hline
+            +ShowMessage(string message) : void                  \\ \hline
+            +VictoryMessage() : void                             \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{GameController}                        & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{GameController}                        & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field makes the link between the match form and the chess game.
+    \textbf{Description :} This field makes the link between the match form and the chess game.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    GridClick                                    & object sender, System.EventArgs e      & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}               & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            GridClick                                    & object sender, System.EventArgs e & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter sender is the button and e is the event listener.
+    \textbf{Parameters :} Parameter sender is the button and e is the event listener.
 
-\textbf{Description :} This method sends the coordinates of the cell clicked on the match board to the game controller.
+    \textbf{Description :} This method sends the coordinates of the cell clicked on the match board to the game controller.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    DrawBoard                                    & string board                           & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            DrawBoard                                    & string board        & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter board is a string that represents a board as each char represents a cell.
+    \textbf{Parameters :} Parameter board is a string that represents a board as each char represents a cell.
 
-\textbf{Description :} This method paints the board with all pieces at the right places.
+    \textbf{Description :} This method paints the board with all pieces at the right places.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    DrawSelection                                    & int cell                           & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            DrawSelection                                & int cell            & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter cell is a index of a cell that represents the selected cell.
+    \textbf{Parameters :} Parameter cell is a index of a cell that represents the selected cell.
 
-\textbf{Description :} This method paints the selected cell as selected.
+    \textbf{Description :} This method paints the selected cell as selected.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ShowMessage                                    & string message                       & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ShowMessage                                  & string message      & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter message is a string that represents a specific message depending on the situation.
+    \textbf{Parameters :} Parameter message is a string that represents a specific message depending on the situation.
 
-\textbf{Description :} This method paints the message.
+    \textbf{Description :} This method paints the message.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    VictoryMessage                               & none                                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            VictoryMessage                               & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter message is a string that represents a specific message depending on the situation.
+    \textbf{Parameters :} Parameter message is a string that represents a specific message depending on the situation.
 
-\textbf{Description :} This method paints the victory message.
+    \textbf{Description :} This method paints the victory message.
 
-\newpage
+    \newpage
 
 %FormLeaderboard Class%
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Class FormLeaderboard}
+    \subsection{Class FormLeaderboard}
 
-\begin{table}[H]
-    \begin{tabular}{|l|}
-    \hline
-    \rowcolor[HTML]{C0C0C0} 
-    \textbf{FormLeaderboard}                                    \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    -\_controller : PlayerController                      \\ \hline
-    \rowcolor[HTML]{FFFFFF} 
-    +ShowList(List\textless{}{}Player\textgreater{}{}) : void \\ \hline
-    +Add() : void                                         \\ \hline
-    +Remove() : void                                      \\ \hline
-    +Back() : void                                        \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|}
+            \hline
+            \rowcolor[HTML]{C0C0C0}
+            \textbf{FormLeaderboard}                                  \\ \hline
+            \rowcolor[HTML]{EFEFEF}
+            -\_controller : PlayerController                          \\ \hline
+            \rowcolor[HTML]{FFFFFF}
+            +ShowList(List\textless{}{}Player\textgreater{}{}) : void \\ \hline
+            +Add() : void                                             \\ \hline
+            +Remove() : void                                          \\ \hline
+            +Back() : void                                            \\ \hline
+        \end{tabular}
+    \end{table}
 
-\subsubsection{Fields}
+    \subsubsection{Fields}
 
-\begin{table}[H]
-    \begin{tabular}{llllll}
-    \hline
-    \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
-    \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{PlayerController}                        & \multicolumn{1}{l|}{Private}                                     \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{llllll}
+            \hline
+            \multicolumn{1}{|l|}{\cellcolor[HTML]{EFEFEF}\textbf{Field Name}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Type}} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}\textbf{Visibility}} \\ \hline
+            \multicolumn{1}{|l|}{\_controller}                                & \multicolumn{1}{l|}{PlayerController}                      & \multicolumn{1}{l|}{Private}                                     \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} This field is the controller for the leader board.
+    \textbf{Description :} This field is the controller for the leader board.
 
-\subsubsection{Methods}
+    \subsubsection{Methods}
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    ShowList                                     & List\textless{}Player\textgreater{}    & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                 & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            ShowList                                     & List\textless{}Player\textgreater{} & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Parameters :} Parameter List is a list of players.
+    \textbf{Parameters :} Parameter List is a list of players.
 
-\textbf{Description :} This method paints the list of all players.
+    \textbf{Description :} This method paints the list of all players.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Add                                          & none                                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Add                                          & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Adds a player to list.
+    \textbf{Description :} Adds a player to list.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Remove                                       & none                                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Remove                                       & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Removes a player from list.
+    \textbf{Description :} Removes a player from list.
 
-\begin{table}[H]
-    \begin{tabular}{|l|l|l|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters}                    & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
-    Back                                         & none                                   & void                   & Public             \\ \hline
-    \end{tabular}
-\end{table}
+    \begin{table}[H]
+        \begin{tabular}{|l|l|l|l|}
+            \hline
+            \rowcolor[HTML]{EFEFEF}
+            \cellcolor[HTML]{EFEFEF}\textbf{Method Name} & \textbf{Parameters} & \textbf{Returned Type} & \textbf{Visibility} \\ \hline
+            Back                                         & none                & void                   & Public              \\ \hline
+        \end{tabular}
+    \end{table}
 
-\textbf{Description :} Gets back to main menu.
+    \textbf{Description :} Gets back to main menu.
 
-\newpage
+    \newpage
 
 \end{document}

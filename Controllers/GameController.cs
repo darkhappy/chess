@@ -5,12 +5,12 @@ namespace chess.Controllers
 {
   public class GameController
   {
+    private int _fiftyTurns;
     private Chess _main;
-    private int _selected;
     private Match _match;
     private Player _playerA;
     private Player _playerB;
-    private int _fiftyTurns;
+    private int _selected;
 
     public GameController(Player a, Player b)
     {

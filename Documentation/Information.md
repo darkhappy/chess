@@ -10,10 +10,9 @@ jouer une partie d’échec. Puisque le travail devra se faire en équipe de deu
 coéquipier, de séparer la tâche en deux. Votre coéquipier fera l’interface utilisateur tandis que vous, le système de
 gestion de parties d’échec.
 
-Après deux semaines de travail, votre coéquipier vous remet ça partie. Vous vous rendez
-compte qu’il n’a pas mis beaucoup d’efforts... probablement trop occupé à jouer au Hold’em. Le code de l’interface
-utilisateur n’est pas très optimal et pourvu de très peux de validations et de commentaires, et même d'un petit « bug »
-d'affichage.
+Après deux semaines de travail, votre coéquipier vous remet ça partie. Vous vous rendez compte qu’il n’a pas mis
+beaucoup d’efforts... probablement trop occupé à jouer au Hold’em. Le code de l’interface utilisateur n’est pas très
+optimal et pourvu de très peux de validations et de commentaires, et même d'un petit « bug » d'affichage.
 
 Vous n’allez tout de même pas refaire son travail, vous devrez donc faire avec.
 
@@ -43,8 +42,8 @@ différence entre les deux classements. S’il possède un classement inférieur
 Si la différence de classement est plus élevée que 500, le joueur possédant le plus haut classement n’augmentera pas
 dans le cas d’une victoire.
 
-_Ce classement n’est **pas très équitable** et ne s’applique que dans le contexte de cette application. Le vrai système utilisé par la
-fédération des échecs est le système ELO. Si vous désirez l’implémenter... libre à vous._
+_Ce classement n’est **pas très équitable** et ne s’applique que dans le contexte de cette application. Le vrai système
+utilisé par la fédération des échecs est le système ELO. Si vous désirez l’implémenter... libre à vous._
 
 ## Évaluation
 

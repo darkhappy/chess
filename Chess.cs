@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using chess.Controllers;
 using chess.Models;
 
@@ -13,7 +10,7 @@ namespace chess
     private List<GameController> _listGames;
 
     /// <summary>
-    /// Point d'entrée principal de l'application.
+    ///   Point d'entrée principal de l'application.
     /// </summary>
     [STAThread]
     public static void Main()

@@ -22,15 +22,18 @@ namespace chess.Models
       throw new NotImplementedException();
     }
 
-    public bool Collision(int origin, int target) {
+    public bool Collision(int origin, int target)
+    {
       throw new NotImplementedException();
     }
 
-    public bool SameColour(int origin, int target) {
+    public bool SameColour(int origin, int target)
+    {
       throw new NotImplementedException();
     }
 
-    public bool IsEssentialExposed(Colour colour) {
+    public bool IsEssentialExposed(Colour colour)
+    {
       throw new NotImplementedException();
     }
 
@@ -39,7 +42,8 @@ namespace chess.Models
       throw new NotImplementedException();
     }
 
-    public List<int> GetAssailants(Colour colour) {
+    public List<int> GetAssailants(Colour colour)
+    {
       throw new NotImplementedException();
     }
 
@@ -53,7 +57,8 @@ namespace chess.Models
       throw new NotImplementedException();
     }
 
-    public bool ValidMove(int origin, int target) {
+    public bool ValidMove(int origin, int target)
+    {
       throw new NotImplementedException();
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace chess.Models
@@ -6,17 +7,17 @@ namespace chess.Models
   {
     public Rook(Colour colour) : base(colour)
     {
-      throw new System.NotImplementedException();
+      throw new NotImplementedException();
     }
 
     public override List<Position> ValidMove(Position position)
     {
-      throw new System.NotImplementedException();
+      throw new NotImplementedException();
     }
 
     public override string ToString()
     {
-      throw new System.NotImplementedException();
+      throw new NotImplementedException();
     }
   }
 }

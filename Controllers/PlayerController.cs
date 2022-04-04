@@ -6,9 +6,12 @@ namespace chess.Controllers
 {
   public class PlayerController
   {
-    private Chess _main;
     private List<Player> _list;
-    public PlayerController(Chess main) {}
+    private Chess _main;
+
+    public PlayerController(Chess main)
+    {
+    }
 
     public void Add()
     {

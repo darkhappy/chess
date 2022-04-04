@@ -4,7 +4,6 @@ namespace chess.Models
 {
   public class Cell
   {
-    #nullable enable
     private Piece? _piece;
 
     public Cell()
@@ -16,22 +15,30 @@ namespace chess.Models
     {
       throw new NotImplementedException();
     }
-    
+
+    public Colour Colour => throw new NotImplementedException();
+
+    public Piece Piece
+    {
+      get => throw new NotImplementedException();
+      set => throw new NotImplementedException();
+    }
+
     public bool IsEmpty()
     {
       throw new NotImplementedException();
     }
-    
+
     public bool HasCollision()
     {
       throw new NotImplementedException();
     }
-    
-    public bool HasPromotable() 
+
+    public bool HasPromotable()
     {
       throw new NotImplementedException();
     }
-    
+
     public bool HasEssential()
     {
       throw new NotImplementedException();
@@ -41,13 +48,6 @@ namespace chess.Models
     {
       throw new NotImplementedException();
     }
-    
-    public Colour Colour => throw new NotImplementedException();
-
-    public Piece Piece
-    {
-      get => throw new NotImplementedException();
-      set => throw new NotImplementedException();
-    }
+#nullable enable
   }
 }

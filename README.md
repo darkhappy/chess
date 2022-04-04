@@ -8,12 +8,11 @@ votre cours : conception et programmation orientée objet.
 Votre premier travail pratique consiste concevoir et programmer une application permettant à deux joueurs, humains, de
 jouer une partie d’échec. Puisque le travail devra se faire en équipe de deux, vous prenez la décision, vous et votre
 coéquipier, de séparer la tâche en deux. Votre coéquipier fera l’interface utilisateur tandis que vous, le système de
-gestion de parties d’échec. 
+gestion de parties d’échec.
 
-Après deux semaines de travail, votre coéquipier vous remet ça partie. Vous vous rendez
-compte qu’il n’a pas mis beaucoup d’efforts... probablement trop occupé à jouer au Hold’em. Le code de l’interface
-utilisateur n’est pas très optimal et pourvu de très peux de validations et de commentaires, et même d'un petit « bug »
-d'affichage.
+Après deux semaines de travail, votre coéquipier vous remet ça partie. Vous vous rendez compte qu’il n’a pas mis
+beaucoup d’efforts... probablement trop occupé à jouer au Hold’em. Le code de l’interface utilisateur n’est pas très
+optimal et pourvu de très peux de validations et de commentaires, et même d'un petit « bug » d'affichage.
 
 Vous n’allez tout de même pas refaire son travail, vous devrez donc faire avec.
 
@@ -23,7 +22,7 @@ Vous devrez développer toutes les classes nécessaires afin de gérer une parti
 utilisables par l’interface de votre coéquipier afin de former une application cohérente. Vous devrez donc l’analyser
 quelque peu.
 
-### Fonctionnalités de l’interface 
+### Fonctionnalités de l’interface
 
 - À son lancement, l’interface propose une liste de joueurs triée par ordre de classement.
 - Lors de la sélection d’un seul joueur, ces statistiques sont affichées
@@ -43,8 +42,8 @@ différence entre les deux classements. S’il possède un classement inférieur
 Si la différence de classement est plus élevée que 500, le joueur possédant le plus haut classement n’augmentera pas
 dans le cas d’une victoire.
 
-_Ce classement n’est **pas très équitable** et ne s’applique que dans le contexte de cette application. Le vrai système utilisé par la
-fédération des échecs est le système ELO. Si vous désirez l’implémenter... libre à vous._
+_Ce classement n’est **pas très équitable** et ne s’applique que dans le contexte de cette application. Le vrai système
+utilisé par la fédération des échecs est le système ELO. Si vous désirez l’implémenter... libre à vous._
 
 ## Évaluation
 

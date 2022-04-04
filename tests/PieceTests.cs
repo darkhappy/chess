@@ -111,7 +111,7 @@ namespace tests
   }
 
   /// <summary>
-  ///  Tests knight movement.
+  ///   Tests knight movement.
   /// </summary>
   [TestFixture]
   public class KnightTests
@@ -168,7 +168,7 @@ namespace tests
   }
 
   /// <summary>
-  /// Tests queen movement.
+  ///   Tests queen movement.
   /// </summary>
   [TestFixture]
   public class QueenTests
@@ -219,7 +219,7 @@ namespace tests
   }
 
   /// <summary>
-  /// Tests king movement.
+  ///   Tests king movement.
   /// </summary>
   [TestFixture]
   public class KingTests
