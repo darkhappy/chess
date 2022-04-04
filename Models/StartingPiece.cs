@@ -6,12 +6,17 @@ namespace chess.Models
 
     protected StartingPiece(Colour colour) : base(colour)
     {
-      throw new System.NotImplementedException();
+      _hasMoved = false;
     }
 
     public override bool HasMoved()
     {
-      throw new System.NotImplementedException();
+      return _hasMoved;
+    }
+
+    public override void Moved()
+    {
+      _hasMoved = true;
     }
   }
 }

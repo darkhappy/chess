@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace chess.Models
 {
   public class Pawn : StartingPiece
@@ -7,7 +9,7 @@ namespace chess.Models
       throw new System.NotImplementedException();
     }
 
-    public override bool ValidMove(int x1, int y1, int x2, int y2)
+    public override List<Position> ValidMove(Position position)
     {
       throw new System.NotImplementedException();
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace chess.Models
 {
@@ -6,15 +7,14 @@ namespace chess.Models
   {
     public Knight(Colour colour) : base(colour)
     {
-      throw new NotImplementedException();
     }
-    
+
     public override bool CanCollide()
     {
       throw new NotImplementedException();
     }
 
-    public override bool ValidMove(int x1, int y1, int x2, int y2)
+    public override List<Position> ValidMove(Position position)
     {
       throw new NotImplementedException();
     }

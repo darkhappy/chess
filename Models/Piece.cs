@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 
 namespace chess.Models
 {
@@ -8,30 +8,34 @@ namespace chess.Models
 
     protected Piece(Colour colour)
     {
-      throw new System.NotImplementedException();
+      _colour = colour;
     }
 
-    public abstract bool ValidMove(int x1, int y1, int x2, int y2);
+    public abstract List<Position> ValidMove(Position position);
     public new abstract string ToString();
 
     public virtual bool CanCollide()
     {
-      throw new System.NotImplementedException();
+      return true;
     }
 
     public virtual bool CanPromote()
     {
-      throw new System.NotImplementedException();
+      return false;
     }
 
     public virtual bool IsEssential()
     {
-      throw new System.NotImplementedException();
+      return false;
     }
 
     public virtual bool HasMoved()
     {
-      throw new System.NotImplementedException();
+      return true;
+    }
+
+    public virtual void Moved()
+    {
     }
   }
 }
