@@ -11,7 +11,7 @@ namespace chess.Controllers
 
     public PlayerController(Chess main)
     {
-
+      _main = main;
     }
 
     public void Add()

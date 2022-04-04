@@ -56,6 +56,7 @@ namespace chess.Views
       this.BtnNew.TabIndex = 1;
       this.BtnNew.Text = "Wanna play some fun game ^^";
       this.BtnNew.UseVisualStyleBackColor = true;
+      this.BtnNew.Click += new System.EventHandler(this.Start);
       // 
       // BtnManage
       // 
@@ -66,6 +67,7 @@ namespace chess.Views
       this.BtnManage.TabIndex = 2;
       this.BtnManage.Text = "Not enough player? Click here !";
       this.BtnManage.UseVisualStyleBackColor = true;
+      this.BtnManage.Click += new System.EventHandler(this.ManagePlayer);
       // 
       // BtnExit
       // 

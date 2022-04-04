@@ -2,7 +2,7 @@
 
 namespace chess.Views
 {
-  partial class FormLeaderboard
+  partial class FormPlayer
   {
     /// <summary>
     /// Required designer variable.
@@ -31,10 +31,17 @@ namespace chess.Views
     /// </summary>
     private void InitializeComponent()
     {
-      this.components = new System.ComponentModel.Container();
+      this.SuspendLayout();
+      // 
+      // FormPlayer
+      // 
+      this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(800, 450);
-      this.Text = "FormLeaderboard";
+      this.Name = "FormPlayer";
+      this.Text = "FormPlayer";
+      this.ResumeLayout(false);
+
     }
 
     #endregion
