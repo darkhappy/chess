@@ -12,7 +12,7 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <LangVersion>9</LangVersion>
+    <LangVersion>8</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -67,6 +67,7 @@
     <Compile Include="Models\Pawn.cs" />
     <Compile Include="Models\Piece.cs" />
     <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Queen.cs" />
     <Compile Include="Models\Rook.cs" />
     <Compile Include="Models\StartingPiece.cs" />
@@ -133,7 +134,6 @@
     <Content Include="Diagrams\Sequences\FirstClick.puml" />
     <Content Include="Diagrams\Sequences\SecondClick.puml" />
     <Content Include="Documentation\420-C46-JO_TP1_Regles_Echec.pdf" />
-    <Content Include="Documentation\Dictionary\Dictionary.pdf" />
     <Content Include="Documentation\Dictionary\Dictionary.tex" />
     <Content Include="Documentation\Dictionary\images\CHESS.png" />
     <Content Include="Documentation\Information.md" />
