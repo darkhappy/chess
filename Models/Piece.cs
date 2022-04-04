@@ -11,7 +11,10 @@ namespace chess.Models
       _colour = colour;
     }
 
+    public Colour Colour => _colour;
+
     public abstract List<Position> ValidMove(Position position);
+
     public new abstract string ToString();
 
     public virtual bool CanCollide()

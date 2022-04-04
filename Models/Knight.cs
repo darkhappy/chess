@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace chess.Models
@@ -11,7 +10,7 @@ namespace chess.Models
 
     public override bool CanCollide()
     {
-      throw new NotImplementedException();
+      return true;
     }
 
     public override List<Position> ValidMove(Position position)
@@ -34,7 +33,7 @@ namespace chess.Models
 
     public override string ToString()
     {
-      throw new NotImplementedException();
+      return _colour == Colour.Black ? "N" : "n";
     }
   }
 }

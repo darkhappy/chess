@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace chess.Models
@@ -41,12 +40,12 @@ namespace chess.Models
 
     public override string ToString()
     {
-      throw new NotImplementedException();
+      return _colour == Colour.Black ? "P" : "p";
     }
 
     public override bool CanPromote()
     {
-      throw new NotImplementedException();
+      return true;
     }
   }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace chess.Models
@@ -22,7 +21,7 @@ namespace chess.Models
 
     public override string ToString()
     {
-      throw new NotImplementedException();
+      return _colour == Colour.Black ? "Q" : "q";
     }
   }
 }
