@@ -12,6 +12,7 @@ namespace chess.Controllers
 
     FormMenu _frmMenu;
     FormSelection _frmSelect;
+    FormMatch _frmMatch;
 
     /// <summary>
     /// Application entry point
@@ -27,8 +28,10 @@ namespace chess.Controllers
     /// </summary>
     public Chess()
     {
-      _frmMenu = new FormMenu(this);
-      Application.Run(_frmMenu);
+      _frmMatch = new FormMatch();
+      Application.Run(_frmMatch);
+      /*_frmMenu = new FormMenu(this);
+      Application.Run(_frmMenu);*/
     }
 
     /// <summary>
