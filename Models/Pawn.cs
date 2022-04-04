@@ -7,12 +7,36 @@ namespace chess.Models
   {
     public Pawn(Colour colour) : base(colour)
     {
-      throw new NotImplementedException();
     }
 
     public override List<Position> ValidMove(Position position)
     {
-      throw new NotImplementedException();
+      var validMoves = new List<Position>();
+      var x = position.X;
+      var y = position.Y;
+
+      if (_colour == Colour.White)
+      {
+        validMoves.Add(new Position(x, y + 1));
+        validMoves.Add(new Position(x - 1, y + 1));
+        validMoves.Add(new Position(x + 1, y + 1));
+        if (!HasMoved())
+        {
+          validMoves.Add(new Position(x, y + 2));
+        }
+      }
+      else
+      {
+        validMoves.Add(new Position(x, y - 1));
+        validMoves.Add(new Position(x - 1, y - 1));
+        validMoves.Add(new Position(x + 1, y - 1));
+        if (!HasMoved())
+        {
+          validMoves.Add(new Position(x, y - 2));
+        }
+      }
+
+      return validMoves;
     }
 
     public override string ToString()
