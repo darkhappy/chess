@@ -31,12 +31,44 @@ namespace chess.Views
     /// </summary>
     private void InitializeComponent()
     {
-      this.components = new System.ComponentModel.Container();
+      this.ChessBoard = new System.Windows.Forms.Panel();
+      this.PlayerBoard = new System.Windows.Forms.Panel();
+      this.SuspendLayout();
+      // 
+      // ChessBoard
+      // 
+      this.ChessBoard.BackColor = System.Drawing.SystemColors.Control;
+      this.ChessBoard.Location = new System.Drawing.Point(372, 9);
+      this.ChessBoard.Name = "ChessBoard";
+      this.ChessBoard.Size = new System.Drawing.Size(800, 800);
+      this.ChessBoard.TabIndex = 0;
+      this.ChessBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.ChessBoard_Paint);
+      // 
+      // PlayerBoard
+      // 
+      this.PlayerBoard.BackColor = System.Drawing.SystemColors.Control;
+      this.PlayerBoard.Location = new System.Drawing.Point(11, 9);
+      this.PlayerBoard.Name = "PlayerBoard";
+      this.PlayerBoard.Size = new System.Drawing.Size(350, 799);
+      this.PlayerBoard.TabIndex = 1;
+      // 
+      // FormMatch
+      // 
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(800, 450);
+      this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+      this.ClientSize = new System.Drawing.Size(1184, 821);
+      this.Controls.Add(this.PlayerBoard);
+      this.Controls.Add(this.ChessBoard);
+      this.Name = "FormMatch";
       this.Text = "FormMatch";
+      this.ResumeLayout(false);
+
     }
 
     #endregion
+
+    private System.Windows.Forms.Panel ChessBoard;
+    private System.Windows.Forms.Panel PlayerBoard;
   }
 }

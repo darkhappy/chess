@@ -162,6 +162,7 @@ package Views {
     }
     class FormMatch {
         - _controller : GameController
+        - _board : string
         + GridClick(object sender, System.EventArgs e) : void
         + DrawBoard(string board) : void
         + DrawSelection(int cell) : void
