@@ -15,7 +15,7 @@ namespace chess.Views
     public FormMatch()
     {
       InitializeComponent();
-      DrawBoard("");
+      
     }
     public void GridClick(object sender, System.EventArgs e)
     {
@@ -31,8 +31,9 @@ namespace chess.Views
     {
       Graphics boardGraph = ChessBoard.CreateGraphics();
       SolidBrush darkCell = new SolidBrush(Color.DarkGray);
-      boardGraph.DrawRectangle(new Pen(Color.Chocolate), 0, 0, 240, 240);
       float cellDim = ChessBoard.Height / 8;
+      boardGraph.DrawRectangle(new Pen(Color.White), 0, 0, ChessBoard.Height, ChessBoard.Height);
+      
       for (int c = 0; c < 8; c++)
         for (int r = c % 2 == 0 ? 1 : 0; r < 8; r += 2)
           boardGraph.FillRectangle(darkCell, r * cellDim, c * cellDim, cellDim, cellDim);

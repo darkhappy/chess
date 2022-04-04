@@ -16,6 +16,8 @@ namespace chess.Controllers
     FormSelection _frmSelect;
     FormMatch _frmMatch;
 
+    FormMatch _dummyMatch;
+
     /// <summary>
     /// Application entry point
     /// </summary>
@@ -23,6 +25,7 @@ namespace chess.Controllers
     public static void Main()
     {
       Chess chess = new Chess();
+      
     }
 
     /// <summary>
@@ -40,6 +43,7 @@ namespace chess.Controllers
     public void NewGame()
     {
       _frmSelect = new FormSelection();
+   
     }
 
     /// <summary>
