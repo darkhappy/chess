@@ -4,14 +4,17 @@ namespace chess.Models
 {
   public abstract class Piece
   {
-    private Colour _colour;
+    protected Colour _colour;
 
     protected Piece(Colour colour)
     {
       _colour = colour;
     }
 
+    public Colour Colour => _colour;
+
     public abstract List<Position> ValidMove(Position position);
+
     public new abstract string ToString();
 
     public virtual bool CanCollide()

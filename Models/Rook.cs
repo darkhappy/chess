@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace chess.Models
@@ -7,17 +6,28 @@ namespace chess.Models
   {
     public Rook(Colour colour) : base(colour)
     {
-      throw new NotImplementedException();
     }
 
     public override List<Position> ValidMove(Position position)
     {
-      throw new NotImplementedException();
+      var validMoves = new List<Position>();
+      var x = position.X;
+      var y = position.Y;
+
+      for (var i = 1; i < 8; i++)
+      {
+        validMoves.Add(new Position(x, y + i));
+        validMoves.Add(new Position(x, y - i));
+        validMoves.Add(new Position(x + i, y));
+        validMoves.Add(new Position(x - i, y));
+      }
+
+      return validMoves;
     }
 
     public override string ToString()
     {
-      throw new NotImplementedException();
+      return _colour == Colour.Black ? "R" : "r";
     }
   }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace chess.Models
@@ -7,17 +6,22 @@ namespace chess.Models
   {
     public Queen(Colour colour) : base(colour)
     {
-      throw new NotImplementedException();
     }
 
     public override List<Position> ValidMove(Position position)
     {
-      throw new NotImplementedException();
+      var validMoves = new List<Position>();
+
+      // It's basically a bishop and a rook combined.
+      validMoves.AddRange(new Bishop(Colour.Black).ValidMove(position));
+      validMoves.AddRange(new Rook(Colour.Black).ValidMove(position));
+
+      return validMoves;
     }
 
     public override string ToString()
     {
-      throw new NotImplementedException();
+      return _colour == Colour.Black ? "Q" : "q";
     }
   }
 }

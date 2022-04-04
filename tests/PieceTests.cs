@@ -144,6 +144,8 @@ namespace tests
     [TestCase(-4, 0)]
     public void CannotMoveHorizontally(int x, int y)
     {
+      var moves = _knight.ValidMove(new Position(0, 0));
+      Assert.That(moves, Has.No.Member(new Position(x, y)));
     }
 
     [Test]
@@ -328,7 +330,7 @@ namespace tests
     public void CanMoveForwardDiagonally(int x, int y)
     {
       var moves = _pawn.ValidMove(new Position(0, 0));
-      Assert.That(moves, Has.No.Member(new Position(x, y)));
+      Assert.That(moves, Has.Member(new Position(x, y)));
     }
 
     [Test]

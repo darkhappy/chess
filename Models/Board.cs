@@ -7,6 +7,11 @@ namespace chess.Models
   {
     private Cell[] _cell;
 
+    public Board()
+    {
+      throw new NotImplementedException();
+    }
+
     public Board(string board)
     {
       throw new NotImplementedException();

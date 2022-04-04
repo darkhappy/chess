@@ -50,13 +50,7 @@
   <ItemGroup>
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Chess.cs" />
+    <Compile Include="Controllers\Chess.cs" />
     <Compile Include="Models\Bishop.cs" />
     <Compile Include="Models\Board.cs" />
     <Compile Include="Models\Cell.cs" />
@@ -113,6 +107,9 @@
     </Compile>
     <EmbeddedResource Include="Views\FormMatch.resx">
       <DependentUpon>FormMatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\FormMenu.resx">
+      <DependentUpon>FormMenu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
