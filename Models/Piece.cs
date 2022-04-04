@@ -4,7 +4,7 @@ namespace chess.Models
 {
   public abstract class Piece
   {
-    private Colour _colour;
+    protected Colour _colour;
 
     protected Piece(Colour colour)
     {

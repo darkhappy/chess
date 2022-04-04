@@ -11,7 +11,19 @@ namespace chess.Models
 
     public override List<Position> ValidMove(Position position)
     {
-      throw new NotImplementedException();
+      var validMoves = new List<Position>();
+      var x = position.X;
+      var y = position.Y;
+
+      for (var i = 1; i < 8; i++)
+      {
+        validMoves.Add(new Position(x - i, x + i));
+        validMoves.Add(new Position(x + i, y + i));
+        validMoves.Add(new Position(x - i, x - i));
+        validMoves.Add(new Position(x + i, y - i));
+      }
+
+      return validMoves;
     }
 
     public override string ToString()
