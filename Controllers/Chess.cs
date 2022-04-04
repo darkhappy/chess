@@ -10,6 +10,8 @@ namespace chess.Controllers
   {
     List<GameController> _listGames;
 
+    PlayerController _playerController;
+
     FormMenu _frmMenu;
     FormSelection _frmSelect;
     FormMatch _frmMatch;
@@ -28,29 +30,30 @@ namespace chess.Controllers
     /// </summary>
     public Chess()
     {
-      _frmMatch = new FormMatch();
-      Application.Run(_frmMatch);
-      /*_frmMenu = new FormMenu(this);
-      Application.Run(_frmMenu);*/
+      _frmMenu = new FormMenu(this);
+      Application.Run(_frmMenu);
     }
 
     /// <summary>
-    /// Show the form selection to manage player and start a game
+    /// Show the form selection to start a game
     /// </summary>
     public void NewGame()
     {
       _frmSelect = new FormSelection();
     }
 
-    
+    /// <summary>
+    /// Show the form selection to start a game
+    /// </summary>
     public void StartGame(Player[] players)
     {
-      throw new NotImplementedException();
+      _frmSelect.Close();
+      //GameController gameController = new GameController(this);
     }
 
     public void ManagePlayers()
     {
-      
+      _playerController = new PlayerController(this);
     }
 
     /// <summary>

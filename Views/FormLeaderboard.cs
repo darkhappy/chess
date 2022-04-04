@@ -2,9 +2,9 @@
 
 namespace chess.Views
 {
-  public partial class FormLeaderboard : Form
+  public partial class FormPlayer : Form
   {
-    public FormLeaderboard()
+    public FormPlayer()
     {
       InitializeComponent();
     }

@@ -25,11 +25,31 @@ namespace chess.Views
     }
 
     /// <summary>
+    /// Enable the creation of a new game
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void Start(object sender, System.EventArgs e)
+    {
+      _main.NewGame();
+    }
+
+    /// <summary>
+    /// Enable the management of players
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ManagePlayer(object sender, System.EventArgs e)
+    {
+      _main.ManagePlayers();
+    }
+
+    /// <summary>
     /// Exit the application
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void Exit (object sender, System.EventArgs e)
+    private void Exit(object sender, System.EventArgs e)
     {
       _main.Exit();
     }
