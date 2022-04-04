@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
 using chess.Models;
+using chess.Views;
 
 namespace chess.Controllers
 {
   public class PlayerController
   {
-    private List<Player> _list;
-    private Chess _main;
+    List<Player> _list;
+    Chess _main;
+    FormPlayer _frmPlayer;
 
     public PlayerController(Chess main)
     {
       _main = main;
+      _frmPlayer = new FormPlayer();
+      _frmPlayer.Show();
     }
 
     public void Add()

@@ -105,6 +105,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\FormLeaderboard.resx">
+      <DependentUpon>FormLeaderboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormMatch.resx">
       <DependentUpon>FormMatch.cs</DependentUpon>
     </EmbeddedResource>
