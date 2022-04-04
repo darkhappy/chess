@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-
+﻿
 namespace chess.Views
 {
   partial class FormMatch
@@ -7,7 +6,7 @@ namespace chess.Views
     /// <summary>
     /// Required designer variable.
     /// </summary>
-    private IContainer components = null;
+    private System.ComponentModel.IContainer components = null;
 
     /// <summary>
     /// Clean up any resources being used.
@@ -19,7 +18,6 @@ namespace chess.Views
       {
         components.Dispose();
       }
-
       base.Dispose(disposing);
     }
 
@@ -31,12 +29,32 @@ namespace chess.Views
     /// </summary>
     private void InitializeComponent()
     {
-      this.components = new System.ComponentModel.Container();
+      this.panel1 = new System.Windows.Forms.Panel();
+      this.SuspendLayout();
+      // 
+      // panel1
+      // 
+      this.panel1.BackColor = System.Drawing.SystemColors.Control;
+      this.panel1.Location = new System.Drawing.Point(332, 12);
+      this.panel1.Name = "panel1";
+      this.panel1.Size = new System.Drawing.Size(800, 800);
+      this.panel1.TabIndex = 0;
+      // 
+      // FormMatch
+      // 
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(800, 450);
+      this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+      this.ClientSize = new System.Drawing.Size(1144, 826);
+      this.Controls.Add(this.panel1);
+      this.Name = "FormMatch";
       this.Text = "FormMatch";
+      this.ResumeLayout(false);
+
     }
 
     #endregion
+
+    private System.Windows.Forms.Panel panel1;
   }
 }
