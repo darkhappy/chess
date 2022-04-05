@@ -38,16 +38,12 @@ namespace chess.Models
     {
       var originCell = _cell[ConvertToIndex(origin)];
       var targetCell = _cell[ConvertToIndex(target)];
-      var toCheck = PositionsBetween(origin, target, moves);
-      foreach (var position in toCheck)
-      {
-        if (!_cell[ConvertToIndex(position)].IsEmpty())
-        {
-          return false;
-        }
-      }
 
-      return true;
+      if (!originCell.HasCollision())
+        return true;
+
+      var toCheck = PositionsBetween(origin, target, moves);
+      return toCheck.All(position => _cell[ConvertToIndex(position)].IsEmpty());
     }
 
     public List<Position> PositionsBetween(Position origin, Position target, List<Position> allPositions)
@@ -107,14 +103,14 @@ namespace chess.Models
       // Get valid moves
       var cell = _cell[ConvertToIndex(origin)];
       var moves = cell.ValidMove(origin);
+      if (cell.IsEmpty()) return false;
+      if (cell.Colour == _cell[ConvertToIndex(target)].Colour) return false;
 
       if (!moves.Contains(target)) return false;
 
       // Check for collisions
-      if (cell.HasCollision())
-      {
-        return Collision(origin, target, moves);
-      }
+      if (!Collision(origin, target, moves)) return false;
+
 
       return true;
     }
