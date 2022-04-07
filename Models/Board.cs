@@ -56,18 +56,53 @@ namespace chess.Models
         return true;
 
       var toCheck = PositionsBetween(origin, target, moves);
-      return toCheck.All(position => _cells[ConvertToIndex(position)].IsEmpty());
+      return toCheck.Count == 0 || toCheck.All(position => _cells[ConvertToIndex(position)].IsEmpty());
     }
 
     public List<Position> PositionsBetween(Position origin, Position target, List<Position> allPositions)
     {
-      // In the list of all positions, find the positions between the origin and target
-      var positionsBetween =
-        allPositions.Where(p => p.X >= origin.X && p.X <= target.X && p.Y >= origin.Y && p.Y <= target.Y);
-      var positionsBetweenList = positionsBetween.ToList();
-      positionsBetweenList.Remove(origin);
-      positionsBetweenList.Remove(target);
-      return positionsBetweenList;
+      List<Position> positionsBetween = new List<Position>();
+
+      if (origin.X == target.X)
+      {
+        if (origin.Y < target.Y)
+          positionsBetween.AddRange(
+            allPositions.Where(pos => pos.X == origin.X && pos.Y > origin.Y && pos.Y < target.Y));
+        else
+          positionsBetween.AddRange(
+            allPositions.Where(pos => pos.X == origin.X && pos.Y < origin.Y && pos.Y > target.Y));
+      }
+      else if (origin.Y == target.Y)
+      {
+        if (origin.Y < target.Y)
+          positionsBetween.AddRange(
+            allPositions.Where(pos => pos.Y == origin.Y && pos.X > origin.X && pos.X < target.X));
+        else
+          positionsBetween.AddRange(
+            allPositions.Where(pos => pos.Y == origin.Y && pos.X < origin.X && pos.X > target.X));
+      }
+      else if (origin.X > target.X)
+      {
+        if (origin.Y < target.Y)
+          positionsBetween.AddRange(allPositions.Where(pos =>
+            pos.X < origin.X && pos.X > target.X && pos.Y > origin.Y && pos.Y < target.Y));
+        else
+          positionsBetween.AddRange(allPositions.Where(pos =>
+            pos.X < origin.X && pos.X > target.X && pos.Y < origin.Y && pos.Y > target.Y));
+      }
+      else if (origin.X < target.X)
+      {
+        if (origin.Y < target.Y)
+          positionsBetween.AddRange(allPositions.Where(pos =>
+            pos.X > origin.X && pos.X < target.X && pos.Y > origin.Y && pos.Y < target.Y));
+        else
+          positionsBetween.AddRange(allPositions.Where(pos =>
+            pos.X > origin.X && pos.X < target.X && pos.Y < origin.Y && pos.Y > target.Y));
+      }
+
+      positionsBetween.Remove(origin);
+      positionsBetween.Remove(target);
+      return positionsBetween;
     }
 
     private static int ConvertToIndex(Position position)
@@ -170,7 +205,7 @@ namespace chess.Models
 
       // Check if this move self checks you
       var attackers = GetAssailants((Colour) cell.Colour, origin);
-      if (attackers.Count != 0) return false;
+      // if (attackers.Count != 0) return false;
 
       return true;
     }

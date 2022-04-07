@@ -63,7 +63,9 @@ namespace tests
     [TestCase(3, 0, 7, 4)]
     [TestCase(3, 0, 3, 5)]
     [TestCase(7, 0, 0, 0)]
-    public void CantMoveDueToCollision(int x1, int y1, int x2, int y2)
+    [TestCase(3, 0, 0, 3)]
+    [TestCase(3, 0, 6, 3)]
+    public void CantMoveAboveDueToCollision(int x1, int y1, int x2, int y2)
     {
       Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
     }
@@ -72,10 +74,31 @@ namespace tests
     [TestCase(3, 0, 0, 0)]
     [TestCase(0, 3, 0, 0)]
     [TestCase(3, 3, 0, 0)]
-    public void CantMoveDueToCollision2(int x1, int y1, int x2, int y2)
+    public void CantMoveBelowDueToCollision(int x1, int y1, int x2, int y2)
     {
       _board = new Board("kN.Q....NN..............Q..Q....................................");
       Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
+
+    [Test]
+    [TestCase(3, 3, 0, 0)]
+    [TestCase(3, 3, 3, 0)]
+    [TestCase(3, 3, 6, 0)]
+    public void WhitePieceMovingDownwards(int x1, int y1, int x2, int y2)
+    {
+      _board = new Board("P..P..P....................q....................................");
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.True);
+    }
+
+
+    [Test]
+    [TestCase(3, 3, 0, 0)]
+    [TestCase(3, 3, 3, 0)]
+    [TestCase(3, 3, 6, 0)]
+    public void BlackPieceMovingDownwards(int x1, int y1, int x2, int y2)
+    {
+      _board = new Board("p..p..p....................Q....................................");
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.True);
     }
 
     [Test]
