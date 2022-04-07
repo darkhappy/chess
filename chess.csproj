@@ -66,11 +66,11 @@
     <Compile Include="Models\Rook.cs" />
     <Compile Include="Models\StartingPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\FormLeaderboard.cs">
+    <Compile Include="Views\FormPlayer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FormLeaderboard.Designer.cs">
-      <DependentUpon>FormLeaderboard.cs</DependentUpon>
+    <Compile Include="Views\FormPlayer.Designer.cs">
+      <DependentUpon>FormPlayer.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\FormMatch.cs">
       <SubType>Form</SubType>
@@ -105,8 +105,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\FormLeaderboard.resx">
-      <DependentUpon>FormLeaderboard.cs</DependentUpon>
+    <EmbeddedResource Include="Views\FormPlayer.resx">
+      <DependentUpon>FormPlayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormMatch.resx">
       <DependentUpon>FormMatch.cs</DependentUpon>
