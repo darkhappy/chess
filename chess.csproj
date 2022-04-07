@@ -106,6 +106,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\FormLeaderboard.resx">
+      <DependentUpon>FormLeaderboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\FormMatch.resx">
       <DependentUpon>FormMatch.cs</DependentUpon>
     </EmbeddedResource>

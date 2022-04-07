@@ -43,7 +43,6 @@ namespace chess.Controllers
     public void NewGame()
     {
       _frmSelect = new FormSelection();
-   
     }
 
     /// <summary>

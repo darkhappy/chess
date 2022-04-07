@@ -61,8 +61,20 @@ namespace tests
     [TestCase(0, 0, 7, 0)]
     [TestCase(0, 7, 7, 7)]
     [TestCase(3, 0, 7, 4)]
+    [TestCase(3, 0, 3, 5)]
+    [TestCase(7, 0, 0, 0)]
     public void CantMoveDueToCollision(int x1, int y1, int x2, int y2)
     {
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
+
+    [Test]
+    [TestCase(3, 0, 0, 0)]
+    [TestCase(0, 3, 0, 0)]
+    [TestCase(3, 3, 0, 0)]
+    public void CantMoveDueToCollision2(int x1, int y1, int x2, int y2)
+    {
+      _board = new Board("kN.Q....NN..............Q..Q....................................");
       Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
     }
 
@@ -81,6 +93,34 @@ namespace tests
     }
 
     [Test]
+    [TestCase(0, 1, 0, 2)]
+    [TestCase(1, 1, 1, 2)]
+    [TestCase(2, 1, 2, 2)]
+    [TestCase(3, 1, 3, 2)]
+    [TestCase(4, 1, 4, 2)]
+    [TestCase(5, 1, 5, 2)]
+    [TestCase(6, 1, 6, 2)]
+    [TestCase(7, 1, 7, 2)]
+    [TestCase(0, 1, 0, 3)]
+    [TestCase(1, 1, 1, 3)]
+    [TestCase(2, 1, 2, 3)]
+    [TestCase(3, 1, 3, 3)]
+    [TestCase(4, 1, 4, 3)]
+    [TestCase(5, 1, 5, 3)]
+    [TestCase(6, 1, 6, 3)]
+    [TestCase(7, 1, 7, 3)]
+    [TestCase(1, 0, 0, 2)]
+    [TestCase(1, 0, 2, 2)]
+    [TestCase(6, 0, 7, 2)]
+    [TestCase(6, 0, 5, 2)]
+    [TestCase(0, 6, 0, 4)]
+    public void StartingBoardMovement(int x1, int y1, int x2, int y2)
+    {
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.True);
+    }
+
+
+    [Test]
     public void PromotableAtEndRow()
     {
       _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPPPPPPPPP");
@@ -91,6 +131,39 @@ namespace tests
     public void NoPromotable()
     {
       Assert.That(_board.HasPromotable(new Position(7, 7)), Is.False);
+    }
+
+    [Test]
+    [TestCase(0, 2, 7, 3)]
+    [TestCase(2, 3, 4, 5)]
+    public void CantMoveEmptyCell(int x1, int y1, int x2, int y2)
+    {
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
+
+    [Test]
+    [TestCase(0, 0, 0, 1)]
+    [TestCase(3, 0, 2, 1)]
+    public void CantMoveToSameColour(int x1, int y1, int x2, int y2)
+    {
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
+
+    [Test]
+    [TestCase(1, 0, 0, 2)]
+    [TestCase(1, 1, 3, 2)]
+    [TestCase(0, 1, 2, 2)]
+    public void CantMoveDueToSelfcheck(int x1, int y1, int x2, int y2)
+    {
+      /* Assuming that the board is the following:
+       * kn.Q
+       * nn..
+       * ....
+       * Q..Q
+       * Neither knights should be able to move, as it will put the king in check.
+       */
+      _board = new Board("kn.Q....nn..............Q..Q....................................");
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
     }
   }
 }
