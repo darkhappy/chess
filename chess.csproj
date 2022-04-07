@@ -104,6 +104,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Views\FormMatch.resx">
       <DependentUpon>FormMatch.cs</DependentUpon>
@@ -125,6 +126,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Ressources\00.png" />
+    <Content Include="Ressources\01.png" />
+    <Content Include="Ressources\02.png" />
+    <Content Include="Ressources\03.png" />
+    <Content Include="Ressources\04.png" />
+    <Content Include="Ressources\05.png" />
+    <Content Include="Ressources\10.png" />
+    <Content Include="Ressources\11.png" />
+    <Content Include="Ressources\12.png" />
+    <Content Include="Ressources\13.png" />
+    <Content Include="Ressources\14.png" />
+    <Content Include="Ressources\15.png" />
     <Content Include="Diagrams\Class.puml" />
     <Content Include="Diagrams\Leaderboard.puml" />
     <Content Include="Diagrams\Menu.puml" />
