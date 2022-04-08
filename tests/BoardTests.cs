@@ -188,5 +188,28 @@ namespace tests
       _board = new Board("kn.Q....nn..............Q..Q....................................");
       Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
     }
+
+    [Test]
+    [TestCase(1, 1, 0, 0)]
+    [TestCase(1, 1, 1, 2)]
+    [TestCase(1, 1, 2, 1)]
+    public void KingMovesOutOfCheck(int x1, int y1, int x2, int y2)
+    {
+      _board = new Board("R........k.......R..............................................");
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.True);
+    }
+
+    [Test]
+    [TestCase(1, 1, 0, 1)]
+    [TestCase(1, 1, 0, 2)]
+    [TestCase(1, 1, 1, 0)]
+    [TestCase(1, 1, 1, 2)]
+    [TestCase(1, 1, 2, 0)]
+    [TestCase(1, 1, 2, 1)]
+    public void KingMovesIntoCheck(int x1, int y1, int x2, int y2)
+    {
+      _board = new Board("R........k........R.............................................");
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
   }
 }

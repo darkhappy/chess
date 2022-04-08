@@ -141,6 +141,7 @@ namespace chess.Models
     {
       // Get the king's position
       var king = GetEssentialPiece(colour);
+      if (king == -1) return new List<int>();
       return GetAttackingPieces(colour, ConvertToPosition(king), ignore);
     }
 
@@ -148,13 +149,14 @@ namespace chess.Models
     {
       for (var i = 0; i < _cells.Length; i++)
       {
-        if (_cells[i].HasEssential())
+        if (_cells[i].HasEssential() && _cells[i].Colour == colour)
           return i;
       }
 
       return -1;
     }
 
+    // TODO: Fix when the king is moving
     private List<int> GetAttackingPieces(Colour colour, Position target, Position ignore)
     {
       // Get all the opposite colour pieces
@@ -178,8 +180,10 @@ namespace chess.Models
             moves.Remove(position);
         }
 
-        if (!Collision(ConvertToPosition(enemy), target, moves, ignore)) list.Add(enemy);
+        if (Collision(ConvertToPosition(enemy), target, moves, ignore)) list.Add(enemy);
       }
+
+      list.Remove(ConvertToIndex(ignore));
 
       return list;
     }
@@ -205,7 +209,7 @@ namespace chess.Models
 
       // Check if this move self checks you
       var attackers = GetAssailants((Colour) cell.Colour, origin);
-      // if (attackers.Count != 0) return false;
+      if (attackers.Count != 0) return false;
 
       return true;
     }
