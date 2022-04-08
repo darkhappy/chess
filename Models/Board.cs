@@ -6,7 +6,7 @@ namespace chess.Models
 {
   public class Board
   {
-    private Cell[] _cells;
+    private readonly Cell[] _cells;
 
     public Board()
     {
@@ -23,10 +23,7 @@ namespace chess.Models
     private void GenerateBoard(string board)
     {
       var array = board.ToCharArray();
-      for (var i = 0; i < array.Length; i++)
-      {
-        _cells[i] = new Cell(array[i]);
-      }
+      for (var i = 0; i < array.Length; i++) _cells[i] = new Cell(array[i]);
     }
 
     public override string ToString()
@@ -61,7 +58,7 @@ namespace chess.Models
 
     public List<Position> PositionsBetween(Position origin, Position target, List<Position> allPositions)
     {
-      List<Position> positionsBetween = new List<Position>();
+      var positionsBetween = new List<Position>();
 
       if (origin.X == target.X)
       {
@@ -148,10 +145,8 @@ namespace chess.Models
     private int GetEssentialPiece(Colour colour)
     {
       for (var i = 0; i < _cells.Length; i++)
-      {
         if (_cells[i].HasEssential() && _cells[i].Colour == colour)
           return i;
-      }
 
       return -1;
     }
@@ -164,10 +159,8 @@ namespace chess.Models
       var enemies = new List<int>();
 
       for (var i = 0; i < _cells.Length; i++)
-      {
         if (_cells[i].Colour == enemyColour)
           enemies.Add(i);
-      }
 
       var list = new List<int>();
       foreach (var enemy in enemies)
@@ -175,10 +168,8 @@ namespace chess.Models
         var moves = _cells[enemy].ValidMove(ConvertToPosition(enemy));
         if (!moves.Contains(target)) continue;
         foreach (var position in moves.ToList())
-        {
           if (position.X < 0 || position.X > 7 || position.Y < 0 || position.Y > 7)
             moves.Remove(position);
-        }
 
         if (Collision(ConvertToPosition(enemy), target, moves, ignore)) list.Add(enemy);
       }
@@ -199,10 +190,8 @@ namespace chess.Models
 
       if (!moves.Contains(target)) return false;
       foreach (var position in moves.ToList())
-      {
         if (position.X < 0 || position.X > 7 || position.Y < 0 || position.Y > 7)
           moves.Remove(position);
-      }
 
       // Check for collisions
       if (!Collision(origin, target, moves)) return false;
