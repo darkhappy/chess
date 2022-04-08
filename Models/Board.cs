@@ -151,7 +151,6 @@ namespace chess.Models
       return -1;
     }
 
-    // TODO: Fix when the king is moving
     private List<int> GetAttackingPieces(Colour colour, Position target, Position ignore)
     {
       // Get all the opposite colour pieces
@@ -186,21 +185,20 @@ namespace chess.Models
       if (cell.IsEmpty()) return false;
       if (cell.Colour == null) return false;
       if (cell.Colour == _cells[ConvertToIndex(target)].Colour) return false;
-      var moves = cell.ValidMove(origin);
 
+      var moves = cell.ValidMove(origin);
       if (!moves.Contains(target)) return false;
-      foreach (var position in moves.ToList())
-        if (position.X < 0 || position.X > 7 || position.Y < 0 || position.Y > 7)
-          moves.Remove(position);
+      moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
 
       // Check for collisions
       if (!Collision(origin, target, moves)) return false;
 
       // Check if this move self checks you
-      var attackers = GetAssailants((Colour) cell.Colour, origin);
-      if (attackers.Count != 0) return false;
+      var attackers = cell.HasEssential()
+        ? GetAttackingPieces((Colour) cell.Colour, target, origin)
+        : GetAssailants((Colour) cell.Colour, origin);
 
-      return true;
+      return attackers.Count == 0;
     }
 
     public void MoveCellTo(Position origin, Position target)
