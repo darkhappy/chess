@@ -10,39 +10,54 @@ namespace chess.Models
     private List<string> _history;
     private int _turnCount;
 
+    public Match()
+    {
+      _current = Colour.White;
+      _history = new List<string>();
+      _turnCount = 0;
+      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBKQBNR");
+    }
+
+    public Colour CurrentPlayer => _current;
+
     public string ExportBoard()
     {
-      throw new NotImplementedException();
+      return _board.ToString();
     }
 
     public List<string> ExportHistory()
     {
-      throw new NotImplementedException();
+      return _history;
     }
 
-    public bool ValidTurn(int origin, int target)
+    public bool ValidTurn(Position origin, Position target)
     {
-      throw new NotImplementedException();
+      return _board.ValidMove(origin, target);
     }
 
-    public void MakeTurn(int origin, int target)
+    public void MakeTurn(Position origin, Position target)
     {
-      throw new NotImplementedException();
+      _board.MoveCellTo(origin, target);
+      _current = _current == Colour.White ? Colour.Black : Colour.White;
+      _turnCount++;
     }
 
-    public bool ValidSelection(int cell, bool firstClick)
+    public bool ValidSelection(Position cell, bool firstClick)
     {
-      throw new NotImplementedException();
+      if (firstClick)
+        return _board.SameColour(cell, _current);
+      return !_board.SameColour(cell, _current);
     }
 
-    public bool HasPromotable(int cell)
+    public bool HasPromotable(Position cell)
     {
-      throw new NotImplementedException();
+      return _board.HasPromotable(cell);
     }
 
     public bool Check()
     {
-      throw new NotImplementedException();
+      var attackers = _board.GetAssailants(_current);
+      return attackers.Count > 0;
     }
 
     public bool Checkmate()
