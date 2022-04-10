@@ -81,5 +81,46 @@ namespace tests
       _match.MakeTurn(new Position(0, 0), new Position(1, 1));
       Assert.That(_match.ValidSelection(new Position(x, y), first), Is.False);
     }
+
+
+    [Test]
+    [TestCase(1, 0, 0, 2)]
+    [TestCase(1, 1, 3, 2)]
+    [TestCase(0, 1, 2, 2)]
+    public void CantMoveDueToSelfcheck(int x1, int y1, int x2, int y2)
+    {
+      /* Assuming that the board is the following:
+       * kn.Q
+       * nn..
+       * ....
+       * Q..Q
+       * Neither knights should be able to move, as it will put the king in check.
+       */
+      _match.ChangeBoard("kn.Q....nn..............Q..Q....................................");
+      Assert.That(_match.ValidTurn(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
+
+    [Test]
+    [TestCase(1, 1, 0, 0)]
+    [TestCase(1, 1, 1, 2)]
+    [TestCase(1, 1, 2, 1)]
+    public void KingMovesOutOfCheck(int x1, int y1, int x2, int y2)
+    {
+      _match.ChangeBoard("R........k.......R..............................................");
+      Assert.That(_match.ValidTurn(new Position(x1, y1), new Position(x2, y2)), Is.True);
+    }
+
+    [Test]
+    [TestCase(1, 1, 0, 1)]
+    [TestCase(1, 1, 0, 2)]
+    [TestCase(1, 1, 1, 0)]
+    [TestCase(1, 1, 1, 2)]
+    [TestCase(1, 1, 2, 0)]
+    [TestCase(1, 1, 2, 1)]
+    public void KingMovesIntoCheck(int x1, int y1, int x2, int y2)
+    {
+      _match.ChangeBoard("R........k........R.............................................");
+      Assert.That(_match.ValidTurn(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
   }
 }

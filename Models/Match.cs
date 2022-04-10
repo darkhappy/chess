@@ -32,7 +32,7 @@ namespace chess.Models
 
     public bool ValidTurn(Position origin, Position target)
     {
-      return _board.ValidMove(origin, target);
+      return _board.ValidMove(origin, target) && _board.SelfChecks(origin, target);
     }
 
     public void MakeTurn(Position origin, Position target)
@@ -78,6 +78,11 @@ namespace chess.Models
     public List<int> GetAssailants(int cell)
     {
       throw new NotImplementedException();
+    }
+
+    public void ChangeBoard(string board)
+    {
+      _board = new Board(board);
     }
   }
 }
