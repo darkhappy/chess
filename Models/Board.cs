@@ -78,7 +78,7 @@ namespace chess.Models
       else if (origin.Y == target.Y)
       {
         positionsBetween.AddRange(
-          origin.Y < target.Y
+          origin.X < target.X
             ? allPositions.Where(pos => SameColumn(pos) && RightColumn(pos))
             : allPositions.Where(pos => SameColumn(pos) && LeftColumn(pos))
         );
@@ -117,12 +117,9 @@ namespace chess.Models
       return new Position(x, y);
     }
 
-    public bool SameColour(Position origin, Position target)
+    public bool SameColour(Position origin, Colour colour)
     {
-      var originIndex = ConvertToIndex(origin);
-      var targetIndex = ConvertToIndex(target);
-
-      return _cells[originIndex].Colour == _cells[targetIndex].Colour;
+      return _cells[ConvertToIndex(origin)].Colour == colour;
     }
 
     public bool IsEssentialExposed(Colour colour)
@@ -143,6 +140,14 @@ namespace chess.Models
       return GetAttackingPieces(colour, ConvertToPosition(king), ignore);
     }
 
+    public List<int> GetAssailants(Colour colour)
+    {
+      // Get the king's position
+      var king = GetEssentialPiece(colour);
+      if (king == -1) return new List<int>();
+      return GetAttackingPieces(colour, ConvertToPosition(king));
+    }
+
     private int GetEssentialPiece(Colour colour)
     {
       for (var i = 0; i < _cells.Length; i++)
@@ -150,6 +155,31 @@ namespace chess.Models
           return i;
 
       return -1;
+    }
+
+    private List<int> GetAttackingPieces(Colour colour, Position target)
+    {
+      // Get all the opposite colour pieces
+      var enemyColour = colour == Colour.Black ? Colour.White : Colour.Black;
+      var enemies = new List<int>();
+
+      for (var i = 0; i < _cells.Length; i++)
+        if (_cells[i].Colour == enemyColour)
+          enemies.Add(i);
+
+      var list = new List<int>();
+      foreach (var enemy in enemies)
+      {
+        var moves = _cells[enemy].ValidMove(ConvertToPosition(enemy));
+        if (!moves.Contains(target)) continue;
+        foreach (var position in moves.ToList())
+          if (position.X < 0 || position.X > 7 || position.Y < 0 || position.Y > 7)
+            moves.Remove(position);
+
+        if (Collision(ConvertToPosition(enemy), target, moves)) list.Add(enemy);
+      }
+
+      return list;
     }
 
     private List<int> GetAttackingPieces(Colour colour, Position target, Position ignore)
@@ -206,6 +236,23 @@ namespace chess.Models
     {
       _cells[ConvertToIndex(target)] = _cells[ConvertToIndex(origin)];
       _cells[ConvertToIndex(origin)] = new Cell('.');
+    }
+
+    public Cell[][] ConvertTo2D()
+    {
+      var array = _cells;
+      var result = new Cell[8][];
+      for (var i = 0; i < result.Length; i++)
+        result[i] = new Cell[8];
+
+      for (var i = 0; i < array.Length; i++)
+      {
+        var x = i % 8;
+        var y = i / 8;
+        result[y][x] = array[i];
+      }
+
+      return result;
     }
   }
 }

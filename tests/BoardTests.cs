@@ -42,19 +42,19 @@ namespace tests
     }
 
     [Test]
-    [TestCase(0, 0, 7, 0)]
-    [TestCase(0, 7, 7, 7)]
-    public void CellsHaveSameColour(int x1, int y1, int x2, int y2)
+    [TestCase(0, 0, Colour.White)]
+    [TestCase(0, 7, Colour.Black)]
+    public void CellHasThisColour(int x1, int y1, Colour colour)
     {
-      Assert.That(_board.SameColour(new Position(x1, y1), new Position(x2, y2)), Is.True);
+      Assert.That(_board.SameColour(new Position(x1, y1), colour), Is.True);
     }
 
     [Test]
-    [TestCase(0, 0, 0, 7)]
-    [TestCase(7, 0, 7, 7)]
-    public void CellsHaveDifferentColour(int x1, int y1, int x2, int y2)
+    [TestCase(0, 0, Colour.Black)]
+    [TestCase(0, 7, Colour.White)]
+    public void CellDoesNotHaveThisColour(int x1, int y1, Colour colour)
     {
-      Assert.That(_board.SameColour(new Position(x1, y1), new Position(x2, y2)), Is.False);
+      Assert.That(_board.SameColour(new Position(x1, y1), colour), Is.False);
     }
 
     [Test]
@@ -222,6 +222,17 @@ namespace tests
     {
       _board = new Board("K......k.pR......QBN............................................");
       Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.True);
+    }
+
+    [Test]
+    public void WeirdCase1()
+    {
+      _board.MoveCellTo(new Position(3, 0), new Position(0, 2));
+      _board.MoveCellTo(new Position(3, 1), new Position(3, 2));
+      _board.MoveCellTo(new Position(4, 1), new Position(4, 2));
+      _board.MoveCellTo(new Position(5, 1), new Position(5, 2));
+      _board.MoveCellTo(new Position(6, 1), new Position(6, 2));
+      Assert.That(_board.ValidMove(new Position(0, 2), new Position(7, 2)), Is.False);
     }
   }
 }
