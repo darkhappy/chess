@@ -211,5 +211,17 @@ namespace tests
       _board = new Board("R........k........R.............................................");
       Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
     }
+
+    [Test]
+    [TestCase(0, 0, 1, 1)]
+    [TestCase(2, 1, 1, 1)]
+    [TestCase(1, 2, 1, 1)]
+    [TestCase(2, 2, 1, 1)]
+    [TestCase(3, 2, 1, 1)]
+    public void CapturePiece(int x1, int y1, int x2, int y2)
+    {
+      _board = new Board("K......k.pR......QBN............................................");
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.True);
+    }
   }
 }

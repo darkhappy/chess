@@ -47,7 +47,6 @@ namespace chess.Models
     public bool Collision(Position origin, Position target, List<Position> moves)
     {
       var originCell = _cells[ConvertToIndex(origin)];
-      var targetCell = _cells[ConvertToIndex(target)];
 
       if (!originCell.HasCollision())
         return true;
@@ -60,45 +59,47 @@ namespace chess.Models
     {
       var positionsBetween = new List<Position>();
 
+      // Verifications
+      bool SameRow(Position pos) => pos.X == origin.X;
+      bool AboveRow(Position pos) => pos.Y > origin.Y && pos.Y < target.Y;
+      bool BelowRow(Position pos) => pos.Y < origin.Y && pos.Y > target.Y;
+      bool SameColumn(Position pos) => pos.Y == origin.Y;
+      bool LeftColumn(Position pos) => pos.X < origin.X && pos.X > target.X;
+      bool RightColumn(Position pos) => pos.X > origin.X && pos.X < target.X;
+
       if (origin.X == target.X)
       {
-        if (origin.Y < target.Y)
-          positionsBetween.AddRange(
-            allPositions.Where(pos => pos.X == origin.X && pos.Y > origin.Y && pos.Y < target.Y));
-        else
-          positionsBetween.AddRange(
-            allPositions.Where(pos => pos.X == origin.X && pos.Y < origin.Y && pos.Y > target.Y));
+        positionsBetween.AddRange(
+          origin.Y < target.Y
+            ? allPositions.Where(pos => SameRow(pos) && AboveRow(pos))
+            : allPositions.Where(pos => SameRow(pos) && BelowRow(pos))
+        );
       }
       else if (origin.Y == target.Y)
       {
-        if (origin.Y < target.Y)
-          positionsBetween.AddRange(
-            allPositions.Where(pos => pos.Y == origin.Y && pos.X > origin.X && pos.X < target.X));
-        else
-          positionsBetween.AddRange(
-            allPositions.Where(pos => pos.Y == origin.Y && pos.X < origin.X && pos.X > target.X));
+        positionsBetween.AddRange(
+          origin.Y < target.Y
+            ? allPositions.Where(pos => SameColumn(pos) && RightColumn(pos))
+            : allPositions.Where(pos => SameColumn(pos) && LeftColumn(pos))
+        );
       }
       else if (origin.X > target.X)
       {
-        if (origin.Y < target.Y)
-          positionsBetween.AddRange(allPositions.Where(pos =>
-            pos.X < origin.X && pos.X > target.X && pos.Y > origin.Y && pos.Y < target.Y));
-        else
-          positionsBetween.AddRange(allPositions.Where(pos =>
-            pos.X < origin.X && pos.X > target.X && pos.Y < origin.Y && pos.Y > target.Y));
+        positionsBetween.AddRange(
+          origin.Y < target.Y
+            ? allPositions.Where(pos => AboveRow(pos) && LeftColumn(pos))
+            : allPositions.Where(pos => BelowRow(pos) && LeftColumn(pos))
+        );
       }
       else if (origin.X < target.X)
       {
-        if (origin.Y < target.Y)
-          positionsBetween.AddRange(allPositions.Where(pos =>
-            pos.X > origin.X && pos.X < target.X && pos.Y > origin.Y && pos.Y < target.Y));
-        else
-          positionsBetween.AddRange(allPositions.Where(pos =>
-            pos.X > origin.X && pos.X < target.X && pos.Y < origin.Y && pos.Y > target.Y));
+        positionsBetween.AddRange(
+          origin.Y < target.Y
+            ? allPositions.Where(pos => AboveRow(pos) && RightColumn(pos))
+            : allPositions.Where(pos => BelowRow(pos) && RightColumn(pos))
+        );
       }
 
-      positionsBetween.Remove(origin);
-      positionsBetween.Remove(target);
       return positionsBetween;
     }
 
