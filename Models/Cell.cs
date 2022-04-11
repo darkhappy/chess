@@ -7,13 +7,6 @@ namespace chess.Models
     private Piece? _piece;
 
     /// <summary>
-    /// Create a new cell
-    /// </summary>
-    public Cell()
-    {
-    }
-
-    /// <summary>
     /// Create a new cell with a piece within
     /// </summary>
     /// <param name="piece"></param>
@@ -41,15 +34,6 @@ namespace chess.Models
     /// Return the piece color in the cell
     /// </summary>
     public Colour? Colour => _piece?.Colour;
-
-    /// <summary>
-    /// Get or set a piece in the cell
-    /// </summary>
-    public Piece? Piece
-    {
-      get => _piece;
-      set => _piece = value;
-    }
 
     /// <summary>
     /// Check if the cell is empty

@@ -186,6 +186,7 @@ namespace tests
     [Test]
     [TestCase(4, 0)]
     [TestCase(-4, 0)]
+    [TestCase(7, 0)]
     public void CanMoveHorizontally(int x, int y)
     {
       var moves = _queen.ValidMove(new Position(0, 0));
@@ -206,6 +207,7 @@ namespace tests
     [TestCase(-4, 4)]
     [TestCase(4, -4)]
     [TestCase(-4, -4)]
+    [TestCase(7, 7)]
     public void CanMoveDiagonally(int x, int y)
     {
       var moves = _queen.ValidMove(new Position(0, 0));

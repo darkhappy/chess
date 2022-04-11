@@ -10,7 +10,7 @@ namespace chess.Models
 
     public override bool CanCollide()
     {
-      return true;
+      return false;
     }
 
     public override List<Position> ValidMove(Position position)

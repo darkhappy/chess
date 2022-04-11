@@ -34,7 +34,7 @@ namespace chess.Views
       this.LabTitle = new System.Windows.Forms.Label();
       this.btnNew = new System.Windows.Forms.Button();
       this.btnDelete = new System.Windows.Forms.Button();
-      this.btnExit = new System.Windows.Forms.Button();
+      this.btnBack = new System.Windows.Forms.Button();
       this.listPlayer = new System.Windows.Forms.ListView();
       this.SuspendLayout();
       // 
@@ -69,15 +69,16 @@ namespace chess.Views
       this.btnDelete.Text = "Delete selected";
       this.btnDelete.UseVisualStyleBackColor = true;
       // 
-      // btnExit
+      // btnBack
       // 
-      this.btnExit.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold);
-      this.btnExit.Location = new System.Drawing.Point(239, 706);
-      this.btnExit.Name = "btnExit";
-      this.btnExit.Size = new System.Drawing.Size(299, 60);
-      this.btnExit.TabIndex = 4;
-      this.btnExit.Text = "Exit";
-      this.btnExit.UseVisualStyleBackColor = true;
+      this.btnBack.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold);
+      this.btnBack.Location = new System.Drawing.Point(239, 706);
+      this.btnBack.Name = "btnBack";
+      this.btnBack.Size = new System.Drawing.Size(299, 60);
+      this.btnBack.TabIndex = 4;
+      this.btnBack.Text = "Back";
+      this.btnBack.UseVisualStyleBackColor = true;
+      this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
       // 
       // listPlayer
       // 
@@ -94,7 +95,7 @@ namespace chess.Views
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(800, 772);
       this.Controls.Add(this.listPlayer);
-      this.Controls.Add(this.btnExit);
+      this.Controls.Add(this.btnBack);
       this.Controls.Add(this.btnDelete);
       this.Controls.Add(this.btnNew);
       this.Controls.Add(this.LabTitle);
@@ -111,7 +112,7 @@ namespace chess.Views
     private System.Windows.Forms.Label LabTitle;
     private System.Windows.Forms.Button btnNew;
     private System.Windows.Forms.Button btnDelete;
-    private System.Windows.Forms.Button btnExit;
+    private System.Windows.Forms.Button btnBack;
     private System.Windows.Forms.ListView listPlayer;
   }
 }
