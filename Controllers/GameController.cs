@@ -1,5 +1,6 @@
 using System;
 using chess.Models;
+using chess.Views;
 
 namespace chess.Controllers
 {
@@ -12,9 +13,12 @@ namespace chess.Controllers
     private Player _playerB;
     private int _selected;
 
+    FormMatch _formMatch;
+
     public GameController(Player a, Player b)
     {
-      throw new NotImplementedException();
+      _formMatch = new FormMatch();
+      _formMatch.Show();
     }
 
     public void Selection(Position cell)

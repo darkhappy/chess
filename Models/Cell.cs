@@ -85,5 +85,13 @@ namespace chess.Models
     {
       return _piece == null ? "." : _piece.ToString();
     }
+
+    public void Moved()
+    {
+      if (_piece != null)
+      {
+        _piece.Moved();
+      }
+    }
   }
 }
