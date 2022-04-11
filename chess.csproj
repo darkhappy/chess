@@ -71,34 +71,47 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\FormPlayer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormPlayer.Designer.cs">
+      <DependentUpon>FormPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FormMatch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\FormMatch.Designer.cs">
-      <DependentUpon>FormMatch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FormMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\FormMenu.Designer.cs">
-      <DependentUpon>FormMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FormPromotion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\FormPromotion.Designer.cs">
-      <DependentUpon>FormPromotion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FormSelection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\FormSelection.Designer.cs">
+      <Compile Include="Views\FormMatch.Designer.cs">
+          <DependentUpon>FormMatch.cs</DependentUpon>
+      </Compile>
+      <Compile Include="Views\FormMenu.cs">
+          <SubType>Form</SubType>
+      </Compile>
+      <Compile Include="Views\FormMenu.Designer.cs">
+          <DependentUpon>FormMenu.cs</DependentUpon>
+      </Compile>
+      <Compile Include="Views\FormPromotion.cs">
+          <SubType>Form</SubType>
+      </Compile>
+      <Compile Include="Views\FormPromotion.Designer.cs">
+          <DependentUpon>FormPromotion.cs</DependentUpon>
+      </Compile>
+      <Compile Include="Views\FormSelection.cs">
+          <SubType>Form</SubType>
+      </Compile>
+      <Compile Include="Views\FormSelection.Designer.cs">
       <DependentUpon>FormSelection.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Views\FormPlayer.resx">
+      <DependentUpon>FormPlayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FormMatch.resx">
       <DependentUpon>FormMatch.cs</DependentUpon>
