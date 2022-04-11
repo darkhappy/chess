@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using chess.Models;
 
 namespace chess.Views
 {
@@ -14,19 +15,39 @@ namespace chess.Views
   {
     private GameController _controller;
     private string _board;
-    public FormMatch()//GameController controller
+    public FormMatch(GameController controller)
     {
       InitializeComponent();
-        //_controller = controller;
-        //_board = _controller.GetBoard();
+        _controller = controller;
+        _board = _controller.GetBoard();
 
     }
-    public void GridClick(object sender, System.EventArgs e)
+    private void GridClick(object sender, EventArgs e)
     {
+      
+      var props = (MouseEventArgs)e;
+      var image = (Panel)sender;
+      var x = props.X/(image.Height/8);
+      var y = Math.Abs(props.Y-(image.Height))/(8*image.Height);
+
+      var pos = new Position(x, y);
+
+      _controller.Selection(pos);
+    }
+
+    public void DrawSelection(Position pos) {
+
+      Graphics boardGraph = ChessBoard.CreateGraphics();
+
+      var x = pos.X*(ChessBoard.Height/8);
+
+      var y = Math.Abs(pos.Y-7) * (ChessBoard.Height / 8);
+
+      boardGraph.DrawRectangle(new Pen(Color.CadetBlue, 4.0F), x, y, ChessBoard.Height / 8, ChessBoard.Height / 8);
 
     }
 
-    public void DrawBoard(string board)
+    private void DrawBoard(string board)
     {
       Bitmap imgPiece = null;
       Graphics boardGraph = ChessBoard.CreateGraphics();
@@ -102,6 +123,7 @@ namespace chess.Views
           }
         }
       }
+      DrawSelection(new Position(5, 1));
     }
 
     private void ChessBoard_Paint(object sender, PaintEventArgs e)

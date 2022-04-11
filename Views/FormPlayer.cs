@@ -65,7 +65,7 @@ namespace chess.Views
     /// <param name="e"></param>
     private void btnBack_Click(object sender, System.EventArgs e)
     {
-      _controller.Back();
+      //_controller.Back();
     }
 
     /// <summary>

@@ -21,12 +21,17 @@ namespace chess.Controllers
       _formMatch.Show();
     }
 
-    public void Selection(int cell)
+    public void Selection(Position cell)
     {
       throw new NotImplementedException();
     }
 
     private void Turn(int origin, int target)
+    {
+      throw new NotImplementedException();
+    }
+
+    internal string GetBoard()
     {
       throw new NotImplementedException();
     }
