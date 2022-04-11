@@ -40,5 +40,15 @@ namespace chess.Models
     public virtual void Moved()
     {
     }
+
+    public virtual bool CanOnlyMoveForward()
+    {
+      return false;
+    }
+
+    public virtual bool CanOnlyAttackDiagonally()
+    {
+      return false;
+    }
   }
 }

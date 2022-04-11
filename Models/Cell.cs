@@ -93,5 +93,15 @@ namespace chess.Models
         _piece.Moved();
       }
     }
+
+    public bool CanOnlyAttackDiagonally()
+    {
+      return _piece != null && _piece.CanOnlyAttackDiagonally();
+    }
+
+    public bool CanOnlyMoveForward()
+    {
+      return _piece != null && _piece.CanOnlyMoveForward();
+    }
   }
 }

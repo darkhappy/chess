@@ -47,5 +47,15 @@ namespace chess.Models
     {
       return true;
     }
+
+    public override bool CanOnlyAttackDiagonally()
+    {
+      return true;
+    }
+
+    public override bool CanOnlyMoveForward()
+    {
+      return true;
+    }
   }
 }

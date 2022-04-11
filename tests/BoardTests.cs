@@ -205,5 +205,32 @@ namespace tests
       _board.MoveCellTo(new Position(6, 1), new Position(6, 2));
       Assert.That(_board.ValidMove(new Position(0, 2), new Position(7, 2)), Is.False);
     }
+
+    [Test]
+    [TestCase(1, 1, 2, 1)]
+    [TestCase(1, 1, 0, 1)]
+    public void PawnCantMoveInDiagonal(int x1, int y1, int x2, int y2)
+    {
+      Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
+
+
+    [Test]
+    [TestCase(2, 1)]
+    [TestCase(0, 1)]
+    public void PawnCanAttackInDiagonal(int x, int y)
+    {
+      _board = new Board(".p......P.P.....................................................");
+      Assert.That(_board.ValidMove(new Position(1, 0), new Position(x, y)), Is.True);
+    }
+
+    [Test]
+    [TestCase(0, 1)]
+    [TestCase(0, 2)]
+    public void PawnCantAttackForward(int x, int y)
+    {
+      _board = new Board("p.......P.......P...............................................");
+      Assert.That(_board.ValidMove(new Position(1, 0), new Position(x, y)), Is.False);
+    }
   }
 }
