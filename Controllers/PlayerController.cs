@@ -13,9 +13,10 @@ namespace chess.Controllers
     Chess _main;
     FormPlayer _frmPlayer;
 
-    StreamWriter _sw;
-    StreamReader _sr;
-
+    /// <summary>
+    /// Initialize the PlayerController with its controller
+    /// </summary>
+    /// <param name="main"></param>
     public PlayerController(Chess main)
     {
       _main = main;
@@ -23,46 +24,91 @@ namespace chess.Controllers
       _frmPlayer = new FormPlayer(this);
       _frmPlayer.Show();
 
+      /*
       _list.Add(new Player("Raph", 5, 0, 1000));
       _list.Add(new Player("Louis", 0, 1000, -9999));
       _list.Add(new Player("Jean-Philipette", 100, 100, 1));
+      */
 
-      _sw = new StreamWriter("players.txt", true);
-      using (_sw)
-      {
-        foreach (Player player in _list)
-        {
-          _sw.WriteLine(ObjectToString(player));
-        }
-      }
-      _sw.Close();
-
-      _sr = new StreamReader("players.txt", true);
-      using (_sr)
+      //Adding all player to the list and to the listView
+      StreamReader sr = new StreamReader("players.txt", true);
+      using (sr)
       {
         string line;
-        while ((line = _sr.ReadLine()) != null)
+        while ((line = sr.ReadLine()) != null)
         {
+          _list.Add((Player)StringToObject(line));
           _frmPlayer.AddPlayer((Player)StringToObject(line));
         }
       }
-      _sr.Close();
+      sr.Close();
     }
 
-    public void Add()
+    /// <summary>
+    /// Add a player with its name
+    /// </summary>
+    /// <param name="name"></param>
+    public void Add(string name)
     {
+      Player newPlayer = new Player(name);
 
-      throw new NotImplementedException();
+      _list.Add(newPlayer);
+      _frmPlayer.AddPlayer(newPlayer);
+      StreamWriter sw = new StreamWriter("players.txt", true);
+
+      using (sw)
+        sw.WriteLine(ObjectToString(newPlayer));
+      
+      sw.Close();
     }
 
-    public void Remove()
+    /// <summary>
+    /// Remove a player
+    /// </summary>
+    /// <param name="index"></param>
+    public void Remove(int index)
     {
-      throw new NotImplementedException();
+      string line = null;
+
+      using (StreamReader reader = new StreamReader("players.txt"))
+      {
+        using (StreamWriter writer = new StreamWriter("newPlayers.txt"))
+        {
+          while ((line = reader.ReadLine()) != null)
+          {
+            if (String.Compare(line, ObjectToString(_list[index])) == 0)
+              continue;
+
+            writer.WriteLine(line);
+          }
+        }
+      }
+
+      File.Delete("players.txt");
+      File.Move("newPlayers.txt", "players.txt");
+
+      _list.RemoveAt(index);
     }
 
+    /// <summary>
+    /// Check if a player exists by its name
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool Exists(string name)
+    {
+      foreach (Player player in _list)
+        if (player.Name == name) return true;
+
+      return false;
+    }
+
+    /// <summary>
+    /// Close the player form
+    /// </summary>
     public void Back()
     {
-
+      _frmPlayer.Close();
     }
 
     /// <summary>
