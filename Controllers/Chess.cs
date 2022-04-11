@@ -33,8 +33,9 @@ namespace chess.Controllers
     /// </summary>
     public Chess()
     {
-      _frmMenu = new FormMenu(this);
-      Application.Run(_frmMenu);
+      //_frmMenu = new FormMenu(this);
+      _dummyMatch = new FormMatch();
+      Application.Run(_dummyMatch);
     }
 
     /// <summary>

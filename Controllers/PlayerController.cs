@@ -9,13 +9,13 @@ namespace chess.Controllers
   {
     List<Player> _list;
     Chess _main;
-    FormPlayer _frmPlayer;
+    //FormPlayer _frmPlayer;
 
     public PlayerController(Chess main)
     {
       _main = main;
-      _frmPlayer = new FormPlayer();
-      _frmPlayer.Show();
+     // _frmPlayer = new FormPlayer();
+     // _frmPlayer.Show();
     }
 
     public void Add()
