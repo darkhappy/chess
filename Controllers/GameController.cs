@@ -11,29 +11,49 @@ namespace chess.Controllers
     private Match _match;
     private Player _playerA;
     private Player _playerB;
-    private int _selected;
+    private Position _selected;
 
     FormMatch _formMatch;
 
     public GameController(Player a, Player b)
     {
-      _formMatch = new FormMatch();
+      _match = new Match();
+      _formMatch = new FormMatch(this);
+      _selected = new Position(-1, -1);
       _formMatch.Show();
     }
 
     public void Selection(Position cell)
     {
-      throw new NotImplementedException();
+      if (_selected.X == -1)
+      {
+        if (_match.ValidSelection(cell, true))
+        {
+          _formMatch.DrawSelection(cell);
+          _selected = cell;
+        }
+      }
+      else if (_match.ValidSelection(cell, false))
+      {
+        //this.Turn(cell);
+
+      }
+      else
+      {
+        _formMatch.DrawSelection(cell);
+        _selected = cell;
+      }
+
     }
 
-    private void Turn(int origin, int target)
+    private void Turn(Position target)
     {
       throw new NotImplementedException();
     }
 
-    internal string GetBoard()
+    public string GetBoard()
     {
-      throw new NotImplementedException();
+      return _match.ExportBoard();
     }
 
     private void Stalemate()
