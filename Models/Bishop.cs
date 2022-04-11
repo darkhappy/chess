@@ -16,9 +16,9 @@ namespace chess.Models
 
       for (var i = 1; i < 8; i++)
       {
-        validMoves.Add(new Position(x - i, x + i));
+        validMoves.Add(new Position(x - i, y + i));
         validMoves.Add(new Position(x + i, y + i));
-        validMoves.Add(new Position(x - i, x - i));
+        validMoves.Add(new Position(x - i, y - i));
         validMoves.Add(new Position(x + i, y - i));
       }
 

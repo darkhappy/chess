@@ -122,5 +122,28 @@ namespace tests
       _match.ChangeBoard("R........k........R.............................................");
       Assert.That(_match.ValidTurn(new Position(x1, y1), new Position(x2, y2)), Is.False);
     }
+
+    [Test]
+    [TestCase(2, 0, 0, 2)]
+    [TestCase(2, 0, 4, 2)]
+    [TestCase(1, 1, 3, 3)]
+    [TestCase(3, 2, 3, 3)]
+    [TestCase(4, 0, 4, 4)]
+    [TestCase(5, 1, 4, 3)]
+    public void OpponentInCheck(int x1, int y1, int x2, int y2)
+    {
+      _match.ChangeBoard("..b.r....q...n.....p..............K.............................");
+      _match.MakeTurn(new Position(x1, y1), new Position(x2, y2));
+      Assert.That(_match.Check(), Is.True);
+    }
+
+    [Test]
+    [TestCase(4, 3, 4, 5)]
+    public void PawnMovingForwardTwice(int x1, int y1, int x2, int y2)
+    {
+      _match.MakeTurn(new Position(4, 1), new Position(4, 3));
+      _match.MakeTurn(new Position(0, 6), new Position(0, 5));
+      Assert.That(_match.ValidTurn(new Position(x1, y1), new Position(x2, y2)), Is.False);
+    }
   }
 }

@@ -193,6 +193,7 @@ namespace chess.Models
     {
       _cells[ConvertToIndex(target)] = _cells[ConvertToIndex(origin)];
       _cells[ConvertToIndex(origin)] = new Cell('.');
+      _cells[ConvertToIndex(target)].Moved();
     }
 
     public Cell[][] ConvertTo2D()

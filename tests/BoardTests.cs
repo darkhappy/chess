@@ -185,7 +185,18 @@ namespace tests
     }
 
     [Test]
-    public void WeirdCase1()
+    [TestCase(1, 1)]
+    [TestCase(0, 6)]
+    [TestCase(4, 2)]
+    [TestCase(7, 7)]
+    public void BishopCaptures(int x, int y)
+    {
+      _board = new Board(".........P..........P......b....................P..............P");
+      Assert.That(_board.ValidMove(new Position(3, 3), new Position(x, y)), Is.True);
+    }
+
+    [Test]
+    public void CantMoveRightDueToCollision()
     {
       _board.MoveCellTo(new Position(3, 0), new Position(0, 2));
       _board.MoveCellTo(new Position(3, 1), new Position(3, 2));
