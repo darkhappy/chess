@@ -22,7 +22,6 @@ namespace chess.Controllers
       _main = main;
       _list = new List<Player>();
       _frmPlayer = new FormPlayer(this);
-      _frmPlayer.Show();
 
       /*
       _list.Add(new Player("Raph", 5, 0, 1000));
@@ -104,11 +103,24 @@ namespace chess.Controllers
     }
 
     /// <summary>
+    /// Show the player form
+    /// </summary>
+    public void Show()
+    {
+      _frmPlayer.Show();
+    }
+
+    /// <summary>
     /// Close the player form
     /// </summary>
     public void Back()
     {
       _frmPlayer.Close();
+    }
+
+    public List<Player> GetPlayerList()
+    {
+      return _list;
     }
 
     /// <summary>

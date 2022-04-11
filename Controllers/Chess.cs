@@ -30,9 +30,9 @@ namespace chess.Controllers
     /// </summary>
     public Chess()
     {
+      _playerController = new PlayerController(this);
       _frmMenu = new FormMenu(this);
       Application.Run(_frmMenu);
-
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ namespace chess.Controllers
 
     public void ManagePlayers()
     {
-      _playerController = new PlayerController(this);
+      _playerController.Show();
     }
 
     /// <summary>
