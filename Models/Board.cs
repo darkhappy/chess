@@ -218,9 +218,9 @@ namespace chess.Models
     {
       // Get the king's position
       var king = GetEssentialPiece(colour);
-      return king == -1
+      return king == new Position(-1, -1)
         ? new List<int>()
-        : GetAttackingPieces(colour, ConvertToPosition(king), ignore);
+        : GetAttackingPieces(colour, king, ignore);
     }
 
     /// <summary>
@@ -238,23 +238,23 @@ namespace chess.Models
     /// </summary>
     /// <param name="colour"> The colour of the essential piece to get.</param>
     /// <returns>The index of the essential piece.</returns>
-    private int GetEssentialPiece(Colour colour)
+    public Position GetEssentialPiece(Colour colour)
     {
       for (var i = 0; i < _cells.Length; i++)
         if (_cells[i].HasEssential() && _cells[i].Colour == colour)
-          return i;
+          return ConvertToPosition(i);
 
-      return -1;
+      return new Position(-1, -1);
     }
 
     /// <summary>
     /// Gets the list of cells that are attacking the given position.
     /// </summary>
-    /// <param name="colour">The colour of the attacking pieces.
+    /// <param name="colour">The colour of the piece being attacked.
     /// </param>
     /// <param name="target">The position that is being attacked.</param>
     /// <returns>List containing the indexes of the cells that are attacking the given position.</returns>
-    private List<int> GetAttackingPieces(Colour colour, Position target)
+    public List<int> GetAttackingPieces(Colour colour, Position target)
     {
       return GetAttackingPieces(colour, target, new Position(-1, -1));
     }
@@ -266,6 +266,8 @@ namespace chess.Models
       // Get all the opposite colour pieces
       var enemyColour = colour == Colour.Black ? Colour.White : Colour.Black;
       var enemies = new List<int>();
+      if (SameColour(target, enemyColour))
+        return new List<int>();
 
       for (var i = 0; i < _cells.Length; i++)
         if (_cells[i].Colour == enemyColour)
@@ -343,6 +345,16 @@ namespace chess.Models
       }
 
       return result;
+    }
+
+    public bool CanAttackAroundEssential(Colour colour)
+    {
+      var cell = GetEssentialPiece(colour);
+      if (cell == new Position(-1, -1)) return false;
+      var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
+      moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
+      moves.RemoveAll(pos => !_cells[ConvertToIndex(pos)].IsEmpty());
+      return moves.Any(pos => GetAttackingPieces(colour, cell).Count > 0);
     }
 
     /// <summary>

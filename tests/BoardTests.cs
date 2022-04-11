@@ -9,7 +9,7 @@ namespace tests
     [SetUp]
     public void Setup()
     {
-      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBKQBNR");
+      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
     }
 
     private Board _board;
@@ -24,21 +24,21 @@ namespace tests
     [Test]
     public void StartingBoard()
     {
-      Assert.That("rnbqkbnrpppppppp................................PPPPPPPPRNBKQBNR", Is.EqualTo(_board.ToString()));
+      Assert.That("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR", Is.EqualTo(_board.ToString()));
     }
 
     [Test]
     public void MoveWhitePawn()
     {
       _board.MoveCellTo(new Position(0, 1), new Position(0, 2));
-      Assert.That("rnbqkbnr.pppppppp...............................PPPPPPPPRNBKQBNR", Is.EqualTo(_board.ToString()));
+      Assert.That("rnbqkbnr.pppppppp...............................PPPPPPPPRNBQKBNR", Is.EqualTo(_board.ToString()));
     }
 
     [Test]
     public void MoveBlackPawn()
     {
       _board.MoveCellTo(new Position(0, 6), new Position(0, 5));
-      Assert.That("rnbqkbnrpppppppp........................P........PPPPPPPRNBKQBNR", Is.EqualTo(_board.ToString()));
+      Assert.That("rnbqkbnrpppppppp........................P........PPPPPPPRNBQKBNR", Is.EqualTo(_board.ToString()));
     }
 
     [Test]

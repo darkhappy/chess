@@ -145,5 +145,23 @@ namespace tests
       _match.MakeTurn(new Position(0, 6), new Position(0, 5));
       Assert.That(_match.ValidTurn(new Position(x1, y1), new Position(x2, y2)), Is.False);
     }
+
+    [Test]
+    public void CheckmateInThree()
+    {
+      _match.MakeTurn(new Position(4, 1), new Position(4, 3));
+      _match.MakeTurn(new Position(5, 6), new Position(5, 4));
+      _match.MakeTurn(new Position(4, 3), new Position(5, 4));
+      _match.MakeTurn(new Position(6, 6), new Position(6, 4));
+      _match.MakeTurn(new Position(3, 0), new Position(7, 4));
+      Assert.That(_match.Checkmate(), Is.True);
+    }
+
+    [Test]
+    public void NotACheckmate()
+    {
+      _match.MakeTurn(new Position(4, 1), new Position(4, 3));
+      Assert.That(_match.Checkmate(), Is.False);
+    }
   }
 }

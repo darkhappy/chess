@@ -15,7 +15,7 @@ namespace chess.Models
       _current = Colour.White;
       _history = new List<string>();
       _turnCount = 0;
-      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBKQBNR");
+      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
     }
 
     public Colour CurrentPlayer => _current;
@@ -62,7 +62,20 @@ namespace chess.Models
 
     public bool Checkmate()
     {
-      throw new NotImplementedException();
+      var attackers = _board.GetAssailants(_current);
+      if (attackers.Count == 0)
+        return false;
+
+      // Check if the king can move out of check
+      if (_board.CanAttackAroundEssential(_current))
+        return true;
+
+      if (attackers.Count > 1)
+      {
+        throw new NotImplementedException();
+      }
+
+      return false;
     }
 
     public bool Stalemate()

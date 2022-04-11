@@ -13,6 +13,25 @@ namespace chess.Models
       _y = y;
     }
 
+    public Position(string position)
+    {
+      var x = position[0];
+      var y = position[1];
+      _x = x switch
+      {
+        'a' => 0,
+        'b' => 1,
+        'c' => 2,
+        'd' => 3,
+        'e' => 4,
+        'f' => 5,
+        'g' => 6,
+        'h' => 7,
+        _ => throw new Exception("Invalid x coordinate")
+      };
+      _y = int.Parse(y.ToString());
+    }
+
     public int X
     {
       get => _x;
