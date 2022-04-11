@@ -17,7 +17,7 @@ namespace chess.Controllers
 
     public GameController(Player a, Player b)
     {
-      _formMatch = new FormMatch();
+      _formMatch = new FormMatch(this);
       _formMatch.Show();
     }
 
