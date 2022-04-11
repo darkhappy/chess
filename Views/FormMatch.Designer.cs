@@ -39,6 +39,7 @@ namespace chess.Views
       this.ChessBoard.Name = "ChessBoard";
       this.ChessBoard.Size = new System.Drawing.Size(800, 800);
       this.ChessBoard.TabIndex = 0;
+      this.ChessBoard.Click += new System.EventHandler(this.GridClick);
       this.ChessBoard.Paint += new System.Windows.Forms.PaintEventHandler(this.ChessBoard_Paint);
       // 
       // FormMatch

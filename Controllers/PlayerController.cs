@@ -11,7 +11,7 @@ namespace chess.Controllers
   {
     List<Player> _list;
     Chess _main;
-    //FormPlayer _frmPlayer;
+    FormPlayer _frmPlayer;
 
     StreamWriter _sw;
     StreamReader _sr;

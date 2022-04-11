@@ -36,7 +36,7 @@ namespace chess.Views
 
     private void btnBack_Click(object sender, System.EventArgs e)
     {
-      _controller.Back();
+      //_controller.Back();
     }
   }
 }
