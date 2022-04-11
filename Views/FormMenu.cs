@@ -8,7 +8,7 @@ namespace chess.Views
     Chess _main;
 
     /// <summary>
-    /// Initialize the formm menu
+    /// Initialize the form menu
     /// </summary>
     public FormMenu()
     {
@@ -16,7 +16,7 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Initialize the formm menu with its controller
+    /// Initialize the form menu with its controller
     /// </summary>
     public FormMenu(Chess controller)
     {
