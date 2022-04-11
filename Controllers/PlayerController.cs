@@ -11,7 +11,7 @@ namespace chess.Controllers
   {
     List<Player> _list;
     Chess _main;
-    //FormPlayer _frmPlayer;
+    FormPlayer _frmPlayer;
 
     StreamWriter _sw;
     StreamReader _sr;
@@ -26,7 +26,7 @@ namespace chess.Controllers
       _list.Add(new Player("Raph", 5, 0, 1000));
       _list.Add(new Player("Louis", 0, 1000, -9999));
       _list.Add(new Player("Jean-Philipette", 100, 100, 1));
-      
+
       _sw = new StreamWriter("players.txt", true);
       using (_sw)
       {
@@ -51,13 +51,18 @@ namespace chess.Controllers
 
     public void Add()
     {
-      
+
       throw new NotImplementedException();
     }
 
     public void Remove()
     {
       throw new NotImplementedException();
+    }
+
+    public void Back()
+    {
+
     }
 
     /// <summary>
