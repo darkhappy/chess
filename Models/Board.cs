@@ -214,12 +214,12 @@ namespace chess.Models
 
     /// <inheritdoc cref="GetAssailants(chess.Models.Colour)"/>>
     /// <param name="ignore">Position to ignore while evaluating.</param>
-    private List<int> GetAssailants(Colour colour, Position ignore)
+    private List<Position> GetAssailants(Colour colour, Position ignore)
     {
       // Get the king's position
       var king = GetEssentialPiece(colour);
       return king == new Position(-1, -1)
-        ? new List<int>()
+        ? new List<Position>()
         : GetAttackingPieces(colour, king, ignore);
     }
 
@@ -228,7 +228,7 @@ namespace chess.Models
     /// </summary>
     /// <param name="colour">The colour of the essential piece to evaluate.</param>
     /// <returns>List containing the indexes of the cells that are attacking the essential piece.</returns>
-    public List<int> GetAssailants(Colour colour)
+    public List<Position> GetAssailants(Colour colour)
     {
       return GetAssailants(colour, new Position(-1, -1));
     }
@@ -254,28 +254,28 @@ namespace chess.Models
     /// </param>
     /// <param name="target">The position that is being attacked.</param>
     /// <returns>List containing the indexes of the cells that are attacking the given position.</returns>
-    public List<int> GetAttackingPieces(Colour colour, Position target)
+    public List<Position> GetAttackingPieces(Colour colour, Position target)
     {
       return GetAttackingPieces(colour, target, new Position(-1, -1));
     }
 
     /// <inheritdoc cref="GetAttackingPieces(chess.Models.Colour,chess.Models.Position)"/>
     /// <param name="ignore">Position to ignore while evaluating.</param>
-    private List<int> GetAttackingPieces(Colour colour, Position target, Position ignore)
+    private List<Position> GetAttackingPieces(Colour colour, Position target, Position ignore)
     {
       // Get all the opposite colour pieces
       var enemyColour = colour == Colour.Black ? Colour.White : Colour.Black;
-      var enemies = new List<int>();
+      var enemies = new List<Position>();
       if (SameColour(target, enemyColour))
-        return new List<int>();
+        return new List<Position>();
 
       for (var i = 0; i < _cells.Length; i++)
         if (_cells[i].Colour == enemyColour)
-          enemies.Add(i);
+          enemies.Add(ConvertToPosition(i));
 
-      var list = enemies.Where(enemy => ValidMove(ConvertToPosition(enemy), target, ignore)).ToList();
+      var list = enemies.Where(enemy => ValidMove(enemy, target, ignore)).ToList();
 
-      list.Remove(ConvertToIndex(ignore));
+      list.Remove(ignore);
 
       return list;
     }
@@ -383,6 +383,22 @@ namespace chess.Models
         : GetAssailants((Colour) cell.Colour, origin);
 
       return attackers.Count == 0;
+    }
+
+    public bool CanBlock(Position origin, Position target)
+    {
+      // Checks if any enemy piece of the origin can go between the two
+      var moves = _cells[ConvertToIndex(origin)].ValidMove(origin);
+      var positionsBetween = PositionsBetween(origin, target, moves);
+      var enemies = new List<Position>();
+
+      for (var i = 0; i < _cells.Length; i++)
+        if (_cells[i].Colour == _cells[ConvertToIndex(target)].Colour)
+          enemies.Add(ConvertToPosition(i));
+
+      enemies.Remove(target);
+
+      return positionsBetween.Any(pos => enemies.Any(enemy => ValidMove(enemy, pos)));
     }
   }
 }

@@ -232,5 +232,11 @@ namespace tests
       _board = new Board("p.......P.......P...............................................");
       Assert.That(_board.ValidMove(new Position(0, 0), new Position(x, y)), Is.False);
     }
+
+    [Test]
+    public void MovingEmptyCell()
+    {
+      _board.MoveCellTo(new Position(1, 2), new Position(1, 3));
+    }
   }
 }

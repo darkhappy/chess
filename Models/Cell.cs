@@ -12,20 +12,15 @@ namespace chess.Models
     /// <param name="piece"></param>
     public Cell(char piece)
     {
-      _piece = piece switch
+      var colour = char.IsLower(piece) ? Models.Colour.White : Models.Colour.Black;
+      _piece = char.ToLower(piece) switch
       {
-        'p' => new Pawn(Models.Colour.White),
-        'P' => new Pawn(Models.Colour.Black),
-        'r' => new Rook(Models.Colour.White),
-        'R' => new Rook(Models.Colour.Black),
-        'n' => new Knight(Models.Colour.White),
-        'N' => new Knight(Models.Colour.Black),
-        'b' => new Bishop(Models.Colour.White),
-        'B' => new Bishop(Models.Colour.Black),
-        'q' => new Queen(Models.Colour.White),
-        'Q' => new Queen(Models.Colour.Black),
-        'k' => new King(Models.Colour.White),
-        'K' => new King(Models.Colour.Black),
+        'p' => new Pawn(colour),
+        'r' => new Rook(colour),
+        'n' => new Knight(colour),
+        'b' => new Bishop(colour),
+        'q' => new Queen(colour),
+        'k' => new King(colour),
         _ => null
       };
     }
@@ -88,10 +83,7 @@ namespace chess.Models
 
     public void Moved()
     {
-      if (_piece != null)
-      {
-        _piece.Moved();
-      }
+      _piece?.Moved();
     }
 
     public bool CanOnlyAttackDiagonally()
