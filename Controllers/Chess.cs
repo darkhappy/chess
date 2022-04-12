@@ -11,7 +11,6 @@ namespace chess.Controllers
     List<GameController> _listGames;
 
     PlayerController _playerController;
-    GameController _gameController;
 
     FormMenu _frmMenu;
 
@@ -29,6 +28,7 @@ namespace chess.Controllers
     /// </summary>
     public Chess()
     {
+      _listGames = new List<GameController>();
       _playerController = new PlayerController(this);
       _frmMenu = new FormMenu(this);
       _frmMenu.GeneratePlayerList(PlayersToString(_playerController.GetPlayerList()));
@@ -38,17 +38,13 @@ namespace chess.Controllers
     /// <summary>
     /// Show the form selection to start a game
     /// </summary>
-    public void NewGame()
+    public void NewGame(string name1, string name2)
     {
-      _gameController = new GameController(new Player("Benjamin"), new Player("Benjamino"));
-    }
+      Player player1 = _playerController.GetPlayer(name1);
+      Player player2 = _playerController.GetPlayer(name2);
 
-    /// <summary>
-    /// Show the form selection to start a game
-    /// </summary>
-    public void StartGame(Player[] players)
-    {
-      //GameController gameController = new GameController(this);
+      GameController gameController = new GameController(player1, player2);
+      _listGames.Add(gameController);
     }
 
     public List<string> PlayersToString(List<Player> playerList)

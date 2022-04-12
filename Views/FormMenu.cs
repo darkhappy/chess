@@ -32,7 +32,19 @@ namespace chess.Views
     /// <param name="e"></param>
     private void Start(object sender, System.EventArgs e)
     {
-      _main.NewGame();
+      if(txbPlayer1.Text == "" || txbPlayer2.Text == "")
+      {
+        labError.Visible = true;
+      }
+      else
+      {
+        labError.Visible = false;
+        _main.NewGame(txbPlayer1.Text, txbPlayer2.Text);
+        listPlayer.Items.Add(new ListViewItem(txbPlayer1.Text));
+        txbPlayer1.Text = "";
+        listPlayer.Items.Add(new ListViewItem(txbPlayer2.Text));
+        txbPlayer2.Text = "";
+      }
     }
 
     /// <summary>
@@ -66,8 +78,16 @@ namespace chess.Views
 
     private void btnCancel_Click(object sender, System.EventArgs e)
     {
-      if (((Button)sender).Name == "btnCancel1") txbPlayer1.Text = "";
-      else txbPlayer2.Text = "";
+      if (((Button)sender).Name == "btnCancel1" && txbPlayer1.Text != "")
+      {
+        listPlayer.Items.Add(new ListViewItem(txbPlayer1.Text));
+        txbPlayer1.Text = "";
+      }
+      else if(((Button)sender).Name == "btnCancel2" && txbPlayer2.Text != "")
+      {
+        listPlayer.Items.Add(new ListViewItem(txbPlayer2.Text));
+        txbPlayer2.Text = "";
+      }
     }
 
     private void listPlayer_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -76,8 +96,16 @@ namespace chess.Views
       var clickedItem = senderList.HitTest(e.Location).Item;
       if (clickedItem != null)
       {
-        if(txbPlayer1.Text == "") txbPlayer1.Text = clickedItem.Text;
-        else if(txbPlayer2.Text == "") txbPlayer2.Text = clickedItem.Text;
+        if (txbPlayer1.Text == "")
+        {
+          txbPlayer1.Text = clickedItem.Text;
+          listPlayer.Items.Remove(clickedItem);
+        }
+        else if (txbPlayer2.Text == "")
+        {
+          txbPlayer2.Text = clickedItem.Text;
+          listPlayer.Items.Remove(clickedItem);
+        }
       }
     }
   }
