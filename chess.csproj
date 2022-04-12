@@ -34,6 +34,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -80,26 +84,20 @@
     <Compile Include="Views\FormMatch.cs">
       <SubType>Form</SubType>
     </Compile>
-      <Compile Include="Views\FormMatch.Designer.cs">
-          <DependentUpon>FormMatch.cs</DependentUpon>
-      </Compile>
-      <Compile Include="Views\FormMenu.cs">
-          <SubType>Form</SubType>
-      </Compile>
-      <Compile Include="Views\FormMenu.Designer.cs">
-          <DependentUpon>FormMenu.cs</DependentUpon>
-      </Compile>
-      <Compile Include="Views\FormPromotion.cs">
-          <SubType>Form</SubType>
-      </Compile>
-      <Compile Include="Views\FormPromotion.Designer.cs">
-          <DependentUpon>FormPromotion.cs</DependentUpon>
-      </Compile>
-      <Compile Include="Views\FormSelection.cs">
-          <SubType>Form</SubType>
-      </Compile>
-      <Compile Include="Views\FormSelection.Designer.cs">
-      <DependentUpon>FormSelection.cs</DependentUpon>
+    <Compile Include="Views\FormMatch.Designer.cs">
+      <DependentUpon>FormMatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormMenu.Designer.cs">
+      <DependentUpon>FormMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FormPromotion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\FormPromotion.Designer.cs">
+      <DependentUpon>FormPromotion.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

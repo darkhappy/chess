@@ -11,10 +11,8 @@ namespace chess.Controllers
     List<GameController> _listGames;
 
     PlayerController _playerController;
-    GameController _gameController;
 
     FormMenu _frmMenu;
-    FormSelection _frmSelect;
 
     /// <summary>
     /// Application entry point
@@ -30,27 +28,33 @@ namespace chess.Controllers
     /// </summary>
     public Chess()
     {
+      _listGames = new List<GameController>();
       _playerController = new PlayerController(this);
       _frmMenu = new FormMenu(this);
+      _frmMenu.GeneratePlayerList(PlayersToString(_playerController.GetPlayerList()));
       Application.Run(_frmMenu);
     }
 
     /// <summary>
     /// Show the form selection to start a game
     /// </summary>
-    public void NewGame()
+    public void NewGame(string name1, string name2)
     {
-      _gameController = new GameController(new Player("Benjamin"), new Player("Benjamino"));
-      //_frmSelect = new FormSelection();
+      Player player1 = _playerController.GetPlayer(name1);
+      Player player2 = _playerController.GetPlayer(name2);
+
+      GameController gameController = new GameController(player1, player2);
+      _listGames.Add(gameController);
     }
 
-    /// <summary>
-    /// Show the form selection to start a game
-    /// </summary>
-    public void StartGame(Player[] players)
+    public List<string> PlayersToString(List<Player> playerList)
     {
-      _frmSelect.Close();
-      //GameController gameController = new GameController(this);
+      List<string> list = new List<string>();
+
+      foreach (Player player in playerList)
+        list.Add(player.Name);
+
+      return list;
     }
 
     public void ManagePlayers()
