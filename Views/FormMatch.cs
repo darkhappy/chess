@@ -158,5 +158,10 @@ namespace chess.Views
     {
       DrawBoard(_board);
     }
+
+    private void BtnDismiss_Click(object sender, EventArgs e)
+    {
+      
+    }
   }
 }
