@@ -307,9 +307,7 @@ namespace chess.Models
       if (cell.Colour == _cells[ConvertToIndex(target)].Colour) return false;
 
       var moves = cell.ValidMove(origin);
-      if (!moves.Contains(target)) return false;
       moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
-      if (moves.Count == 0) return false;
       if (cell.CanOnlyAttackDiagonally())
       {
         moves.RemoveAll(pos => pos.X != origin.X && _cells[ConvertToIndex(pos)].IsEmpty());
@@ -319,6 +317,8 @@ namespace chess.Models
       {
         moves.RemoveAll(pos => pos.X == origin.X && !_cells[ConvertToIndex(pos)].IsEmpty());
       }
+
+      if (!moves.Contains(target) || moves.Count == 0) return false;
 
       // Check for collisions
       return Collision(origin, target, moves, ignore);

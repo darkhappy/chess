@@ -159,5 +159,68 @@ namespace chess.Controllers
         return new BinaryFormatter().Deserialize(ms);
       }
     }
+
+    /*
+    public static void Main()
+    {
+      // Ra and Rb are current ELO ratings
+      float ranking1 = 1200, ranking2 = 1000;
+
+
+      bool player1Win = true;
+      UpdateEloRating(ranking1, ranking2, player1Win);
+    }*/
+
+
+    // Function to calculate Elo rating
+    // K is a constant.
+    // d determines whether Player A wins or
+    // Player B. 
+    static void UpdateEloRating(Player player1, Player player2, bool player1Win)
+    {
+      int K = 30;
+
+      float ranking1 = player1.Points;
+      float ranking2 = player2.Points;
+
+      // To calculate the Winning Probability of Player 1
+      float winningProb1 = Probability(ranking2, ranking1);
+
+      // To calculate the Winning Probability of Player 2
+      float winningProb2 = Probability(ranking1, ranking2);
+
+      //Updating the Elo Ratings with the winner
+      if (player1Win)
+      {
+        ranking1 = ranking1 + K * (1 - winningProb1);
+        ranking2 = ranking2 + K * (0 - winningProb2);
+      }
+      else
+      {
+        ranking1 = ranking1 + K * (0 - winningProb1);
+        ranking2 = ranking2 + K * (1 - winningProb2);
+      }
+
+      /*
+      Console.Write("Updated Ratings:-\n");
+
+      Console.Write("ranking1 = " + (Math.Round(ranking2
+                   * 1000000.0) / 1000000.0)
+                  + " ranking2 = " + Math.Round(ranking2
+                   * 1000000.0) / 1000000.0);*/
+    }
+
+    /// <summary>
+    /// Return the probabilité of winning of a rating againts another
+    /// </summary>
+    /// <param name="rating1"></param>
+    /// <param name="rating2"></param>
+    /// <returns></returns>
+    static float Probability(float rating1, float rating2)
+    {
+      return 1.0f * 1.0f / (1 + 1.0f *
+             (float)(Math.Pow(10, 1.0f *
+               (rating1 - rating2) / 400)));
+    }
   }
 }
