@@ -5,17 +5,17 @@ using System.Linq;
 namespace chess.Models
 {
   /// <summary>
-  /// Represents a chess board and contains all the logic used to manipulate the board.
+  ///   Represents a chess board and contains all the logic used to manipulate the board.
   /// </summary>
   public class Board
   {
     /// <summary>
-    /// Contains all the cells on the board.
+    ///   Contains all the cells on the board.
     /// </summary>
     private readonly Cell[] _cells;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Board"/> class with an empty board.
+    ///   Initializes a new instance of the <see cref="Board" /> class with an empty board.
     /// </summary>
     public Board()
     {
@@ -24,7 +24,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Board"/> class with a specified board.
+    ///   Initializes a new instance of the <see cref="Board" /> class with a specified board.
     /// </summary>
     /// <param name="board">String that represents the board to generate.</param>
     public Board(string board)
@@ -34,61 +34,58 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Generates the board with the specified string.
+    ///   Generates the board with the specified string.
     /// </summary>
     /// <param name="board">
-    /// String that represents the board to generate.
+    ///   String that represents the board to generate.
     /// </param>
     /// <remarks>
-    /// The string must be 64 characters long. Additionally, the characters must be as follows:
-    /// <list type="bullet">
-    ///<item>
-    /// p/P for pawns
-    /// </item>
-    ///<item>
-    /// r/R for rooks
-    /// </item>
-    /// <item>
-    /// n/N for knights
-    /// </item>
-    /// <item>
-    /// b/B for bishops
-    /// </item>
-    /// <item>
-    /// q/Q for queens
-    /// </item>
-    /// <item>
-    /// k/K for kings
-    /// </item>
-    /// <item>
-    /// . for an empty cell
-    /// </item>
-    /// </list>
+    ///   The string must be 64 characters long. Additionally, the characters must be as follows:
+    ///   <list type="bullet">
+    ///     <item>
+    ///       p/P for pawns
+    ///     </item>
+    ///     <item>
+    ///       r/R for rooks
+    ///     </item>
+    ///     <item>
+    ///       n/N for knights
+    ///     </item>
+    ///     <item>
+    ///       b/B for bishops
+    ///     </item>
+    ///     <item>
+    ///       q/Q for queens
+    ///     </item>
+    ///     <item>
+    ///       k/K for kings
+    ///     </item>
+    ///     <item>
+    ///       . for an empty cell
+    ///     </item>
+    ///   </list>
     /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">Thrown if the string is not 64 characters long.</exception>
     private void GenerateBoard(string board)
     {
-      if (board.Length != 64)
-      {
-        throw new ArgumentOutOfRangeException(board, "Board must be 64 characters long.");
-      }
+      if (board.Length != 64) throw new ArgumentOutOfRangeException(board, "Board must be 64 characters long.");
 
       var array = board.ToCharArray();
       for (var i = 0; i < array.Length; i++) _cells[i] = new Cell(array[i]);
     }
 
     /// <summary>
-    /// Returns the current board as a string.
+    ///   Returns the current board as a string.
     /// </summary>
     /// <returns>
-    /// String representation of the board.
+    ///   String representation of the board.
     /// </returns>
     public override string ToString()
     {
       return _cells.Aggregate("", (current, t) => current + t);
     }
 
-    /// <inheritdoc cref="Collision(Position, Position, List{Position})"/>
+    /// <inheritdoc cref="Collision(Position, Position, List{Position})" />
     /// <param name="ignore">Position to ignore while evaluating.</param>
     private bool Collision(Position origin, Position target, List<Position> moves, Position ignore)
     {
@@ -101,7 +98,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Evaluates if the <c>origin</c> cell can move to the <c>target</c> cell, taking into account collisions.
+    ///   Evaluates if the <c>origin</c> cell can move to the <c>target</c> cell, taking into account collisions.
     /// </summary>
     /// <param name="origin">The cell that is moving.</param>
     /// <param name="target">The target of the <c>origin</c> cell.</param>
@@ -113,7 +110,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Filters a list of positions to only those that are between the <c>origin</c> and <c>target</c> cells.
+    ///   Filters a list of positions to only those that are between the <c>origin</c> and <c>target</c> cells.
     /// </summary>
     /// <param name="origin">The cell that is moving.</param>
     /// <param name="target">The target of the <c>origin</c> cell.</param>
@@ -132,43 +129,35 @@ namespace chess.Models
       bool RightColumn(Position pos) => pos.X > origin.X && pos.X < target.X;
 
       if (origin.X == target.X)
-      {
         positionsBetween.AddRange(
           origin.Y < target.Y
             ? allPositions.Where(pos => SameRow(pos) && AboveRow(pos))
             : allPositions.Where(pos => SameRow(pos) && BelowRow(pos))
         );
-      }
       else if (origin.Y == target.Y)
-      {
         positionsBetween.AddRange(
           origin.X < target.X
             ? allPositions.Where(pos => SameColumn(pos) && RightColumn(pos))
             : allPositions.Where(pos => SameColumn(pos) && LeftColumn(pos))
         );
-      }
       else if (origin.X > target.X)
-      {
         positionsBetween.AddRange(
           origin.Y < target.Y
             ? allPositions.Where(pos => AboveRow(pos) && LeftColumn(pos))
             : allPositions.Where(pos => BelowRow(pos) && LeftColumn(pos))
         );
-      }
       else if (origin.X < target.X)
-      {
         positionsBetween.AddRange(
           origin.Y < target.Y
             ? allPositions.Where(pos => AboveRow(pos) && RightColumn(pos))
             : allPositions.Where(pos => BelowRow(pos) && RightColumn(pos))
         );
-      }
 
       return positionsBetween;
     }
 
     /// <summary>
-    /// Convert a position to an index.
+    ///   Convert a position to an index.
     /// </summary>
     /// <param name="position">The position to convert.</param>
     /// <returns>The index of the position.</returns>
@@ -180,7 +169,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Convert an index to a position.
+    ///   Convert an index to a position.
     /// </summary>
     /// <param name="index">The index to convert.</param>
     /// <returns>The position of the index.</returns>
@@ -192,7 +181,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Evaluates if the <c>origin</c> cell is the same colour as the given parameter.
+    ///   Evaluates if the <c>origin</c> cell is the same colour as the given parameter.
     /// </summary>
     /// <param name="origin">The cell to evaluate.</param>
     /// <param name="colour">The colour to compare to.</param>
@@ -203,7 +192,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Evaluates if the <c>origin</c> cell has a promotable piece.
+    ///   Evaluates if the <c>origin</c> cell has a promotable piece.
     /// </summary>
     /// <param name="target">The cell to evaluate.</param>
     /// <returns>True if the <c>origin</c> cell has a promotable piece, false otherwise.</returns>
@@ -212,7 +201,7 @@ namespace chess.Models
       return _cells[ConvertToIndex(target)].HasPromotable();
     }
 
-    /// <inheritdoc cref="GetAssailants(chess.Models.Colour)"/>>
+    /// <inheritdoc cref="GetAssailants(chess.Models.Colour)" />
     /// <param name="ignore">Position to ignore while evaluating.</param>
     private List<Position> GetAssailants(Colour colour, Position ignore)
     {
@@ -224,7 +213,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Generates a list of cells that are attacking the essential piece of the given colour.
+    ///   Generates a list of cells that are attacking the essential piece of the given colour.
     /// </summary>
     /// <param name="colour">The colour of the essential piece to evaluate.</param>
     /// <returns>List containing the indexes of the cells that are attacking the essential piece.</returns>
@@ -234,7 +223,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Gets the essential piece of the given colour.
+    ///   Gets the essential piece of the given colour.
     /// </summary>
     /// <param name="colour"> The colour of the essential piece to get.</param>
     /// <returns>The index of the essential piece.</returns>
@@ -248,9 +237,10 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Gets the list of cells that are attacking the given position.
+    ///   Gets the list of cells that are attacking the given position.
     /// </summary>
-    /// <param name="colour">The colour of the piece being attacked.
+    /// <param name="colour">
+    ///   The colour of the piece being attacked.
     /// </param>
     /// <param name="target">The position that is being attacked.</param>
     /// <returns>List containing the indexes of the cells that are attacking the given position.</returns>
@@ -259,7 +249,7 @@ namespace chess.Models
       return GetAttackingPieces(colour, target, new Position(-1, -1));
     }
 
-    /// <inheritdoc cref="GetAttackingPieces(chess.Models.Colour,chess.Models.Position)"/>
+    /// <inheritdoc cref="GetAttackingPieces(chess.Models.Colour,chess.Models.Position)" />
     /// <param name="ignore">Position to ignore while evaluating.</param>
     private List<Position> GetAttackingPieces(Colour colour, Position target, Position ignore)
     {
@@ -281,12 +271,16 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// <para>
-    /// Evaluates if the given move is valid.
-    /// </para>
-    /// <para>
-    /// A valid move is a move from a piece to a target cell that is a different colour. It takes into account <see cref="Piece.ValidMove"/>, as well as <see cref="Collision(chess.Models.Position,chess.Models.Position,System.Collections.Generic.List{chess.Models.Position},chess.Models.Position)"/>.
-    /// </para>
+    ///   <para>
+    ///     Evaluates if the given move is valid.
+    ///   </para>
+    ///   <para>
+    ///     A valid move is a move from a piece to a target cell that is a different colour. It takes into account
+    ///     <see cref="Piece.ValidMove" />, as well as
+    ///     <see
+    ///       cref="Collision(chess.Models.Position,chess.Models.Position,System.Collections.Generic.List{chess.Models.Position},chess.Models.Position)" />
+    ///     .
+    ///   </para>
     /// </summary>
     /// <param name="origin">The cell containing the moving piece.</param>
     /// <param name="target">The cell that the piece is moving to.</param>
@@ -296,7 +290,7 @@ namespace chess.Models
       return ValidMove(origin, target, new Position(-1, -1));
     }
 
-    /// <inheritdoc cref="ValidMove(chess.Models.Position,chess.Models.Position)"/>
+    /// <inheritdoc cref="ValidMove(chess.Models.Position,chess.Models.Position)" />
     /// <param name="ignore">Position to ignore while evaluating.</param>
     private bool ValidMove(Position origin, Position target, Position ignore)
     {
@@ -309,14 +303,10 @@ namespace chess.Models
       var moves = cell.ValidMove(origin);
       moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
       if (cell.CanOnlyAttackDiagonally())
-      {
         moves.RemoveAll(pos => pos.X != origin.X && _cells[ConvertToIndex(pos)].IsEmpty());
-      }
 
       if (cell.CanOnlyMoveForward())
-      {
         moves.RemoveAll(pos => pos.X == origin.X && !_cells[ConvertToIndex(pos)].IsEmpty());
-      }
 
       if (!moves.Contains(target) || moves.Count == 0) return false;
 
@@ -325,7 +315,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Moves the piece at the given origin to the given target.
+    ///   Moves the piece at the given origin to the given target.
     /// </summary>
     /// <param name="origin">Position of the piece to move.</param>
     /// <param name="target">Position to move the piece to.</param>
@@ -337,7 +327,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Converts the board to a 2D array.
+    ///   Converts the board to a 2D array.
     /// </summary>
     /// <returns> 2D array representing the board.</returns>
     public Cell[][] ConvertTo2D()
@@ -368,7 +358,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Evaluates if performing the given move would cause the essential piece to be in check.
+    ///   Evaluates if performing the given move would cause the essential piece to be in check.
     /// </summary>
     /// <param name="origin">The cell containing the moving piece.</param>
     /// <param name="target">The cell that the piece is moving to.</param>
@@ -387,7 +377,7 @@ namespace chess.Models
       // Remove the target piece since it will be replaced
       attackers.Remove(target);
 
-      return (attackers.Count == 0);
+      return attackers.Count == 0;
     }
 
     public bool CanBlock(Position origin, Position target)
