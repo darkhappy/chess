@@ -19,6 +19,8 @@ namespace chess.Controllers
       _match = new Match();
       _formMatch = new FormMatch(this);
       _selected = new Position(-1, -1);
+      _playerA = a;
+      _playerB = b;
       _formMatch.Show();
     }
 
@@ -60,6 +62,9 @@ namespace chess.Controllers
     {
       return _match.ExportBoard();
     }
+
+    public Player PLayerA => _playerA;
+    public Player PLayerB => _playerB;
 
     private void Stalemate()
     {

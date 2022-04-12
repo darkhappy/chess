@@ -48,6 +48,7 @@ namespace chess.Views
       // 
       // BtnDismiss
       // 
+      this.BtnDismiss.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(208)))));
       this.BtnDismiss.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.BtnDismiss.Location = new System.Drawing.Point(5, 773);
       this.BtnDismiss.Margin = new System.Windows.Forms.Padding(2);
@@ -55,11 +56,12 @@ namespace chess.Views
       this.BtnDismiss.Size = new System.Drawing.Size(160, 39);
       this.BtnDismiss.TabIndex = 3;
       this.BtnDismiss.Text = "Dismiss";
-      this.BtnDismiss.UseVisualStyleBackColor = true;
+      this.BtnDismiss.UseVisualStyleBackColor = false;
       this.BtnDismiss.Click += new System.EventHandler(this.BtnDismiss_Click);
       // 
       // btnDraw
       // 
+      this.btnDraw.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(236)))), ((int)(((byte)(208)))));
       this.btnDraw.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.btnDraw.Location = new System.Drawing.Point(168, 773);
       this.btnDraw.Margin = new System.Windows.Forms.Padding(2);
@@ -67,7 +69,7 @@ namespace chess.Views
       this.btnDraw.Size = new System.Drawing.Size(160, 39);
       this.btnDraw.TabIndex = 4;
       this.btnDraw.Text = "Draw Match";
-      this.btnDraw.UseVisualStyleBackColor = true;
+      this.btnDraw.UseVisualStyleBackColor = false;
       // 
       // grpPlayer2
       // 
