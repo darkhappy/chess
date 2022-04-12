@@ -30,7 +30,7 @@ namespace chess.Controllers
       */
 
       //Adding all player to the list and to the listView
-      StreamReader sr = new StreamReader("players.txt", true);
+      StreamReader sr = new StreamReader("players.txt");
       using (sr)
       {
         string line;
