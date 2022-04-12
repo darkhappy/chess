@@ -29,10 +29,5 @@ namespace chess.Models
     {
       return _colour == Colour.Black ? "B" : "b";
     }
-
-    public override bool CanOnlyAttackDiagonally()
-    {
-      return true;
-    }
   }
 }
