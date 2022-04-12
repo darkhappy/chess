@@ -12,12 +12,12 @@ namespace chess.Controllers
     private Player _playerA;
     private Player _playerB;
     private Position _selected;
-    private FormMatch _formMatch;
+    private FrmMatch _formMatch;
 
     public GameController(Player a, Player b)
     {
       _match = new Match();
-      _formMatch = new FormMatch(this);
+      _formMatch = new FrmMatch(this);
       _selected = new Position(-1, -1);
       _playerA = a;
       _playerB = b;
@@ -71,22 +71,7 @@ namespace chess.Controllers
       throw new NotImplementedException();
     }
 
-    private void Checkmate()
-    {
-      throw new NotImplementedException();
-    }
-
-    private void Check()
-    {
-      throw new NotImplementedException();
-    }
-
     private void Rules()
-    {
-      throw new NotImplementedException();
-    }
-
-    public void Resign()
     {
       throw new NotImplementedException();
     }
@@ -94,6 +79,16 @@ namespace chess.Controllers
     private void Castle()
     {
       throw new NotImplementedException();
+    }
+    public void Resign()
+    {
+      //update winner player
+      _formMatch.Close();
+    }
+
+    public void DrawMatch()
+    {
+      _formMatch.Close();
     }
   }
 }
