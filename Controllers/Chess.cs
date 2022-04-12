@@ -31,9 +31,8 @@ namespace chess.Controllers
     {
       _playerController = new PlayerController(this);
       _frmMenu = new FormMenu(this);
-      Application.Run(_frmMenu);
-
       _frmMenu.GeneratePlayerList(PlayersToString(_playerController.GetPlayerList()));
+      Application.Run(_frmMenu);
     }
 
     /// <summary>

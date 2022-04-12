@@ -102,6 +102,7 @@ namespace chess.Views
       this.listPlayer.Size = new System.Drawing.Size(199, 220);
       this.listPlayer.TabIndex = 6;
       this.listPlayer.UseCompatibleStateImageBehavior = false;
+      this.listPlayer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listPlayer_MouseDoubleClick);
       // 
       // labPlayer1
       // 
@@ -162,6 +163,7 @@ namespace chess.Views
       this.btnCancel1.TabIndex = 14;
       this.btnCancel1.Text = "X";
       this.btnCancel1.UseVisualStyleBackColor = false;
+      this.btnCancel1.Click += new System.EventHandler(this.btnCancel_Click);
       // 
       // btnCancel2
       // 
@@ -173,6 +175,7 @@ namespace chess.Views
       this.btnCancel2.TabIndex = 15;
       this.btnCancel2.Text = "X";
       this.btnCancel2.UseVisualStyleBackColor = false;
+      this.btnCancel2.Click += new System.EventHandler(this.btnCancel_Click);
       // 
       // labError
       // 
