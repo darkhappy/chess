@@ -207,8 +207,8 @@ namespace tests
     }
 
     [Test]
-    [TestCase(1, 1, 2, 1)]
-    [TestCase(1, 1, 0, 1)]
+    [TestCase(1, 1, 2, 2)]
+    [TestCase(1, 1, 0, 2)]
     public void PawnCantMoveInDiagonal(int x1, int y1, int x2, int y2)
     {
       Assert.That(_board.ValidMove(new Position(x1, y1), new Position(x2, y2)), Is.False);
@@ -230,7 +230,7 @@ namespace tests
     public void PawnCantAttackForward(int x, int y)
     {
       _board = new Board("p.......P.......P...............................................");
-      Assert.That(_board.ValidMove(new Position(1, 0), new Position(x, y)), Is.False);
+      Assert.That(_board.ValidMove(new Position(0, 0), new Position(x, y)), Is.False);
     }
   }
 }
