@@ -61,7 +61,7 @@ namespace chess.Views
       // 
       this.BtnNew.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.BtnNew.Location = new System.Drawing.Point(318, 297);
-      this.BtnNew.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.BtnNew.Margin = new System.Windows.Forms.Padding(2);
       this.BtnNew.Name = "BtnNew";
       this.BtnNew.Size = new System.Drawing.Size(199, 39);
       this.BtnNew.TabIndex = 1;
@@ -73,7 +73,7 @@ namespace chess.Views
       // 
       this.BtnManage.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.BtnManage.Location = new System.Drawing.Point(65, 370);
-      this.BtnManage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.BtnManage.Margin = new System.Windows.Forms.Padding(2);
       this.BtnManage.Name = "BtnManage";
       this.BtnManage.Size = new System.Drawing.Size(199, 39);
       this.BtnManage.TabIndex = 2;
@@ -85,7 +85,7 @@ namespace chess.Views
       // 
       this.BtnExit.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.BtnExit.Location = new System.Drawing.Point(318, 370);
-      this.BtnExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.BtnExit.Margin = new System.Windows.Forms.Padding(2);
       this.BtnExit.Name = "BtnExit";
       this.BtnExit.Size = new System.Drawing.Size(199, 39);
       this.BtnExit.TabIndex = 3;
@@ -145,7 +145,7 @@ namespace chess.Views
       // 
       this.label2.AutoSize = true;
       this.label2.Font = new System.Drawing.Font("Matura MT Script Capitals", 12F);
-      this.label2.Location = new System.Drawing.Point(61, 92);
+      this.label2.Location = new System.Drawing.Point(61, 90);
       this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(147, 22);
@@ -205,7 +205,7 @@ namespace chess.Views
       this.Controls.Add(this.BtnNew);
       this.Controls.Add(this.labTitle);
       this.Controls.Add(this.btnCancel1);
-      this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+      this.Margin = new System.Windows.Forms.Padding(2);
       this.Name = "FormMenu";
       this.Text = "FormMenu";
       this.ResumeLayout(false);

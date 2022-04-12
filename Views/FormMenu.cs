@@ -57,6 +57,9 @@ namespace chess.Views
 
     public void GeneratePlayerList(List<string> playerList)
     {
+      listPlayer.View = View.Details;
+      listPlayer.Columns.Add("Player", listPlayer.Width);
+
       foreach (string player in playerList)
         listPlayer.Items.Add(player);
     }

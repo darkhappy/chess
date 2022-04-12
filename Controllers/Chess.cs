@@ -33,7 +33,7 @@ namespace chess.Controllers
       _frmMenu = new FormMenu(this);
       Application.Run(_frmMenu);
 
-      _frmMenu.GeneratePlayerList(PlayersToString(_playerController.GetPlayerList));
+      _frmMenu.GeneratePlayerList(PlayersToString(_playerController.GetPlayerList()));
     }
 
     /// <summary>
