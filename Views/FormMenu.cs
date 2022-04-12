@@ -1,4 +1,5 @@
 ﻿using chess.Controllers;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace chess.Views
@@ -52,6 +53,12 @@ namespace chess.Views
     private void Exit(object sender, System.EventArgs e)
     {
       _main.Exit();
+    }
+
+    public void GeneratePlayerList(List<string> playerList)
+    {
+      foreach (string player in playerList)
+        listPlayer.Items.Add(player);
     }
   }
 }

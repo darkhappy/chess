@@ -43,6 +43,7 @@ namespace chess.Views
       this.label2 = new System.Windows.Forms.Label();
       this.btnCancel1 = new System.Windows.Forms.Button();
       this.btnCancel2 = new System.Windows.Forms.Button();
+      this.labError = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
       // labTitle
@@ -173,11 +174,25 @@ namespace chess.Views
       this.btnCancel2.Text = "X";
       this.btnCancel2.UseVisualStyleBackColor = false;
       // 
+      // labError
+      // 
+      this.labError.AutoSize = true;
+      this.labError.Font = new System.Drawing.Font("Matura MT Script Capitals", 12F);
+      this.labError.ForeColor = System.Drawing.Color.Red;
+      this.labError.Location = new System.Drawing.Point(314, 245);
+      this.labError.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.labError.Name = "labError";
+      this.labError.Size = new System.Drawing.Size(192, 22);
+      this.labError.TabIndex = 16;
+      this.labError.Text = "This player already exists";
+      this.labError.Visible = false;
+      // 
       // FormMenu
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(580, 436);
+      this.Controls.Add(this.labError);
       this.Controls.Add(this.btnCancel2);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.txbPlayer2);
@@ -212,5 +227,6 @@ namespace chess.Views
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Button btnCancel1;
     private System.Windows.Forms.Button btnCancel2;
+    private System.Windows.Forms.Label labError;
   }
 }
