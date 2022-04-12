@@ -14,7 +14,6 @@ namespace chess.Controllers
     GameController _gameController;
 
     FormMenu _frmMenu;
-    FormSelection _frmSelect;
 
     /// <summary>
     /// Application entry point
@@ -33,6 +32,8 @@ namespace chess.Controllers
       _playerController = new PlayerController(this);
       _frmMenu = new FormMenu(this);
       Application.Run(_frmMenu);
+
+      _frmMenu.GeneratePlayerList(PlayersToString(_playerController.GetPlayerList));
     }
 
     /// <summary>
@@ -41,7 +42,6 @@ namespace chess.Controllers
     public void NewGame()
     {
       _gameController = new GameController(new Player("Benjamin"), new Player("Benjamino"));
-      //_frmSelect = new FormSelection();
     }
 
     /// <summary>
@@ -49,8 +49,17 @@ namespace chess.Controllers
     /// </summary>
     public void StartGame(Player[] players)
     {
-      _frmSelect.Close();
       //GameController gameController = new GameController(this);
+    }
+
+    public List<string> PlayersToString(List<Player> playerList)
+    {
+      List<string> list = new List<string>();
+
+      foreach (Player player in playerList)
+        list.Add(player.Name);
+
+      return list;
     }
 
     public void ManagePlayers()
