@@ -182,12 +182,12 @@ namespace chess.Views
       this.labError.AutoSize = true;
       this.labError.Font = new System.Drawing.Font("Matura MT Script Capitals", 12F);
       this.labError.ForeColor = System.Drawing.Color.Red;
-      this.labError.Location = new System.Drawing.Point(314, 245);
+      this.labError.Location = new System.Drawing.Point(314, 226);
       this.labError.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.labError.Name = "labError";
-      this.labError.Size = new System.Drawing.Size(192, 22);
+      this.labError.Size = new System.Drawing.Size(171, 22);
       this.labError.TabIndex = 16;
-      this.labError.Text = "This player already exists";
+      this.labError.Text = "Please select 2 players";
       this.labError.Visible = false;
       // 
       // FormMenu

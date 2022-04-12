@@ -123,6 +123,11 @@ namespace chess.Controllers
       return _list;
     }
 
+    public Player GetPlayer(string name)
+    {
+      return _list.Find(x => x.Name == name);
+    }
+
     /// <summary>
     /// Serialize an object returning the
     /// bytes as a Base64 encoded string

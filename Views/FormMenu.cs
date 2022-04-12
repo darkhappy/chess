@@ -32,7 +32,19 @@ namespace chess.Views
     /// <param name="e"></param>
     private void Start(object sender, System.EventArgs e)
     {
-      _main.NewGame();
+      if(txbPlayer1.Text == "" || txbPlayer2.Text == "")
+      {
+        labError.Visible = true;
+      }
+      else
+      {
+        labError.Visible = false;
+        _main.NewGame(txbPlayer1.Text, txbPlayer2.Text);
+        listPlayer.Items.Add(new ListViewItem(txbPlayer1.Text));
+        txbPlayer1.Text = "";
+        listPlayer.Items.Add(new ListViewItem(txbPlayer2.Text));
+        txbPlayer2.Text = "";
+      }
     }
 
     /// <summary>
