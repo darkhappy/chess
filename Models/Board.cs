@@ -12,7 +12,7 @@ namespace chess.Models
     /// <summary>
     /// Contains all the cells on the board.
     /// </summary>
-    private readonly Cell[] _cells;
+    private Cell[] _cells;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Board"/> class with an empty board.
@@ -372,9 +372,11 @@ namespace chess.Models
     /// </summary>
     /// <param name="origin">The cell containing the moving piece.</param>
     /// <param name="target">The cell that the piece is moving to.</param>
-    /// <returns>True if the move would cause the essential piece to be in check, false otherwise.</returns>
+    /// <returns>False if the move would cause the essential piece to be in check, true otherwise.</returns>
     public bool SelfChecks(Position origin, Position target)
     {
+      // TODO: Scuffed. Needs to be fixed.
+      var oldBoard = _cells;
       var cell = _cells[ConvertToIndex(origin)];
       if (cell.Colour == null) return false;
 
@@ -382,7 +384,26 @@ namespace chess.Models
         ? GetAttackingPieces((Colour) cell.Colour, target, origin)
         : GetAssailants((Colour) cell.Colour, origin);
 
-      return attackers.Count == 0;
+      // Remove the target piece since it will be replaced
+      attackers.Remove(target);
+
+      if (attackers.Count == 0) return true;
+
+      // Try moving anyways
+      MoveCellTo(origin, target);
+
+      // Now do it again
+      attackers = cell.HasEssential()
+        ? GetAttackingPieces((Colour) cell.Colour, target, origin)
+        : GetAssailants((Colour) cell.Colour, origin);
+
+      // Again, remove the target piece since it will be replaced
+      attackers.Remove(target);
+
+      if (attackers.Count == 0) return true;
+
+      _cells = oldBoard;
+      return false;
     }
 
     public bool CanBlock(Position origin, Position target)
