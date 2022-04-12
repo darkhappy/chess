@@ -55,6 +55,11 @@ namespace chess.Controllers
         _match.MakeTurn(_selected, target);
         _selected = new Position(-1, -1);
         _formMatch.DrawBoard(_match.ExportBoard());
+
+        if (_match.Checkmate())
+        {
+          _formMatch.VictoryMessage();
+        }
       }
     }
 

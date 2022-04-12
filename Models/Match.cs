@@ -16,6 +16,10 @@ namespace chess.Models
       _history = new List<string>();
       _turnCount = 0;
       _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+
+      //test boards :
+      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+
     }
 
     public Colour CurrentPlayer => _current;

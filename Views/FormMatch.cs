@@ -167,9 +167,9 @@ namespace chess.Views
       DrawBoard(_board);
     }
 
-    private void BtnDismiss_Click(object sender, EventArgs e)
+    private void BtnResign_Click(object sender, EventArgs e)
     {
-
+      _controller.Resign();
     }
 
     private void btnDraw_Click(object sender, EventArgs e)
@@ -177,27 +177,23 @@ namespace chess.Views
       _controller.DrawMatch();
     }
 
-    private void WinningMatch()
+    public void VictoryMessage()
     {
       this.Enabled = false;
       // Initializes the variables to pass to the MessageBox.Show method.
-      string message = "Do yyou want to play another match?";
-      string caption = "The player wins !";
-      MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+      string message = "Do you want to play another match?";
+      string caption = "Check Mate !";
+      MessageBoxButtons buttons = MessageBoxButtons.OK;
       DialogResult result;
 
       // Displays the MessageBox.
       result = MessageBox.Show(message, caption, buttons);
-      if (result == System.Windows.Forms.DialogResult.Yes)
-      {
-        // new matc form
-        
-      }
-      else
+      if (result == DialogResult.OK)
       {
         this.Close();
       }
     }
 
+    
   }
 }

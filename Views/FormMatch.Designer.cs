@@ -63,7 +63,7 @@ namespace chess.Views
       this.BtnResign.TabIndex = 3;
       this.BtnResign.Text = "Resign";
       this.BtnResign.UseVisualStyleBackColor = false;
-      this.BtnResign.Click += new System.EventHandler(this.BtnDismiss_Click);
+      this.BtnResign.Click += new System.EventHandler(this.BtnResign_Click);
       // 
       // btnDraw
       // 
