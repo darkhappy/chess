@@ -67,15 +67,19 @@ namespace chess.Models
         return false;
 
       // Check if the king can move out of check
-      if (_board.CanAttackAroundEssential(_current))
-        return true;
+      if (!_board.CanAttackAroundEssential(_current))
+        return false;
 
-      if (attackers.Count > 1)
-      {
-        throw new NotImplementedException();
-      }
+      if (attackers.Count != 1) return true;
 
-      return false;
+      var ally = _current == Colour.White ? Colour.Black : Colour.White;
+      if (_board.GetAttackingPieces(ally, attackers[0]).Count != 0)
+        return false;
+
+      if (_board.CanBlock(attackers[0], _board.GetEssentialPiece(_current)))
+        return false;
+
+      return true;
     }
 
     public bool Stalemate()

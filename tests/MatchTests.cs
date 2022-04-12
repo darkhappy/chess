@@ -158,6 +158,39 @@ namespace tests
     }
 
     [Test]
+    public void CanAttackThePiecePuttingTheKingInCheck()
+    {
+      _match.MakeTurn(new Position(4, 1), new Position(4, 3));
+      _match.MakeTurn(new Position(5, 6), new Position(5, 4));
+      _match.MakeTurn(new Position(4, 3), new Position(5, 4));
+      _match.MakeTurn(new Position(6, 6), new Position(6, 4));
+      _match.MakeTurn(new Position(3, 1), new Position(3, 3));
+      _match.MakeTurn(new Position(6, 7), new Position(5, 5));
+      _match.MakeTurn(new Position(3, 0), new Position(7, 4));
+      Assert.That(_match.Check(), Is.True);
+      Assert.That(_match.Checkmate(), Is.False);
+    }
+
+    [Test]
+    public void CanBlockThePiecePuttingTheKingInCheck()
+    {
+      _match.MakeTurn(new Position(4, 1), new Position(4, 3));
+      _match.MakeTurn(new Position(5, 6), new Position(5, 4));
+      _match.MakeTurn(new Position(4, 3), new Position(5, 4));
+      _match.MakeTurn(new Position(3, 6), new Position(3, 4));
+      _match.MakeTurn(new Position(3, 0), new Position(7, 4));
+      Assert.That(_match.Check(), Is.True);
+      Assert.That(_match.Checkmate(), Is.False);
+    }
+
+    [Test]
+    public void NotACheck()
+    {
+      _match.MakeTurn(new Position(4, 1), new Position(4, 3));
+      Assert.That(_match.Check(), Is.False);
+    }
+
+    [Test]
     public void NotACheckmate()
     {
       _match.MakeTurn(new Position(4, 1), new Position(4, 3));
