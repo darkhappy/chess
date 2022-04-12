@@ -12,8 +12,7 @@ namespace chess.Controllers
     private Player _playerA;
     private Player _playerB;
     private Position _selected;
-
-    FormMatch _formMatch;
+    private FormMatch _formMatch;
 
     public GameController(Player a, Player b)
     {
@@ -29,17 +28,19 @@ namespace chess.Controllers
       {
         if (_match.ValidSelection(cell, true))
         {
+          _formMatch.DrawBoard(_match.ExportBoard());
           _formMatch.DrawSelection(cell);
           _selected = cell;
         }
       }
       else if (_match.ValidSelection(cell, false))
       {
-        //this.Turn(cell);
+        this.Turn(cell);
 
       }
       else
       {
+        _formMatch.DrawBoard(_match.ExportBoard());
         _formMatch.DrawSelection(cell);
         _selected = cell;
       }
@@ -48,7 +49,11 @@ namespace chess.Controllers
 
     private void Turn(Position target)
     {
-      throw new NotImplementedException();
+      if (_match.ValidTurn(_selected, target)) {
+        _match.MakeTurn(_selected, target);
+        _selected = new Position(-1, -1);
+        _formMatch.DrawBoard(_match.ExportBoard());
+      }
     }
 
     public string GetBoard()

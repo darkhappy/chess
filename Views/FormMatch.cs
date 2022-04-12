@@ -33,10 +33,11 @@ namespace chess.Views
 
       var pos = new Position(x, y);
 
-      DrawBoard(_board);
+      
+
+      _board = _controller.GetBoard();
 
       _controller.Selection(pos);
-
 
     }
 
@@ -52,7 +53,7 @@ namespace chess.Views
 
     }
 
-    private void DrawBoard(string board)
+    public void DrawBoard(string board)
     {
       Bitmap imgPiece = null;
       Graphics boardGraph = ChessBoard.CreateGraphics();
@@ -62,18 +63,31 @@ namespace chess.Views
       boardGraph.DrawRectangle(new Pen(Color.White), 0, 0, ChessBoard.Height, ChessBoard.Height);
       Size cellSize = new Size(ChessBoard.Height / 8, ChessBoard.Height / 8);
       int indexBoard = 0;
+
+      //boardGraph.FillRectangle(whiteCell, r * cellDim, c * cellDim, cellDim, cellDim);
+
       for (int c = 0; c < 8; c++)
       {
 
         for (int r = c % 2 == 0 ? 1 : 0; r < 8; r += 2)
         {
-          if(c+1 < 8)
-            boardGraph.FillRectangle(whiteCell, r * cellDim, c * cellDim + ChessBoard.Height / 8, cellDim, cellDim);
+          
           boardGraph.FillRectangle(darkCell, r * cellDim, c * cellDim, cellDim, cellDim);
 
         }
       }
-        
+
+      for (int c = 0; c < 8; c++)
+      {
+
+        for (int r = c % 2 == 0 ? 0 : 1; r < 8; r += 2)
+        {
+
+          boardGraph.FillRectangle(whiteCell, r * cellDim, c * cellDim, cellDim, cellDim);
+
+        }
+      }
+
       for (int r = 7; r >= 0; r--)
       {
         for (int c = 0; c < 8; c++)
