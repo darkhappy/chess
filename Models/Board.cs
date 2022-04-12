@@ -12,7 +12,7 @@ namespace chess.Models
     /// <summary>
     /// Contains all the cells on the board.
     /// </summary>
-    private Cell[] _cells;
+    private readonly Cell[] _cells;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Board"/> class with an empty board.
@@ -387,23 +387,7 @@ namespace chess.Models
       // Remove the target piece since it will be replaced
       attackers.Remove(target);
 
-      if (attackers.Count == 0) return true;
-
-      // Try moving anyways
-      MoveCellTo(origin, target);
-
-      // Now do it again
-      attackers = cell.HasEssential()
-        ? GetAttackingPieces((Colour) cell.Colour, target, origin)
-        : GetAssailants((Colour) cell.Colour, origin);
-
-      // Again, remove the target piece since it will be replaced
-      attackers.Remove(target);
-
-      if (attackers.Count == 0) return true;
-
-      _cells = oldBoard;
-      return false;
+      return (attackers.Count == 0);
     }
 
     public bool CanBlock(Position origin, Position target)
