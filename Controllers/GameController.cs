@@ -59,6 +59,11 @@ namespace chess.Controllers
         if (_match.Checkmate())
         {
           _formMatch.VictoryMessage();
+          
+          if(_match.CurrentPlayer == Colour.White)
+            _main.setWinner(_playerA, _playerB, true);
+          else
+            _main.setWinner(_playerA, _playerB, false);
         }
       }
     }

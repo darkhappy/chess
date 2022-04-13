@@ -60,6 +60,11 @@ namespace chess.Controllers
       return list;
     }
 
+    public void setWinner(Player player1, Player player2, bool player1Win)
+    {
+      _playerController.UpdateEloRating(player1, player2, player1Win);
+    }
+
     /// <summary>
     /// Show player form
     /// </summary>
