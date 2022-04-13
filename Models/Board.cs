@@ -23,11 +23,6 @@ namespace chess.Models
       GenerateBoard("................................................................");
     }
 
-    public bool HasCastler(Position cell)
-    {
-      return _cells[ConvertToIndex(cell)].CanCastle();
-    }
-
     /// <summary>
     ///   Initializes a new instance of the <see cref="Board" /> class with a specified board.
     /// </summary>
@@ -36,6 +31,11 @@ namespace chess.Models
     {
       _cells = new Cell[64];
       GenerateBoard(board);
+    }
+
+    public bool HasCastler(Position cell)
+    {
+      return _cells[ConvertToIndex(cell)].CanCastle();
     }
 
     /// <summary>
@@ -326,6 +326,27 @@ namespace chess.Models
     /// <param name="target">Position to move the piece to.</param>
     public void MoveCellTo(Position origin, Position target)
     {
+      if (CanCastle(origin, target))
+      {
+        // Handle castles
+        Position castlee;
+        Position newTarget;
+        if (origin.X - target.X > 0)
+        {
+          castlee = new Position(0, origin.Y);
+          newTarget = new Position(origin.X - 1, origin.Y);
+        }
+        else
+        {
+          castlee = new Position(7, origin.Y);
+          newTarget = new Position(origin.X + 1, origin.Y);
+        }
+
+        _cells[ConvertToIndex(newTarget)] = _cells[ConvertToIndex(castlee)];
+        _cells[ConvertToIndex(castlee)] = new Cell('.');
+        _cells[ConvertToIndex(newTarget)].Moved();
+      }
+
       _cells[ConvertToIndex(target)] = _cells[ConvertToIndex(origin)];
       _cells[ConvertToIndex(origin)] = new Cell('.');
       _cells[ConvertToIndex(target)].Moved();
@@ -406,40 +427,45 @@ namespace chess.Models
     public bool CanCastle(Position origin, Position target)
     {
       var castler = _cells[ConvertToIndex(origin)];
-      
+
       // Check if they can castle
       if (castler.Colour == null) return false;
       if (!castler.CanCastle()) return false;
       if (castler.HasMoved()) return false;
-      
+
       // Check if the movement is a castle
       if (!CastlingMove(origin, target))
         return false;
 
-      Cell castlee;
+      Position castlee;
       Position passesBy;
-      // Get the castle
+      // Get the castlee
       if (origin.X - target.X > 0)
       {
-        castlee = _cells[ConvertToIndex(new Position(0, origin.Y))];
+        castlee = new Position(0, origin.Y);
         passesBy = new Position(origin.X - 1, origin.Y);
       }
       else
       {
-        castlee = _cells[ConvertToIndex(new Position(7, origin.Y))];
+        castlee = new Position(7, origin.Y);
         passesBy = new Position(origin.X + 1, origin.Y);
       }
 
       if (!castler.CanCastle()) return false;
-      if (castlee.HasMoved()) return false;
-      
+      if (_cells[ConvertToIndex(castlee)].HasMoved()) return false;
+
       // Ensure that there are no attackers between these positions
       if (GetAttackingPieces((Colour) castler.Colour, passesBy).Count > 0)
         return false;
-      
+
       // Also ensure that they are not being attacked 
       if (GetAttackingPieces((Colour) castler.Colour, origin).Count > 0)
         return false;
+
+      // Lastly, check if the castlee can do the move
+      if (!ValidMove(castlee, passesBy))
+        return false;
+
 
       return true;
     }

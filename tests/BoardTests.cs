@@ -265,5 +265,30 @@ namespace tests
       _board = new Board("r...k..r....R...................................................");
       Assert.That(_board.CanCastle(new Position("e1"), new Position(cell)), Is.False);
     }
+
+    [Test]
+    [TestCase("c1")]
+    [TestCase("g1")]
+    public void CantCastleDueToPieceInWay(string cell)
+    {
+      _board = new Board("rp..k.pr........................................................");
+      Assert.That(_board.CanCastle(new Position("e1"), new Position(cell)), Is.False);
+    }
+
+    [Test]
+    public void QueensideCastle()
+    {
+      _board = new Board("r...k..r........................................................");
+      _board.MoveCellTo(new Position("e1"), new Position("c1"));
+      Assert.That(_board.ToString(), Is.EqualTo("..kr...r........................................................"));
+    }
+
+    [Test]
+    public void KingsideCastle()
+    {
+      _board = new Board("r...k..r........................................................");
+      _board.MoveCellTo(new Position("e1"), new Position("g1"));
+      Assert.That(_board.ToString(), Is.EqualTo("r....rk........................................................."));
+    }
   }
 }
