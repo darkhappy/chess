@@ -12,7 +12,7 @@ namespace chess.Models
     /// <summary>
     ///   Contains all the cells on the board.
     /// </summary>
-    private readonly Cell[] _cells;
+    private Cell[] _cells;
 
     /// <summary>
     ///   Initializes a new instance of the <see cref="Board" /> class with an empty board.
@@ -263,7 +263,7 @@ namespace chess.Models
         if (_cells[i].Colour == enemyColour)
           enemies.Add(ConvertToPosition(i));
 
-      var list = enemies.Where(enemy => ValidMove(enemy, target, ignore)).ToList();
+      var list = enemies.Where(enemy => ValidMove(enemy, target, ignore) && SelfChecks(enemy, target)).ToList();
 
       list.Remove(ignore);
 
@@ -353,7 +353,7 @@ namespace chess.Models
       if (cell == new Position(-1, -1)) return false;
       var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
       moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
-      moves.RemoveAll(pos => !_cells[ConvertToIndex(pos)].IsEmpty());
+      moves.RemoveAll(pos => _cells[ConvertToIndex(pos)].Colour != _cells[ConvertToIndex(cell)].Colour);
       return moves.Any(pos => GetAttackingPieces(colour, cell).Count > 0);
     }
 
@@ -366,16 +366,18 @@ namespace chess.Models
     public bool SelfChecks(Position origin, Position target)
     {
       // TODO: Scuffed. Needs to be fixed.
-      var oldBoard = _cells;
+      var oldBoard = (Cell[]) _cells.Clone();
       var cell = _cells[ConvertToIndex(origin)];
-      if (cell.Colour == null) return false;
+      if (cell.Colour == null)
+      {
+        _cells = oldBoard;
+        return false;
+      }
 
-      var attackers = cell.HasEssential()
-        ? GetAttackingPieces((Colour) cell.Colour, target, origin)
-        : GetAssailants((Colour) cell.Colour, origin);
-
-      // Remove the target piece since it will be replaced
+      MoveCellTo(origin, target);
+      var attackers = GetAssailants((Colour) cell.Colour, origin);
       attackers.Remove(target);
+      _cells = oldBoard;
 
       return attackers.Count == 0;
     }
