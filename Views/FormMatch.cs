@@ -191,7 +191,7 @@ namespace chess.Views
 
       DialogResult dialogResult = MessageBox.Show(message, caption, MessageBoxButtons.YesNo);
 
-      return dialogResult == DialogResult.Yes ? true : false;
+      return dialogResult == DialogResult.Yes;
     }
 
 
