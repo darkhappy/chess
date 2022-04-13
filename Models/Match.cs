@@ -70,7 +70,7 @@ namespace chess.Models
 
     public bool CanPromote(Position cell)
     {
-      return _board.IsInPromotableCell(cell, _current);
+      return _board.IsPromotable(cell, _current);
     }
 
     public bool Check()
