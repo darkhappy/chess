@@ -1,4 +1,3 @@
-using System;
 using chess.Models;
 using chess.Views;
 
@@ -6,13 +5,12 @@ namespace chess.Controllers
 {
   public class GameController
   {
-    private int _fiftyTurns;
+    private FrmMatch _formMatch;
     private Chess _main;
     private Match _match;
     private Player _playerA;
     private Player _playerB;
     private Position _selected;
-    private FrmMatch _formMatch;
 
     /// <summary>
     /// For testing purposes.
@@ -40,21 +38,21 @@ namespace chess.Controllers
       _formMatch.Show();
     }
 
+    public Player PlayerA => _playerA;
+    public Player PlayerB => _playerB;
+
     public void Selection(Position cell)
     {
       if (_selected.X == -1)
       {
-        if (_match.ValidSelection(cell, true))
-        {
-          _formMatch.DrawBoard(_match.ExportBoard());
-          _formMatch.DrawSelection(cell);
-          _selected = cell;
-        }
+        if (!_match.ValidSelection(cell, true)) return;
+        _formMatch.DrawBoard(_match.ExportBoard());
+        _formMatch.DrawSelection(cell);
+        _selected = cell;
       }
       else if (_match.ValidSelection(cell, false))
       {
-        this.Turn(cell);
-
+        Turn(cell);
       }
       else
       {
@@ -62,25 +60,39 @@ namespace chess.Controllers
         _formMatch.DrawSelection(cell);
         _selected = cell;
       }
-
     }
 
     private void Turn(Position target)
     {
-      if (_match.ValidTurn(_selected, target)) {
-        _match.MakeTurn(_selected, target);
-        _selected = new Position(-1, -1);
-        _formMatch.DrawBoard(_match.ExportBoard());
+      // Verify if the match is valid
+      if (!_match.ValidTurn(_selected, target)) return;
 
+      // Make the turn
+      _match.MakeTurn(_selected, target);
+      _selected = new Position(-1, -1);
+      _formMatch.DrawBoard(_match.ExportBoard());
+
+      // Check if it's a promotion
+      if (_match.HasPromotable(target))
+      {
+        // Handle the promotion
+      }
+
+      // Check for check
+      if (_match.Check())
+        // Check for checkmate
         if (_match.Checkmate())
         {
           _formMatch.VictoryMessage();
-          
-          if(_match.CurrentPlayer == Colour.White)
-            _main.setWinner(_playerA, _playerB, true);
-          else
-            _main.setWinner(_playerA, _playerB, false);
+          _main.setWinner(_playerA, _playerB, _match.CurrentPlayer == Colour.White);
         }
+        else
+        {
+          // Show that they are in check
+        }
+      else
+      {
+        // Check for stalemates (50 turns without a significant move, 3 of the same board, no one can move)
       }
     }
 
@@ -89,23 +101,6 @@ namespace chess.Controllers
       return _match.ExportBoard();
     }
 
-    public Player PlayerA => _playerA;
-    public Player PlayerB => _playerB;
-
-    private void Stalemate()
-    {
-      throw new NotImplementedException();
-    }
-
-    private void Rules()
-    {
-      throw new NotImplementedException();
-    }
-
-    private void Castle()
-    {
-      throw new NotImplementedException();
-    }
     public void Resign()
     {
       if (_match.CurrentPlayer == Colour.White)
