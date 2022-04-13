@@ -19,6 +19,7 @@ namespace chess.Models
 
       //test boards :
       //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+
     }
 
     public Colour CurrentPlayer => _current;
@@ -98,15 +99,14 @@ namespace chess.Models
 
     public bool Stalemate()
     {
-      throw new NotImplementedException();
+      //TODO verify if all remaining pieces cant make a valid move
+      if (!this.Check())
+        return true;
+      else
+        return false;
     }
 
     public bool Castle()
-    {
-      throw new NotImplementedException();
-    }
-
-    public List<int> GetAssailants(int cell)
     {
       throw new NotImplementedException();
     }

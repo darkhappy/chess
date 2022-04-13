@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using chess.Models;
 using chess.Views;
 
@@ -26,6 +27,7 @@ namespace chess.Controllers
       _selected = new Position(-1, -1);
       _playerA = a;
       _playerB = b;
+      _fiftyTurns = 0;
       _formMatch.Show();
     }
 
@@ -54,7 +56,6 @@ namespace chess.Controllers
       else if (_match.ValidSelection(cell, false))
       {
         this.Turn(cell);
-
       }
       else
       {
@@ -62,7 +63,6 @@ namespace chess.Controllers
         _formMatch.DrawSelection(cell);
         _selected = cell;
       }
-
     }
 
     private void Turn(Position target)
@@ -71,15 +71,20 @@ namespace chess.Controllers
         _match.MakeTurn(_selected, target);
         _selected = new Position(-1, -1);
         _formMatch.DrawBoard(_match.ExportBoard());
-
+        ++_fiftyTurns;
+        _formMatch.DrawTurns();
         if (_match.Checkmate())
         {
           _formMatch.VictoryMessage();
-          
-          if(_match.CurrentPlayer == Colour.White)
+
+          if (_match.CurrentPlayer == Colour.White)
             _main.setWinner(_playerA, _playerB, true);
           else
             _main.setWinner(_playerA, _playerB, false);
+        }
+        else if (_fiftyTurns >= 50 || this.SameBoard())
+        {
+          this.DrawMatch();
         }
       }
     }
@@ -89,23 +94,28 @@ namespace chess.Controllers
       return _match.ExportBoard();
     }
 
+    public bool SameBoard()
+    {
+      
+      List<string> history = _match.ExportHistory();
+      int same = 0;
+      for(int i = 0; i < history.Count; i++)
+      {
+        for (int j = i; j < history.Count; j++)
+        {
+          if (history[i] == history[j+1])
+          {
+            ++same;
+          }
+        }
+      }
+
+      return same >= 3;
+    }
+
     public Player PlayerA => _playerA;
     public Player PlayerB => _playerB;
 
-    private void Stalemate()
-    {
-      throw new NotImplementedException();
-    }
-
-    private void Rules()
-    {
-      throw new NotImplementedException();
-    }
-
-    private void Castle()
-    {
-      throw new NotImplementedException();
-    }
     public void Resign()
     {
       if (_match.CurrentPlayer == Colour.White)
@@ -123,5 +133,12 @@ namespace chess.Controllers
         _formMatch.Close();
       }
     }
+
+    public bool Check()
+    {
+      return _match.Check();
+    }
+
+    public int Turns => _fiftyTurns;
   }
 }

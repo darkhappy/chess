@@ -44,8 +44,6 @@ namespace chess.Views
 
       var pos = new Position(x, y);
 
-
-
       _board = _controller.GetBoard();
 
       _controller.Selection(pos);
@@ -74,37 +72,24 @@ namespace chess.Views
       Graphics boardGraph = ChessBoard.CreateGraphics();
       SolidBrush darkCell = new SolidBrush(Color.DarkGray);
       SolidBrush whiteCell = new SolidBrush(Color.White);
+
+      char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+      TextBox txt = new TextBox();
+
       float cellDim = ChessBoard.Height / 8;
       boardGraph.DrawRectangle(new Pen(Color.White), 0, 0, ChessBoard.Height, ChessBoard.Height);
       Size cellSize = new Size(ChessBoard.Height / 8, ChessBoard.Height / 8);
       int indexBoard = 0;
 
-      for (int c = 0; c < 8; c++)
-      {
-
-        for (int r = c % 2 == 0 ? 1 : 0; r < 8; r += 2)
-        {
-
-          boardGraph.FillRectangle(darkCell, r * cellDim, c * cellDim, cellDim, cellDim);
-
-        }
-      }
-
-      for (int c = 0; c < 8; c++)
-      {
-
-        for (int r = c % 2 == 0 ? 0 : 1; r < 8; r += 2)
-        {
-
-          boardGraph.FillRectangle(whiteCell, r * cellDim, c * cellDim, cellDim, cellDim);
-
-        }
-      }
-
       for (int r = 7; r >= 0; r--)
       {
         for (int c = 0; c < 8; c++)
         {
+          if ((c+r) % 2 == 1)
+            boardGraph.FillRectangle(darkCell, c * cellDim, r * cellDim, cellDim, cellDim);
+          else
+            boardGraph.FillRectangle(whiteCell, c * cellDim, r * cellDim, cellDim, cellDim);
+          
           switch (board[indexBoard++])
           {
             case 'P':
@@ -173,6 +158,7 @@ namespace chess.Views
       grpPlayer2.Text = _controller.PlayerB.Name;
       txtScoreA.Text = _controller.PlayerA.Points.ToString();
       txtScoreB.Text = _controller.PlayerB.Points.ToString();
+      txtTurns.Text = _controller.Turns.ToString();
     }
 
     private void ChessBoard_Paint(object sender, PaintEventArgs e)
@@ -206,7 +192,6 @@ namespace chess.Views
       return dialogResult == DialogResult.Yes;
     }
 
-
     public void VictoryMessage()
     {
       
@@ -222,6 +207,11 @@ namespace chess.Views
       {
         this.Close();
       }
+    }
+
+    public void DrawTurns()
+    {
+      txtTurns.Text = _controller.Turns.ToString();
     }
   }
 }
