@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace chess.Models
 {
-  public class King : StartingPiece
+  public class King : CastlingPiece
   {
     public King(Colour colour) : base(colour)
     {

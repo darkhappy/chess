@@ -29,7 +29,7 @@ namespace chess.Models
         'h' => 7,
         _ => throw new Exception("Invalid x coordinate")
       };
-      _y = int.Parse(y.ToString());
+      _y = int.Parse(y.ToString()) - 1;
     }
 
     public int X

@@ -8,11 +8,9 @@ namespace chess.Controllers
 {
   public class Chess
   {
-    List<GameController> _listGames;
-
-    PlayerController _playerController;
-
-    FormMenu _frmMenu;
+    private List<GameController> _listGames;
+    private PlayerController _playerController;
+    private FormMenu _frmMenu;
 
     /// <summary>
     /// Application entry point
@@ -31,8 +29,14 @@ namespace chess.Controllers
       _listGames = new List<GameController>();
       _playerController = new PlayerController(this);
       _frmMenu = new FormMenu(this);
-      _frmMenu.GeneratePlayerList(PlayersToString(_playerController.GetPlayerList()));
       Application.Run(_frmMenu);
+      UpdatePlayerList();
+    }
+
+
+    public void UpdatePlayerList()
+    {
+      _frmMenu.UpdatePlayerList(PlayersToString(_playerController.GetPlayerList()));
     }
 
     /// <summary>
@@ -43,10 +47,15 @@ namespace chess.Controllers
       Player player1 = _playerController.GetPlayer(name1);
       Player player2 = _playerController.GetPlayer(name2);
 
-      GameController gameController = new GameController(player1, player2);
+      GameController gameController = new GameController(this, player1, player2);
       _listGames.Add(gameController);
     }
 
+    /// <summary>
+    /// Convert a player list into a string list
+    /// </summary>
+    /// <param name="playerList"></param>
+    /// <returns></returns>
     public List<string> PlayersToString(List<Player> playerList)
     {
       List<string> list = new List<string>();
@@ -57,6 +66,20 @@ namespace chess.Controllers
       return list;
     }
 
+    /// <summary>
+    /// Update players ELO rating
+    /// </summary>
+    /// <param name="player1"></param>
+    /// <param name="player2"></param>
+    /// <param name="player1Win"></param>
+    public void setWinner(Player player1, Player player2, bool player1Win)
+    {
+      _playerController.UpdateEloRating(player1, player2, player1Win);
+    }
+
+    /// <summary>
+    /// Show player form
+    /// </summary>
     public void ManagePlayers()
     {
       _playerController.Show();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 namespace chess.Models
 {
@@ -19,7 +20,7 @@ namespace chess.Models
       _name = name;
       _victory = 0;
       _defeat = 0;
-      _points = 0;
+      _points = 1200;
     }
 
     /// <summary>

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace chess.Models
 {
@@ -19,7 +20,6 @@ namespace chess.Models
 
       //test boards :
       //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
-
     }
 
     public Colour CurrentPlayer => _current;
@@ -36,7 +36,18 @@ namespace chess.Models
 
     public bool ValidTurn(Position origin, Position target)
     {
-      return _board.ValidMove(origin, target) && _board.SelfChecks(origin, target);
+      if (!_board.ValidMove(origin, target))
+        return false;
+      if (!_board.SelfChecks(origin, target))
+        return false;
+
+      if (!_board.HasCastler(origin))
+        return true;
+
+      if (!Board.CastlingMove(origin, target))
+        return true;
+      
+      return _board.CanCastle(origin, target);
     }
 
     public void MakeTurn(Position origin, Position target)

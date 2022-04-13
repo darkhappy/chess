@@ -23,9 +23,9 @@ namespace chess.Views
     /// <returns>Returns a new instance of FormMatch</returns>
     public FrmMatch(GameController controller)
     {
-        InitializeComponent();
-        _controller = controller;
-        _board = _controller.GetBoard();
+      InitializeComponent();
+      _controller = controller;
+      _board = _controller.GetBoard();
 
     }
 
@@ -36,15 +36,15 @@ namespace chess.Views
     /// <param name="e">Represents the events we have to listen to</param>
     private void GridClick(object sender, EventArgs e)
     {
-      
+
       var props = (MouseEventArgs)e;
       var image = (Panel)sender;
-      var x = props.X/(image.Height/8);
-      var y = Math.Abs(props.Y-(image.Height))/(image.Height/8);
+      var x = props.X / (image.Height / 8);
+      var y = Math.Abs(props.Y - (image.Height)) / (image.Height / 8);
 
       var pos = new Position(x, y);
 
-      
+
 
       _board = _controller.GetBoard();
 
@@ -60,9 +60,9 @@ namespace chess.Views
 
       Graphics boardGraph = ChessBoard.CreateGraphics();
 
-      var x = pos.X*(ChessBoard.Height/8);
+      var x = pos.X * (ChessBoard.Height / 8);
 
-      var y = Math.Abs(pos.Y-7) * (ChessBoard.Height / 8);
+      var y = Math.Abs(pos.Y - 7) * (ChessBoard.Height / 8);
 
       boardGraph.DrawRectangle(new Pen(Color.CadetBlue, 4.0F), x, y, ChessBoard.Height / 8, ChessBoard.Height / 8);
 
@@ -84,7 +84,7 @@ namespace chess.Views
 
         for (int r = c % 2 == 0 ? 1 : 0; r < 8; r += 2)
         {
-          
+
           boardGraph.FillRectangle(darkCell, r * cellDim, c * cellDim, cellDim, cellDim);
 
         }
@@ -161,7 +161,7 @@ namespace chess.Views
           }
           if (imgPiece != null)
           {
-            boardGraph.DrawImage(imgPiece, c*cellDim, r*cellDim);
+            boardGraph.DrawImage(imgPiece, c * cellDim, r * cellDim);
           }
         }
       }
@@ -169,14 +169,15 @@ namespace chess.Views
 
     private void FormMatch_Load(object sender, EventArgs e)
     {
-      grpPlayer1.Text = _controller.PLayerA.Name;
-      grpPlayer2.Text = _controller.PLayerB.Name;
-      txtScoreA.Text = _controller.PLayerA.Points.ToString();
-      txtScoreB.Text = _controller.PLayerB.Points.ToString();
+      grpPlayer1.Text = _controller.PlayerA.Name;
+      grpPlayer2.Text = _controller.PlayerB.Name;
+      txtScoreA.Text = _controller.PlayerA.Points.ToString();
+      txtScoreB.Text = _controller.PlayerB.Points.ToString();
     }
 
     private void ChessBoard_Paint(object sender, PaintEventArgs e)
     {
+      _board = _controller.GetBoard();
       DrawBoard(_board);
     }
 
@@ -189,6 +190,22 @@ namespace chess.Views
     {
       _controller.DrawMatch();
     }
+
+    public bool DrawMessage(Colour currentColor)
+    {
+      string caption = "Draw !";
+      string message;
+
+      if (currentColor == Colour.White)
+        message = _controller.PlayerA.Name + " want to make a draw. \n\n" + _controller.PlayerB.Name + " do you agree?";
+      else
+        message = _controller.PlayerB.Name + " want to make a draw. \n\n" + _controller.PlayerA.Name + " do you agree?";
+
+      DialogResult dialogResult = MessageBox.Show(message, caption, MessageBoxButtons.YesNo);
+
+      return dialogResult == DialogResult.Yes;
+    }
+
 
     public void VictoryMessage()
     {
@@ -206,7 +223,5 @@ namespace chess.Views
         this.Close();
       }
     }
-
-    
   }
 }

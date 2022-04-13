@@ -211,6 +211,7 @@ namespace chess.Views
       this.Margin = new System.Windows.Forms.Padding(2);
       this.Name = "FormMenu";
       this.Text = "FormMenu";
+      this.Load += new System.EventHandler(this.FormMenu_Load);
       this.ResumeLayout(false);
       this.PerformLayout();
 

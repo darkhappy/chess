@@ -220,5 +220,19 @@ namespace tests
       _match.MakeTurn(new Position(3, 0), new Position(7, 4));
       Assert.That(_match.ValidTurn(new Position(6, 6), new Position(6, 5)), Is.True);
     }
+
+    [Test]
+    public void CantCaptureAttackerDueToSelfCheck()
+    {
+      _match.ChangeBoard("rnb.k.nrpppp.ppp....P.....b.....................PPPPPqPPRNBQKBNR");
+      Assert.That(_match.ValidTurn(new Position("e8"), new Position("f7")), Is.False);
+    }
+
+    [Test]
+    public void BlockingPiecePuttingTheKingInCheck2()
+    {
+      _match.ChangeBoard("rnbqkbnrppppp.pp.............p.Q............P...PPPP.PPPRNB.KBNR");
+      Assert.That(_match.ValidTurn(new Position("g2"), new Position("g3")), Is.True);
+    }
   }
 }
