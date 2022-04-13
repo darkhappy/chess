@@ -1,6 +1,7 @@
 ﻿using chess.Controllers;
 using chess.Models;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace chess.Views
@@ -65,7 +66,7 @@ namespace chess.Views
     /// <param name="e"></param>
     private void btnBack_Click(object sender, System.EventArgs e)
     {
-      //_controller.Back();
+      _controller.Back();
     }
 
     /// <summary>
@@ -101,6 +102,19 @@ namespace chess.Views
     {
       string[] toAdd = new string[] { player.Name, player.Victory.ToString(), player.Defeat.ToString(), player.Points.ToString()};
       listPlayer.Items.Add(new ListViewItem(toAdd));
+    }
+
+    /// <summary>
+    /// Update the player list view with a list of player
+    /// </summary>
+    /// <param name="playerList"></param>
+    public void UpdatePlayerList(List<Player> playerList)
+    {
+      listPlayer.Items.Clear();
+      foreach (Player player in playerList)
+      {
+        AddPlayer(player);
+      }
     }
   }
 }

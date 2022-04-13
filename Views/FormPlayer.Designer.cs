@@ -45,18 +45,20 @@ namespace chess.Views
       // 
       this.LabTitle.AutoSize = true;
       this.LabTitle.Font = new System.Drawing.Font("Matura MT Script Capitals", 24F, System.Drawing.FontStyle.Bold);
-      this.LabTitle.Location = new System.Drawing.Point(64, 29);
+      this.LabTitle.Location = new System.Drawing.Point(43, 19);
+      this.LabTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.LabTitle.Name = "LabTitle";
-      this.LabTitle.Size = new System.Drawing.Size(404, 64);
+      this.LabTitle.Size = new System.Drawing.Size(273, 42);
       this.LabTitle.TabIndex = 0;
       this.LabTitle.Text = "Player list baby ";
       // 
       // btnNew
       // 
       this.btnNew.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold);
-      this.btnNew.Location = new System.Drawing.Point(75, 592);
+      this.btnNew.Location = new System.Drawing.Point(50, 385);
+      this.btnNew.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
       this.btnNew.Name = "btnNew";
-      this.btnNew.Size = new System.Drawing.Size(299, 60);
+      this.btnNew.Size = new System.Drawing.Size(199, 39);
       this.btnNew.TabIndex = 2;
       this.btnNew.Text = "New player";
       this.btnNew.UseVisualStyleBackColor = true;
@@ -65,9 +67,10 @@ namespace chess.Views
       // btnDelete
       // 
       this.btnDelete.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold);
-      this.btnDelete.Location = new System.Drawing.Point(75, 700);
+      this.btnDelete.Location = new System.Drawing.Point(50, 455);
+      this.btnDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
       this.btnDelete.Name = "btnDelete";
-      this.btnDelete.Size = new System.Drawing.Size(299, 60);
+      this.btnDelete.Size = new System.Drawing.Size(199, 39);
       this.btnDelete.TabIndex = 3;
       this.btnDelete.Text = "Delete selected";
       this.btnDelete.UseVisualStyleBackColor = true;
@@ -76,9 +79,10 @@ namespace chess.Views
       // btnBack
       // 
       this.btnBack.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold);
-      this.btnBack.Location = new System.Drawing.Point(398, 700);
+      this.btnBack.Location = new System.Drawing.Point(265, 455);
+      this.btnBack.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
       this.btnBack.Name = "btnBack";
-      this.btnBack.Size = new System.Drawing.Size(299, 60);
+      this.btnBack.Size = new System.Drawing.Size(199, 39);
       this.btnBack.TabIndex = 4;
       this.btnBack.Text = "Back";
       this.btnBack.UseVisualStyleBackColor = true;
@@ -87,26 +91,29 @@ namespace chess.Views
       // listPlayer
       // 
       this.listPlayer.HideSelection = false;
-      this.listPlayer.Location = new System.Drawing.Point(75, 119);
+      this.listPlayer.Location = new System.Drawing.Point(50, 77);
+      this.listPlayer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
       this.listPlayer.Name = "listPlayer";
-      this.listPlayer.Size = new System.Drawing.Size(622, 445);
+      this.listPlayer.Size = new System.Drawing.Size(416, 291);
       this.listPlayer.TabIndex = 5;
       this.listPlayer.UseCompatibleStateImageBehavior = false;
       // 
       // tbxName
       // 
-      this.tbxName.Location = new System.Drawing.Point(398, 627);
+      this.tbxName.Location = new System.Drawing.Point(265, 408);
+      this.tbxName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
       this.tbxName.Name = "tbxName";
-      this.tbxName.Size = new System.Drawing.Size(299, 26);
+      this.tbxName.Size = new System.Drawing.Size(201, 20);
       this.tbxName.TabIndex = 6;
       // 
       // labName
       // 
       this.labName.AutoSize = true;
       this.labName.Font = new System.Drawing.Font("Matura MT Script Capitals", 12F);
-      this.labName.Location = new System.Drawing.Point(392, 592);
+      this.labName.Location = new System.Drawing.Point(261, 385);
+      this.labName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.labName.Name = "labName";
-      this.labName.Size = new System.Drawing.Size(170, 32);
+      this.labName.Size = new System.Drawing.Size(115, 22);
       this.labName.TabIndex = 7;
       this.labName.Text = "Player\'s name:";
       // 
@@ -115,18 +122,19 @@ namespace chess.Views
       this.labError.AutoSize = true;
       this.labError.Font = new System.Drawing.Font("Matura MT Script Capitals", 12F);
       this.labError.ForeColor = System.Drawing.Color.Red;
-      this.labError.Location = new System.Drawing.Point(401, 656);
+      this.labError.Location = new System.Drawing.Point(267, 426);
+      this.labError.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.labError.Name = "labError";
-      this.labError.Size = new System.Drawing.Size(290, 32);
+      this.labError.Size = new System.Drawing.Size(192, 22);
       this.labError.TabIndex = 8;
       this.labError.Text = "This player already exists";
       this.labError.Visible = false;
       // 
       // FormPlayer
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(800, 772);
+      this.ClientSize = new System.Drawing.Size(533, 502);
       this.Controls.Add(this.labError);
       this.Controls.Add(this.tbxName);
       this.Controls.Add(this.labName);
@@ -135,6 +143,7 @@ namespace chess.Views
       this.Controls.Add(this.btnDelete);
       this.Controls.Add(this.btnNew);
       this.Controls.Add(this.LabTitle);
+      this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
       this.Name = "FormPlayer";
       this.Text = "FormPlayer";
       this.Load += new System.EventHandler(this.FormPlayer_Load);
