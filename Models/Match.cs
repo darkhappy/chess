@@ -18,7 +18,7 @@ namespace chess.Models
       _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
 
       //test boards :
-      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+      //_board = new Board("........PPP..........................................ppp........");
     }
 
     public Colour CurrentPlayer => _current;
@@ -70,7 +70,7 @@ namespace chess.Models
 
     public bool CanPromote(Position cell)
     {
-      return _board.IsPromotable(cell, _current);
+      return _board.IsPromotable(cell, _current == Colour.White ? Colour.Black : Colour.White);
     }
 
     public bool Check()

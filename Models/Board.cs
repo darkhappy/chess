@@ -190,14 +190,14 @@ namespace chess.Models
       if (colour == Colour.White)
       {
         for(int i = 0; i <= 7; i++)
-          promotablePositions.Add(new Position(7, i));
+          promotablePositions.Add(new Position(i, 7));
 
         return promotablePositions.Contains(target);
       }
       else
       {
         for (int i = 0; i <= 7; i++)
-          promotablePositions.Add(new Position(0, i));
+          promotablePositions.Add(new Position(i, 0));
 
         return promotablePositions.Contains(target);
       }
