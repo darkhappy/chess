@@ -164,6 +164,7 @@ namespace chess.Views
 
     private void ChessBoard_Paint(object sender, PaintEventArgs e)
     {
+      _board = _controller.GetBoard();
       DrawBoard(_board);
     }
 

@@ -220,5 +220,12 @@ namespace tests
       _match.MakeTurn(new Position(3, 0), new Position(7, 4));
       Assert.That(_match.ValidTurn(new Position(6, 6), new Position(6, 5)), Is.True);
     }
+
+    [Test]
+    public void CantCaptureAttackerDueToSelfCheck()
+    {
+      _match.ChangeBoard("rnb.k.nrpppp.ppp....P.....b.....................PPPPPqPPRNBQKBNR");
+      Assert.That(_match.ValidTurn(new Position("e8"), new Position("f7")), Is.False);
+    }
   }
 }
