@@ -200,7 +200,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Return the probabilité of winning of a rating againts another
+    /// Return the probability of winning of a rating againts another
     /// </summary>
     /// <param name="rating1">Points of the first player</param>
     /// <param name="rating2">Points of the second player</param>
