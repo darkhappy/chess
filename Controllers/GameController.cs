@@ -14,6 +14,21 @@ namespace chess.Controllers
     private Position _selected;
     private FrmMatch _formMatch;
 
+    /// <summary>
+    /// For testing purposes.
+    /// </summary>
+    /// <param name="a">Player A</param>
+    /// <param name="b">Player B</param>
+    public GameController(Player a, Player b)
+    {
+      _match = new Match();
+      _formMatch = new FrmMatch(this);
+      _selected = new Position(-1, -1);
+      _playerA = a;
+      _playerB = b;
+      _formMatch.Show();
+    }
+
     public GameController(Chess main, Player a, Player b)
     {
       _match = new Match();

@@ -50,5 +50,10 @@ namespace chess.Models
     {
       return false;
     }
+
+    public virtual bool CanCastle()
+    {
+      return false;
+    }
   }
 }

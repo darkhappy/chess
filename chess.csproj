@@ -57,6 +57,7 @@
     <Compile Include="Controllers\Chess.cs" />
     <Compile Include="Models\Bishop.cs" />
     <Compile Include="Models\Board.cs" />
+    <Compile Include="Models\CastlingPiece.cs" />
     <Compile Include="Models\Cell.cs" />
     <Compile Include="Models\Colour.cs" />
     <Compile Include="Models\King.cs" />

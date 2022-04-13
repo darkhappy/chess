@@ -57,6 +57,11 @@ namespace chess.Models
       return _piece != null && _piece.CanPromote();
     }
 
+    public bool HasMoved()
+    {
+      return _piece != null && _piece.HasMoved();
+    }
+
     /// <summary>
     /// Check if the piece in the cell is an essential one
     /// </summary>
@@ -94,6 +99,11 @@ namespace chess.Models
     public bool CanOnlyMoveForward()
     {
       return _piece != null && _piece.CanOnlyMoveForward();
+    }
+
+    public bool CanCastle()
+    {
+      return _piece != null && _piece.CanCastle();
     }
   }
 }
