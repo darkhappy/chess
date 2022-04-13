@@ -68,6 +68,11 @@ namespace chess.Models
       return _board.HasPromotable(cell);
     }
 
+    public bool CanPromote(Position cell)
+    {
+      return _board.IsInPromotableCell(cell, _current);
+    }
+
     public bool Check()
     {
       var attackers = _board.GetAssailants(_current);
