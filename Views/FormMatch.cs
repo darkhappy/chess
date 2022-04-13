@@ -11,11 +11,11 @@ using chess.Models;
 
 namespace chess.Views
 {
-  public partial class FormMatch : Form
+  public partial class FrmMatch : Form
   {
     private GameController _controller;
     private string _board;
-    public FormMatch(GameController controller)
+    public FrmMatch(GameController controller)
     {
         InitializeComponent();
         _controller = controller;
@@ -154,14 +154,46 @@ namespace chess.Views
       }
     }
 
+    private void FormMatch_Load(object sender, EventArgs e)
+    {
+      grpPlayer1.Text = _controller.PLayerA.Name;
+      grpPlayer2.Text = _controller.PLayerB.Name;
+      txtScoreA.Text = _controller.PLayerA.Points.ToString();
+      txtScoreB.Text = _controller.PLayerB.Points.ToString();
+    }
+
     private void ChessBoard_Paint(object sender, PaintEventArgs e)
     {
       DrawBoard(_board);
     }
 
-    private void BtnDismiss_Click(object sender, EventArgs e)
+    private void BtnResign_Click(object sender, EventArgs e)
     {
-      
+      _controller.Resign();
     }
+
+    private void btnDraw_Click(object sender, EventArgs e)
+    {
+      _controller.DrawMatch();
+    }
+
+    public void VictoryMessage()
+    {
+      this.Enabled = false;
+      // Initializes the variables to pass to the MessageBox.Show method.
+      string message = "Do you want to play another match?";
+      string caption = "Check Mate !";
+      MessageBoxButtons buttons = MessageBoxButtons.OK;
+      DialogResult result;
+
+      // Displays the MessageBox.
+      result = MessageBox.Show(message, caption, buttons);
+      if (result == DialogResult.OK)
+      {
+        this.Close();
+      }
+    }
+
+    
   }
 }
