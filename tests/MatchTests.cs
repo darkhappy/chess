@@ -227,5 +227,12 @@ namespace tests
       _match.ChangeBoard("rnb.k.nrpppp.ppp....P.....b.....................PPPPPqPPRNBQKBNR");
       Assert.That(_match.ValidTurn(new Position("e8"), new Position("f7")), Is.False);
     }
+
+    [Test]
+    public void BlockingPiecePuttingTheKingInCheck2()
+    {
+      _match.ChangeBoard("rnbqkbnrppppp.pp.............p.Q............P...PPPP.PPPRNB.KBNR");
+      Assert.That(_match.ValidTurn(new Position("g2"), new Position("g3")), Is.True);
+    }
   }
 }
