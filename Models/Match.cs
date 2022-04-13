@@ -69,6 +69,11 @@ namespace chess.Models
       return _board.HasPromotable(cell);
     }
 
+    public bool CanPromote(Position cell)
+    {
+      return _board.IsPromotable(cell, _current == Colour.White ? Colour.Black : Colour.White);
+    }
+
     public bool Check()
     {
       var attackers = _board.GetAssailants(_current);

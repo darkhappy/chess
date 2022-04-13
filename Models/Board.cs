@@ -33,11 +33,6 @@ namespace chess.Models
       GenerateBoard(board);
     }
 
-    public bool HasCastler(Position cell)
-    {
-      return _cells[ConvertToIndex(cell)].CanCastle();
-    }
-
     /// <summary>
     ///   Generates the board with the specified string.
     /// </summary>
@@ -90,18 +85,6 @@ namespace chess.Models
       return _cells.Aggregate("", (current, t) => current + t);
     }
 
-    /// <inheritdoc cref="Collision(Position, Position, List{Position})" />
-    /// <param name="ignore">Position to ignore while evaluating.</param>
-    private bool Collision(Position origin, Position target, List<Position> moves, Position ignore)
-    {
-      if (!_cells[ConvertToIndex(origin)].HasCollision())
-        return true;
-
-      var toCheck = PositionsBetween(origin, target, moves);
-      toCheck.Remove(ignore);
-      return toCheck.All(position => _cells[ConvertToIndex(position)].IsEmpty());
-    }
-
     /// <summary>
     ///   Evaluates if the <c>origin</c> cell can move to the <c>target</c> cell, taking into account collisions.
     /// </summary>
@@ -111,7 +94,11 @@ namespace chess.Models
     /// <returns>True if the origin cell can move to the target cell, false otherwise.</returns>
     private bool Collision(Position origin, Position target, List<Position> moves)
     {
-      return Collision(origin, target, moves, new Position(-1, -1));
+      if (!_cells[ConvertToIndex(origin)].HasCollision())
+        return true;
+
+      var toCheck = PositionsBetween(origin, target, moves);
+      return toCheck.All(position => _cells[ConvertToIndex(position)].IsEmpty());
     }
 
     /// <summary>
@@ -196,6 +183,26 @@ namespace chess.Models
       return _cells[ConvertToIndex(origin)].Colour == colour;
     }
 
+    public bool IsPromotable(Position target, Colour colour)
+    {
+      List<Position> promotablePositions = new List<Position>();
+
+      if (colour == Colour.White)
+      {
+        for(int i = 0; i <= 7; i++)
+          promotablePositions.Add(new Position(i, 7));
+
+        return promotablePositions.Contains(target);
+      }
+      else
+      {
+        for (int i = 0; i <= 7; i++)
+          promotablePositions.Add(new Position(i, 0));
+
+        return promotablePositions.Contains(target);
+      }
+    }
+
     /// <summary>
     ///   Evaluates if the <c>origin</c> cell has a promotable piece.
     /// </summary>
@@ -206,17 +213,6 @@ namespace chess.Models
       return _cells[ConvertToIndex(target)].HasPromotable();
     }
 
-    /// <inheritdoc cref="GetAssailants(chess.Models.Colour)" />
-    /// <param name="ignore">Position to ignore while evaluating.</param>
-    private List<Position> GetAssailants(Colour colour, Position ignore)
-    {
-      // Get the king's position
-      var king = GetEssentialPiece(colour);
-      return king == new Position(-1, -1)
-        ? new List<Position>()
-        : GetAttackingPieces(colour, king, ignore);
-    }
-
     /// <summary>
     ///   Generates a list of cells that are attacking the essential piece of the given colour.
     /// </summary>
@@ -224,7 +220,11 @@ namespace chess.Models
     /// <returns>List containing the indexes of the cells that are attacking the essential piece.</returns>
     public List<Position> GetAssailants(Colour colour)
     {
-      return GetAssailants(colour, new Position(-1, -1));
+      // Get the king's position
+      var king = GetEssentialPiece(colour);
+      return king.OutOfBounds
+        ? new List<Position>()
+        : GetAttackingPieces(colour, king);
     }
 
     /// <summary>
@@ -251,13 +251,6 @@ namespace chess.Models
     /// <returns>List containing the indexes of the cells that are attacking the given position.</returns>
     public List<Position> GetAttackingPieces(Colour colour, Position target)
     {
-      return GetAttackingPieces(colour, target, new Position(-1, -1));
-    }
-
-    /// <inheritdoc cref="GetAttackingPieces(chess.Models.Colour,chess.Models.Position)" />
-    /// <param name="ignore">Position to ignore while evaluating.</param>
-    private List<Position> GetAttackingPieces(Colour colour, Position target, Position ignore)
-    {
       // Get all the opposite colour pieces
       var enemyColour = colour == Colour.Black ? Colour.White : Colour.Black;
       var enemies = new List<Position>();
@@ -268,9 +261,7 @@ namespace chess.Models
         if (_cells[i].Colour == enemyColour)
           enemies.Add(ConvertToPosition(i));
 
-      var list = enemies.Where(enemy => ValidMove(enemy, target, ignore) && SelfChecks(enemy, target)).ToList();
-
-      list.Remove(ignore);
+      var list = enemies.Where(enemy => ValidMove(enemy, target) && SelfChecks(enemy, target)).ToList();
 
       return list;
     }
@@ -283,7 +274,7 @@ namespace chess.Models
     ///     A valid move is a move from a piece to a target cell that is a different colour. It takes into account
     ///     <see cref="Piece.ValidMove" />, as well as
     ///     <see
-    ///       cref="Collision(chess.Models.Position,chess.Models.Position,System.Collections.Generic.List{chess.Models.Position},chess.Models.Position)" />
+    ///       cref="Collision(chess.Models.Position,chess.Models.Position,System.Collections.Generic.List{chess.Models.Position})" />
     ///     .
     ///   </para>
     /// </summary>
@@ -292,13 +283,6 @@ namespace chess.Models
     /// <returns> True if the move is valid, false otherwise.</returns>
     public bool ValidMove(Position origin, Position target)
     {
-      return ValidMove(origin, target, new Position(-1, -1));
-    }
-
-    /// <inheritdoc cref="ValidMove(chess.Models.Position,chess.Models.Position)" />
-    /// <param name="ignore">Position to ignore while evaluating.</param>
-    private bool ValidMove(Position origin, Position target, Position ignore)
-    {
       // Get valid moves
       var cell = _cells[ConvertToIndex(origin)];
       if (cell.IsEmpty()) return false;
@@ -306,7 +290,7 @@ namespace chess.Models
       if (cell.Colour == _cells[ConvertToIndex(target)].Colour) return false;
 
       var moves = cell.ValidMove(origin);
-      moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
+      moves.RemoveAll(pos => pos.OutOfBounds);
       if (cell.CanOnlyAttackDiagonally())
         moves.RemoveAll(pos => pos.X != origin.X && _cells[ConvertToIndex(pos)].IsEmpty());
 
@@ -316,7 +300,7 @@ namespace chess.Models
       if (!moves.Contains(target) || moves.Count == 0) return false;
 
       // Check for collisions
-      return Collision(origin, target, moves, ignore);
+      return Collision(origin, target, moves);
     }
 
     /// <summary>
@@ -376,7 +360,7 @@ namespace chess.Models
       var cell = GetEssentialPiece(colour);
       if (cell == new Position(-1, -1)) return false;
       var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
-      moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
+      moves.RemoveAll(pos => pos.OutOfBounds);
       moves.RemoveAll(pos => _cells[ConvertToIndex(pos)].Colour != _cells[ConvertToIndex(cell)].Colour);
       return moves.Any(pos => GetAttackingPieces(colour, cell).Count > 0);
     }
@@ -405,7 +389,7 @@ namespace chess.Models
       }
 
       SwapCells(origin, target);
-      var attackers = GetAssailants((Colour) cell.Colour, origin);
+      var attackers = GetAssailants((Colour) cell.Colour);
       attackers.Remove(target);
       _cells = oldBoard;
 
@@ -435,9 +419,12 @@ namespace chess.Models
       // Check if it's the essential piece that is starting the move
       if (!castler.HasEssential()) return false;
       // Check if they can castle
-      if (castler.Colour == null) return false;
-      if (!castler.CanCastle()) return false;
-      if (castler.HasMoved()) return false;
+      if (castler.Colour == null)
+        return false;
+      if (!castler.CanCastle())
+        return false;
+      if (castler.HasMoved())
+        return false;
 
       // Check if the movement is a castle
       if (!CastlingMove(origin, target))
@@ -457,8 +444,10 @@ namespace chess.Models
         passesBy = new Position(origin.X + 1, origin.Y);
       }
 
-      if (!castler.CanCastle()) return false;
-      if (_cells[ConvertToIndex(castlee)].HasMoved()) return false;
+      if (!_cells[ConvertToIndex(castlee)].CanCastle())
+        return false;
+      if (_cells[ConvertToIndex(castlee)].HasMoved())
+        return false;
 
       // Ensure that there are no attackers between these positions
       if (GetAttackingPieces((Colour) castler.Colour, passesBy).Count > 0)
@@ -469,11 +458,7 @@ namespace chess.Models
         return false;
 
       // Lastly, check if the castlee can do the move
-      if (!ValidMove(castlee, passesBy))
-        return false;
-
-
-      return true;
+      return ValidMove(castlee, passesBy);
     }
 
     public static bool CastlingMove(Position origin, Position target)

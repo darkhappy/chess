@@ -7,6 +7,9 @@ using chess.Views;
 
 namespace chess.Controllers
 {
+  /// <summary>
+  /// Represent the player controller of the chess game
+  /// </summary>
   public class PlayerController
   {
     List<Player> _list;
@@ -16,7 +19,7 @@ namespace chess.Controllers
     /// <summary>
     /// Initialize the PlayerController with its controller
     /// </summary>
-    /// <param name="main"></param>
+    /// <param name="main">Chess controller</param>
     public PlayerController(Chess main)
     {
       _main = main;
@@ -41,7 +44,7 @@ namespace chess.Controllers
     /// <summary>
     /// Add a player with its name
     /// </summary>
-    /// <param name="name"></param>
+    /// <param name="name">Name of the wanted player</param>
     public void Add(string name)
     {
       Player newPlayer = new Player(name);
@@ -61,7 +64,7 @@ namespace chess.Controllers
     /// <summary>
     /// Remove a player
     /// </summary>
-    /// <param name="index"></param>
+    /// <param name="index">Index of the player we want to remove in the player list</param>
     public void Remove(int index)
     {
       string line = null;
@@ -90,7 +93,7 @@ namespace chess.Controllers
     /// Check if a player exists by its name
     /// </summary>
     /// <param name="name"></param>
-    /// <returns></returns>
+    /// <returns>Return true if the player exist, false otherwise</returns>
     public bool Exists(string name)
     {
       foreach (Player player in _list)
@@ -120,7 +123,7 @@ namespace chess.Controllers
     /// <summary>
     /// Get all players
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A list of all existing players</returns>
     public List<Player> GetPlayerList()
     {
       return _list;
@@ -130,7 +133,7 @@ namespace chess.Controllers
     /// Get a player by its name
     /// </summary>
     /// <param name="name"></param>
-    /// <returns></returns>
+    /// <returns>Returns the searched play by name</returns>
     public Player GetPlayer(string name)
     {
       return _list.Find(x => x.Name == name);
@@ -139,7 +142,7 @@ namespace chess.Controllers
     /// <summary>
     /// Update the player string in the datafile
     /// </summary>
-    /// <param name="player"></param>
+    /// <param name="player">Player needing an update, that has been modified</param>
     public void UpdatePlayer(Player player)
     {
       string line = null;
@@ -167,9 +170,9 @@ namespace chess.Controllers
     /// <summary>
     /// Update ELO rating of 2 players after their math
     /// </summary>
-    /// <param name="playerA">Player A</param>
-    /// <param name="playerB"></param>
-    /// <param name="playerAWin"></param>
+    /// <param name="playerA">Fisrt player in the match</param>
+    /// <param name="playerB">Second player in the match</param>
+    /// <param name="playerAWin">If the first player has win or not</param>
     public void UpdateEloRating(Player playerA, Player playerB, bool playerAWin)
     {
       int K = 30;
@@ -197,10 +200,10 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Return the probabilité of winning of a rating againts another
+    /// Return the probability of winning of a rating againts another
     /// </summary>
-    /// <param name="rating1"></param>
-    /// <param name="rating2"></param>
+    /// <param name="rating1">Points of the first player</param>
+    /// <param name="rating2">Points of the second player</param>
     /// <returns></returns>
     private float Probability(float rating1, float rating2)
     {
@@ -232,8 +235,8 @@ namespace chess.Controllers
     /// Serialize an object returning the
     /// bytes as a Base64 encoded string
     /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
+    /// <param name="obj">Object that need to be serialized</param>
+    /// <returns>Serialized form of the object in Base64 encoded string</returns>
     private string ObjectToString(object obj)
     {
       using (MemoryStream ms = new MemoryStream())
@@ -248,7 +251,7 @@ namespace chess.Controllers
     /// the decoded Base64 string of an object
     /// </summary>
     /// <param name="obj"></param>
-    /// <returns></returns>
+    /// <returns>Object from Base64 encoded string</returns>
     private object StringToObject(string base64String)
     {
       byte[] bytes = Convert.FromBase64String(base64String);

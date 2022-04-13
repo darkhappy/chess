@@ -7,13 +7,14 @@ namespace chess.Controllers
 {
   public class GameController
   {
-    private int _fiftyTurns;
+    private FrmMatch _formMatch;
+    private FormPromotion _formPromotion;
     private Chess _main;
     private Match _match;
     private Player _playerA;
     private Player _playerB;
+    private int _fiftyTurns;
     private Position _selected;
-    private FrmMatch _formMatch;
 
     /// <summary>
     /// For testing purposes.
@@ -42,20 +43,22 @@ namespace chess.Controllers
       _formMatch.Show();
     }
 
+    public Player PlayerA => _playerA;
+    public Player PlayerB => _playerB;
+
     public void Selection(Position cell)
     {
       if (_selected.X == -1)
       {
-        if (_match.ValidSelection(cell, true))
-        {
-          _formMatch.DrawBoard(_match.ExportBoard());
-          _formMatch.DrawSelection(cell);
-          _selected = cell;
-        }
+        if (!_match.ValidSelection(cell, true)) return;
+        _formMatch.DrawBoard(_match.ExportBoard());
+        _formMatch.DrawSelection(cell);
+        _selected = cell;
       }
       else if (_match.ValidSelection(cell, false))
       {
-        this.Turn(cell);
+        Turn(cell);
+
       }
       else
       {
@@ -65,17 +68,16 @@ namespace chess.Controllers
       }
     }
 
-    private void Turn(Position target)
-    {
+    private void Turn(Position target) { 
       if (_match.ValidTurn(_selected, target)) {
         _match.MakeTurn(_selected, target);
         _selected = new Position(-1, -1);
         _formMatch.DrawBoard(_match.ExportBoard());
         ++_fiftyTurns;
         _formMatch.DrawTurns();
+
         if (_match.Checkmate())
         {
-          _formMatch.VictoryMessage();
 
           if (_match.CurrentPlayer == Colour.White)
             _main.setWinner(_playerA, _playerB, true);
@@ -88,12 +90,12 @@ namespace chess.Controllers
         }
       }
     }
+    
 
     public string GetBoard()
     {
       return _match.ExportBoard();
     }
-
     public bool SameBoard()
     {
       
@@ -112,10 +114,7 @@ namespace chess.Controllers
 
       return same >= 3;
     }
-
-    public Player PlayerA => _playerA;
-    public Player PlayerB => _playerB;
-
+    
     public void Resign()
     {
       if (_match.CurrentPlayer == Colour.White)
