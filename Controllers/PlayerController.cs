@@ -22,8 +22,10 @@ namespace chess.Controllers
       _main = main;
       _list = new List<Player>();
 
-      StreamReader sr = new StreamReader("players.txt");
-      using (sr)
+      if (!File.Exists("players.txt"))
+        File.Create("players.txt");
+
+      using (StreamReader sr = new StreamReader("players.txt"))
       {
         string line;
         while ((line = sr.ReadLine()) != null)
@@ -31,7 +33,6 @@ namespace chess.Controllers
           _list.Add((Player)StringToObject(line));
         }
       }
-      sr.Close();
 
       SortPlayerByRanking();
     }
@@ -47,12 +48,9 @@ namespace chess.Controllers
 
       _list.Add(newPlayer);
       _frmPlayer.AddPlayer(newPlayer);
-      StreamWriter sw = new StreamWriter("players.txt", true);
 
-      using (sw)
+      using (StreamWriter sw = new StreamWriter("players.txt"))
         sw.WriteLine(ObjectToString(newPlayer));
-
-      sw.Close();
 
       SortPlayerByRanking();
       _frmPlayer.UpdatePlayerList(_list);
@@ -214,7 +212,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Bubble sort of all player 
+    /// Bubble sort of all player, sorting by highest ranking to lowest
     /// </summary>
     private void SortPlayerByRanking()
     {
