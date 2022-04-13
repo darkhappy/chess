@@ -23,6 +23,11 @@ namespace chess.Models
       GenerateBoard("................................................................");
     }
 
+    public bool HasCastler(Position cell)
+    {
+      return _cells[ConvertToIndex(cell)].CanCastle();
+    }
+
     /// <summary>
     ///   Initializes a new instance of the <see cref="Board" /> class with a specified board.
     /// </summary>
@@ -396,6 +401,52 @@ namespace chess.Models
       enemies.Remove(target);
 
       return positionsBetween.Any(pos => enemies.Any(enemy => ValidMove(enemy, pos)));
+    }
+
+    public bool CanCastle(Position origin, Position target)
+    {
+      var castler = _cells[ConvertToIndex(origin)];
+      
+      // Check if they can castle
+      if (castler.Colour == null) return false;
+      if (!castler.CanCastle()) return false;
+      if (castler.HasMoved()) return false;
+      
+      // Check if the movement is a castle
+      if (!CastlingMove(origin, target))
+        return false;
+
+      Cell castlee;
+      Position passesBy;
+      // Get the castle
+      if (origin.X - target.X > 0)
+      {
+        castlee = _cells[ConvertToIndex(new Position(0, origin.Y))];
+        passesBy = new Position(origin.X - 1, origin.Y);
+      }
+      else
+      {
+        castlee = _cells[ConvertToIndex(new Position(7, origin.Y))];
+        passesBy = new Position(origin.X + 1, origin.Y);
+      }
+
+      if (!castler.CanCastle()) return false;
+      if (castlee.HasMoved()) return false;
+      
+      // Ensure that there are no attackers between these positions
+      if (GetAttackingPieces((Colour) castler.Colour, passesBy).Count > 0)
+        return false;
+      
+      // Also ensure that they are not being attacked 
+      if (GetAttackingPieces((Colour) castler.Colour, origin).Count > 0)
+        return false;
+
+      return true;
+    }
+
+    public static bool CastlingMove(Position origin, Position target)
+    {
+      return Math.Abs(origin.X - target.X) == 2;
     }
   }
 }

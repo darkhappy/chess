@@ -238,5 +238,32 @@ namespace tests
     {
       _board.MoveCellTo(new Position(1, 2), new Position(1, 3));
     }
+
+    [Test]
+    [TestCase("c1")]
+    [TestCase("g1")]
+    public void CanCastle(string cell)
+    {
+      _board = new Board("r...k..r........................................................");
+      Assert.That(_board.CanCastle(new Position("e1"), new Position(cell)), Is.True);
+    }
+
+    [Test]
+    [TestCase("c1")]
+    [TestCase("g1")]
+    public void CantCastleDueToDanger(string cell)
+    {
+      _board = new Board("r...k..r...R.R..................................................");
+      Assert.That(_board.CanCastle(new Position("e1"), new Position(cell)), Is.False);
+    }
+
+    [Test]
+    [TestCase("c1")]
+    [TestCase("g1")]
+    public void CantCastleDueToBeingInCheck(string cell)
+    {
+      _board = new Board("r...k..r....R...................................................");
+      Assert.That(_board.CanCastle(new Position("e1"), new Position(cell)), Is.False);
+    }
   }
 }
