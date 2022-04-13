@@ -15,6 +15,12 @@ namespace chess.Views
   {
     private GameController _controller;
     private string _board;
+
+    /// <summary>
+    ///   Initializes the FormMatch when called with new
+    /// </summary>
+    /// <param name="controller">The cell containing the moving piece.</param>
+    /// <returns>Returns a new instance of FormMatch</returns>
     public FrmMatch(GameController controller)
     {
       InitializeComponent();
@@ -23,6 +29,11 @@ namespace chess.Views
 
     }
 
+    /// <summary>
+    ///   Method called when the board panel is clcked by the player
+    /// </summary>
+    /// <param name="sender">Represents the panel clicked</param>
+    /// <param name="e">Represents the events we have to listen to</param>
     private void GridClick(object sender, EventArgs e)
     {
 
@@ -41,8 +52,11 @@ namespace chess.Views
 
     }
 
-    public void DrawSelection(Position pos)
-    {
+    /// <summary>
+    ///   Methode called when the area clicked is a valid selection by the player
+    /// </summary>
+    /// <param name="pos">Reprensents de position as a 2 dimentional table that starts by the bottom-left(starts with 0, 0)</param>
+    public void DrawSelection(Position pos) {
 
       Graphics boardGraph = ChessBoard.CreateGraphics();
 
@@ -64,8 +78,6 @@ namespace chess.Views
       boardGraph.DrawRectangle(new Pen(Color.White), 0, 0, ChessBoard.Height, ChessBoard.Height);
       Size cellSize = new Size(ChessBoard.Height / 8, ChessBoard.Height / 8);
       int indexBoard = 0;
-
-      //boardGraph.FillRectangle(whiteCell, r * cellDim, c * cellDim, cellDim, cellDim);
 
       for (int c = 0; c < 8; c++)
       {
@@ -197,7 +209,7 @@ namespace chess.Views
 
     public void VictoryMessage()
     {
-      this.Enabled = false;
+      
       // Initializes the variables to pass to the MessageBox.Show method.
       string message = "Do you want to play another match?";
       string caption = "Check Mate !";
