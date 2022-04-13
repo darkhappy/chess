@@ -234,5 +234,17 @@ namespace tests
       _match.ChangeBoard("rnbqkbnrppppp.pp.............p.Q............P...PPPP.PPPRNB.KBNR");
       Assert.That(_match.ValidTurn(new Position("g2"), new Position("g3")), Is.True);
     }
+
+    [Test]
+    public void CastlingMove()
+    {
+      _match.MakeTurn(new Position("e2"), new Position("e4"));
+      _match.MakeTurn(new Position("e7"), new Position("e5"));
+      _match.MakeTurn(new Position("f1"), new Position("c4"));
+      _match.MakeTurn(new Position("b8"), new Position("c6"));
+      _match.MakeTurn(new Position("g1"), new Position("f3"));
+      _match.MakeTurn(new Position("f8"), new Position("c5"));
+      Assert.That(_match.ValidTurn(new Position("e1"), new Position("g1")), Is.True);
+    }
   }
 }

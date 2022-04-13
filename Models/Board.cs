@@ -342,13 +342,11 @@ namespace chess.Models
           newTarget = new Position(origin.X + 1, origin.Y);
         }
 
-        _cells[ConvertToIndex(newTarget)] = _cells[ConvertToIndex(castlee)];
-        _cells[ConvertToIndex(castlee)] = new Cell('.');
+        SwapCells(castlee, newTarget);
         _cells[ConvertToIndex(newTarget)].Moved();
       }
 
-      _cells[ConvertToIndex(target)] = _cells[ConvertToIndex(origin)];
-      _cells[ConvertToIndex(origin)] = new Cell('.');
+      SwapCells(origin, target);
       _cells[ConvertToIndex(target)].Moved();
     }
 
@@ -383,6 +381,12 @@ namespace chess.Models
       return moves.Any(pos => GetAttackingPieces(colour, cell).Count > 0);
     }
 
+    private void SwapCells(Position origin, Position target)
+    {
+      _cells[ConvertToIndex(target)] = _cells[ConvertToIndex(origin)];
+      _cells[ConvertToIndex(origin)] = new Cell('.');
+    }
+
     /// <summary>
     ///   Evaluates if performing the given move would cause the essential piece to be in check.
     /// </summary>
@@ -400,7 +404,7 @@ namespace chess.Models
         return false;
       }
 
-      MoveCellTo(origin, target);
+      SwapCells(origin, target);
       var attackers = GetAssailants((Colour) cell.Colour, origin);
       attackers.Remove(target);
       _cells = oldBoard;
@@ -428,6 +432,8 @@ namespace chess.Models
     {
       var castler = _cells[ConvertToIndex(origin)];
 
+      // Check if it's the essential piece that is starting the move
+      if (!castler.HasEssential()) return false;
       // Check if they can castle
       if (castler.Colour == null) return false;
       if (!castler.CanCastle()) return false;
@@ -473,6 +479,11 @@ namespace chess.Models
     public static bool CastlingMove(Position origin, Position target)
     {
       return Math.Abs(origin.X - target.X) == 2;
+    }
+
+    public bool HasEssential(Position cell)
+    {
+      return _cells[ConvertToIndex(cell)].HasEssential();
     }
   }
 }

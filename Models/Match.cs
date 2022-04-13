@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace chess.Models
 {
@@ -41,12 +40,12 @@ namespace chess.Models
       if (!_board.SelfChecks(origin, target))
         return false;
 
-      if (!_board.HasCastler(origin))
+      if (!_board.HasEssential(origin))
         return true;
 
       if (!Board.CastlingMove(origin, target))
         return true;
-      
+
       return _board.CanCastle(origin, target);
     }
 
