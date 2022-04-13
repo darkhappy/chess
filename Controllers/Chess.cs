@@ -41,7 +41,7 @@ namespace chess.Controllers
       Player player1 = _playerController.GetPlayer(name1);
       Player player2 = _playerController.GetPlayer(name2);
 
-      GameController gameController = new GameController(player1, player2);
+      GameController gameController = new GameController(this, player1, player2);
       _listGames.Add(gameController);
     }
 
