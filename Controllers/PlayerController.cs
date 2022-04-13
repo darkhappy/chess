@@ -162,37 +162,36 @@ namespace chess.Controllers
       File.Move("updatePlayer.txt", "players.txt");
     }
 
-    // Function to calculate Elo rating
-    // K is a constant.
-    // d determines whether Player A wins or
-    // Player B. 
-    public void UpdateEloRating(Player player1, Player player2, bool player1Win)
+    /// <summary>
+    /// Update ELO rating of 2 players after their math
+    /// </summary>
+    /// <param name="playerA">Player A</param>
+    /// <param name="playerB"></param>
+    /// <param name="playerAWin"></param>
+    public void UpdateEloRating(Player playerA, Player playerB, bool playerAWin)
     {
       int K = 30;
 
-      float ranking1 = player1.Points;
-      float ranking2 = player2.Points;
+      float rankingA = playerA.Points;
+      float rankingB = playerA.Points;
 
-      // To calculate the Winning Probability of Player 1
-      float winningProb1 = Probability(ranking2, ranking1);
-
-      // To calculate the Winning Probability of Player 2
-      float winningProb2 = Probability(ranking1, ranking2);
+      float winningProbA = Probability(rankingB, rankingA);
+      float winningProbB = Probability(rankingA, rankingB);
 
       //Updating the Elo Ratings with the winner
-      if (player1Win)
+      if (playerAWin)
       {
-        player1.Points = (int)(ranking1 + K * (1 - winningProb1));
-        player2.Points = (int)(ranking2 + K * (0 - winningProb2));
+        playerA.Points = (int)(rankingA + K * (1 - winningProbA));
+        playerB.Points = (int)(rankingB + K * (0 - winningProbB));
       }
       else
       {
-        player1.Points = (int)(ranking1 + K * (0 - winningProb1));
-        player2.Points = (int)(ranking2 + K * (1 - winningProb2));
+        playerA.Points = (int)(rankingA + K * (0 - winningProbA));
+        playerB.Points = (int)(rankingB + K * (1 - winningProbB));
       }
 
-      UpdatePlayer(player1);
-      UpdatePlayer(player2);
+      UpdatePlayer(playerA);
+      UpdatePlayer(playerB);
     }
 
     /// <summary>
