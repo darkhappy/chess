@@ -8,11 +8,9 @@ namespace chess.Controllers
 {
   public class Chess
   {
-    List<GameController> _listGames;
-
-    PlayerController _playerController;
-
-    FormMenu _frmMenu;
+    private List<GameController> _listGames;
+    private PlayerController _playerController;
+    private FormMenu _frmMenu;
 
     /// <summary>
     /// Application entry point
@@ -47,6 +45,11 @@ namespace chess.Controllers
       _listGames.Add(gameController);
     }
 
+    /// <summary>
+    /// Convert a player list into a string list
+    /// </summary>
+    /// <param name="playerList"></param>
+    /// <returns></returns>
     public List<string> PlayersToString(List<Player> playerList)
     {
       List<string> list = new List<string>();
@@ -57,6 +60,9 @@ namespace chess.Controllers
       return list;
     }
 
+    /// <summary>
+    /// Show player form
+    /// </summary>
     public void ManagePlayers()
     {
       _playerController.Show();
