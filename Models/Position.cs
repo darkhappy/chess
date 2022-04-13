@@ -81,5 +81,7 @@ namespace chess.Models
     {
       return !Equals(left, right);
     }
+
+    public bool OutOfBounds => _x < 0 || _x > 7 || _y < 0 || _y > 7;
   }
 }
