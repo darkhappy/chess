@@ -33,7 +33,9 @@ namespace chess.Controllers
       UpdatePlayerList();
     }
 
-
+    /// <summary>
+    /// Update menu player list
+    /// </summary>
     public void UpdatePlayerList()
     {
       _frmMenu.UpdatePlayerList(PlayersToString(_playerController.GetPlayerList()));
@@ -54,8 +56,8 @@ namespace chess.Controllers
     /// <summary>
     /// Convert a player list into a string list
     /// </summary>
-    /// <param name="playerList"></param>
-    /// <returns></returns>
+    /// <param name="playerList">List of players</param>
+    /// <returns>Player list converted to string list</returns>
     public List<string> PlayersToString(List<Player> playerList)
     {
       List<string> list = new List<string>();
