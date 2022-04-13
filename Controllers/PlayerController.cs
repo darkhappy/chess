@@ -49,11 +49,13 @@ namespace chess.Controllers
       _list.Add(newPlayer);
       _frmPlayer.AddPlayer(newPlayer);
 
-      using (StreamWriter sw = new StreamWriter("players.txt"))
+      using (StreamWriter sw = new StreamWriter("players.txt", true))
         sw.WriteLine(ObjectToString(newPlayer));
 
       SortPlayerByRanking();
       _frmPlayer.UpdatePlayerList(_list);
+      _main.UpdatePlayerList();
+
     }
 
     /// <summary>

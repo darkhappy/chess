@@ -29,8 +29,14 @@ namespace chess.Controllers
       _listGames = new List<GameController>();
       _playerController = new PlayerController(this);
       _frmMenu = new FormMenu(this);
-      _frmMenu.GeneratePlayerList(PlayersToString(_playerController.GetPlayerList()));
       Application.Run(_frmMenu);
+      UpdatePlayerList();
+    }
+
+
+    public void UpdatePlayerList()
+    {
+      _frmMenu.UpdatePlayerList(PlayersToString(_playerController.GetPlayerList()));
     }
 
     /// <summary>
@@ -60,6 +66,12 @@ namespace chess.Controllers
       return list;
     }
 
+    /// <summary>
+    /// Update players ELO rating
+    /// </summary>
+    /// <param name="player1"></param>
+    /// <param name="player2"></param>
+    /// <param name="player1Win"></param>
     public void setWinner(Player player1, Player player2, bool player1Win)
     {
       _playerController.UpdateEloRating(player1, player2, player1Win);

@@ -9,20 +9,17 @@ namespace chess.Views
     Chess _main;
 
     /// <summary>
-    /// Initialize the form menu
-    /// </summary>
-    public FormMenu()
-    {
-      InitializeComponent();
-    }
-
-    /// <summary>
     /// Initialize the form menu with its controller
     /// </summary>
     public FormMenu(Chess controller)
     {
       InitializeComponent();
       _main = controller;
+    }
+
+    private void FormMenu_Load(object sender, System.EventArgs e)
+    {
+      _main.UpdatePlayerList();
     }
 
     /// <summary>
@@ -40,10 +37,9 @@ namespace chess.Views
       {
         labError.Visible = false;
         _main.NewGame(txbPlayer1.Text, txbPlayer2.Text);
-        listPlayer.Items.Add(new ListViewItem(txbPlayer1.Text));
         txbPlayer1.Text = "";
-        listPlayer.Items.Add(new ListViewItem(txbPlayer2.Text));
         txbPlayer2.Text = "";
+        _main.UpdatePlayerList();
       }
     }
 
@@ -67,10 +63,12 @@ namespace chess.Views
       _main.Exit();
     }
 
-    public void GeneratePlayerList(List<string> playerList)
+    public void UpdatePlayerList(List<string> playerList)
     {
+      listPlayer.Clear();
+
       listPlayer.View = View.Details;
-      listPlayer.Columns.Add("Player", listPlayer.Width);
+      listPlayer.Columns.Add("Player", listPlayer.Width - 10);
 
       foreach (string player in playerList)
         listPlayer.Items.Add(player);
