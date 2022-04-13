@@ -421,7 +421,7 @@ namespace chess.Models
         passesBy = new Position(origin.X + 1, origin.Y);
       }
 
-      if (_cells[ConvertToIndex(castlee)].CanCastle()) return false;
+      if (!_cells[ConvertToIndex(castlee)].CanCastle()) return false;
       if (_cells[ConvertToIndex(castlee)].HasMoved()) return false;
 
       // Ensure that there are no attackers between these positions
