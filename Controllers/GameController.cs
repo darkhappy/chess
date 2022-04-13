@@ -74,8 +74,8 @@ namespace chess.Controllers
       return _match.ExportBoard();
     }
 
-    public Player PLayerA => _playerA;
-    public Player PLayerB => _playerB;
+    public Player PlayerA => _playerA;
+    public Player PlayerB => _playerB;
 
     private void Stalemate()
     {
@@ -103,7 +103,10 @@ namespace chess.Controllers
 
     public void DrawMatch()
     {
-      _formMatch.Close();
+      if (_formMatch.DrawMessage(_match.CurrentPlayer))
+      {
+        _formMatch.Close();
+      }
     }
   }
 }
