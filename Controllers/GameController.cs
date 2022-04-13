@@ -6,6 +6,7 @@ namespace chess.Controllers
   public class GameController
   {
     private FrmMatch _formMatch;
+    private FormPromotion _formPromotion;
     private Chess _main;
     private Match _match;
     private Player _playerA;
@@ -72,9 +73,15 @@ namespace chess.Controllers
       _selected = new Position(-1, -1);
       _formMatch.DrawBoard(_match.ExportBoard());
 
-      // Check if it's a promotion
+      // Check if the selected cell has a promotable piece
       if (_match.HasPromotable(target))
       {
+        // Check if the target cell can promote
+        if (_match.CanPromote(target))
+        {
+          _formPromotion = new FormPromotion();
+          _formPromotion.Show();
+        }
         // Handle the promotion
       }
 
