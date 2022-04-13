@@ -6,6 +6,9 @@ using chess.Views;
 
 namespace chess.Controllers
 {
+  /// <summary>
+  /// Represent the main controller of the chess game
+  /// </summary>
   public class Chess
   {
     private List<GameController> _listGames;
