@@ -14,9 +14,10 @@ namespace chess.Controllers
     private Position _selected;
     private FrmMatch _formMatch;
 
-    public GameController(Player a, Player b)
+    public GameController(Chess main, Player a, Player b)
     {
       _match = new Match();
+      _main = main;
       _formMatch = new FrmMatch(this);
       _selected = new Position(-1, -1);
       _playerA = a;
@@ -59,6 +60,11 @@ namespace chess.Controllers
         if (_match.Checkmate())
         {
           _formMatch.VictoryMessage();
+          
+          if(_match.CurrentPlayer == Colour.White)
+            _main.setWinner(_playerA, _playerB, true);
+          else
+            _main.setWinner(_playerA, _playerB, false);
         }
       }
     }
@@ -68,8 +74,8 @@ namespace chess.Controllers
       return _match.ExportBoard();
     }
 
-    public Player PLayerA => _playerA;
-    public Player PLayerB => _playerB;
+    public Player PlayerA => _playerA;
+    public Player PlayerB => _playerB;
 
     private void Stalemate()
     {
@@ -87,13 +93,20 @@ namespace chess.Controllers
     }
     public void Resign()
     {
-      //update winner player
+      if (_match.CurrentPlayer == Colour.White)
+        _main.setWinner(_playerA, _playerB, false);
+      else
+        _main.setWinner(_playerA, _playerB, true);
+
       _formMatch.Close();
     }
 
     public void DrawMatch()
     {
-      _formMatch.Close();
+      if (_formMatch.DrawMessage(_match.CurrentPlayer))
+      {
+        _formMatch.Close();
+      }
     }
   }
 }
