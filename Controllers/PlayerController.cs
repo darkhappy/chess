@@ -193,9 +193,6 @@ namespace chess.Controllers
 
       UpdatePlayer(player1);
       UpdatePlayer(player2);
-
-      _frmPlayer.UpdatePlayerList(_list);
-
     }
 
     /// <summary>
