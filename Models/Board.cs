@@ -183,6 +183,26 @@ namespace chess.Models
       return _cells[ConvertToIndex(origin)].Colour == colour;
     }
 
+    public bool IsPromotableCell(Position target, Colour colour)
+    {
+      List<Position> promotablePositions = new List<Position>();
+
+      if (colour == Colour.White)
+      {
+        for(int i = 0; i <= 7; i++)
+          promotablePositions.Add(new Position(7, i));
+
+        return promotablePositions.Contains(target);
+      }
+      else
+      {
+        for (int i = 0; i <= 7; i++)
+          promotablePositions.Add(new Position(0, i));
+
+        return promotablePositions.Contains(target);
+      }
+    }
+
     /// <summary>
     ///   Evaluates if the <c>origin</c> cell has a promotable piece.
     /// </summary>
