@@ -183,7 +183,7 @@ namespace chess.Models
       return _cells[ConvertToIndex(origin)].Colour == colour;
     }
 
-    public bool IsPromotableCell(Position target, Colour colour)
+    public bool IsPromotable(Position target, Colour colour)
     {
       List<Position> promotablePositions = new List<Position>();
 
