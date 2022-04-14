@@ -105,7 +105,7 @@ namespace chess.Models
     public bool Stalemate()
     {
       //TODO verify if all remaining pieces cant make a valid move
-      if (!this.Check())
+      if (!this.Check() )
         return true;
       else
         return false;

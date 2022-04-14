@@ -470,5 +470,33 @@ namespace chess.Models
     {
       return _cells[ConvertToIndex(cell)].HasEssential();
     }
+
+    public bool TeamCanMove(Colour colour)
+    {
+      var allies = new List<Position>();
+
+      for (var i = 0; i < _cells.Length; i++)
+        if (_cells[i].Colour == colour)
+          allies.Add(ConvertToPosition(i));
+
+      foreach (var ally in allies)
+      {
+        List<Position> movelist = _cells[ConvertToIndex(ally)].ValidMove(ally);
+        var cell = _cells[ConvertToIndex(ally)];
+        movelist.RemoveAll(pos => pos.OutOfBounds);
+        if (cell.CanOnlyAttackDiagonally())
+          movelist.RemoveAll(pos => pos.X != ally.X && _cells[ConvertToIndex(pos)].IsEmpty());
+
+        if (cell.CanOnlyMoveForward())
+          movelist.RemoveAll(pos => pos.X == ally.X && !_cells[ConvertToIndex(pos)].IsEmpty());
+
+        foreach (var move in movelist)
+        {
+          if (ValidMove(ally, move))
+            return true;
+        }
+      }
+      return false;
+    }
   }
 }
