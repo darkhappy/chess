@@ -183,24 +183,22 @@ namespace chess.Models
       return _cells[ConvertToIndex(origin)].Colour == colour;
     }
 
-    public bool IsPromotable(Position target, Colour colour)
+    public void ChangeCellTo(Position cell, char piece)
+    {
+      _cells[ConvertToIndex(cell)] = new Cell(piece);
+    }
+
+    public bool IsPromotable(Position target)
     {
       List<Position> promotablePositions = new List<Position>();
 
-      if (colour == Colour.White)
+      for(int i = 0; i <= 7; i++)
       {
-        for(int i = 0; i <= 7; i++)
-          promotablePositions.Add(new Position(i, 7));
-
-        return promotablePositions.Contains(target);
+        promotablePositions.Add(new Position(i, 7));
+        promotablePositions.Add(new Position(i, 0));
       }
-      else
-      {
-        for (int i = 0; i <= 7; i++)
-          promotablePositions.Add(new Position(i, 0));
 
-        return promotablePositions.Contains(target);
-      }
+      return promotablePositions.Contains(target);    
     }
 
     /// <summary>

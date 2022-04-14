@@ -12,6 +12,7 @@ namespace chess.Controllers
     private Player _playerA;
     private Player _playerB;
     private Position _selected;
+    private Position _toPromote;
 
     /// <summary>
     /// For testing purposes.
@@ -79,10 +80,11 @@ namespace chess.Controllers
         // Check if the target cell can promote
         if (_match.CanPromote(target))
         {
-          _formPromotion = new FormPromotion();
-          _formPromotion.Show();
+          _toPromote = target;
+          _formPromotion = new FormPromotion(this);
+          _formPromotion.ShowDialog();
+          _formMatch.DrawBoard(_match.ExportBoard());
         }
-        // Handle the promotion
       }
 
       // Check for check
@@ -106,6 +108,27 @@ namespace chess.Controllers
     public string GetBoard()
     {
       return _match.ExportBoard();
+    }
+
+    public void Promote(string piece)
+    {
+      switch (piece)
+      {
+        case "Queen":
+          _match.Promote(_toPromote, "q");
+          break;
+        case "Bishop":
+          _match.Promote(_toPromote, "b");
+          break;
+        case "Knight":
+          _match.Promote(_toPromote, "n");
+          break;
+        case "Rook":
+          _match.Promote(_toPromote, "r");
+          break;
+      }
+
+      _toPromote = new Position(-1, -1);
     }
 
     public void Resign()
