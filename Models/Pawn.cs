@@ -57,5 +57,10 @@ namespace chess.Models
     {
       return true;
     }
+
+    public override bool CantGoBack()
+    {
+      return true;
+    }
   }
 }

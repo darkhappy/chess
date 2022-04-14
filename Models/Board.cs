@@ -410,6 +410,12 @@ namespace chess.Models
       return positionsBetween.Any(pos => enemies.Any(enemy => ValidMove(enemy, pos)));
     }
 
+    public bool IsCapture(Position origin, Position target)
+    {
+      return _cells[ConvertToIndex(origin)].Colour != _cells[ConvertToIndex(target)].Colour &&
+             !_cells[ConvertToIndex(target)].IsEmpty();
+    }
+
     public bool CanCastle(Position origin, Position target)
     {
       var castler = _cells[ConvertToIndex(origin)];
@@ -495,6 +501,11 @@ namespace chess.Models
         }
       }
       return false;
+    }
+
+    public bool CantGoBack(Position cell)
+    {
+      return _cells[ConvertToIndex(cell)].CantGoBack();
     }
   }
 }

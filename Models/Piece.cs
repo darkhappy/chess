@@ -55,5 +55,10 @@ namespace chess.Models
     {
       return false;
     }
+
+    public virtual bool CantGoBack()
+    {
+      return false;
+    }
   }
 }
