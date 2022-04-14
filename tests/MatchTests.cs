@@ -256,7 +256,7 @@ namespace tests
       _match.MakeTurn(new Position("a5"), new Position("a4"));
       _match.MakeTurn(new Position("d7"), new Position("d5"));
       _match.MakeTurn(new Position("e5"), new Position("d6"));
-      Assert.That(_match.ExportBoard(), Is.EqualTo("rnbqkbnrpppp.ppp...........................p....PPP.PPPPRNBQKBNR"));
+      Assert.That(_match.Board, Is.EqualTo("rnbqkbnrpppp.ppp...........................p....PPP.PPPPRNBQKBNR"));
     }
 
     [Test]
@@ -332,15 +332,15 @@ namespace tests
       Assert.That(_match.ValidTurn(new Position("a5"), new Position("b6")), Is.False);
     }
 
-        [Test]
+    [Test]
     public void CantMoveOutOfCheckmate()
-        {
-            _match.ChangeBoard("r...k..r................................................R...K..R");
-            _match.MakeTurn(new Position("e1"), new Position("e2"));
-            _match.MakeTurn(new Position("a8"), new Position("a3"));
-            _match.MakeTurn(new Position("a1"), new Position("e1"));
-            _match.MakeTurn(new Position("h8"), new Position("h2"));
-            Assert.That(_match.ValidTurn(new Position("e2"), new Position("d2")), Is.False);
-        }
+    {
+      _match.ChangeBoard("r...k..r................................................R...K..R");
+      _match.MakeTurn(new Position("e1"), new Position("e2"));
+      _match.MakeTurn(new Position("a8"), new Position("a3"));
+      _match.MakeTurn(new Position("a1"), new Position("e1"));
+      _match.MakeTurn(new Position("h8"), new Position("h2"));
+      Assert.That(_match.ValidTurn(new Position("e2"), new Position("d2")), Is.False);
+    }
   }
 }

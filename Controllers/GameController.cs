@@ -48,7 +48,7 @@ namespace chess.Controllers
       if (_selected.OutOfBounds)
       {
         if (!_match.ValidSelection(cell, true)) return;
-        _view.DrawBoard(_match.ExportBoard());
+        _view.DrawBoard(_match.Board);
         _view.DrawSelection(cell);
         _selected = cell;
       }
@@ -58,7 +58,7 @@ namespace chess.Controllers
       }
       else
       {
-        _view.DrawBoard(_match.ExportBoard());
+        _view.DrawBoard(_match.Board);
         _view.DrawSelection(cell);
         _selected = cell;
       }
@@ -72,7 +72,7 @@ namespace chess.Controllers
       // Make the turn
       _match.MakeTurn(_selected, target);
       _selected = new Position(-1, -1);
-      _view.DrawBoard(_match.ExportBoard());
+      _view.DrawBoard(_match.Board);
       _view.DrawTurns();
 
       // Check if the selected cell has a promotable piece
@@ -85,7 +85,7 @@ namespace chess.Controllers
           var promotionView =
             new FormPromotion(this, _match.CurrentPlayer == Colour.White ? Colour.Black : Colour.White);
           promotionView.ShowDialog();
-          _view.DrawBoard(_match.ExportBoard());
+          _view.DrawBoard(_match.Board);
         }
       }
 
@@ -106,7 +106,7 @@ namespace chess.Controllers
       {
         _view.CheckMessage(_match.CurrentPlayer == Colour.White ? _playerA.Name : _playerB.Name);
       }
-      else if (_match.ExportHistory().Count >= 50)
+      else if (_match.History.Count >= 50)
       {
         _view.FiftyTurnsMessage();
       }
@@ -122,17 +122,17 @@ namespace chess.Controllers
 
     public string GetBoard()
     {
-      return _match.ExportBoard();
+      return _match.Board;
     }
 
     public int HistoryCount()
     {
-      return _match.ExportHistory().Count;
+      return _match.History.Count;
     }
 
     private bool SameBoard()
     {
-      var history = _match.ExportHistory();
+      var history = _match.History;
       return history.GroupBy(x => x).Any(g => g.Count() >= 3);
     }
 
