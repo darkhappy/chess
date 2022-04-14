@@ -26,7 +26,8 @@ namespace chess.Controllers
       _list = new List<Player>();
 
       if (!File.Exists("players.txt"))
-        File.Create("players.txt");
+         File.Create("players.txt").Close();
+
 
       using (StreamReader sr = new StreamReader("players.txt"))
       {
