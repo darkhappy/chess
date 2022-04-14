@@ -68,8 +68,10 @@ namespace chess.Controllers
       }
     }
 
-    private void Turn(Position target) { 
-      if (_match.ValidTurn(_selected, target)) {
+    private void Turn(Position target)
+    { 
+      if (_match.ValidTurn(_selected, target))
+      {
         _match.MakeTurn(_selected, target);
         _selected = new Position(-1, -1);
         _formMatch.DrawBoard(_match.ExportBoard());
@@ -84,9 +86,9 @@ namespace chess.Controllers
           else
             _main.setWinner(_playerA, _playerB, false);
         }
-        else if (_fiftyTurns >= 50 || this.SameBoard())
+        else if (_fiftyTurns >= 50 || this.SameBoard() || _match.Stalemate())
         {
-          this.DrawMatch();
+          
         }
       }
     }
