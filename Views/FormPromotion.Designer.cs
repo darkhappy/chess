@@ -32,7 +32,7 @@ namespace chess.Views
     private void InitializeComponent()
     {
       this.BtnPromote = new System.Windows.Forms.Button();
-      this.comboBox1 = new System.Windows.Forms.ComboBox();
+      this.cmbPromotion = new System.Windows.Forms.ComboBox();
       this.SuspendLayout();
       // 
       // BtnPromote
@@ -45,26 +45,29 @@ namespace chess.Views
       this.BtnPromote.TabIndex = 2;
       this.BtnPromote.Text = "Play";
       this.BtnPromote.UseVisualStyleBackColor = true;
+      this.BtnPromote.Click += new System.EventHandler(this.BtnPromote_Click);
       // 
-      // comboBox1
+      // cmbPromotion
       // 
-      this.comboBox1.FormattingEnabled = true;
-      this.comboBox1.Items.AddRange(new object[] {
+      this.cmbPromotion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.cmbPromotion.FormattingEnabled = true;
+      this.cmbPromotion.Items.AddRange(new object[] {
             "Queen",
             "Rook",
             "Bishop",
             "Knight"});
-      this.comboBox1.Location = new System.Drawing.Point(258, 157);
-      this.comboBox1.Name = "comboBox1";
-      this.comboBox1.Size = new System.Drawing.Size(199, 21);
-      this.comboBox1.TabIndex = 3;
+      this.cmbPromotion.Location = new System.Drawing.Point(258, 157);
+      this.cmbPromotion.Name = "cmbPromotion";
+      this.cmbPromotion.Size = new System.Drawing.Size(199, 21);
+      this.cmbPromotion.TabIndex = 3;
       // 
       // FormPromotion
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(800, 450);
-      this.Controls.Add(this.comboBox1);
+      this.ControlBox = false;
+      this.Controls.Add(this.cmbPromotion);
       this.Controls.Add(this.BtnPromote);
       this.Name = "FormPromotion";
       this.Text = "FormPromotion";
@@ -75,6 +78,6 @@ namespace chess.Views
     #endregion
 
     private System.Windows.Forms.Button BtnPromote;
-    private System.Windows.Forms.ComboBox comboBox1;
+    private System.Windows.Forms.ComboBox cmbPromotion;
   }
 }

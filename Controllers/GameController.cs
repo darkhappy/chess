@@ -15,6 +15,7 @@ namespace chess.Controllers
     private Player _playerB;
     private int _fiftyTurns;
     private Position _selected;
+    private Position _toPromote;
 
     /// <summary>
     /// For testing purposes.
@@ -69,30 +70,42 @@ namespace chess.Controllers
     }
 
     private void Turn(Position target)
-    { 
-      if (_match.ValidTurn(_selected, target))
-      {
-        _match.MakeTurn(_selected, target);
-        _selected = new Position(-1, -1);
-        _formMatch.DrawBoard(_match.ExportBoard());
-        ++_fiftyTurns;
-        _formMatch.DrawTurns();
+    {
+      // Verify if the match is valid
+      if (!_match.ValidTurn(_selected, target)) return;
+
+      // Make the turn
+      _match.MakeTurn(_selected, target);
+      _selected = new Position(-1, -1);
+      _formMatch.DrawBoard(_match.ExportBoard());
+      ++_fiftyTurns;
+      _formMatch.DrawTurns();
+
+      // Check if the selected cell has a promotable piece
+      if (_match.HasPromotable(target))
+        {
+            // Check if the target cell can promote
+            if (_match.CanPromote(target))
+            {
+                _toPromote = target;
+                _formPromotion = new FormPromotion(this);
+                _formPromotion.ShowDialog();
+                _formMatch.DrawBoard(_match.ExportBoard());
+            }
+        }
 
         if (_match.Checkmate())
         {
-
-          if (_match.CurrentPlayer == Colour.White)
-            _main.setWinner(_playerA, _playerB, true);
-          else
-            _main.setWinner(_playerA, _playerB, false);
+            if (_match.CurrentPlayer == Colour.White)
+                _main.setWinner(_playerA, _playerB, true);
+            else
+                _main.setWinner(_playerA, _playerB, false);
         }
         else if (_fiftyTurns >= 50 || this.SameBoard() || _match.Stalemate())
         {
           
         }
-      }
     }
-    
 
     public string GetBoard()
     {
@@ -115,6 +128,27 @@ namespace chess.Controllers
       }
 
       return same >= 3;
+    }
+
+    public void Promote(string piece)
+    {
+      switch (piece)
+      {
+        case "Queen":
+          _match.Promote(_toPromote, "q");
+          break;
+        case "Bishop":
+          _match.Promote(_toPromote, "b");
+          break;
+        case "Knight":
+          _match.Promote(_toPromote, "n");
+          break;
+        case "Rook":
+          _match.Promote(_toPromote, "r");
+          break;
+      }
+
+      _toPromote = new Position(-1, -1);
     }
     
     public void Resign()
