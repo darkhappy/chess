@@ -88,6 +88,7 @@ namespace chess.Controllers
       File.Move("newPlayers.txt", "players.txt");
 
       _list.RemoveAt(index);
+      _main.UpdatePlayerList();
     }
 
     /// <summary>

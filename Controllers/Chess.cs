@@ -87,6 +87,7 @@ namespace chess.Controllers
     /// </summary>
     public void ManagePlayers()
     {
+      _frmMenu.CancelSelection();
       _playerController.Show();
     }
 
