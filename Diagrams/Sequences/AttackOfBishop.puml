@@ -1,0 +1,122 @@
+title Second selection of a piece 
+
+actor user
+
+'---------GridClick---------'
+user -> FormMatch ++ : Grid_Click(object sender, system.EventArgs e)
+
+'Get the clicked position
+FormMatch -> Position ++: new Position(int x, int y)
+return Position 
+
+'Get board
+FormMatch -> GameController ++: GetBoard()
+GameController -> Match ++: ExportBoard()
+Match -> Board ++: ToString()
+loop Add all cell into the board string
+    Board -> Cell ++: ToString()
+    Cell -> Piece ++: ToString()
+    return char
+    return "board into string"
+end
+return "board into string"
+return "board into string"
+return "board into string"
+
+'--------- Selection ---------'
+FormMatch -> GameController ++ : Selection(Position cell)
+
+'Check if the position is out of bounds
+GameController -> Position ++: OutOfBounds()
+return false
+
+'Check if selection is valid
+GameController -> Match ++: ValidSelection(Position cell, bool firstClick)
+Match -> Board ++: SameColour(Position cell, Colour colour)
+Board -> Board ++: ConvertToIndex()
+return index of piece
+Board -> Cell ++: Colour
+return Black
+return false
+return true
+
+'---------------------------- Turn -----------------------------'
+GameController -> GameController ++: Turn(Position target)
+GameController -> Match ++: ValidTurn(Position origin, Position target)
+
+'--------- Valid move ---------'
+'Check if origin is not attacking white
+Match -> Board ++: ValidMove(Position origin, Position target)
+group Check if origin is not attacking the same colour 
+    Board -> Board ++: ConvertToIndex(Position position)
+    return (int)index of origin 
+    Board -> Cell ++: IsEmpty()
+    return false
+    Board -> Cell ++: Color
+    return White
+    Board -> Board ++: ConvertToIndex(Position position)
+    return (int)index of target 
+    Board -> Cell ++: Color
+    return Black
+end
+
+'Get all possible target of a piece
+Board -> Cell ++: ValidMove(Position origin)
+Cell-> Piece ++: ValidMove(Position origin);
+return List<Position>
+return List<Position>
+loop Remove all position out of board
+    Board -> Position ++: OutOfBounds
+    return List<Position>
+end
+
+'Can en passant
+Board -> Cell ++: CanEnPassant()
+Cell -> Piece ++: CanEnPassant()
+return false
+return false
+
+'Check if can only attack diagonally "Not move"
+Board -> Cell ++: CanOnlyAttackDiagonally() "Not move"
+Cell -> Piece ++: CanOnlyAttackDiagonally()
+return false
+return false
+
+'Check if can only move forward
+Board -> Cell ++: CanOnlyMoveForward()
+Cell -> Piece ++: CanOnlyMoveForward()
+return false
+return false
+
+'If moves containes target
+
+'Check for collisions
+Board -> Board ++: Collision(Position origin, Position target, List<Position> moves)
+Board -> Board ++: ConvertToIndex(Position position)
+return (int)index of origin
+Board -> Cell ++: HasCollision()
+Cell -> Piece ++: CanCollide
+return true
+return true
+
+Board -> Board ++: PositionsBetween(Position origin, Position target, List<Position>)
+return List<Position> "All position between"
+loop Check if all position are empty
+    Board -> Board ++: ConvertToIndex(Position position)
+    return (int)index
+    Board -> Cell ++: IsEmpty()
+    return true
+end
+return true
+return true
+
+'--------- Self check ---------'
+Board -> Board ++: SelfChecks(Position origin, Position target)
+'--------- Valid move ---------'
+'--------- Valid move ---------'
+
+
+'end'
+return
+return
+return
