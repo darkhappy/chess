@@ -93,7 +93,7 @@ namespace chess.Controllers
 
       if (_match.Checkmate())
       {
-        if (_match.CurrentPlayer == Colour.White)
+        if (_match.CurrentPlayer == Colour.Black)
         {
           _main.setWinner(_playerA, _playerB, true);
           _formMatch.VictoryMessage(_playerA);
@@ -116,7 +116,6 @@ namespace chess.Controllers
       {
         _formMatch.StalemateMessage();
       }
-    
     }
 
     public string GetBoard()
