@@ -19,6 +19,7 @@ namespace chess.Models
       //_board = new Board("........PPP..........................................ppp........");
       //_board = new Board(".......K.....q..................................p..............k");
       //_board = new Board("rnbqkbnr.ppp...p............p.p....PP....P......P....PP.RNBQKBNR");
+      //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br.");
     }
 
     public Colour CurrentPlayer => _current;
