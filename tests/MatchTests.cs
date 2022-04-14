@@ -313,7 +313,7 @@ namespace tests
     {
       _match.ChangeBoard("r.b..B.r..q...bp........p..k....P....P........P...p.p..P..KR.BNR");
       _match.MakeTurn(new Position("c7"), new Position("d8"));
-      _match.Promote(new Position("d8"), "q");
+      _match.Promote(new Position("d8"), 'q');
       Assert.That(_match.Checkmate(), Is.True);
     }
 
