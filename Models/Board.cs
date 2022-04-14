@@ -9,6 +9,8 @@ namespace chess.Models
   /// </summary>
   public class Board
   {
+    private Position? _canBeEnPassant;
+
     /// <summary>
     ///   Contains all the cells on the board.
     /// </summary>
@@ -264,6 +266,14 @@ namespace chess.Models
       return list;
     }
 
+    private bool EnPassantMove(Position origin)
+    {
+      if (!_canBeEnPassant.HasValue) return false;
+      Cell enPassantee = _cells[ConvertToIndex(new Position(_canBeEnPassant.Value.X, origin.Y))];
+
+      return !enPassantee.IsEmpty() && enPassantee.Colour != _cells[ConvertToIndex(origin)].Colour;
+    }
+
     /// <summary>
     ///   <para>
     ///     Evaluates if the given move is valid.
@@ -281,14 +291,22 @@ namespace chess.Models
     /// <returns> True if the move is valid, false otherwise.</returns>
     public bool ValidMove(Position origin, Position target)
     {
-      // Get valid moves
+      // Get the cell 
       var cell = _cells[ConvertToIndex(origin)];
       if (cell.IsEmpty()) return false;
       if (cell.Colour == null) return false;
       if (cell.Colour == _cells[ConvertToIndex(target)].Colour) return false;
 
+      // Filter moves
       var moves = cell.ValidMove(origin);
       moves.RemoveAll(pos => pos.OutOfBounds);
+
+      // Check if an en passanter wants to capture the en passant'd
+      // TODO: Looks awfully like shit
+      if (cell.CanEnPassant() && EnPassantMove(origin))
+        return true;
+
+      // Filter moves (well, the pawn's)
       if (cell.CanOnlyAttackDiagonally())
         moves.RemoveAll(pos => pos.X != origin.X && _cells[ConvertToIndex(pos)].IsEmpty());
 
@@ -298,7 +316,9 @@ namespace chess.Models
       if (!moves.Contains(target) || moves.Count == 0) return false;
 
       // Check for collisions
-      return Collision(origin, target, moves);
+      if (!Collision(origin, target, moves)) return false;
+
+      return true;
     }
 
     /// <summary>
@@ -327,6 +347,27 @@ namespace chess.Models
         SwapCells(castlee, newTarget);
         _cells[ConvertToIndex(newTarget)].Moved();
       }
+
+      if (_canBeEnPassant.HasValue && target == _canBeEnPassant)
+      {
+        _cells[ConvertToIndex(new Position(target.X, origin.Y))] = new Cell('.');
+      }
+
+      // Verify if this is move enables the piece to be en passant'd
+      // Moves that enable en passant are only cells that can en passant and if they move by two
+      if (_cells[ConvertToIndex(origin)].CanEnPassant() && target.X == origin.X && target.Y - origin.Y == 2)
+      {
+        _canBeEnPassant = new Position(target.X, target.Y - 1);
+      }
+      else if (_cells[ConvertToIndex(origin)].CanEnPassant() && target.X == origin.X && target.Y - origin.Y == -2)
+      {
+        _canBeEnPassant = new Position(target.X, target.Y + 1);
+      }
+      else
+      {
+        _canBeEnPassant = null;
+      }
+
 
       SwapCells(origin, target);
       _cells[ConvertToIndex(target)].Moved();
@@ -410,6 +451,12 @@ namespace chess.Models
       return positionsBetween.Any(pos => enemies.Any(enemy => ValidMove(enemy, pos)));
     }
 
+    public bool IsCapture(Position origin, Position target)
+    {
+      return _cells[ConvertToIndex(origin)].Colour != _cells[ConvertToIndex(target)].Colour &&
+             !_cells[ConvertToIndex(target)].IsEmpty();
+    }
+
     public bool CanCastle(Position origin, Position target)
     {
       var castler = _cells[ConvertToIndex(origin)];
@@ -490,11 +537,16 @@ namespace chess.Models
 
         foreach (var move in movelist)
         {
-          if (ValidMove(ally, move))
+          if (ValidMove(ally, move) && SelfChecks(ally, move))
             return true;
         }
       }
       return false;
+    }
+
+    public bool CantGoBack(Position cell)
+    {
+      return _cells[ConvertToIndex(cell)].CantGoBack();
     }
   }
 }

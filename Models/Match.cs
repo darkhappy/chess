@@ -8,17 +8,16 @@ namespace chess.Models
     private Board _board;
     private Colour _current;
     private List<string> _history;
-    private int _turnCount;
 
     public Match()
     {
       _current = Colour.White;
       _history = new List<string>();
-      _turnCount = 0;
       //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
 
       //test boards :
-      _board = new Board(".......K.....q...P..............................p..............k");
+      //_board = new Board("........PPP..........................................ppp........");
+      _board = new Board(".......K.....q.................................................k");
     }
 
     public Colour CurrentPlayer => _current;
@@ -51,9 +50,15 @@ namespace chess.Models
 
     public void MakeTurn(Position origin, Position target)
     {
-      _board.MoveCellTo(origin, target);
       _current = _current == Colour.White ? Colour.Black : Colour.White;
-      _turnCount++;
+
+      if (_board.CantGoBack(origin) || _board.IsCapture(origin, target))
+      {
+        _history.Clear();
+      }
+
+      _board.MoveCellTo(origin, target);
+      _history.Add(ExportBoard());
     }
 
     public bool ValidSelection(Position cell, bool firstClick)
@@ -111,7 +116,7 @@ namespace chess.Models
 
     public bool Stalemate()
     {
-      return !this.Check() && _board.TeamCanMove(_current);
+      return !this.Check() && !_board.TeamCanMove(_current);
     }
 
     public bool Castle()

@@ -246,5 +246,31 @@ namespace tests
       _match.MakeTurn(new Position("f8"), new Position("c5"));
       Assert.That(_match.ValidTurn(new Position("e1"), new Position("g1")), Is.True);
     }
+
+    [Test]
+    public void PerformEnPassant()
+    {
+      _match.MakeTurn(new Position("e2"), new Position("e4"));
+      _match.MakeTurn(new Position("a6"), new Position("a5"));
+      _match.MakeTurn(new Position("e4"), new Position("e5"));
+      _match.MakeTurn(new Position("a5"), new Position("a4"));
+      _match.MakeTurn(new Position("d7"), new Position("d5"));
+      _match.MakeTurn(new Position("e5"), new Position("d6"));
+      Assert.That(_match.ExportBoard(), Is.EqualTo("rnbqkbnrpppp.ppp...........................p....PPP.PPPPRNBQKBNR"));
+    }
+
+    [Test]
+    public void InAStalemate()
+    {
+      _match.ChangeBoard(".......k.....Q..K...............................................");
+      Assert.That(_match.Stalemate(), Is.True);
+    }
+
+    [Test]
+    public void NotInStalemate()
+    {
+      _match.MakeTurn(new Position("e2"), new Position("e4"));
+      Assert.That(_match.Stalemate(), Is.False);
+    }
   }
 }

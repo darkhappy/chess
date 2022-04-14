@@ -290,5 +290,29 @@ namespace tests
       _board.MoveCellTo(new Position("e1"), new Position("g1"));
       Assert.That(_board.ToString(), Is.EqualTo("r....rk........................................................."));
     }
+
+    [Test]
+    public void CanEnPassant()
+    {
+      _board.MoveCellTo(new Position("e2"), new Position("e5"));
+      _board.MoveCellTo(new Position("f7"), new Position("f5"));
+      Assert.That(_board.ValidMove(new Position("e5"), new Position("f6")), Is.True);
+    }
+
+    [Test]
+    public void CannotEnPassant()
+    {
+      _board.MoveCellTo(new Position("e2"), new Position("e5"));
+      _board.MoveCellTo(new Position("f7"), new Position("f5"));
+      _board.MoveCellTo(new Position("a2"), new Position("a3"));
+      Assert.That(_board.ValidMove(new Position("e5"), new Position("f6")), Is.False);
+    }
+
+    [Test]
+    public void CantEnPassantAlly()
+    {
+      _board.MoveCellTo(new Position("e2"), new Position("e4"));
+      Assert.That(_board.ValidMove(new Position("d2"), new Position("e3")), Is.False);
+    }
   }
 }
