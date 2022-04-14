@@ -112,8 +112,7 @@ namespace chess.Controllers
       return _match.ExportBoard();
     }
     public bool SameBoard()
-    {
-      
+    {      
       List<string> history = _match.ExportHistory();
       int same = 0;
       for(int i = 0; i < history.Count; i++)
