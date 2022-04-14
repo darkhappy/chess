@@ -136,24 +136,9 @@ namespace chess.Controllers
       return history.GroupBy(x => x).Any(g => g.Count() >= 3);
     }
 
-    public void Promote(string piece)
+    public void Promote(char piece)
     {
-      switch (piece)
-      {
-        case "Queen":
-          _match.Promote(_toPromote, "q");
-          break;
-        case "Bishop":
-          _match.Promote(_toPromote, "b");
-          break;
-        case "Knight":
-          _match.Promote(_toPromote, "n");
-          break;
-        case "Rook":
-          _match.Promote(_toPromote, "r");
-          break;
-      }
-
+      _match.Promote(_toPromote, piece);
       _toPromote = new Position(-1, -1);
     }
 

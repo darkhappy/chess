@@ -12,7 +12,8 @@ namespace chess.Models
     {
       _current = Colour.White;
       _history = new List<string>();
-      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+      _board = new Board("rnbqkbnrpppp.pp...........B.p..p....P......P....PPP.PPPPRN.QKBNR");
 
       //test boards :
       //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR"); //En passant
@@ -70,12 +71,14 @@ namespace chess.Models
       return !_board.SameColour(cell, _current);
     }
 
-    public void Promote(Position cell, string piece)
+    public void Promote(Position cell, char cPiece)
     {
+      string sPiece = cPiece.ToString();
+        
       if (_current == Colour.White)
-        piece = piece.ToUpper();
+        sPiece = sPiece.ToUpper();
 
-      _board.ChangeCellTo(cell, piece[0]);
+      _board.ChangeCellTo(cell, sPiece[0]);
     }
 
     public bool HasPromotable(Position cell)
