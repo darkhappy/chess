@@ -13,20 +13,10 @@ namespace chess.Models
     {
       _current = Colour.White;
       _history = new List<string>();
-      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQK..R");
+      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
 
-      /*
-      _board = new Board(
-        "........" +
-        "........" +
-        "........" +
-        "........" +
-        "........" +
-        "........" +
-        "........" +
-        "........");
-      */
       //test boards :
+      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR"); //En passant
       //_board = new Board("........PPP..........................................ppp........"); //Promotion
       //_board = new Board(".......K.....q..................................p..............k"); //Promotion + Math / Promotion + Pat
       //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br."); //Échec
