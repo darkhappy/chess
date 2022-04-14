@@ -331,5 +331,16 @@ namespace tests
       _match.MakeTurn(new Position("h7"), new Position("h5"));
       Assert.That(_match.ValidTurn(new Position("a5"), new Position("b6")), Is.False);
     }
+
+        [Test]
+    public void CantMoveOutOfCheckmate()
+        {
+            _match.ChangeBoard("r...k..r................................................R...K..R");
+            _match.MakeTurn(new Position("e1"), new Position("e2"));
+            _match.MakeTurn(new Position("a8"), new Position("a3"));
+            _match.MakeTurn(new Position("a1"), new Position("e1"));
+            _match.MakeTurn(new Position("h8"), new Position("h2"));
+            Assert.That(_match.ValidTurn(new Position("e2"), new Position("d2")), Is.False);
+        }
   }
 }

@@ -47,7 +47,7 @@ namespace chess.Controllers
 
     public void Selection(Position cell)
     {
-      if (_selected.X == -1)
+      if (_selected.OutOfBounds)
       {
         if (!_match.ValidSelection(cell, true)) return;
         _formMatch.DrawBoard(_match.ExportBoard());
@@ -184,11 +184,6 @@ namespace chess.Controllers
       {
         _formMatch.Close();
       }
-    }
-
-    public bool Check()
-    {
-      return _match.Check();
     }
   }
 }
