@@ -131,5 +131,15 @@ namespace chess.Models
     {
       return _piece != null && _piece.CanCastle();
     }
+
+    public bool CantGoBack()
+    {
+      return _piece != null && _piece.CantGoBack();
+    }
+
+    public bool CanEnPassant()
+    {
+      return _piece != null && _piece.CanEnPassant();
+    }
   }
 }
