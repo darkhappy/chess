@@ -88,7 +88,7 @@ namespace chess.Controllers
             if (_match.CanPromote(target))
             {
                 _toPromote = target;
-                _formPromotion = new FormPromotion(this);
+                _formPromotion = new FormPromotion(this, _match.CurrentPlayer == Colour.White ? Colour.Black : Colour.White);
                 _formPromotion.ShowDialog();
                 _formMatch.DrawBoard(_match.ExportBoard());
             }
@@ -96,6 +96,7 @@ namespace chess.Controllers
 
         if (_match.Checkmate())
         {
+
             if (_match.CurrentPlayer == Colour.White)
                 _main.setWinner(_playerA, _playerB, true);
             else
