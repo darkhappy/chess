@@ -136,11 +136,11 @@ namespace chess.Controllers
       int same = 0;
       for(int i = 0; i < history.Count; i++)
       {
-        for (int j = i; j < history.Count; j++)
+        for (int j = i+1; j < history.Count; j++)
         {
-          if (history[i] == history[j+1])
+          if (history[i] == history[j])
           {
-            ++same;
+            same++;
           }
         }
       }

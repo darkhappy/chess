@@ -51,7 +51,6 @@ namespace chess.Models
     public void MakeTurn(Position origin, Position target)
     {
       _current = _current == Colour.White ? Colour.Black : Colour.White;
-      _turnCount++;
 
       if (_board.CantGoBack(origin) || _board.IsCapture(origin, target))
       {
