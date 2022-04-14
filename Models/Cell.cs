@@ -136,5 +136,10 @@ namespace chess.Models
     {
       return _piece != null && _piece.CantGoBack();
     }
+
+    public bool CanEnPassant()
+    {
+      return _piece != null && _piece.CanEnPassant();
+    }
   }
 }

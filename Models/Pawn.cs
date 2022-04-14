@@ -62,5 +62,10 @@ namespace chess.Models
     {
       return true;
     }
+
+    public override bool CanEnPassant()
+    {
+      return true;
+    }
   }
 }

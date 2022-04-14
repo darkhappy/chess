@@ -60,5 +60,10 @@ namespace chess.Models
     {
       return false;
     }
+
+    public virtual bool CanEnPassant()
+    {
+      return false;
+    }
   }
 }

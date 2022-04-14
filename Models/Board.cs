@@ -9,6 +9,8 @@ namespace chess.Models
   /// </summary>
   public class Board
   {
+    private Position? _canBeEnPassant;
+
     /// <summary>
     ///   Contains all the cells on the board.
     /// </summary>
@@ -281,14 +283,25 @@ namespace chess.Models
     /// <returns> True if the move is valid, false otherwise.</returns>
     public bool ValidMove(Position origin, Position target)
     {
-      // Get valid moves
+      // Get the cell 
       var cell = _cells[ConvertToIndex(origin)];
       if (cell.IsEmpty()) return false;
       if (cell.Colour == null) return false;
       if (cell.Colour == _cells[ConvertToIndex(target)].Colour) return false;
 
+      // Filter moves
       var moves = cell.ValidMove(origin);
       moves.RemoveAll(pos => pos.OutOfBounds);
+
+      // Check if an en passanter wants to capture the en passant'd
+      // TODO: Looks awfully like shit
+      if (cell.CanEnPassant() &&
+          _canBeEnPassant.HasValue &&
+          moves.Contains(_canBeEnPassant.Value) &&
+          _cells[ConvertToIndex(new Position(_canBeEnPassant.Value.X, origin.Y))].Colour != cell.Colour)
+        return true;
+
+      // Filter moves (well, the pawn's)
       if (cell.CanOnlyAttackDiagonally())
         moves.RemoveAll(pos => pos.X != origin.X && _cells[ConvertToIndex(pos)].IsEmpty());
 
@@ -298,7 +311,9 @@ namespace chess.Models
       if (!moves.Contains(target) || moves.Count == 0) return false;
 
       // Check for collisions
-      return Collision(origin, target, moves);
+      if (!Collision(origin, target, moves)) return false;
+
+      return true;
     }
 
     /// <summary>
@@ -327,6 +342,27 @@ namespace chess.Models
         SwapCells(castlee, newTarget);
         _cells[ConvertToIndex(newTarget)].Moved();
       }
+
+      if (_canBeEnPassant.HasValue && target == _canBeEnPassant)
+      {
+        _cells[ConvertToIndex(new Position(target.X, origin.Y))] = new Cell('.');
+      }
+
+      // Verify if this is move enables the piece to be en passant'd
+      // Moves that enable en passant are only cells that can en passant and if they move by two
+      if (_cells[ConvertToIndex(origin)].CanEnPassant() && target.X == origin.X && target.Y - origin.Y == 2)
+      {
+        _canBeEnPassant = new Position(target.X, target.Y - 1);
+      }
+      else if (_cells[ConvertToIndex(origin)].CanEnPassant() && target.X == origin.X && target.Y - origin.Y == -2)
+      {
+        _canBeEnPassant = new Position(target.X, target.Y + 1);
+      }
+      else
+      {
+        _canBeEnPassant = null;
+      }
+
 
       SwapCells(origin, target);
       _cells[ConvertToIndex(target)].Moved();
