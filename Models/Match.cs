@@ -13,16 +13,40 @@ namespace chess.Models
     {
       _current = Colour.White;
       _history = new List<string>();
-      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQK..R");
+      //_board = new Board("rnbqk..rppp.pppp................................PP..P..PRNBQK..R");
 
+      /*
+      _board = new Board(
+        "........" +
+        "........" +
+        "........" +
+        "........" +
+        "........" +
+        "........" +
+        "........" +
+        "........");
+      */
       //test boards :
       //_board = new Board("........PPP..........................................ppp........");
       //_board = new Board(".......K.....q..................................p..............k");
       //_board = new Board("rnbqkbnr.ppp...p............p.p....PP....P......P....PP.RNBQKBNR");
       //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br.");
-    }
+    
 
-    public Colour CurrentPlayer => _current;
+    //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+
+          //test boards :
+          //_board = new Board("........PPP..........................................ppp........");
+          //_board = new Board(".......K.....q..................................p..............k");
+          //_board = new Board("rnbqkbnr.ppp...p............p.p....PP....P......P....PP.RNBQKBNR");
+          //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br.");
+          // Casstle tests
+          //  _board = new Board("r...k..r........................................................");
+          //_board = new Board("r...k..r................................................R...K..R");
+      }
+
+        public Colour CurrentPlayer => _current;
 
     public string ExportBoard()
     {

@@ -261,7 +261,7 @@ namespace chess.Models
         if (_cells[i].Colour == enemyColour)
           enemies.Add(ConvertToPosition(i));
 
-      var list = enemies.Where(enemy => ValidMove(enemy, target) && SelfChecks(enemy, target)).ToList();
+      var list = enemies.Where(enemy => ValidMove(enemy, target)).ToList();
 
       return list;
     }
