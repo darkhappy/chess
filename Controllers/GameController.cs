@@ -57,7 +57,6 @@ namespace chess.Controllers
       else if (_match.ValidSelection(cell, false))
       {
         Turn(cell);
-
       }
       else
       {
