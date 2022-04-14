@@ -177,12 +177,12 @@ namespace chess.Models
     /// <summary>
     ///   Evaluates if the <c>origin</c> cell is the same colour as the given parameter.
     /// </summary>
-    /// <param name="origin">The cell to evaluate.</param>
+    /// <param name="cell">The cell to evaluate.</param>
     /// <param name="colour">The colour to compare to.</param>
     /// <returns>True if the <c>origin</c> cell is the same colour as the given parameter, false otherwise.</returns>
-    public bool SameColour(Position origin, Colour colour)
+    public bool SameColour(Position cell, Colour colour)
     {
-      return _cells[ConvertToIndex(origin)].Colour == colour;
+      return _cells[ConvertToIndex(cell)].Colour == colour;
     }
 
     public void ChangeCellTo(Position cell, char piece)
@@ -190,7 +190,7 @@ namespace chess.Models
       _cells[ConvertToIndex(cell)] = new Cell(piece);
     }
 
-    public bool IsPromotable(Position target)
+    public static bool IsPromotable(Position cell)
     {
       List<Position> promotablePositions = new List<Position>();
 
@@ -200,17 +200,17 @@ namespace chess.Models
         promotablePositions.Add(new Position(i, 0));
       }
 
-      return promotablePositions.Contains(target);
+      return promotablePositions.Contains(cell);
     }
 
     /// <summary>
     ///   Evaluates if the <c>origin</c> cell has a promotable piece.
     /// </summary>
-    /// <param name="target">The cell to evaluate.</param>
+    /// <param name="cell">The cell to evaluate.</param>
     /// <returns>True if the <c>origin</c> cell has a promotable piece, false otherwise.</returns>
-    public bool HasPromotable(Position target)
+    public bool HasPromotable(Position cell)
     {
-      return _cells[ConvertToIndex(target)].HasPromotable();
+      return _cells[ConvertToIndex(cell)].HasPromotable();
     }
 
     /// <summary>
@@ -263,10 +263,10 @@ namespace chess.Models
 
       var list = enemies.Where(enemy => ValidMove(enemy, target)).ToList();
 
-            if (list.Contains(GetEssentialPiece(enemyColour)))
-            {
-                list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && !SelfChecks(enemy, target));
-            }
+      if (list.Contains(GetEssentialPiece(enemyColour)))
+      {
+        list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && !SelfChecks(enemy, target));
+      }
 
       return list;
     }
@@ -379,27 +379,6 @@ namespace chess.Models
 
       SwapCells(origin, target);
       _cells[ConvertToIndex(target)].Moved();
-    }
-
-    /// <summary>
-    ///   Converts the board to a 2D array.
-    /// </summary>
-    /// <returns> 2D array representing the board.</returns>
-    public Cell[][] ConvertTo2D()
-    {
-      var array = _cells;
-      var result = new Cell[8][];
-      for (var i = 0; i < result.Length; i++)
-        result[i] = new Cell[8];
-
-      for (var i = 0; i < array.Length; i++)
-      {
-        var x = i % 8;
-        var y = i / 8;
-        result[y][x] = array[i];
-      }
-
-      return result;
     }
 
     public bool CanAttackAroundEssential(Colour colour)

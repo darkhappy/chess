@@ -1,14 +1,14 @@
-﻿using chess.Controllers;
-using chess.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using chess.Controllers;
+using chess.Models;
 
 namespace chess.Views
 {
   public partial class FormPlayer : Form
   {
-    PlayerController _controller;
+    private readonly PlayerController _controller;
 
     /// <summary>
     /// Initialize the FormPlayer with its controller
@@ -37,7 +37,7 @@ namespace chess.Views
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnNew_Click(object sender, System.EventArgs e)
+    private void Add_Click(object sender, System.EventArgs e)
     {
       if (String.IsNullOrEmpty(tbxName.Text))
       {
@@ -47,7 +47,7 @@ namespace chess.Views
       else if (_controller.Exists(tbxName.Text))
       {
         labError.Visible = true;
-        labError.Text = "This player already exists";      
+        labError.Text = "This player already exists";
       }
       else
       {
@@ -62,7 +62,7 @@ namespace chess.Views
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnBack_Click(object sender, System.EventArgs e)
+    private void Back_Click(object sender, System.EventArgs e)
     {
       _controller.Back();
     }
@@ -72,7 +72,7 @@ namespace chess.Views
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnDelete_Click(object sender, EventArgs e)
+    private void Remove_Click(object sender, EventArgs e)
     {
       int[] indices = new int[listPlayer.SelectedIndices.Count];
       int i = 0;
@@ -109,7 +109,7 @@ namespace chess.Views
     public void UpdatePlayerList(List<Player> playerList)
     {
       listPlayer.Items.Clear();
-      foreach (Player player in playerList)
+      foreach (var player in playerList)
       {
         AddPlayer(player);
       }

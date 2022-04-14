@@ -1,7 +1,7 @@
 ﻿
 namespace chess.Views
 {
-  partial class FrmMatch
+  partial class FormMatch
   {
     /// <summary>
     /// Required designer variable.
@@ -381,7 +381,7 @@ namespace chess.Views
       this.Controls.Add(this.btnDraw);
       this.Controls.Add(this.BtnResign);
       this.Controls.Add(this.ChessBoard);
-      this.Name = "FrmMatch";
+      this.Name = "FormMatch";
       this.Text = "Chess Match";
       this.Load += new System.EventHandler(this.FormMatch_Load);
       this.grpPlayer2.ResumeLayout(false);

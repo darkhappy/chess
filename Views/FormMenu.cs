@@ -1,6 +1,6 @@
-﻿using chess.Controllers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using chess.Controllers;
 
 namespace chess.Views
 {
@@ -27,9 +27,9 @@ namespace chess.Views
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void Start(object sender, System.EventArgs e)
+    private void Start_Click(object sender, System.EventArgs e)
     {
-      if(txbPlayer1.Text == "" || txbPlayer2.Text == "")
+      if (txbPlayer1.Text == "" || txbPlayer2.Text == "")
       {
         labError.Visible = true;
       }
@@ -48,7 +48,7 @@ namespace chess.Views
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ManagePlayer(object sender, System.EventArgs e)
+    private void ManagePlayer_Click(object sender, System.EventArgs e)
     {
       _main.ManagePlayers();
     }
@@ -58,12 +58,12 @@ namespace chess.Views
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void Exit(object sender, System.EventArgs e)
+    private void Exit_Click(object sender, System.EventArgs e)
     {
       _main.Exit();
     }
 
-    public void UpdatePlayerList(List<string> playerList)
+    public void UpdatePlayerList_Click(List<string> playerList)
     {
       listPlayer.Clear();
 
@@ -74,14 +74,14 @@ namespace chess.Views
         listPlayer.Items.Add(player);
     }
 
-    private void btnCancel_Click(object sender, System.EventArgs e)
+    private void RemovePlayer_Click(object sender, System.EventArgs e)
     {
-      if (((Button)sender).Name == "btnCancel1" && txbPlayer1.Text != "")
+      if (((Button) sender).Name == "btnCancel1" && txbPlayer1.Text != "")
       {
         listPlayer.Items.Add(new ListViewItem(txbPlayer1.Text));
         txbPlayer1.Text = "";
       }
-      else if(((Button)sender).Name == "btnCancel2" && txbPlayer2.Text != "")
+      else if (((Button) sender).Name == "btnCancel2" && txbPlayer2.Text != "")
       {
         listPlayer.Items.Add(new ListViewItem(txbPlayer2.Text));
         txbPlayer2.Text = "";
@@ -102,9 +102,9 @@ namespace chess.Views
       }
     }
 
-    private void listPlayer_MouseDoubleClick(object sender, MouseEventArgs e)
+    private void AddPlayer_Click(object sender, MouseEventArgs e)
     {
-      var senderList = (ListView)sender;
+      var senderList = (ListView) sender;
       var clickedItem = senderList.HitTest(e.Location).Item;
       if (clickedItem != null)
       {

@@ -1,19 +1,15 @@
-﻿using chess.Controllers;
-using chess.Properties;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using chess.Controllers;
 using chess.Models;
+using chess.Properties;
 
 namespace chess.Views
 {
-  public partial class FrmMatch : Form
+  public partial class FormMatch : Form
   {
-    private GameController _controller;
+    private readonly GameController _controller;
     private string _board;
 
     /// <summary>
@@ -21,12 +17,11 @@ namespace chess.Views
     /// </summary>
     /// <param name="controller">The cell containing the moving piece.</param>
     /// <returns>Returns a new instance of FormMatch</returns>
-    public FrmMatch(GameController controller)
+    public FormMatch(GameController controller)
     {
       InitializeComponent();
       _controller = controller;
       _board = _controller.GetBoard();
-
     }
 
     /// <summary>
@@ -36,9 +31,8 @@ namespace chess.Views
     /// <param name="e">Represents the events we have to listen to</param>
     private void GridClick(object sender, EventArgs e)
     {
-
-      var props = (MouseEventArgs)e;
-      var image = (Panel)sender;
+      var props = (MouseEventArgs) e;
+      var image = (Panel) sender;
       var x = props.X / (image.Height / 8);
       var y = Math.Abs(props.Y - (image.Height)) / (image.Height / 8);
 
@@ -47,7 +41,6 @@ namespace chess.Views
       _board = _controller.GetBoard();
 
       _controller.Selection(pos);
-
     }
 
     /// <summary>
@@ -56,7 +49,6 @@ namespace chess.Views
     /// <param name="pos">Reprensents de position as a 2 dimentional table that starts by the bottom-left(starts with 0, 0)</param>
     public void DrawSelection(Position pos)
     {
-
       Graphics boardGraph = ChessBoard.CreateGraphics();
 
       var x = pos.X * (ChessBoard.Height / 8);
@@ -64,7 +56,6 @@ namespace chess.Views
       var y = Math.Abs(pos.Y - 7) * (ChessBoard.Height / 8);
 
       boardGraph.DrawRectangle(new Pen(Color.CadetBlue, 4.0F), x, y, ChessBoard.Height / 8, ChessBoard.Height / 8);
-
     }
 
     /// <summary>
@@ -78,7 +69,7 @@ namespace chess.Views
       SolidBrush darkCell = new SolidBrush(Color.DarkGray);
       SolidBrush whiteCell = new SolidBrush(Color.White);
 
-      char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+      char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
       TextBox txt = new TextBox();
 
       float cellDim = ChessBoard.Height / 8;
@@ -149,6 +140,7 @@ namespace chess.Views
               imgPiece = null;
               break;
           }
+
           if (imgPiece != null)
           {
             boardGraph.DrawImage(imgPiece, c * cellDim, r * cellDim);
@@ -199,7 +191,7 @@ namespace chess.Views
     /// <param name="e">Represents the events we have to listen to</param>
     private void btnDraw_Click(object sender, EventArgs e)
     {
-      _controller.DrawMatch();
+      _controller.Draw();
     }
 
     /// <summary>
@@ -207,18 +199,12 @@ namespace chess.Views
     /// </summary>
     /// <param name="currentColor">The colour of the player that calls the draw</param>
     /// <returns>bool</returns>
-    public bool DrawMessage(Colour currentColor)
+    public bool DrawMessage(string resigner, string opponent)
     {
-      string caption = "Draw !";
-      string message;
+      const string caption = "Draw !";
+      var message = resigner + " want to make a draw. \n\n" + opponent + " do you agree?";
 
-      if (currentColor == Colour.White)
-        message = _controller.PlayerA.Name + " want to make a draw. \n\n" + _controller.PlayerB.Name + " do you agree?";
-      else
-        message = _controller.PlayerB.Name + " want to make a draw. \n\n" + _controller.PlayerA.Name + " do you agree?";
-
-      DialogResult dialogResult = MessageBox.Show(message, caption, MessageBoxButtons.YesNo);
-
+      var dialogResult = MessageBox.Show(message, caption, MessageBoxButtons.YesNo);
       return dialogResult == DialogResult.Yes;
     }
 
@@ -226,73 +212,74 @@ namespace chess.Views
     /// Meesage pops when a player is in check
     /// </summary>
     /// <param name="currentColor">Colour of the player that is in check</param>
-    public void CheckMessage(Colour currentColor)
+    public void CheckMessage(string player)
     {
-      string caption = "Check !";
-      string message;
+      var message = "Player: " + player + " is in check";
+      const string caption = "Check !";
+      const MessageBoxButtons buttons = MessageBoxButtons.OK;
 
-      if (currentColor == Colour.White)
-        message = _controller.PlayerA.Name + " is in check.";
-      else
-        message = _controller.PlayerB.Name + " is in check.";
-
-      DialogResult dialogResult = MessageBox.Show(message, caption, MessageBoxButtons.OK);
-
+      // Displays the MessageBox.
+      var result = MessageBox.Show(message, caption, buttons);
+      if (result == DialogResult.OK)
+      {
+        Close();
+      }
     }
 
     /// <summary>
     /// Message posp when a player wins doing a checkmate
     /// </summary>
     /// <param name="winner">The winer of the match</param>
-    public void VictoryMessage(Player winner)
+    public void VictoryMessage(string winner)
     {
-
       // Initializes the variables to pass to the MessageBox.Show method.
-      string message = "PLayer : " + winner.Name + " is the winner !";
-      string caption = "Check Mate !";
-      MessageBoxButtons buttons = MessageBoxButtons.OK;
-      DialogResult result;
+      var message = "Player : " + winner + " is the winner !";
+      const string caption = "Check Mate !";
+      const MessageBoxButtons buttons = MessageBoxButtons.OK;
 
       // Displays the MessageBox.
-      result = MessageBox.Show(message, caption, buttons);
+      var result = MessageBox.Show(message, caption, buttons);
       if (result == DialogResult.OK)
       {
-        this.Close();
+        Close();
       }
     }
 
     /// <summary>
     /// Message pops when the same board is made 3 times
     /// </summary>
-    public void SameboardMessage()
+    public void SameBoardMessage()
     {
       // Initializes the variables to pass to the MessageBox.Show method.
-      string message = "You made the same board 3 times, it leads you to a draw !";
-      string caption = "Draw !";
-      MessageBoxButtons buttons = MessageBoxButtons.OK;
-      DialogResult result;
+      const string message = "You made the same board 3 times, it leads you to a draw !";
+      const string caption = "Draw !";
+      const MessageBoxButtons buttons = MessageBoxButtons.OK;
 
       // Displays the MessageBox.
-      result = MessageBox.Show(message, caption, buttons);
+      var result = MessageBox.Show(message, caption, buttons);
       if (result == DialogResult.OK)
       {
-        this.Close();
+        Close();
       }
     }
 
     /// <summary>
     /// Message pops when nothing happens after 50 turn
     /// </summary>
-    public void FiftyturnsMessage()
+    public void FiftyTurnsMessage()
     {
       // Initializes the variables to pass to the MessageBox.Show method.
-      string message = "You made 50 turns without any changes !";
-      string caption = "Draw !";
-      MessageBoxButtons buttons = MessageBoxButtons.OK;
+      const string message = "You made 50 turns without any changes !";
+      const string caption = "Draw !";
+      const MessageBoxButtons buttons = MessageBoxButtons.OK;
+
 
       // Displays the MessageBox.
-      MessageBox.Show(message, caption, buttons);
-      
+      var result = MessageBox.Show(message, caption, buttons);
+      if (result == DialogResult.OK)
+      {
+        Close();
+      }
     }
 
     /// <summary>
@@ -301,16 +288,15 @@ namespace chess.Views
     public void StalemateMessage()
     {
       // Initializes the variables to pass to the MessageBox.Show method.
-      string message = "You are in a stalemate !";
-      string caption = "Stalemate !";
-      MessageBoxButtons buttons = MessageBoxButtons.OK;
-      DialogResult result;
+      const string message = "You are in a stalemate !";
+      const string caption = "Stalemate !";
+      const MessageBoxButtons buttons = MessageBoxButtons.OK;
 
       // Displays the MessageBox.
-      result = MessageBox.Show(message, caption, buttons);
+      var result = MessageBox.Show(message, caption, buttons);
       if (result == DialogResult.OK)
       {
-        this.Close();
+        Close();
       }
     }
 

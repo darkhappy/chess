@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using chess.Models;
 using chess.Views;
 
@@ -7,12 +6,11 @@ namespace chess.Controllers
 {
   public class GameController
   {
-    private FrmMatch _formMatch;
-    private FormPromotion _formPromotion;
-    private Chess _main;
-    private Match _match;
-    private Player _playerA;
-    private Player _playerB;
+    private readonly Chess _main;
+    private readonly Match _match;
+    private readonly Player _playerA;
+    private readonly Player _playerB;
+    private readonly FormMatch _view;
     private Position _selected;
     private Position _toPromote;
 
@@ -24,22 +22,22 @@ namespace chess.Controllers
     public GameController(Player a, Player b)
     {
       _match = new Match();
-      _formMatch = new FrmMatch(this);
+      _view = new FormMatch(this);
       _selected = new Position(-1, -1);
       _playerA = a;
       _playerB = b;
-      _formMatch.Show();
+      _view.Show();
     }
 
     public GameController(Chess main, Player a, Player b)
     {
       _match = new Match();
       _main = main;
-      _formMatch = new FrmMatch(this);
+      _view = new FormMatch(this);
       _selected = new Position(-1, -1);
       _playerA = a;
       _playerB = b;
-      _formMatch.Show();
+      _view.Show();
     }
 
     public Player PlayerA => _playerA;
@@ -50,8 +48,8 @@ namespace chess.Controllers
       if (_selected.OutOfBounds)
       {
         if (!_match.ValidSelection(cell, true)) return;
-        _formMatch.DrawBoard(_match.ExportBoard());
-        _formMatch.DrawSelection(cell);
+        _view.DrawBoard(_match.ExportBoard());
+        _view.DrawSelection(cell);
         _selected = cell;
       }
       else if (_match.ValidSelection(cell, false))
@@ -60,8 +58,8 @@ namespace chess.Controllers
       }
       else
       {
-        _formMatch.DrawBoard(_match.ExportBoard());
-        _formMatch.DrawSelection(cell);
+        _view.DrawBoard(_match.ExportBoard());
+        _view.DrawSelection(cell);
         _selected = cell;
       }
     }
@@ -74,50 +72,51 @@ namespace chess.Controllers
       // Make the turn
       _match.MakeTurn(_selected, target);
       _selected = new Position(-1, -1);
-      _formMatch.DrawBoard(_match.ExportBoard());
-      _formMatch.DrawTurns();
+      _view.DrawBoard(_match.ExportBoard());
+      _view.DrawTurns();
 
       // Check if the selected cell has a promotable piece
       if (_match.HasPromotable(target))
+      {
+        // Check if the target cell can promote
+        if (_match.CanPromote(target))
         {
-            // Check if the target cell can promote
-            if (_match.CanPromote(target))
-            {
-                _toPromote = target;
-                _formPromotion = new FormPromotion(this, _match.CurrentPlayer == Colour.White ? Colour.Black : Colour.White);
-                _formPromotion.ShowDialog();
-                _formMatch.DrawBoard(_match.ExportBoard());
-            }
+          _toPromote = target;
+          var promotionView =
+            new FormPromotion(this, _match.CurrentPlayer == Colour.White ? Colour.Black : Colour.White);
+          promotionView.ShowDialog();
+          _view.DrawBoard(_match.ExportBoard());
         }
+      }
 
       if (_match.Checkmate())
       {
         if (_match.CurrentPlayer == Colour.Black)
         {
-          _main.setWinner(_playerA, _playerB, true);
-          _formMatch.VictoryMessage(_playerA);
+          _main.SetWinner(_playerA, _playerB, true);
+          _view.VictoryMessage(_playerA.Name);
         }
         else
         {
-          _main.setWinner(_playerA, _playerB, false);
-          _formMatch.VictoryMessage(_playerB);
+          _main.SetWinner(_playerA, _playerB, false);
+          _view.VictoryMessage(_playerB.Name);
         }
       }
       else if (_match.Check())
       {
-        _formMatch.CheckMessage(_match.CurrentPlayer);
+        _view.CheckMessage(_match.CurrentPlayer == Colour.White ? _playerA.Name : _playerB.Name);
       }
       else if (_match.ExportHistory().Count >= 50)
       {
-        _formMatch.FiftyturnsMessage();
+        _view.FiftyTurnsMessage();
       }
       else if (SameBoard())
       {
-        _formMatch.SameboardMessage();
+        _view.SameBoardMessage();
       }
       else if (_match.Stalemate())
       {
-        _formMatch.StalemateMessage();
+        _view.StalemateMessage();
       }
     }
 
@@ -133,21 +132,8 @@ namespace chess.Controllers
 
     private bool SameBoard()
     {
-      
-      List<string> history = _match.ExportHistory();
-      int same = 0;
-      for(int i = 0; i < history.Count; i++)
-      {
-        for (int j = i+1; j < history.Count; j++)
-        {
-          if (history[i] == history[j])
-          {
-            same++;
-          }
-        }
-      }
-
-      return same >= 3;
+      var history = _match.ExportHistory();
+      return history.GroupBy(x => x).Any(g => g.Count() >= 3);
     }
 
     public void Promote(char piece)
@@ -159,18 +145,20 @@ namespace chess.Controllers
     public void Resign()
     {
       if (_match.CurrentPlayer == Colour.White)
-        _main.setWinner(_playerA, _playerB, false);
+        _main.SetWinner(_playerA, _playerB, false);
       else
-        _main.setWinner(_playerA, _playerB, true);
+        _main.SetWinner(_playerA, _playerB, true);
 
-      _formMatch.Close();
+      _view.Close();
     }
 
-    public void DrawMatch()
+    public void Draw()
     {
-      if (_formMatch.DrawMessage(_match.CurrentPlayer))
+      var resigner = _match.CurrentPlayer == Colour.White ? _playerA : _playerB;
+      var opponent = _match.CurrentPlayer == Colour.White ? _playerB : _playerA;
+      if (_view.DrawMessage(resigner.Name, opponent.Name))
       {
-        _formMatch.Close();
+        _view.Close();
       }
     }
   }

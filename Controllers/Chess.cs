@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using chess.Models;
 using chess.Views;
@@ -11,18 +12,9 @@ namespace chess.Controllers
   /// </summary>
   public class Chess
   {
+    private readonly FormMenu _menu;
+    private readonly PlayerController _playerController;
     private List<GameController> _listGames;
-    private PlayerController _playerController;
-    private FormMenu _frmMenu;
-
-    /// <summary>
-    /// Application entry point
-    /// </summary>
-    [STAThread]
-    public static void Main()
-    {
-      Chess chess = new Chess();
-    }
 
     /// <summary>
     /// Create a new Chess controller and start the application
@@ -31,9 +23,18 @@ namespace chess.Controllers
     {
       _listGames = new List<GameController>();
       _playerController = new PlayerController(this);
-      _frmMenu = new FormMenu(this);
-      Application.Run(_frmMenu);
+      _menu = new FormMenu(this);
+      Application.Run(_menu);
       UpdatePlayerList();
+    }
+
+    /// <summary>
+    /// Application entry point
+    /// </summary>
+    [STAThread]
+    public static void Main()
+    {
+      new Chess();
     }
 
     /// <summary>
@@ -41,7 +42,7 @@ namespace chess.Controllers
     /// </summary>
     public void UpdatePlayerList()
     {
-      _frmMenu.UpdatePlayerList(PlayersToString(_playerController.GetPlayerList()));
+      _menu.UpdatePlayerList_Click(PlayersToString(_playerController.GetPlayerList()));
     }
 
     /// <summary>
@@ -59,16 +60,11 @@ namespace chess.Controllers
     /// <summary>
     /// Convert a player list into a string list
     /// </summary>
-    /// <param name="playerList">List of players</param>
+    /// <param name="players">List of players</param>
     /// <returns>Player list converted to string list</returns>
-    public List<string> PlayersToString(List<Player> playerList)
+    private static List<string> PlayersToString(List<Player> players)
     {
-      List<string> list = new List<string>();
-
-      foreach (Player player in playerList)
-        list.Add(player.Name);
-
-      return list;
+      return players.Select(player => player.Name).ToList();
     }
 
     /// <summary>
@@ -76,10 +72,10 @@ namespace chess.Controllers
     /// </summary>
     /// <param name="player1"></param>
     /// <param name="player2"></param>
-    /// <param name="player1Win"></param>
-    public void setWinner(Player player1, Player player2, bool player1Win)
+    /// <param name="player1Won"></param>
+    public void SetWinner(Player player1, Player player2, bool player1Won)
     {
-      _playerController.UpdateEloRating(player1, player2, player1Win);
+      PlayerController.UpdateEloRating(player1, player2, player1Won);
     }
 
     /// <summary>
@@ -87,7 +83,7 @@ namespace chess.Controllers
     /// </summary>
     public void ManagePlayers()
     {
-      _frmMenu.CancelSelection();
+      _menu.CancelSelection();
       _playerController.Show();
     }
 

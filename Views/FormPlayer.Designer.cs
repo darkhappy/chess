@@ -63,7 +63,7 @@ namespace chess.Views
       this.btnNew.TabIndex = 2;
       this.btnNew.Text = "New player";
       this.btnNew.UseVisualStyleBackColor = false;
-      this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
+      this.btnNew.Click += new System.EventHandler(this.Add_Click);
       // 
       // btnDelete
       // 
@@ -76,7 +76,7 @@ namespace chess.Views
       this.btnDelete.TabIndex = 3;
       this.btnDelete.Text = "Delete selected";
       this.btnDelete.UseVisualStyleBackColor = false;
-      this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+      this.btnDelete.Click += new System.EventHandler(this.Remove_Click);
       // 
       // btnBack
       // 
@@ -89,7 +89,7 @@ namespace chess.Views
       this.btnBack.TabIndex = 4;
       this.btnBack.Text = "Back";
       this.btnBack.UseVisualStyleBackColor = false;
-      this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+      this.btnBack.Click += new System.EventHandler(this.Back_Click);
       // 
       // listPlayer
       // 

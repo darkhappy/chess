@@ -5,46 +5,63 @@
 package Models {
     abstract class Piece {
         - _colour : Colour
-        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ValidMove(Position origin, Position target) : bool
         + ToString() : string
         + CanCollide() : bool
         + CanPromote() : bool
         + IsEssential() : bool
+        + HasMoved() : bool
+        + Moved() : void
+        + CanOnlyMoveForward() : bool
+        + CanOnlyAttackDiagonally() : bool
+        + CanCastle() : bool
+        + CantGoBack() : bool
+        + CanEnPassant() : bool
     }
     
     abstract class StartingPiece {
         - _hasMoved : bool
+        + HasMoved() : bool
+        + Moved() : void
     }
+    
+    abstract class CastlingPiece {
+        + CanCastle() : bool
+    } 
 
     class Pawn {
-        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ValidMove(Position origin, Position target) : bool
         + ToString() : string
         + CanPromote() : bool
+        + CanOnlyAttackDiagonally() : bool
+        + CanOnlyMoveForward() : bool
+        + CantGoBack() : bool
+        + CanEnPassant() : bool
     }
 
     class Rook{
-        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ValidMove(Position origin, Position target) : bool
         + ToString() : string
     }
 
     class Knight{
-        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ValidMove(Position origin, Position target) : bool
         + ToString() : string
         + CanCollide() : bool
     }
 
     class Bishop{
-        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ValidMove(Position origin, Position target) : bool
         + ToString() : string
     }
 
     class Queen {
-        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ValidMove(Position origin, Position target) : bool
         + ToString() : string
     }
 
     class King {
-        + ValidMove(int x1, int y1, int x2, int y2) : bool
+        + ValidMove(Position origin, Position target) : bool
         + ToString() : string
         + IsEssential() : bool
     }
@@ -52,42 +69,65 @@ package Models {
     class Match {
         - _board : Board
         - _current : Colour
-        - _history : string[]
-        - _turnNumber : int
+        - _history : List<string>
         + ExportBoard() : string
-        + ExportHistory() : string[]
-        + ValidTurn (int origin, int target) : bool
-        + MakeTurn (int origin, int target) : void 
+        + ExportHistory() : List<string>
+        + ValidTurn (Position origin, Position target) : bool
+        + MakeTurn (Position origin, Position target) : void 
         + ValidSelection (int cell, bool firstClick) : bool
-        + HasPromotable (int target) : bool
+        + Promote(Position cell, string piece) : void
+        + HasPromotable (Position cell) : bool
+        + CanPromote (Position cell) : bool
         + Check() : bool
         + Checkmate() : bool
         + Stalemate() : bool
-        + Castle(int origin, int target) : void
+        + ChangeBoard (string board) : void
     }
     class Board {
         - _cells : Cell[]
+        - _canBeEnPassant : Position?
+        - GenerateBoard(string board) : void
         + ToString() : string
-        + Collision (int origin, int target) : bool
-        + SameColour (int cell, Colour colour) : bool
-        + ValidMove (int origin, int target) : bool
-        + MoveCellTo (int origin, int target) : void
-        + GenerateBoard (string board) : void
-        + IsEssentialExposed (Colour colour) : bool
-        + HasPromotable (int target) : bool
-        + GetAssailants (Colour colour) : List<int>
-        - GetEssentialPiece (Colour colour) : int
-        - GetAttackingPieces (Colour colour, int target) : List<int>
-        + HasAttackersAroundEssential(Colour colour) : bool
+        - Collision(Position origin, Position target, List<Position> moves) : bool
+        - {static} PositionsBetween(Position origin, Position target, List<Position> allPositions) : List<Position>
+        - {static} ConvertToIndex(Position position) : int
+        - {static} ConvertToPosition(int index) : Position
+        + SameColour(Position origin, Colour colour) : bool
+        + ChangeCellTo(Position cell, char piece) : void
+        + {static} IsPromotable(Position cell) : bool
+        + HasPromotable(Position cell) : bool
+        + GetAssailants(Colour colour) : List<Position>
+        + GetEssentialPiece(Colour colour) : Position
+        + GetAttackingPieces(Colour colour, Position target) : List<Position>
+        - EnPassantMove(Position origin, Position target) : bool
+        + ValidMove (Position origin, Position target) : bool
+        + MoveCellTo (Position origin, Position target) : void
+        + CanAttackAroundEssential(Colour colour) : bool
+        - SwapCells(Position origin, Position target) : void
+        + SelfChecks(Position origin, Position target) : bool
+        + CanBlock(Position origin, Position target) : bool
+        + IsCapture(Position origin, Position target) : bool
+        + CanCastle (Position origin, Position target) : bool
+        + {static} CastlingMove(Position origin, Position target) : bool
+        + HasEssential(Position cell) : bool
+        + TeamCanMove(Colour colour) : bool
+        + CantGoBack() : bool
     }
     class Cell {
         - _piece : Nullable<Piece>
+        + Colour : Colour
         + IsEmpty() : bool
         + HasCollision() : bool
         + HasPromotable() : bool
+        + HasMoved() : bool
         + HasEssential() : bool
         + ValidMove (int x1, int y1, int x2, int y2) : bool
-        + Colour() : Colour
+        + ToString() : string
+        + CanOnlyAttackDiagonally() : bool
+        + CanOnlyMoveForward() : bool
+        + CanCastle() : bool
+        + CantGoBack() : bool
+        + CanEnPassant() : bool
     }
     
     class Player {
@@ -98,47 +138,63 @@ package Models {
         Black
         White
     }
+    
+    class Position {
+        - _x : int
+        - _y : int
+        + OutOfBounds() : bool
+        + ToString() : string
+        + Equals(Position position) : bool
+        + GetHashCode() : int
+        + {static} operator == (Position position1, Position position2) : bool
+        + {static} operator != (Position position1, Position position2) : bool
+    }
+    
 
     Match "1" *---> "1" Board
     Board "1" *---> "64" Cell
     Cell "1" *---> "0..1" Piece
     Pawn -u-|> StartingPiece
-    Rook -u-|> StartingPiece
+    Rook -u-|> CastlingPiece
     Knight -u-|> Piece
     Bishop -u-|> Piece
     Queen -u-|> Piece
-    King -u-|> StartingPiece
+    King -u-|> CastlingPiece
     StartingPiece -u-|> Piece
+    CastlingPiece -u-|> StartingPiece
 }
+    
 
 package Controllers {
     class Chess {
         - _listGames : List<GameController>
+        - _menu : FormMenu
+        - _playerController : PlayerController
         + main() : void 
-        + NewGame() : void
-        + StartGame(Player[2] players) : void
+        + NewGame(string name1, string name2) : void
+        - {static} PlayersToString(List<Player> players) : string
+        - SetWinner(Player player1, Player player2, bool player1Won) : void
         + ManagePlayers() : void
         + Exit() : void
     }
 
     class GameController  {
         - _main : Chess
-        - _selected : int
+        - _selected : Position
+        - _toPromote : Position
         - _match : Match
         - _playerA : Player
         - _playerB : Player
         - _fiftyTurns : int
         - _view : FormMatch
-        - Rules(int origin, int target) : void
-        - Check() : bool
-        - Checkmate() : bool
-        - Castle() : bool
-        - Stalemate() : bool
-        - FiftyTurns() : bool
-        - SameBoard() : bool
+        + Selection(Position cell) : void
         - Turn (int origin, int target) : void
-        + Selection(int cell) : void
+        + GetBoard() : string
+        + HistoryCount() : int
+        - SameBoard() : bool
+        + Promote() : void
         + Resign() : void
+        + Draw() : void
     }
 
     class PlayerController {
@@ -146,6 +202,17 @@ package Controllers {
         - _list : List<Player>
         + Add() : void
         + Remove() : void
+        + Exists() : bool
+        + Show() : void
+        + Back() : void
+        + GetPlayerList() : List<Player>
+        + GetPlayer(string name) : Player
+        - {static} UpdatePlayer(Player player) : void
+        + {static} UpdateEloRating(Player playerA, Player playerB, bool playerAWon) : void
+        - {static} Probability(float rating1, float rating2) : float
+        - SortPlayersByRanking() : void
+        - {static} ObjectToString(object obj) : string
+        - {static} StringToObject(string str) : object
     }
 
     PlayerController "1" o---> "1" Chess
@@ -156,51 +223,58 @@ package Controllers {
 package Views {
     class FormMenu {
         - _main : Chess
-        + Start(object sender, System.EventArgs e) : void
-        + Exit(object sender, System.EventArgs e) : void
-        + ManagePlayers(object sender, System.EventArgs e) : void
+        - Start_Click(object sender, System.EventArgs e) : void
+        - Exit_Click(object sender, System.EventArgs e) : void
+        - ManagePlayers_Click(object sender, System.EventArgs e) : void
+        + UpdatePlayerList(List<string> playerList) : void
+        - RemovePlayer_Click(object sender, System.EventArgs e) : void
+        - AddPlayer_Click(object sender, System.EventArgs e) : void
     }
     class FormMatch {
         - _controller : GameController
         - _board : string
-        + GridClick(object sender, System.EventArgs e) : void
+        - Grid_Click(object sender, System.EventArgs e) : void
         + DrawBoard(string board) : void
         + DrawSelection(int cell) : void
         + ShowMessage(string message) : void
         + VictoryMessage() : void
+        - FormMatch_Load(object sender, System.EventArgs e) : void
+        - Resign_Click(object sender, System.EventArgs e) : void
+        - Draw_Click(object sender, System.EventArgs e) : void
+        + DrawMessage(string resigner, string opponent) : bool
+        + CheckMessage(string player) : void
+        + VictoryMessage(string winner) : void
+        + FiftyTurnsMessage() : void
+        + StalemateMessage() : void
+        + SameBoardMessage() : void
+        + DrawTurns() : void
     }
     
-    class FormLeaderboard {
+    class FormPlayer {
         - _controller : PlayerController
-        + ShowList(List<Player>) : void
-        + Add() : void
-        + Remove() : void 
-        + Back() : void
+        - FormPlayer_Load(object sender, System.EventArgs e) : void
+        - Add_Click() : void
+        - Remove_Click() : void 
+        - Back_Click() : void
+        + UpdatePlayerList(List<string> playerList) : void
+        + AddPlayer(Player player) : void
     }
+    
     class FormPromotion {
         - _controller : GameController
-        + Submit(object sender, System.EventArgs e) : void
+        + Promotion_Click(object sender, System.EventArgs e) : void
     }
-    class FormSelection {
-        - _controller : main
-        + OpenLeaderboard() : void
-        + Start() : Player[2]
-        + Cancel() : void
-    }
-    
 }
 
 GameController "1" *----> "1" Match
 GameController "1" o--right--> "2" Player
-Chess -up-> FormSelection
 GameController "1" *-up-> "1" FormMatch
-PlayerController "1" *-up-> "0..1" FormLeaderboard
+PlayerController "1" *-up-> "0..1" FormPlayer
 PlayerController "1" *---> "0..n" Player
 GameController "1" *---> "0..1" FormPromotion
 FormMatch "1" o--> "1" GameController
-FormLeaderboard "1" o--> "1" PlayerController
+FormPlayer "1" o--> "1" PlayerController
 FormPromotion o--> "1" GameController
 FormMenu "1" o--> "1" Chess
-FormSelection "1" o--> "1" Chess
 
 @enduml
