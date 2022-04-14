@@ -220,7 +220,7 @@ namespace chess.Models
     {
       // Get the king's position
       var king = GetEssentialPiece(colour);
-      return king == new Position(-1, -1)
+      return king.OutOfBounds
         ? new List<Position>()
         : GetAttackingPieces(colour, king);
     }
@@ -288,7 +288,7 @@ namespace chess.Models
       if (cell.Colour == _cells[ConvertToIndex(target)].Colour) return false;
 
       var moves = cell.ValidMove(origin);
-      moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
+      moves.RemoveAll(pos => pos.OutOfBounds);
       if (cell.CanOnlyAttackDiagonally())
         moves.RemoveAll(pos => pos.X != origin.X && _cells[ConvertToIndex(pos)].IsEmpty());
 
@@ -358,7 +358,7 @@ namespace chess.Models
       var cell = GetEssentialPiece(colour);
       if (cell == new Position(-1, -1)) return false;
       var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
-      moves.RemoveAll(pos => pos.X < 0 || pos.X > 7 || pos.Y < 0 || pos.Y > 7);
+      moves.RemoveAll(pos => pos.OutOfBounds);
       moves.RemoveAll(pos => _cells[ConvertToIndex(pos)].Colour != _cells[ConvertToIndex(cell)].Colour);
       return moves.Any(pos => GetAttackingPieces(colour, cell).Count > 0);
     }
@@ -417,9 +417,12 @@ namespace chess.Models
       // Check if it's the essential piece that is starting the move
       if (!castler.HasEssential()) return false;
       // Check if they can castle
-      if (castler.Colour == null) return false;
-      if (!castler.CanCastle()) return false;
-      if (castler.HasMoved()) return false;
+      if (castler.Colour == null)
+        return false;
+      if (!castler.CanCastle())
+        return false;
+      if (castler.HasMoved())
+        return false;
 
       // Check if the movement is a castle
       if (!CastlingMove(origin, target))
@@ -439,8 +442,10 @@ namespace chess.Models
         passesBy = new Position(origin.X + 1, origin.Y);
       }
 
-      if (!_cells[ConvertToIndex(castlee)].CanCastle()) return false;
-      if (_cells[ConvertToIndex(castlee)].HasMoved()) return false;
+      if (!_cells[ConvertToIndex(castlee)].CanCastle())
+        return false;
+      if (_cells[ConvertToIndex(castlee)].HasMoved())
+        return false;
 
       // Ensure that there are no attackers between these positions
       if (GetAttackingPieces((Colour) castler.Colour, passesBy).Count > 0)
@@ -451,11 +456,7 @@ namespace chess.Models
         return false;
 
       // Lastly, check if the castlee can do the move
-      if (!ValidMove(castlee, passesBy))
-        return false;
-
-
-      return true;
+      return ValidMove(castlee, passesBy);
     }
 
     public static bool CastlingMove(Position origin, Position target)
@@ -466,6 +467,34 @@ namespace chess.Models
     public bool HasEssential(Position cell)
     {
       return _cells[ConvertToIndex(cell)].HasEssential();
+    }
+
+    public bool TeamCanMove(Colour colour)
+    {
+      var allies = new List<Position>();
+
+      for (var i = 0; i < _cells.Length; i++)
+        if (_cells[i].Colour == colour)
+          allies.Add(ConvertToPosition(i));
+
+      foreach (var ally in allies)
+      {
+        List<Position> movelist = _cells[ConvertToIndex(ally)].ValidMove(ally);
+        var cell = _cells[ConvertToIndex(ally)];
+        movelist.RemoveAll(pos => pos.OutOfBounds);
+        if (cell.CanOnlyAttackDiagonally())
+          movelist.RemoveAll(pos => pos.X != ally.X && _cells[ConvertToIndex(pos)].IsEmpty());
+
+        if (cell.CanOnlyMoveForward())
+          movelist.RemoveAll(pos => pos.X == ally.X && !_cells[ConvertToIndex(pos)].IsEmpty());
+
+        foreach (var move in movelist)
+        {
+          if (ValidMove(ally, move))
+            return true;
+        }
+      }
+      return false;
     }
   }
 }

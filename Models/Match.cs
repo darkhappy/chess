@@ -15,10 +15,10 @@ namespace chess.Models
       _current = Colour.White;
       _history = new List<string>();
       _turnCount = 0;
-      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
 
       //test boards :
-      _board = new Board("........PPP..........................................ppp........");
+      //_board = new Board("........PPP..........................................ppp........");
     }
 
     public Colour CurrentPlayer => _current;
@@ -111,15 +111,14 @@ namespace chess.Models
 
     public bool Stalemate()
     {
-      throw new NotImplementedException();
+      //TODO verify if all remaining pieces cant make a valid move
+      if (!this.Check() )
+        return true;
+      else
+        return false;
     }
 
     public bool Castle()
-    {
-      throw new NotImplementedException();
-    }
-
-    public List<int> GetAssailants(int cell)
     {
       throw new NotImplementedException();
     }

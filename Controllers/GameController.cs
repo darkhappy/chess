@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using chess.Models;
 using chess.Views;
 
@@ -11,6 +13,7 @@ namespace chess.Controllers
     private Match _match;
     private Player _playerA;
     private Player _playerB;
+    private int _fiftyTurns;
     private Position _selected;
     private Position _toPromote;
 
@@ -26,6 +29,7 @@ namespace chess.Controllers
       _selected = new Position(-1, -1);
       _playerA = a;
       _playerB = b;
+      _fiftyTurns = 0;
       _formMatch.Show();
     }
 
@@ -55,6 +59,7 @@ namespace chess.Controllers
       else if (_match.ValidSelection(cell, false))
       {
         Turn(cell);
+
       }
       else
       {
@@ -73,41 +78,56 @@ namespace chess.Controllers
       _match.MakeTurn(_selected, target);
       _selected = new Position(-1, -1);
       _formMatch.DrawBoard(_match.ExportBoard());
+      ++_fiftyTurns;
+      _formMatch.DrawTurns();
 
       // Check if the selected cell has a promotable piece
       if (_match.HasPromotable(target))
-      {
-        // Check if the target cell can promote
-        if (_match.CanPromote(target))
         {
-          _toPromote = target;
-          _formPromotion = new FormPromotion(this);
-          _formPromotion.ShowDialog();
-          _formMatch.DrawBoard(_match.ExportBoard());
+            // Check if the target cell can promote
+            if (_match.CanPromote(target))
+            {
+                _toPromote = target;
+                _formPromotion = new FormPromotion(this);
+                _formPromotion.ShowDialog();
+                _formMatch.DrawBoard(_match.ExportBoard());
+            }
         }
-      }
 
-      // Check for check
-      if (_match.Check())
-        // Check for checkmate
         if (_match.Checkmate())
         {
-          _formMatch.VictoryMessage();
-          _main.setWinner(_playerA, _playerB, _match.CurrentPlayer == Colour.White);
+            if (_match.CurrentPlayer == Colour.White)
+                _main.setWinner(_playerA, _playerB, true);
+            else
+                _main.setWinner(_playerA, _playerB, false);
         }
-        else
+        else if (_fiftyTurns >= 50 || this.SameBoard())
         {
-          // Show that they are in check
+            this.DrawMatch();
         }
-      else
-      {
-        // Check for stalemates (50 turns without a significant move, 3 of the same board, no one can move)
-      }
     }
 
     public string GetBoard()
     {
       return _match.ExportBoard();
+    }
+    public bool SameBoard()
+    {
+      
+      List<string> history = _match.ExportHistory();
+      int same = 0;
+      for(int i = 0; i < history.Count; i++)
+      {
+        for (int j = i; j < history.Count; j++)
+        {
+          if (history[i] == history[j+1])
+          {
+            ++same;
+          }
+        }
+      }
+
+      return same >= 3;
     }
 
     public void Promote(string piece)
@@ -130,7 +150,7 @@ namespace chess.Controllers
 
       _toPromote = new Position(-1, -1);
     }
-
+    
     public void Resign()
     {
       if (_match.CurrentPlayer == Colour.White)
@@ -148,5 +168,12 @@ namespace chess.Controllers
         _formMatch.Close();
       }
     }
+
+    public bool Check()
+    {
+      return _match.Check();
+    }
+
+    public int Turns => _fiftyTurns;
   }
 }
