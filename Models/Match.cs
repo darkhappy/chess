@@ -13,7 +13,7 @@ namespace chess.Models
     {
       _current = Colour.White;
       _history = new List<string>();
-      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQK..R");
+      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQK..R");
       //_board = new Board("rnbqk..rppp.pppp................................PP..P..PRNBQK..R");
 
       /*
@@ -34,7 +34,7 @@ namespace chess.Models
       //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br.");
     
 
-    //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+    _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
 
           //test boards :
           //_board = new Board("........PPP..........................................ppp........");
