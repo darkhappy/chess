@@ -29,16 +29,16 @@ namespace chess.Views
       switch (((PictureBox)sender).Name)
       {
         case "pbQueen":
-          _main.Promote("Queen");
+          _main.Promote('q');
           break;
         case "pbKnight":
-          _main.Promote("Knight");
+          _main.Promote('k');
           break;
         case "pbRook":
-          _main.Promote("Rook");
+          _main.Promote('r');
           break;
         case "pbBishop":
-          _main.Promote("Bishop");
+          _main.Promote('b');
           break;
       }
 
