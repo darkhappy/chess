@@ -307,5 +307,12 @@ namespace tests
       _board.MoveCellTo(new Position("a2"), new Position("a3"));
       Assert.That(_board.ValidMove(new Position("e5"), new Position("f6")), Is.False);
     }
+
+    [Test]
+    public void CantEnPassantAlly()
+    {
+      _board.MoveCellTo(new Position("e2"), new Position("e4"));
+      Assert.That(_board.ValidMove(new Position("d2"), new Position("e3")), Is.False);
+    }
   }
 }
