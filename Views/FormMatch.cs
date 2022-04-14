@@ -58,6 +58,10 @@ namespace chess.Views
       boardGraph.DrawRectangle(new Pen(Color.CadetBlue, 4.0F), x, y, ChessBoard.Height / 8, ChessBoard.Height / 8);
     }
 
+    /// <summary>
+    /// Draws the graphics of the given string board
+    /// </summary>
+    /// <param name="board">Represents the board as a 64 char string</param>
     public void DrawBoard(string board)
     {
       Bitmap imgPiece = null;
@@ -145,6 +149,11 @@ namespace chess.Views
       }
     }
 
+    /// <summary>
+    /// Loads the first view of the match
+    /// </summary>
+    /// <param name="sender">Reprensent the form itself</param>
+    /// <param name="e">Represents the events we have to listen to</param>
     private void FormMatch_Load(object sender, EventArgs e)
     {
       grpPlayer1.Text = _controller.PlayerA.Name;
@@ -154,22 +163,42 @@ namespace chess.Views
       txtTurns.Text = _controller.HistoryCount().ToString();
     }
 
+    /// <summary>
+    /// Loads the board from the match and calls DrawBoard
+    /// </summary>
+    /// <param name="sender">Reprensent the form itself</param>
+    /// <param name="e">Represents the events we have to listen to</param>
     private void ChessBoard_Paint(object sender, PaintEventArgs e)
     {
       _board = _controller.GetBoard();
       DrawBoard(_board);
     }
 
+    /// <summary>
+    /// Calls Resign from GameController
+    /// </summary>
+    /// <param name="sender">Reprensent the form itself</param>
+    /// <param name="e">Represents the events we have to listen to</param>
     private void BtnResign_Click(object sender, EventArgs e)
     {
       _controller.Resign();
     }
 
+    /// <summary>
+    /// Calls the DrawMatch from GameController
+    /// </summary>
+    /// <param name="sender">Reprensent the form itself</param>
+    /// <param name="e">Represents the events we have to listen to</param>
     private void btnDraw_Click(object sender, EventArgs e)
     {
       _controller.Draw();
     }
 
+    /// <summary>
+    /// Message pops when a player wants to call a draw match
+    /// </summary>
+    /// <param name="currentColor">The colour of the player that calls the draw</param>
+    /// <returns>bool</returns>
     public bool DrawMessage(string resigner, string opponent)
     {
       const string caption = "Draw !";
@@ -179,6 +208,10 @@ namespace chess.Views
       return dialogResult == DialogResult.Yes;
     }
 
+    /// <summary>
+    /// Meesage pops when a player is in check
+    /// </summary>
+    /// <param name="currentColor">Colour of the player that is in check</param>
     public void CheckMessage(string player)
     {
       var message = "Player: " + player + " is in check";
@@ -193,6 +226,10 @@ namespace chess.Views
       }
     }
 
+    /// <summary>
+    /// Message posp when a player wins doing a checkmate
+    /// </summary>
+    /// <param name="winner">The winer of the match</param>
     public void VictoryMessage(string winner)
     {
       // Initializes the variables to pass to the MessageBox.Show method.
@@ -208,6 +245,9 @@ namespace chess.Views
       }
     }
 
+    /// <summary>
+    /// Message pops when the same board is made 3 times
+    /// </summary>
     public void SameBoardMessage()
     {
       // Initializes the variables to pass to the MessageBox.Show method.
@@ -223,6 +263,9 @@ namespace chess.Views
       }
     }
 
+    /// <summary>
+    /// Message pops when nothing happens after 50 turn
+    /// </summary>
     public void FiftyTurnsMessage()
     {
       // Initializes the variables to pass to the MessageBox.Show method.
@@ -239,6 +282,9 @@ namespace chess.Views
       }
     }
 
+    /// <summary>
+    /// Message pops when there is a stalemate
+    /// </summary>
     public void StalemateMessage()
     {
       // Initializes the variables to pass to the MessageBox.Show method.
@@ -254,6 +300,9 @@ namespace chess.Views
       }
     }
 
+    /// <summary>
+    /// Draws the number of the turns in the formMatch
+    /// </summary>
     public void DrawTurns()
     {
       txtTurns.Text = _controller.HistoryCount().ToString();

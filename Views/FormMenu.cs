@@ -88,6 +88,20 @@ namespace chess.Views
       }
     }
 
+    public void CancelSelection()
+    {
+      if (txbPlayer1.Text != "")
+      {
+        listPlayer.Items.Add(new ListViewItem(txbPlayer1.Text));
+        txbPlayer1.Text = "";
+      }
+      if (txbPlayer2.Text != "")
+      {
+        listPlayer.Items.Add(new ListViewItem(txbPlayer2.Text));
+        txbPlayer2.Text = "";
+      }
+    }
+
     private void AddPlayer_Click(object sender, MouseEventArgs e)
     {
       var senderList = (ListView) sender;
