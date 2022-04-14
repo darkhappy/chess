@@ -14,7 +14,6 @@ namespace chess.Views
       _main = main;
       InitializeComponent();
 
-      cmbPromotion.SelectedIndex = 0;
 
       if(current == Colour.Black)
       {
@@ -23,12 +22,6 @@ namespace chess.Views
         pbRook.Image = Resources.b_rook;
         pbBishop.Image = Resources.b_bishop;
       }
-    }
-
-    private void BtnPromote_Click(object sender, System.EventArgs e)
-    {
-      _main.Promote(cmbPromotion.Text);
-      Close();
     }
     
     private void Promotion_Click(object sender, System.EventArgs e)

@@ -31,8 +31,6 @@ namespace chess.Views
     /// </summary>
     private void InitializeComponent()
     {
-      this.BtnPromote = new System.Windows.Forms.Button();
-      this.cmbPromotion = new System.Windows.Forms.ComboBox();
       this.pbQueen = new System.Windows.Forms.PictureBox();
       this.pbKnight = new System.Windows.Forms.PictureBox();
       this.pbRook = new System.Windows.Forms.PictureBox();
@@ -43,33 +41,6 @@ namespace chess.Views
       ((System.ComponentModel.ISupportInitialize)(this.pbRook)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.pbBishop)).BeginInit();
       this.SuspendLayout();
-      // 
-      // BtnPromote
-      // 
-      this.BtnPromote.BackColor = System.Drawing.SystemColors.Control;
-      this.BtnPromote.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.BtnPromote.Location = new System.Drawing.Point(155, 496);
-      this.BtnPromote.Margin = new System.Windows.Forms.Padding(2);
-      this.BtnPromote.Name = "BtnPromote";
-      this.BtnPromote.Size = new System.Drawing.Size(199, 39);
-      this.BtnPromote.TabIndex = 2;
-      this.BtnPromote.Text = "Play";
-      this.BtnPromote.UseVisualStyleBackColor = false;
-      this.BtnPromote.Click += new System.EventHandler(this.BtnPromote_Click);
-      // 
-      // cmbPromotion
-      // 
-      this.cmbPromotion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cmbPromotion.FormattingEnabled = true;
-      this.cmbPromotion.Items.AddRange(new object[] {
-            "Queen",
-            "Rook",
-            "Bishop",
-            "Knight"});
-      this.cmbPromotion.Location = new System.Drawing.Point(415, 508);
-      this.cmbPromotion.Name = "cmbPromotion";
-      this.cmbPromotion.Size = new System.Drawing.Size(199, 21);
-      this.cmbPromotion.TabIndex = 3;
       // 
       // pbQueen
       // 
@@ -131,15 +102,13 @@ namespace chess.Views
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(148)))), ((int)(((byte)(84)))));
-      this.ClientSize = new System.Drawing.Size(575, 560);
+      this.ClientSize = new System.Drawing.Size(575, 500);
       this.ControlBox = false;
       this.Controls.Add(this.labTitle);
       this.Controls.Add(this.pbBishop);
       this.Controls.Add(this.pbRook);
       this.Controls.Add(this.pbKnight);
       this.Controls.Add(this.pbQueen);
-      this.Controls.Add(this.cmbPromotion);
-      this.Controls.Add(this.BtnPromote);
       this.Name = "FormPromotion";
       this.Text = "FormPromotion";
       ((System.ComponentModel.ISupportInitialize)(this.pbQueen)).EndInit();
@@ -152,9 +121,6 @@ namespace chess.Views
     }
 
     #endregion
-
-    private System.Windows.Forms.Button BtnPromote;
-    private System.Windows.Forms.ComboBox cmbPromotion;
     private System.Windows.Forms.PictureBox pbKnight;
     private System.Windows.Forms.PictureBox pbRook;
     private System.Windows.Forms.PictureBox pbBishop;
