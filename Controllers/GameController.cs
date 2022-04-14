@@ -104,6 +104,10 @@ namespace chess.Controllers
           _formMatch.VictoryMessage(_playerB);
         }
       }
+      else if (_match.Check())
+      {
+        _formMatch.CheckMessage(_match.CurrentPlayer);
+      }
       else if (_match.ExportHistory().Count >= 50)
       {
         _formMatch.FiftyturnsMessage();

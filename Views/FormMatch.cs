@@ -193,6 +193,20 @@ namespace chess.Views
       return dialogResult == DialogResult.Yes;
     }
 
+    public void CheckMessage(Colour currentColor)
+    {
+      string caption = "Check !";
+      string message;
+
+      if (currentColor == Colour.White)
+        message = _controller.PlayerA.Name + " is in check.";
+      else
+        message = _controller.PlayerB.Name + " is in check.";
+
+      DialogResult dialogResult = MessageBox.Show(message, caption, MessageBoxButtons.OK);
+
+    }
+
     public void VictoryMessage(Player winner)
     {
 
