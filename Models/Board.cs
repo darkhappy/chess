@@ -405,7 +405,7 @@ namespace chess.Models
 
       var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
       moves.RemoveAll(pos => pos.OutOfBounds);
-      moves.RemoveAll(pos => !ValidMove(cell, pos));
+      moves.RemoveAll(pos => !ValidMove(cell, pos) || !SelfChecks(cell, pos));
 
       return moves.All(pos => GetAttackingPieces(colour, pos).Count != 0);
     }

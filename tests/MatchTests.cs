@@ -282,7 +282,7 @@ namespace tests
     }
 
     [Test]
-    public void StupidFuckingMove()
+    public void StupidThingJeFoundOne()
     {
       _match.MakeTurn(new Position("d2"), new Position("d4"));
       _match.MakeTurn(new Position("d7"), new Position("d5"));
@@ -292,7 +292,7 @@ namespace tests
     }
 
     [Test]
-    public void StupidFuckingMoveTwo()
+    public void StupidThingJeFoundTwo()
     {
       _match.ChangeBoard("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br.");
       _match.MakeTurn(new Position("d5"), new Position("d6"));
@@ -300,11 +300,20 @@ namespace tests
     }
 
     [Test]
-    public void StupidFuckingMoveThree()
+    public void StupidThingJeFoundThree()
     {
       _match.ChangeBoard("..ppp..p..pkp.....p.p.....................................Q.....");
       _match.MakeTurn(new Position("h1"), new Position("h2"));
       _match.MakeTurn(new Position("c8"), new Position("d8"));
+      Assert.That(_match.Checkmate(), Is.True);
+    }
+
+    [Test]
+    public void StupidThingJeFoundFour()
+    {
+      _match.ChangeBoard("r.b..B.r..q...bp........p..k....P....P........P...p.p..P..KR.BNR");
+      _match.MakeTurn(new Position("c7"), new Position("d8"));
+      _match.Promote(new Position("d8"), "q");
       Assert.That(_match.Checkmate(), Is.True);
     }
 
