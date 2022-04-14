@@ -110,7 +110,7 @@ namespace chess.Controllers
     {
       _frmPlayer = new FormPlayer(this);
       _frmPlayer.UpdatePlayerList(_list);
-      _frmPlayer.Show();
+      _frmPlayer.ShowDialog();
     }
 
     /// <summary>
