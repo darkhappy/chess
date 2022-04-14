@@ -258,5 +258,19 @@ namespace tests
       _match.MakeTurn(new Position("e5"), new Position("d6"));
       Assert.That(_match.ExportBoard(), Is.EqualTo("rnbqkbnrpppp.ppp...........................p....PPP.PPPPRNBQKBNR"));
     }
+
+    [Test]
+    public void InAStalemate()
+    {
+      _match.ChangeBoard(".......k.....Q..K...............................................");
+      Assert.That(_match.Stalemate(), Is.True);
+    }
+
+    [Test]
+    public void NotInStalemate()
+    {
+      _match.MakeTurn(new Position("e2"), new Position("e4"));
+      Assert.That(_match.Stalemate(), Is.False);
+    }
   }
 }
