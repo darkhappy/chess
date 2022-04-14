@@ -537,7 +537,7 @@ namespace chess.Models
 
         foreach (var move in movelist)
         {
-          if (ValidMove(ally, move))
+          if (ValidMove(ally, move) && SelfChecks(ally, move))
             return true;
         }
       }
