@@ -28,10 +28,8 @@ namespace chess.Views
     private void FormPlayer_Load(object sender, System.EventArgs e)
     {
       listPlayer.View = View.Details;
-      listPlayer.Columns.Add("Player", listPlayer.Width / 4);
-      listPlayer.Columns.Add("Victory", listPlayer.Width / 4);
-      listPlayer.Columns.Add("Defeat", listPlayer.Width / 4);
-      listPlayer.Columns.Add("Points", listPlayer.Width / 4);
+      listPlayer.Columns.Add("Player", listPlayer.Width / 2);
+      listPlayer.Columns.Add("Points", listPlayer.Width / 2);
     }
 
     /// <summary>
@@ -100,7 +98,7 @@ namespace chess.Views
     /// <param name="player"></param>
     public void AddPlayer(Player player)
     {
-      string[] toAdd = new string[] { player.Name, player.Victory.ToString(), player.Defeat.ToString(), player.Points.ToString()};
+      string[] toAdd = new string[] { player.Name, player.Points.ToString()};
       listPlayer.Items.Add(new ListViewItem(toAdd));
     }
 
