@@ -15,17 +15,16 @@ namespace chess.Models
       _history = new List<string>();
       _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
 
-            //test boards :
-            //_board = new Board("........PPP..........................................ppp........");
-            //_board = new Board(".......K.....q..................................p..............k");
-            //_board = new Board("rnbqkbnr.ppp...p............p.p....PP....P......P....PP.RNBQKBNR");
-            //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br.");
-            // Casstle tests
-            //  _board = new Board("r...k..r........................................................");
-            //_board = new Board("r...k..r................................................R...K..R");
-        }
+      //test boards :
+      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR"); //En passant
+      //_board = new Board("........PPP..........................................ppp........"); //Promotion
+      //_board = new Board(".......K.....q..................................p..............k"); //Promotion + Math / Promotion + Pat
+      //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br."); //Échec
+      //_board = new Board("r...k..r................................................R...K..R"); //Castle
 
-        public Colour CurrentPlayer => _current;
+    }
+
+    public Colour CurrentPlayer => _current;
 
     public string ExportBoard()
     {
