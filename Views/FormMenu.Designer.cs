@@ -59,6 +59,7 @@ namespace chess.Views
       // 
       // BtnNew
       // 
+      this.BtnNew.BackColor = System.Drawing.SystemColors.Control;
       this.BtnNew.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.BtnNew.Location = new System.Drawing.Point(318, 297);
       this.BtnNew.Margin = new System.Windows.Forms.Padding(2);
@@ -66,11 +67,12 @@ namespace chess.Views
       this.BtnNew.Size = new System.Drawing.Size(199, 39);
       this.BtnNew.TabIndex = 1;
       this.BtnNew.Text = "Play";
-      this.BtnNew.UseVisualStyleBackColor = true;
+      this.BtnNew.UseVisualStyleBackColor = false;
       this.BtnNew.Click += new System.EventHandler(this.Start);
       // 
       // BtnManage
       // 
+      this.BtnManage.BackColor = System.Drawing.SystemColors.Control;
       this.BtnManage.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.BtnManage.Location = new System.Drawing.Point(65, 370);
       this.BtnManage.Margin = new System.Windows.Forms.Padding(2);
@@ -78,11 +80,12 @@ namespace chess.Views
       this.BtnManage.Size = new System.Drawing.Size(199, 39);
       this.BtnManage.TabIndex = 2;
       this.BtnManage.Text = "Manage Player";
-      this.BtnManage.UseVisualStyleBackColor = true;
+      this.BtnManage.UseVisualStyleBackColor = false;
       this.BtnManage.Click += new System.EventHandler(this.ManagePlayer);
       // 
       // BtnExit
       // 
+      this.BtnExit.BackColor = System.Drawing.SystemColors.Control;
       this.BtnExit.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.BtnExit.Location = new System.Drawing.Point(318, 370);
       this.BtnExit.Margin = new System.Windows.Forms.Padding(2);
@@ -90,7 +93,7 @@ namespace chess.Views
       this.BtnExit.Size = new System.Drawing.Size(199, 39);
       this.BtnExit.TabIndex = 3;
       this.BtnExit.Text = "Exit";
-      this.BtnExit.UseVisualStyleBackColor = true;
+      this.BtnExit.UseVisualStyleBackColor = false;
       this.BtnExit.Click += new System.EventHandler(this.Exit);
       // 
       // listPlayer
@@ -180,12 +183,12 @@ namespace chess.Views
       // labError
       // 
       this.labError.AutoSize = true;
-      this.labError.Font = new System.Drawing.Font("Matura MT Script Capitals", 12F);
-      this.labError.ForeColor = System.Drawing.Color.Red;
-      this.labError.Location = new System.Drawing.Point(314, 226);
+      this.labError.Font = new System.Drawing.Font("Matura MT Script Capitals", 16F);
+      this.labError.ForeColor = System.Drawing.Color.DarkRed;
+      this.labError.Location = new System.Drawing.Point(313, 228);
       this.labError.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
       this.labError.Name = "labError";
-      this.labError.Size = new System.Drawing.Size(171, 22);
+      this.labError.Size = new System.Drawing.Size(231, 29);
       this.labError.TabIndex = 16;
       this.labError.Text = "Please select 2 players";
       this.labError.Visible = false;
@@ -194,6 +197,7 @@ namespace chess.Views
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(148)))), ((int)(((byte)(84)))));
       this.ClientSize = new System.Drawing.Size(580, 436);
       this.Controls.Add(this.labError);
       this.Controls.Add(this.btnCancel2);

@@ -38,7 +38,7 @@ namespace chess.Views
       // BtnPromote
       // 
       this.BtnPromote.Font = new System.Drawing.Font("Monotype Corsiva", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.BtnPromote.Location = new System.Drawing.Point(258, 257);
+      this.BtnPromote.Location = new System.Drawing.Point(258, 373);
       this.BtnPromote.Margin = new System.Windows.Forms.Padding(2);
       this.BtnPromote.Name = "BtnPromote";
       this.BtnPromote.Size = new System.Drawing.Size(199, 39);
