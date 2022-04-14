@@ -111,12 +111,101 @@ return true
 return true
 
 '--------- Self check ---------'
-Board -> Board ++: SelfChecks(Position origin, Position target)
-'--------- Valid move ---------'
-'--------- Valid move ---------'
+Match -> Board ++: SelfChecks(Position origin, Position target)
+Board -> Board ++: ConvertToIndex(Position position)
+return (int)index of origin
+Board -> Cell ++: Color
+return white;
 
+'Swap cell
+Board -> Board ++: SwapCells(Position origin, Position target)
+Board -> Board ++: ConvertToIndex(Position position)
+return (int)index of origin
+Board -> Board ++: ConvertToIndex(Position position)
+return (int)index of target
+Board -> Cell ++: new Cell(string)
+return Cell
+return
 
-'end'
-return
-return
-return
+'--- Get assaillants ---'
+Board -> Board ++: GetAssaillants(Colour color)
+
+group GetEssential
+'Get essential piece
+Board -> Board ++: GetEssentialPiece(Colour colour)
+loop until it get the essential piece
+    Board -> Cell ++: HasEssential()
+    return true
+    Board -> Cell ++: Color
+    return White
+end
+Board -> Board ++: ConvertToPosition(int index)
+Board -> Position ++: New Position(int x, int y)
+return Position
+return Position "of the essential" 
+end
+
+'Is essential piece exits
+Board -> Piece ++: OutOfBounds
+return false
+
+'Get attacking pieces/
+Board -> Board ++: SameColour(Position origine, Colour colour)
+Board -> Board ++: ConvertToIndex()
+return index of piece
+Board -> Cell ++: Colour
+return Black
+return false
+
+loop For all ennemies and adding them into a list<Position>
+    Board -> Board ++: ConvertToPosition(int index)
+    return Position
+end
+
+loop For all ennemies and put them in a list
+    Board -> Board ++: ValidMove(Position origin, Position target)[...]
+    return true
+end
+
+loop Until it found an essential in the ennemy list
+    group GetEssential
+        'Get essential piece
+        Board -> Board ++: GetEssentialPiece(Colour colour)[...]
+        return Position "of the essential" 
+    end
+end
+
+'///////JE COMPREND fuck all comment ça marche 
+'if (list.Contains(GetEssentialPiece(enemyColour)))
+'{
+ '   list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && !SelfChecks(enemy, target));
+'}
+
+note right
+    Dude je comprend fuck all HELPPPPP!!!!!!!!
+
+end note
+loop Remove all cell that are fitting condition
+    'Board -> Board ++: ConvertToIndex()
+    'return index of piece
+    'Board -> Cell ++: HasEssential()
+    'return false
+end
+return List<Position>
+return List<Position> "Pieces attacking the current essential"
+
+return false
+
+'--------- Origin is essential ---------'
+Match -> Board ++: HasEssential(Position cell)
+Board -> Board ++: ConvertToIndex()
+return index of the origin
+Board -> Cell ++: HasEssential()
+Cell -> Piece ++: IsEssetial()
+return false
+return false
+return false
+
+'--------- Valid move ---------'
+return true
+
