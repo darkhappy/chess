@@ -9,6 +9,18 @@ namespace chess.Models
   /// </summary>
   public class Board
   {
+    /// <summary>
+    ///   <para>
+    ///     Represents the position of a possible en passant capture.
+    ///   </para>
+    ///   <para>
+    ///     This is usually set to null, except when a pawn moves by two, in which case this variable is set to the position
+    ///     behind the pawn.
+    ///   </para>
+    ///   <example>
+    ///     If a pawn moves from A2 to A4, this variable is set to A3.
+    ///   </example>
+    /// </summary>
     private Position? _canBeEnPassant;
 
     /// <summary>
@@ -115,12 +127,35 @@ namespace chess.Models
       var positionsBetween = new List<Position>();
 
       // Verifications
-      bool SameRow(Position pos) => pos.X == origin.X;
-      bool AboveRow(Position pos) => pos.Y > origin.Y && pos.Y < target.Y;
-      bool BelowRow(Position pos) => pos.Y < origin.Y && pos.Y > target.Y;
-      bool SameColumn(Position pos) => pos.Y == origin.Y;
-      bool LeftColumn(Position pos) => pos.X < origin.X && pos.X > target.X;
-      bool RightColumn(Position pos) => pos.X > origin.X && pos.X < target.X;
+      bool SameRow(Position pos)
+      {
+        return pos.X == origin.X;
+      }
+
+      bool AboveRow(Position pos)
+      {
+        return pos.Y > origin.Y && pos.Y < target.Y;
+      }
+
+      bool BelowRow(Position pos)
+      {
+        return pos.Y < origin.Y && pos.Y > target.Y;
+      }
+
+      bool SameColumn(Position pos)
+      {
+        return pos.Y == origin.Y;
+      }
+
+      bool LeftColumn(Position pos)
+      {
+        return pos.X < origin.X && pos.X > target.X;
+      }
+
+      bool RightColumn(Position pos)
+      {
+        return pos.X > origin.X && pos.X < target.X;
+      }
 
       if (origin.X == target.X)
         positionsBetween.AddRange(
@@ -185,22 +220,25 @@ namespace chess.Models
       return _cells[ConvertToIndex(cell)].Colour == colour;
     }
 
+    /// <summary>
+    ///   Changes the cell at the given position to a new piece.
+    /// </summary>
+    /// <param name="cell">The cell to affect.</param>
+    /// <param name="piece">The new piece. See <see cref="GenerateBoard" /> for valid pieces.</param>
     public void ChangeCellTo(Position cell, char piece)
     {
       _cells[ConvertToIndex(cell)] = new Cell(piece);
     }
 
-    public static bool IsPromotable(Position cell)
+    /// <summary>
+    ///   Evaluates if the given cell is a promotable piece and is on the edge of the board.
+    /// </summary>
+    /// <param name="cell">The cell to evaluate.</param>
+    /// <returns>True if the cell can be promoted, false otherwise.</returns>
+    public bool IsPromotable(Position cell)
     {
-      List<Position> promotablePositions = new List<Position>();
-
-      for (int i = 0; i <= 7; i++)
-      {
-        promotablePositions.Add(new Position(i, 7));
-        promotablePositions.Add(new Position(i, 0));
-      }
-
-      return promotablePositions.Contains(cell);
+      if (!_cells[ConvertToIndex(cell)].HasPromotable()) return false;
+      return cell.Y == 7 || cell.Y == 0;
     }
 
     /// <summary>
@@ -264,19 +302,25 @@ namespace chess.Models
       var list = enemies.Where(enemy => ValidMove(enemy, target)).ToList();
 
       if (list.Contains(GetEssentialPiece(enemyColour)))
-      {
         list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && !SelfChecks(enemy, target));
-      }
 
       return list;
     }
 
+    /// <summary>
+    ///   Evaluates if the given move is an en passant move.
+    ///   <para>
+    ///     An en passant move is a move made by any piece that can en passant to <see cref="_canBeEnPassant" />.
+    ///   </para>
+    /// </summary>
+    /// <param name="origin">The cell containing the piece that is moving.</param>
+    /// <param name="target">The cell that the piece is moving to.</param>
+    /// <returns>True if the move is an en passant, false otherwise.</returns>
     private bool EnPassantMove(Position origin, Position target)
     {
       if (!_canBeEnPassant.HasValue) return false;
       if (_canBeEnPassant.Value != target) return false;
-      Cell enPassantee = _cells[ConvertToIndex(new Position(_canBeEnPassant.Value.X, origin.Y))];
-
+      var enPassantee = _cells[ConvertToIndex(new Position(_canBeEnPassant.Value.X, origin.Y))];
       return !enPassantee.IsEmpty() && enPassantee.Colour != _cells[ConvertToIndex(origin)].Colour;
     }
 
@@ -307,8 +351,7 @@ namespace chess.Models
       var moves = cell.ValidMove(origin);
       moves.RemoveAll(pos => pos.OutOfBounds);
 
-      // Check if an en passanter wants to capture the en passant'd
-      // TODO: Looks awfully like shit
+      // En Passant, if the move is an en passant we don't need to check for the other filters
       if (cell.CanEnPassant() && EnPassantMove(origin, target))
         return true;
 
@@ -323,10 +366,8 @@ namespace chess.Models
 
       if (!moves.Contains(target) || moves.Count == 0) return false;
 
-      // Check for collisions
-      if (!Collision(origin, target, moves)) return false;
-
-      return true;
+      // Collisions 
+      return Collision(origin, target, moves);
     }
 
     /// <summary>
@@ -336,9 +377,9 @@ namespace chess.Models
     /// <param name="target">Position to move the piece to.</param>
     public void MoveCellTo(Position origin, Position target)
     {
+      // Handle castles
       if (CanCastle(origin, target))
       {
-        // Handle castles
         Position castlee;
         Position newTarget;
         if (origin.X - target.X > 0)
@@ -357,34 +398,30 @@ namespace chess.Models
       }
 
       if (_canBeEnPassant.HasValue && target == _canBeEnPassant)
-      {
         _cells[ConvertToIndex(new Position(target.X, origin.Y))] = new Cell('.');
-      }
 
-      // Verify if this is move enables the piece to be en passant'd
-      // Moves that enable en passant are only cells that can en passant and if they move by two
+      // Handle en passant 
       if (_cells[ConvertToIndex(origin)].CanEnPassant() && target.X == origin.X && target.Y - origin.Y == 2)
-      {
         _canBeEnPassant = new Position(target.X, target.Y - 1);
-      }
       else if (_cells[ConvertToIndex(origin)].CanEnPassant() && target.X == origin.X && target.Y - origin.Y == -2)
-      {
         _canBeEnPassant = new Position(target.X, target.Y + 1);
-      }
       else
-      {
         _canBeEnPassant = null;
-      }
 
-
+      // Perform the move
       SwapCells(origin, target);
       _cells[ConvertToIndex(target)].Moved();
     }
 
+    /// <summary>
+    ///   Evaluates if any enemy can attack around the essential piece, determined by <see cref="GetEssentialPiece" />
+    /// </summary>
+    /// <param name="colour">The colour of the essential piece.</param>
+    /// <returns>True if any enemy can attack, otherwise false.</returns>
     public bool CanAttackAroundEssential(Colour colour)
     {
       var cell = GetEssentialPiece(colour);
-      if (cell == new Position(-1, -1))
+      if (cell.OutOfBounds)
         return false;
 
       var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
@@ -394,6 +431,11 @@ namespace chess.Models
       return moves.All(pos => GetAttackingPieces(colour, pos).Count != 0);
     }
 
+    /// <summary>
+    ///   Moves the first cell to the second cell, overwriting it. The first cell is then removed.
+    /// </summary>
+    /// <param name="origin">The first cell.</param>
+    /// <param name="target">The second cell.</param>
     private void SwapCells(Position origin, Position target)
     {
       _cells[ConvertToIndex(target)] = _cells[ConvertToIndex(origin)];
@@ -408,7 +450,6 @@ namespace chess.Models
     /// <returns>False if the move would cause the essential piece to be in check, true otherwise.</returns>
     public bool SelfChecks(Position origin, Position target)
     {
-      // TODO: Scuffed. Needs to be fixed.
       var oldBoard = (Cell[]) _cells.Clone();
       var cell = _cells[ConvertToIndex(origin)];
       if (cell.Colour == null)
@@ -425,6 +466,13 @@ namespace chess.Models
       return attackers.Count == 0;
     }
 
+    /// <summary>
+    ///   Evaluates if any enemy can move between the two given cells. Note that the target cell (which is usually an enemy) is
+    ///   ignored.
+    /// </summary>
+    /// <param name="origin">The first cell.</param>
+    /// <param name="target">The second cell.</param>
+    /// <returns>True if an enemy can move between the two, false otherwise.</returns>
     public bool CanBlock(Position origin, Position target)
     {
       // Checks if any enemy piece of the origin can go between the two
@@ -441,12 +489,24 @@ namespace chess.Models
       return positionsBetween.Any(pos => enemies.Any(enemy => ValidMove(enemy, pos)));
     }
 
+    /// <summary>
+    ///   Evaluates if the move is a capture (i.e. the target cell is occupied by an enemy piece).
+    /// </summary>
+    /// <param name="origin">The cell containing the moving piece.</param>
+    /// <param name="target">The cell that the piece is moving to.</param>
+    /// <returns>True if the movie is a capture, false otherwise.</returns>
     public bool IsCapture(Position origin, Position target)
     {
       return _cells[ConvertToIndex(origin)].Colour != _cells[ConvertToIndex(target)].Colour &&
              !_cells[ConvertToIndex(target)].IsEmpty();
     }
 
+    /// <summary>
+    ///   Evaluates if a castle move can be performed.
+    /// </summary>
+    /// <param name="origin">The cell containing the moving piece.</param>
+    /// <param name="target">The cell that the piece is moving to.</param>
+    /// <returns>True if the castle can be performed, false otherwise.</returns>
     public bool CanCastle(Position origin, Position target)
     {
       var castler = _cells[ConvertToIndex(origin)];
@@ -496,16 +556,35 @@ namespace chess.Models
       return ValidMove(castlee, passesBy);
     }
 
+    /// <summary>
+    ///   Evaluates whether the move is a castle. Castling moves are when a piece moves two spaces on the X axis.
+    /// </summary>
+    /// <param name="origin">The cell containing the moving piece.</param>
+    /// <param name="target">The cell that the piece is moving to.</param>
+    /// <remarks>This does not check if the origin is a castler.</remarks>
+    /// <returns>True if it is a castle, false otherwise.</returns>
     public static bool CastlingMove(Position origin, Position target)
     {
       return Math.Abs(origin.X - target.X) == 2;
     }
 
+    /// <summary>
+    ///   Evaluates whether the cell contains an essential piece.
+    /// </summary>
+    /// <param name="cell">
+    ///   The cell to evaluate.
+    /// </param>
+    /// <returns></returns>
     public bool HasEssential(Position cell)
     {
       return _cells[ConvertToIndex(cell)].HasEssential();
     }
 
+    /// <summary>
+    ///   Evaluates whether any cell of a given colour can perform any move.
+    /// </summary>
+    /// <param name="colour">The colour of the team to evaluate.</param>
+    /// <returns>True if at least one cell can perform a move, false otherwise.</returns>
     public bool TeamCanMove(Colour colour)
     {
       var allies = new List<Position>();
@@ -516,7 +595,7 @@ namespace chess.Models
 
       foreach (var ally in allies)
       {
-        List<Position> movelist = _cells[ConvertToIndex(ally)].ValidMove(ally);
+        var movelist = _cells[ConvertToIndex(ally)].ValidMove(ally);
         var cell = _cells[ConvertToIndex(ally)];
         movelist.RemoveAll(pos => pos.OutOfBounds);
         if (cell.CanOnlyAttackDiagonally())
@@ -525,16 +604,17 @@ namespace chess.Models
         if (cell.CanOnlyMoveForward())
           movelist.RemoveAll(pos => pos.X == ally.X && !_cells[ConvertToIndex(pos)].IsEmpty());
 
-        foreach (var move in movelist)
-        {
-          if (ValidMove(ally, move) && SelfChecks(ally, move))
-            return true;
-        }
+        if (movelist.Any(move => ValidMove(ally, move) && SelfChecks(ally, move))) return true;
       }
 
       return false;
     }
 
+    /// <summary>
+    ///   Verifies if the cell cannot undo their move (ie. go back to the previous state).
+    /// </summary>
+    /// <param name="cell">The cell to evaluate.</param>
+    /// <returns>True if it can undo their move, false otherwise.</returns>
     public bool CantGoBack(Position cell)
     {
       return _cells[ConvertToIndex(cell)].CantGoBack();
