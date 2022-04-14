@@ -54,7 +54,8 @@ namespace chess.Views
     ///   Methode called when the area clicked is a valid selection by the player
     /// </summary>
     /// <param name="pos">Reprensents de position as a 2 dimentional table that starts by the bottom-left(starts with 0, 0)</param>
-    public void DrawSelection(Position pos) {
+    public void DrawSelection(Position pos)
+    {
 
       Graphics boardGraph = ChessBoard.CreateGraphics();
 
@@ -73,7 +74,7 @@ namespace chess.Views
       SolidBrush darkCell = new SolidBrush(Color.DarkGray);
       SolidBrush whiteCell = new SolidBrush(Color.White);
 
-      char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+      char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
       TextBox txt = new TextBox();
 
       float cellDim = ChessBoard.Height / 8;
@@ -85,11 +86,11 @@ namespace chess.Views
       {
         for (int c = 0; c < 8; c++)
         {
-          if ((c+r) % 2 == 1)
+          if ((c + r) % 2 == 1)
             boardGraph.FillRectangle(darkCell, c * cellDim, r * cellDim, cellDim, cellDim);
           else
             boardGraph.FillRectangle(whiteCell, c * cellDim, r * cellDim, cellDim, cellDim);
-          
+
           switch (board[indexBoard++])
           {
             case 'P':
@@ -158,7 +159,7 @@ namespace chess.Views
       grpPlayer2.Text = _controller.PlayerB.Name;
       txtScoreA.Text = _controller.PlayerA.Points.ToString();
       txtScoreB.Text = _controller.PlayerB.Points.ToString();
-      txtTurns.Text = _controller.Turns.ToString();
+      txtTurns.Text = _controller.HistoryCount().ToString();
     }
 
     private void ChessBoard_Paint(object sender, PaintEventArgs e)
@@ -192,12 +193,56 @@ namespace chess.Views
       return dialogResult == DialogResult.Yes;
     }
 
-    public void VictoryMessage()
+    public void VictoryMessage(Player winner)
     {
-      
+
       // Initializes the variables to pass to the MessageBox.Show method.
-      string message = "Do you want to play another match?";
+      string message = "PLayer : " + winner.Name + " is the winner !";
       string caption = "Check Mate !";
+      MessageBoxButtons buttons = MessageBoxButtons.OK;
+      DialogResult result;
+
+      // Displays the MessageBox.
+      result = MessageBox.Show(message, caption, buttons);
+      if (result == DialogResult.OK)
+      {
+        this.Close();
+      }
+    }
+
+    public void SameboardMessage()
+    {
+      // Initializes the variables to pass to the MessageBox.Show method.
+      string message = "You made the same board 3 times, it leads you to a draw !";
+      string caption = "Draw !";
+      MessageBoxButtons buttons = MessageBoxButtons.OK;
+      DialogResult result;
+
+      // Displays the MessageBox.
+      result = MessageBox.Show(message, caption, buttons);
+      if (result == DialogResult.OK)
+      {
+        this.Close();
+      }
+    }
+
+    public void FiftyturnsMessage()
+    {
+      // Initializes the variables to pass to the MessageBox.Show method.
+      string message = "You made 50 turns without any changes !";
+      string caption = "Draw !";
+      MessageBoxButtons buttons = MessageBoxButtons.OK;
+
+      // Displays the MessageBox.
+      MessageBox.Show(message, caption, buttons);
+      
+    }
+
+    public void StalemateMessage()
+    {
+      // Initializes the variables to pass to the MessageBox.Show method.
+      string message = "You are in a stalemate !";
+      string caption = "Stalemate !";
       MessageBoxButtons buttons = MessageBoxButtons.OK;
       DialogResult result;
 
@@ -211,7 +256,7 @@ namespace chess.Views
 
     public void DrawTurns()
     {
-      txtTurns.Text = _controller.Turns.ToString();
+      txtTurns.Text = _controller.HistoryCount().ToString();
     }
   }
 }

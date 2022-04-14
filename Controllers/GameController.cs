@@ -13,7 +13,6 @@ namespace chess.Controllers
     private Match _match;
     private Player _playerA;
     private Player _playerB;
-    private int _fiftyTurns;
     private Position _selected;
     private Position _toPromote;
 
@@ -29,7 +28,6 @@ namespace chess.Controllers
       _selected = new Position(-1, -1);
       _playerA = a;
       _playerB = b;
-      _fiftyTurns = 0;
       _formMatch.Show();
     }
 
@@ -78,7 +76,6 @@ namespace chess.Controllers
       _match.MakeTurn(_selected, target);
       _selected = new Position(-1, -1);
       _formMatch.DrawBoard(_match.ExportBoard());
-      ++_fiftyTurns;
       _formMatch.DrawTurns();
 
       // Check if the selected cell has a promotable piece
@@ -94,24 +91,45 @@ namespace chess.Controllers
             }
         }
 
-        if (_match.Checkmate())
+      if (_match.Checkmate())
+      {
+        if (_match.CurrentPlayer == Colour.White)
         {
-            if (_match.CurrentPlayer == Colour.White)
-                _main.setWinner(_playerA, _playerB, true);
-            else
-                _main.setWinner(_playerA, _playerB, false);
+          _main.setWinner(_playerA, _playerB, true);
+          _formMatch.VictoryMessage(_playerA);
         }
-        else if (_fiftyTurns >= 50 || this.SameBoard() || _match.Stalemate())
+        else
         {
-          
+          _main.setWinner(_playerA, _playerB, false);
+          _formMatch.VictoryMessage(_playerB);
         }
+      }
+      else if (_match.ExportHistory().Count >= 50)
+      {
+        _formMatch.FiftyturnsMessage();
+      }
+      else if (SameBoard())
+      {
+        _formMatch.SameboardMessage();
+      }
+      else if (_match.Stalemate())
+      {
+        _formMatch.StalemateMessage();
+      }
+    
     }
 
     public string GetBoard()
     {
       return _match.ExportBoard();
     }
-    public bool SameBoard()
+
+    public int HistoryCount()
+    {
+      return _match.ExportHistory().Count;
+    }
+
+    private bool SameBoard()
     {
       
       List<string> history = _match.ExportHistory();
@@ -173,7 +191,5 @@ namespace chess.Controllers
     {
       return _match.Check();
     }
-
-    public int Turns => _fiftyTurns;
   }
 }
