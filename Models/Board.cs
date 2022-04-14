@@ -266,9 +266,10 @@ namespace chess.Models
       return list;
     }
 
-    private bool EnPassantMove(Position origin)
+    private bool EnPassantMove(Position origin, Position target)
     {
       if (!_canBeEnPassant.HasValue) return false;
+      if (_canBeEnPassant.Value != target) return false;
       Cell enPassantee = _cells[ConvertToIndex(new Position(_canBeEnPassant.Value.X, origin.Y))];
 
       return !enPassantee.IsEmpty() && enPassantee.Colour != _cells[ConvertToIndex(origin)].Colour;
@@ -303,7 +304,7 @@ namespace chess.Models
 
       // Check if an en passanter wants to capture the en passant'd
       // TODO: Looks awfully like shit
-      if (cell.CanEnPassant() && EnPassantMove(origin))
+      if (cell.CanEnPassant() && EnPassantMove(origin, target))
         return true;
 
       // Filter moves (well, the pawn's)

@@ -280,5 +280,23 @@ namespace tests
       _match.MakeTurn(new Position("a7"), new Position("a8"));
       Assert.That(_match.Checkmate(), Is.True);
     }
+
+    [Test]
+    public void StupidFuckingMove()
+    {
+      _match.MakeTurn(new Position("d2"), new Position("d4"));
+      _match.MakeTurn(new Position("d7"), new Position("d5"));
+      _match.MakeTurn(new Position("g2"), new Position("g4"));
+      _match.MakeTurn(new Position("h7"), new Position("h5"));
+      Assert.That(_match.ValidTurn(new Position("g4"), new Position("h5")), Is.True);
+    }
+
+    [Test]
+    public void CantEnPassantFromNowhere()
+    {
+      _match.MakeTurn(new Position("a2"), new Position("a5"));
+      _match.MakeTurn(new Position("h7"), new Position("h5"));
+      Assert.That(_match.ValidTurn(new Position("a5"), new Position("b6")), Is.False);
+    }
   }
 }
