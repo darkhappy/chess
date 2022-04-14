@@ -292,6 +292,14 @@ namespace tests
     }
 
     [Test]
+    public void StupidFuckingMoveTwo()
+    {
+      _match.ChangeBoard("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br.");
+      _match.MakeTurn(new Position("d5"), new Position("d6"));
+      Assert.That(_match.Checkmate(), Is.False);
+    }
+
+    [Test]
     public void CantEnPassantFromNowhere()
     {
       _match.MakeTurn(new Position("a2"), new Position("a5"));

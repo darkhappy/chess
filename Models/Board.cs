@@ -403,8 +403,9 @@ namespace chess.Models
 
       var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
       moves.RemoveAll(pos => pos.OutOfBounds);
+      moves.RemoveAll(pos => !_cells[ConvertToIndex(pos)].IsEmpty());
 
-      return moves.Any(pos => GetAttackingPieces(colour, cell).Count > 0);
+      return moves.All(pos => GetAttackingPieces(colour, pos).Count != 0);
     }
 
     private void SwapCells(Position origin, Position target)
