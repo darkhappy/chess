@@ -300,6 +300,13 @@ namespace tests
     }
 
     [Test]
+    public void StupidFuckingMoveThree()
+    {
+      _match.ChangeBoard("..ppp..p..pkp.....p.p.....................................Q.....");
+      Assert.That(_match.ValidTurn(new Position("d1"), new Position("d3")), Is.False);
+    }
+
+    [Test]
     public void CantEnPassantFromNowhere()
     {
       _match.MakeTurn(new Position("a2"), new Position("a5"));

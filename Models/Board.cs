@@ -312,7 +312,9 @@ namespace chess.Models
         moves.RemoveAll(pos => pos.X != origin.X && _cells[ConvertToIndex(pos)].IsEmpty());
 
       if (cell.CanOnlyMoveForward())
-        moves.RemoveAll(pos => pos.X == origin.X && !_cells[ConvertToIndex(pos)].IsEmpty());
+        moves.RemoveAll(pos =>
+          pos.X == origin.X && !_cells[ConvertToIndex(pos)].IsEmpty() &&
+          _cells[ConvertToIndex(pos)].Colour != cell.Colour);
 
       if (!moves.Contains(target) || moves.Count == 0) return false;
 
