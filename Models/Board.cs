@@ -263,6 +263,11 @@ namespace chess.Models
 
       var list = enemies.Where(enemy => ValidMove(enemy, target)).ToList();
 
+            if (list.Contains(GetEssentialPiece(enemyColour)))
+            {
+                list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && !SelfChecks(enemy, target));
+            }
+
       return list;
     }
 
