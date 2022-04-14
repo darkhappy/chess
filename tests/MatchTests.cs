@@ -303,6 +303,15 @@ namespace tests
     public void StupidFuckingMoveThree()
     {
       _match.ChangeBoard("..ppp..p..pkp.....p.p.....................................Q.....");
+      _match.MakeTurn(new Position("h1"), new Position("h2"));
+      _match.MakeTurn(new Position("c8"), new Position("d8"));
+      Assert.That(_match.Checkmate(), Is.True);
+    }
+
+    [Test]
+    public void PawnCollisions()
+    {
+      _match.ChangeBoard("..ppp..p..pkp.....p.p.....................................Q.....");
       Assert.That(_match.ValidTurn(new Position("d1"), new Position("d3")), Is.False);
     }
 
