@@ -111,11 +111,7 @@ namespace chess.Models
 
     public bool Stalemate()
     {
-      //TODO verify if all remaining pieces cant make a valid move
-      if (!this.Check() )
-        return true;
-      else
-        return false;
+      return !this.Check() && _board.TeamCanMove(_current);
     }
 
     public bool Castle()

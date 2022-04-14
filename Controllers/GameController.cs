@@ -101,9 +101,9 @@ namespace chess.Controllers
             else
                 _main.setWinner(_playerA, _playerB, false);
         }
-        else if (_fiftyTurns >= 50 || this.SameBoard())
+        else if (_fiftyTurns >= 50 || this.SameBoard() || _match.Stalemate())
         {
-            this.DrawMatch();
+          
         }
     }
 
