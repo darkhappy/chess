@@ -272,5 +272,13 @@ namespace tests
       _match.MakeTurn(new Position("e2"), new Position("e4"));
       Assert.That(_match.Stalemate(), Is.False);
     }
+
+    [Test]
+    public void CheckmateInCorner()
+    {
+      _match.ChangeBoard(".......K.....q..................................q..............k");
+      _match.MakeTurn(new Position("a7"), new Position("a8"));
+      Assert.That(_match.Checkmate(), Is.True);
+    }
   }
 }

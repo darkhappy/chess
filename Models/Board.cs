@@ -194,13 +194,13 @@ namespace chess.Models
     {
       List<Position> promotablePositions = new List<Position>();
 
-      for(int i = 0; i <= 7; i++)
+      for (int i = 0; i <= 7; i++)
       {
         promotablePositions.Add(new Position(i, 7));
         promotablePositions.Add(new Position(i, 0));
       }
 
-      return promotablePositions.Contains(target);    
+      return promotablePositions.Contains(target);
     }
 
     /// <summary>
@@ -397,10 +397,12 @@ namespace chess.Models
     public bool CanAttackAroundEssential(Colour colour)
     {
       var cell = GetEssentialPiece(colour);
-      if (cell == new Position(-1, -1)) return false;
+      if (cell == new Position(-1, -1))
+        return false;
+
       var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
       moves.RemoveAll(pos => pos.OutOfBounds);
-      moves.RemoveAll(pos => _cells[ConvertToIndex(pos)].Colour != _cells[ConvertToIndex(cell)].Colour);
+
       return moves.Any(pos => GetAttackingPieces(colour, cell).Count > 0);
     }
 
@@ -541,6 +543,7 @@ namespace chess.Models
             return true;
         }
       }
+
       return false;
     }
 

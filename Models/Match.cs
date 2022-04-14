@@ -13,11 +13,11 @@ namespace chess.Models
     {
       _current = Colour.White;
       _history = new List<string>();
-      //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+      _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
 
       //test boards :
       //_board = new Board("........PPP..........................................ppp........");
-      _board = new Board(".......K.....q.................................................k");
+      //_board = new Board(".......K.....q.................................................k");
     }
 
     public Colour CurrentPlayer => _current;
