@@ -68,7 +68,7 @@ namespace chess.Views
       this.BtnNew.TabIndex = 1;
       this.BtnNew.Text = "Play";
       this.BtnNew.UseVisualStyleBackColor = false;
-      this.BtnNew.Click += new System.EventHandler(this.Start);
+      this.BtnNew.Click += new System.EventHandler(this.Start_Click);
       // 
       // BtnManage
       // 
@@ -81,7 +81,7 @@ namespace chess.Views
       this.BtnManage.TabIndex = 2;
       this.BtnManage.Text = "Manage Player";
       this.BtnManage.UseVisualStyleBackColor = false;
-      this.BtnManage.Click += new System.EventHandler(this.ManagePlayer);
+      this.BtnManage.Click += new System.EventHandler(this.ManagePlayer_Click);
       // 
       // BtnExit
       // 
@@ -94,7 +94,7 @@ namespace chess.Views
       this.BtnExit.TabIndex = 3;
       this.BtnExit.Text = "Exit";
       this.BtnExit.UseVisualStyleBackColor = false;
-      this.BtnExit.Click += new System.EventHandler(this.Exit);
+      this.BtnExit.Click += new System.EventHandler(this.Exit_Click);
       // 
       // listPlayer
       // 
@@ -105,7 +105,7 @@ namespace chess.Views
       this.listPlayer.Size = new System.Drawing.Size(199, 220);
       this.listPlayer.TabIndex = 6;
       this.listPlayer.UseCompatibleStateImageBehavior = false;
-      this.listPlayer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listPlayer_MouseDoubleClick);
+      this.listPlayer.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.AddPlayer_Click);
       // 
       // labPlayer1
       // 
@@ -166,7 +166,7 @@ namespace chess.Views
       this.btnCancel1.TabIndex = 14;
       this.btnCancel1.Text = "X";
       this.btnCancel1.UseVisualStyleBackColor = false;
-      this.btnCancel1.Click += new System.EventHandler(this.btnCancel_Click);
+      this.btnCancel1.Click += new System.EventHandler(this.RemovePlayer_Click);
       // 
       // btnCancel2
       // 
@@ -178,7 +178,7 @@ namespace chess.Views
       this.btnCancel2.TabIndex = 15;
       this.btnCancel2.Text = "X";
       this.btnCancel2.UseVisualStyleBackColor = false;
-      this.btnCancel2.Click += new System.EventHandler(this.btnCancel_Click);
+      this.btnCancel2.Click += new System.EventHandler(this.RemovePlayer_Click);
       // 
       // labError
       // 

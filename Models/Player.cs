@@ -1,15 +1,14 @@
 using System;
-using System.Collections;
 
 namespace chess.Models
 {
   [Serializable]
   public class Player
   {
-    string _name;
-    int _victory;
-    int _defeat;
-    int _points;
+    private int _defeat;
+    private string _name;
+    private int _points;
+    private int _victory;
 
     /// <summary>
     /// Create a new player with its name

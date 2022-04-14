@@ -32,25 +32,9 @@ namespace chess.Models
       _y = int.Parse(y.ToString()) - 1;
     }
 
-    public int X
-    {
-      get => _x;
-      set
-      {
-        if (value >= 8 || value < 0) throw new ArgumentOutOfRangeException();
-        _x = value;
-      }
-    }
+    public int X => _x;
 
-    public int Y
-    {
-      get => _y;
-      set
-      {
-        if (value >= 8 || value < 0) throw new ArgumentOutOfRangeException();
-        _y = value;
-      }
-    }
+    public int Y => _y;
 
     private bool Equals(Position other)
     {
@@ -60,7 +44,6 @@ namespace chess.Models
     public override bool Equals(object? obj)
     {
       if (ReferenceEquals(null, obj)) return false;
-      if (ReferenceEquals(this, obj)) return true;
       return obj.GetType() == GetType() && Equals((Position) obj);
     }
 

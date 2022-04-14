@@ -1,13 +1,13 @@
-﻿using chess.Controllers;
+﻿using System.Windows.Forms;
+using chess.Controllers;
 using chess.Models;
 using chess.Properties;
-using System.Windows.Forms;
 
 namespace chess.Views
 {
   public partial class FormPromotion : Form
   {
-    GameController _main;
+    private readonly GameController _main;
 
     public FormPromotion(GameController main, Colour current)
     {
@@ -15,7 +15,7 @@ namespace chess.Views
       InitializeComponent();
 
 
-      if(current == Colour.Black)
+      if (current == Colour.Black)
       {
         pbQueen.Image = Resources.b_queen;
         pbKnight.Image = Resources.b_knight;
@@ -23,10 +23,10 @@ namespace chess.Views
         pbBishop.Image = Resources.b_bishop;
       }
     }
-    
+
     private void Promotion_Click(object sender, System.EventArgs e)
     {
-      switch (((PictureBox)sender).Name)
+      switch (((PictureBox) sender).Name)
       {
         case "pbQueen":
           _main.Promote("Queen");

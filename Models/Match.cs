@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace chess.Models
@@ -19,9 +18,8 @@ namespace chess.Models
       //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR"); //En passant
       //_board = new Board("........PPP..........................................ppp........"); //Promotion
       //_board = new Board(".......K.....q..................................p..............k"); //Promotion + Math / Promotion + Pat
-      //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br."); //Échec
+      //_board = new Board("r.b.k.n..pp.p..........P........p..qp...P.P......P..K...RNB..Br."); //Echec
       //_board = new Board("r...k..r................................................R...K..R"); //Castle
-
     }
 
     public Colour CurrentPlayer => _current;
@@ -87,7 +85,7 @@ namespace chess.Models
 
     public bool CanPromote(Position cell)
     {
-      return _board.IsPromotable(cell);
+      return Board.IsPromotable(cell);
     }
 
     public bool Check()
@@ -120,12 +118,7 @@ namespace chess.Models
 
     public bool Stalemate()
     {
-      return !this.Check() && !_board.TeamCanMove(_current);
-    }
-
-    public bool Castle()
-    {
-      throw new NotImplementedException();
+      return !Check() && !_board.TeamCanMove(_current);
     }
 
     public void ChangeBoard(string board)

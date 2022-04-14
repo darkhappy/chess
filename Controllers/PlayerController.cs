@@ -12,9 +12,9 @@ namespace chess.Controllers
   /// </summary>
   public class PlayerController
   {
-    List<Player> _list;
-    Chess _main;
-    FormPlayer _frmPlayer;
+    private readonly List<Player> _list;
+    private readonly Chess _main;
+    private FormPlayer _frmPlayer;
 
     /// <summary>
     /// Initialize the PlayerController with its controller
@@ -26,7 +26,7 @@ namespace chess.Controllers
       _list = new List<Player>();
 
       if (!File.Exists("players.txt"))
-         File.Create("players.txt").Close();
+        File.Create("players.txt").Close();
 
 
       using (StreamReader sr = new StreamReader("players.txt"))
@@ -34,7 +34,7 @@ namespace chess.Controllers
         string line;
         while ((line = sr.ReadLine()) != null)
         {
-          _list.Add((Player)StringToObject(line));
+          _list.Add((Player) StringToObject(line));
         }
       }
 
@@ -59,7 +59,6 @@ namespace chess.Controllers
       SortPlayerByRanking();
       _frmPlayer.UpdatePlayerList(_list);
       _main.UpdatePlayerList();
-
     }
 
     /// <summary>
@@ -98,7 +97,8 @@ namespace chess.Controllers
     public bool Exists(string name)
     {
       foreach (Player player in _list)
-        if (player.Name == name) return true;
+        if (player.Name == name)
+          return true;
 
       return false;
     }
@@ -144,7 +144,7 @@ namespace chess.Controllers
     /// Update the player string in the datafile
     /// </summary>
     /// <param name="player">Player needing an update, that has been modified</param>
-    public void UpdatePlayer(Player player)
+    private static void UpdatePlayer(Player player)
     {
       string line = null;
 
@@ -154,7 +154,7 @@ namespace chess.Controllers
         {
           while ((line = reader.ReadLine()) != null)
           {
-            if (((Player)StringToObject(line)).Name == player.Name)
+            if (((Player) StringToObject(line)).Name == player.Name)
               writer.WriteLine(ObjectToString(player));
             else
               writer.WriteLine(line);
@@ -173,8 +173,8 @@ namespace chess.Controllers
     /// </summary>
     /// <param name="playerA">Fisrt player in the match</param>
     /// <param name="playerB">Second player in the match</param>
-    /// <param name="playerAWin">If the first player has win or not</param>
-    public void UpdateEloRating(Player playerA, Player playerB, bool playerAWin)
+    /// <param name="playerAWon">If the first player has win or not</param>
+    public static void UpdateEloRating(Player playerA, Player playerB, bool playerAWon)
     {
       int K = 30;
 
@@ -185,15 +185,15 @@ namespace chess.Controllers
       float winningProbB = Probability(rankingA, rankingB);
 
       //Updating the Elo Ratings with the winner
-      if (playerAWin)
+      if (playerAWon)
       {
-        playerA.Points = (int)(rankingA + K * (1 - winningProbA));
-        playerB.Points = (int)(rankingB + K * (0 - winningProbB));
+        playerA.Points = (int) (rankingA + K * (1 - winningProbA));
+        playerB.Points = (int) (rankingB + K * (0 - winningProbB));
       }
       else
       {
-        playerA.Points = (int)(rankingA + K * (0 - winningProbA));
-        playerB.Points = (int)(rankingB + K * (1 - winningProbB));
+        playerA.Points = (int) (rankingA + K * (0 - winningProbA));
+        playerB.Points = (int) (rankingB + K * (1 - winningProbB));
       }
 
       UpdatePlayer(playerA);
@@ -206,11 +206,11 @@ namespace chess.Controllers
     /// <param name="rating1">Points of the first player</param>
     /// <param name="rating2">Points of the second player</param>
     /// <returns></returns>
-    private float Probability(float rating1, float rating2)
+    private static float Probability(float rating1, float rating2)
     {
       return 1.0f * 1.0f / (1 + 1.0f *
-             (float)(Math.Pow(10, 1.0f *
-               (rating1 - rating2) / 400)));
+        (float) (Math.Pow(10, 1.0f *
+          (rating1 - rating2) / 400)));
     }
 
     /// <summary>
@@ -218,18 +218,7 @@ namespace chess.Controllers
     /// </summary>
     private void SortPlayerByRanking()
     {
-      for (int i = 0; i < _list.Count - 1; i++)
-      {
-        for (int j = 0; j < _list.Count - i - 1; j++)
-        {
-          if (_list[j].Points < _list[j + 1].Points)
-          {
-            Player temp = _list[j];
-            _list[j] = _list[j + 1];
-            _list[j + 1] = temp;
-          }
-        }
-      }
+      _list.Sort((x, y) => y.Points.CompareTo(x.Points));
     }
 
     /// <summary>
@@ -238,7 +227,7 @@ namespace chess.Controllers
     /// </summary>
     /// <param name="obj">Object that need to be serialized</param>
     /// <returns>Serialized form of the object in Base64 encoded string</returns>
-    private string ObjectToString(object obj)
+    private static string ObjectToString(object obj)
     {
       using (MemoryStream ms = new MemoryStream())
       {
@@ -253,7 +242,7 @@ namespace chess.Controllers
     /// </summary>
     /// <param name="obj"></param>
     /// <returns>Object from Base64 encoded string</returns>
-    private object StringToObject(string base64String)
+    private static object StringToObject(string base64String)
     {
       byte[] bytes = Convert.FromBase64String(base64String);
       using (MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length))
