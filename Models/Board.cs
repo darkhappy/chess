@@ -303,7 +303,7 @@ namespace chess.Models
 
       // If an enemy king is trying to attack, remove it from the list if performing the move will result in a check
       if (list.Contains(GetEssentialPiece(enemyColour)))
-        list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && !SelfChecks(enemy, target));
+        list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && SelfChecks(enemy, target));
 
       return list;
     }
@@ -430,7 +430,7 @@ namespace chess.Models
 
       var moves = _cells[ConvertToIndex(cell)].ValidMove(cell);
       moves.RemoveAll(pos => pos.OutOfBounds);
-      moves.RemoveAll(pos => !ValidMove(cell, pos) || !SelfChecks(cell, pos));
+      moves.RemoveAll(pos => !ValidMove(cell, pos) || SelfChecks(cell, pos));
 
       return moves.All(pos => GetAttackingPieces(colour, pos).Count != 0);
     }
@@ -451,7 +451,7 @@ namespace chess.Models
     /// </summary>
     /// <param name="origin">The cell containing the moving piece.</param>
     /// <param name="target">The cell that the piece is moving to.</param>
-    /// <returns>False if the move would cause the essential piece to be in check, true otherwise.</returns>
+    /// <returns>True if the move would cause the essential piece to be in check, false otherwise.</returns>
     public bool SelfChecks(Position origin, Position target)
     {
       var oldBoard = (Cell[]) _cells.Clone();
@@ -467,7 +467,7 @@ namespace chess.Models
       attackers.Remove(target);
       _cells = oldBoard;
 
-      return attackers.Count == 0;
+      return attackers.Count > 0;
     }
 
     /// <summary>
@@ -608,7 +608,7 @@ namespace chess.Models
         if (cell.CanOnlyMoveForward())
           movelist.RemoveAll(pos => pos.X == ally.X && !_cells[ConvertToIndex(pos)].IsEmpty());
 
-        if (movelist.Any(move => ValidMove(ally, move) && SelfChecks(ally, move))) return true;
+        if (movelist.Any(move => ValidMove(ally, move) && !SelfChecks(ally, move))) return true;
       }
 
       return false;
