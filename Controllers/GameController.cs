@@ -4,6 +4,9 @@ using chess.Views;
 
 namespace chess.Controllers
 {
+  /// <summary>
+  /// Represent the game controller of the chess game
+  /// </summary>
   public class GameController
   {
     private readonly Chess _main;
@@ -29,6 +32,12 @@ namespace chess.Controllers
       _view.Show();
     }
 
+    /// <summary>
+    /// Initialize the PlayerController with its controller and the two players
+    /// </summary>
+    /// <param name="main">Chess controlller</param>
+    /// <param name="a">Player A</param>
+    /// <param name="b">Player B</param>
     public GameController(Chess main, Player a, Player b)
     {
       _match = new Match();
@@ -40,9 +49,20 @@ namespace chess.Controllers
       _view.Show();
     }
 
+    /// <summary>
+    /// Getter of PlayerA
+    /// </summary>
     public Player PlayerA => _playerA;
+
+    /// <summary>
+    /// Getter of PlayerB
+    /// </summary>
     public Player PlayerB => _playerB;
 
+    /// <summary>
+    /// Make all the actions when selecting a cell
+    /// </summary>
+    /// <param name="cell">The selected cell</param>
     public void Selection(Position cell)
     {
       if (_selected.OutOfBounds)
@@ -64,6 +84,10 @@ namespace chess.Controllers
       }
     }
 
+    /// <summary>
+    /// Make all actions for the second selection
+    /// </summary>
+    /// <param name="target">The cell you want to make your move on</param>
     private void Turn(Position target)
     {
       // Verify if the match is valid
@@ -89,8 +113,10 @@ namespace chess.Controllers
         }
       }
 
+      //Check if the move provoked a check situation
       if (_match.Check())
       {
+        //Check if the situation is a checkmate
         if (_match.Checkmate())
         {
           if (_match.CurrentPlayer == Colour.Black)
@@ -109,42 +135,64 @@ namespace chess.Controllers
           _view.CheckMessage(_match.CurrentPlayer == Colour.White ? _playerA.Name : _playerB.Name);
         }
       }
+      //Check if the move provoked a stalemate
       else if (_match.Stalemate())
       {
         _view.StalemateMessage();
       }
+      //Check if it has been fifty turns without anything happening
       else if (_match.History.Count >= 50)
       {
         _view.FiftyTurnsMessage();
       }
+      //Check if the same bord has been repeted 3 times
       else if (SameBoard())
       {
         _view.SameBoardMessage();
       }
     }
 
+    /// <summary>
+    /// Get the current board in a string form
+    /// </summary>
+    /// <returns>The bord in string</returns>
     public string GetBoard()
     {
       return _match.Board;
     }
 
+    /// <summary>
+    /// Get the number of turns without anything happening 
+    /// </summary>
+    /// <returns>The number of turn saved in the history</returns>
     public int HistoryCount()
     {
       return _match.History.Count;
     }
 
+    /// <summary>
+    /// Check if the same bord appeared 3 times
+    /// </summary>
+    /// <returns>Whether the same bord appeared 3 times or not </returns>
     private bool SameBoard()
     {
       var history = _match.History;
       return history.GroupBy(x => x).Any(g => g.Count() >= 3);
     }
 
+    /// <summary>
+    /// Handle the promotion of a piece
+    /// </summary>
+    /// <param name="piece">The char representing the promotion piece</param>
     public void Promote(char piece)
     {
       _match.Promote(_toPromote, piece);
       _toPromote = new Position(-1, -1);
     }
 
+    /// <summary>
+    /// handle the resign of the players
+    /// </summary>
     public void Resign()
     {
       if (_match.CurrentPlayer == Colour.White)
@@ -155,6 +203,9 @@ namespace chess.Controllers
       _view.Close();
     }
 
+    /// <summary>
+    /// Handle the draw case
+    /// </summary>
     public void Draw()
     {
       var resigner = _match.CurrentPlayer == Colour.White ? _playerA : _playerB;
