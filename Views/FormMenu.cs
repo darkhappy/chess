@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using chess.Controllers;
 
@@ -6,10 +7,10 @@ namespace chess.Views
 {
   public partial class FormMenu : Form
   {
-    Chess _main;
+    private readonly Chess _main;
 
     /// <summary>
-    /// Initialize the form menu with its controller
+    ///   Initialize the form menu with its controller
     /// </summary>
     public FormMenu(Chess controller)
     {
@@ -17,17 +18,22 @@ namespace chess.Views
       _main = controller;
     }
 
-    private void FormMenu_Load(object sender, System.EventArgs e)
+    /// <summary>
+    /// Loads the player list on form load 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void FormMenu_Load(object sender, EventArgs e)
     {
       _main.UpdatePlayerList();
     }
 
     /// <summary>
-    /// Enable the creation of a new game
+    ///   Enable the creation of a new game
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void Start_Click(object sender, System.EventArgs e)
+    private void Start_Click(object sender, EventArgs e)
     {
       if (txbPlayer1.Text == "" || txbPlayer2.Text == "")
       {
@@ -44,25 +50,29 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Enable the management of players
+    ///   Enable the management of players
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void ManagePlayer_Click(object sender, System.EventArgs e)
+    private void ManagePlayer_Click(object sender, EventArgs e)
     {
       _main.ManagePlayers();
     }
 
     /// <summary>
-    /// Exit the application
+    ///   Exit the application
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void Exit_Click(object sender, System.EventArgs e)
+    private void Exit_Click(object sender, EventArgs e)
     {
       _main.Exit();
     }
 
+    /// <summary>
+    ///   Updates the list of players with the new one
+    /// </summary>
+    /// <param name="playerList">List of players</param>
     public void UpdatePlayerList_Click(List<string> playerList)
     {
       listPlayer.Clear();
@@ -70,11 +80,16 @@ namespace chess.Views
       listPlayer.View = View.Details;
       listPlayer.Columns.Add("Player", listPlayer.Width - 10);
 
-      foreach (string player in playerList)
+      foreach (var player in playerList)
         listPlayer.Items.Add(player);
     }
 
-    private void RemovePlayer_Click(object sender, System.EventArgs e)
+    /// <summary>
+    ///   Removes a player from the game selection
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void RemovePlayer_Click(object sender, EventArgs e)
     {
       if (((Button) sender).Name == "btnCancel1" && txbPlayer1.Text != "")
       {
@@ -88,6 +103,9 @@ namespace chess.Views
       }
     }
 
+    /// <summary>
+    ///   Removes both players from the game selection
+    /// </summary>
     public void CancelSelection()
     {
       if (txbPlayer1.Text != "")
@@ -95,6 +113,7 @@ namespace chess.Views
         listPlayer.Items.Add(new ListViewItem(txbPlayer1.Text));
         txbPlayer1.Text = "";
       }
+
       if (txbPlayer2.Text != "")
       {
         listPlayer.Items.Add(new ListViewItem(txbPlayer2.Text));
@@ -102,22 +121,26 @@ namespace chess.Views
       }
     }
 
+    /// <summary>
+    ///   Adds a player to the game selection
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void AddPlayer_Click(object sender, MouseEventArgs e)
     {
       var senderList = (ListView) sender;
       var clickedItem = senderList.HitTest(e.Location).Item;
-      if (clickedItem != null)
+      if (clickedItem == null) return;
+
+      if (txbPlayer1.Text == "")
       {
-        if (txbPlayer1.Text == "")
-        {
-          txbPlayer1.Text = clickedItem.Text;
-          listPlayer.Items.Remove(clickedItem);
-        }
-        else if (txbPlayer2.Text == "")
-        {
-          txbPlayer2.Text = clickedItem.Text;
-          listPlayer.Items.Remove(clickedItem);
-        }
+        txbPlayer1.Text = clickedItem.Text;
+        listPlayer.Items.Remove(clickedItem);
+      }
+      else if (txbPlayer2.Text == "")
+      {
+        txbPlayer2.Text = clickedItem.Text;
+        listPlayer.Items.Remove(clickedItem);
       }
     }
   }
