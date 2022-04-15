@@ -273,11 +273,12 @@ return Position
 'Draw board
 GameController -> FormMatch ++ : DrawBoard(string Board)
 return
-GameController -> FormMatch ++ : DrawView()
+GameController -> FormMatch ++ : DrawTurns()
 FormMatch -> GameController ++: HistoryCount()
 GameController -> Match ++: History.Count
 return (int) History count
 return (int) History count
+return
 
 'Check if the selected cell has a promotable piece
 GameController -> Match ++: HasPromotable(Position cell)
@@ -292,13 +293,13 @@ return false
 return false
 
 'Check if in check
-Board -> Match ++: Check()
+GameController -> Match ++: Check()
 Match -> Board ++: GetAssailants(Colour colour)[...]
 return (int) Number pieces attacking ennemy essential
 return false
 
 'Check if in stalemate
-Board -> Match ++: Stalemate()
+GameController -> Match ++: Stalemate()
 Match -> Board ++: TeamCanMove(Colour colour)
 
 loop Adding all ally possible into an array
@@ -354,7 +355,23 @@ note right
     will just show move of a rook.
 end note
 
-
 return false
+return false
+
+
+'History count
+GameController -> Match ++: History.count
+return (int)History count
+
+'Same Board
+GameController -> GameController ++: SameBoard()
+GameController -> Match ++: History
+return List<string> "All board history"
+return false
+return
+return
+return
+
+
 
 
