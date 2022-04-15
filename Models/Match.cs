@@ -33,7 +33,7 @@ namespace chess.Models
       _history = new List<string>();
       _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
       //test boards :
-      //_board = new Board("rnbqkbnrpppp.pp...........B.p..p....P......P....PPP.PPPPRN.QKBNR"); //no idea
+      //_board = new Board("rnbqkbnrpppp.pp...........B.p..p....P......P....PPP.PPPPRN.QKBNR"); //Sequence diagram case
       //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR"); //En passant
       //_board = new Board("........PPP..........................................ppp........"); //Promotion
       //_board = new Board(".......K.....q..................................p..............k"); //Promotion + Math / Promotion + Pat
@@ -202,7 +202,7 @@ namespace chess.Models
     /// <returns></returns>
     public bool Stalemate()
     {
-      return !Check() && !_board.TeamCanMove(_current);
+      return !_board.TeamCanMove(_current);
     }
 
     /// <summary>
