@@ -34,7 +34,7 @@ return false
 GameController -> Match ++: ValidSelection(Position cell, bool firstClick)
 Match -> Board ++: SameColour(Position cell, Colour colour)
 Board -> Board ++: ConvertToIndex()
-return index of piece
+return (int)index of piece
 Board -> Cell ++: Colour
 return Black
 return false
@@ -152,13 +152,15 @@ return false
 'Get attacking pieces/
 Board -> Board ++: SameColour(Position origine, Colour colour)
 Board -> Board ++: ConvertToIndex()
-return index of piece
+return (int)index of piece
 Board -> Cell ++: Colour
 return Black
 return false
 
 loop For all ennemies and adding them into a list<Position>
     Board -> Board ++: ConvertToPosition(int index)
+    Board -> Position ++: New Position(int x, int y)
+    return Position
     return Position
 end
 
@@ -175,21 +177,11 @@ loop Until it found an essential in the ennemy list
     end
 end
 
-'///////JE COMPREND fuck all comment ça marche 
-'if (list.Contains(GetEssentialPiece(enemyColour)))
-'{
- '   list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && !SelfChecks(enemy, target));
-'}
-
-note right
-    Dude je comprend fuck all HELPPPPP!!!!!!!!
-
-end note
-loop Remove all cell that are fitting condition
-    'Board -> Board ++: ConvertToIndex()
-    'return index of piece
-    'Board -> Cell ++: HasEssential()
-    'return false
+loop For each attacking piece, if it essential remove it from the list if performing the move will result in a check
+    Board -> Board ++: ConvertToIndex()
+    return (int)index of piece
+    Board -> Cell ++: HasEssential()
+    return false
 end
 return List<Position>
 return List<Position> "Pieces attacking the current essential"
@@ -199,13 +191,170 @@ return false
 '--------- Origin is essential ---------'
 Match -> Board ++: HasEssential(Position cell)
 Board -> Board ++: ConvertToIndex()
-return index of the origin
+return (int)index of the origin
 Board -> Cell ++: HasEssential()
-Cell -> Piece ++: IsEssetial()
+Cell -> Piece ++: IsEssential()
 return false
 return false
 return false
 
-'--------- Valid move ---------'
+'--------- Make the turn ---------'
 return true
+GameController -> Match ++: MakeTurn(Position origin, Position target)
+
+'Cant go back
+Match -> Board ++: CantGoBack(Position cell)
+Board -> Board ++: ConvertToIndex()
+return (int)index
+Board -> Cell ++: CantGoBack()
+Cell -> Piece ++: CantGoBack()
+return false
+return false
+return false
+
+'Is capturing
+Match -> Board ++: IsCapture(Position origin, Position target)
+Board -> Board ++: ConvertToIndex()
+return (int)index of origine
+Board -> Cell ++: Colour
+return White
+Board -> Board ++: ConvertToIndex()
+return (int)index of target
+Board -> Cell ++: Colour
+return Black
+Board -> Cell ++: IsEmpty()
+return false
+return true
+
+'Move Cell to position
+Match -> Board ++: MoveCellTo(Position origin, Position target)
+Board -> Board ++: CanCastle(Position origin, Position target)
+Board -> Board ++: ConvertToIndex()
+return (int)index of castler
+Board -> Cell ++: HasEssential()
+Cell -> Piece ++: IsEssential()
+return false
+return false
+return false
+
+'Is enabling en passant 
+Board -> Board ++: ConvertToIndex()
+return (int)index of origin
+Board -> Cell ++: CanEnPassant()
+Cell -> Piece ++: CanEnPassant()
+return false
+return false
+
+'Swap cell
+Board -> Board ++: SwapCells(Position origin, Position target)
+Board -> Board ++: ConvertToIndex(Position position)
+return (int)index of origin
+Board -> Board ++: ConvertToIndex(Position position)
+return (int)index of target
+Board -> Cell ++: new Cell(string)
+return Cell
+return
+
+'Moved()
+Board -> Board ++: ConvertToIndex(Position position)
+return (int)index of target
+Board -> Cell ++: Moved()
+Cell -> Piece ++: Moved()
+return 
+return
+
+return
+return
+
+'Reset the selected
+GameController -> Position ++: New Position(int x, int y)
+return Position
+
+'Draw board
+GameController -> FormMatch ++ : DrawBoard(string Board)
+return
+GameController -> FormMatch ++ : DrawView()
+FormMatch -> GameController ++: HistoryCount()
+GameController -> Match ++: History.Count
+return (int) History count
+return (int) History count
+
+'Check if the selected cell has a promotable piece
+GameController -> Match ++: HasPromotable(Position cell)
+Match -> Board ++: HasPromotable(Position cell)
+Board -> Board ++: ConvertToIndex()
+return (int) Index of the target
+Board -> Cell ++: HasPromotable()
+Cell -> Piece ++: CanPromote()
+return false
+return false
+return false
+return false
+
+'Check if in check
+Board -> Match ++: Check()
+Match -> Board ++: GetAssailants(Colour colour)[...]
+return (int) Number pieces attacking ennemy essential
+return false
+
+'Check if in stalemate
+Board -> Match ++: Stalemate()
+Match -> Board ++: TeamCanMove(Colour colour)
+
+loop Adding all ally possible into an array
+    Board -> Cell ++: Colour
+    return Black
+    Board -> Board ++: ConvertToPosition(int index)
+    Board -> Position ++: New Position(int x, int y)
+    return Position
+    return Position 
+end
+
+
+
+loop For each ally until one can move (return false if not)
+    Board -> Board ++: ConvertToIndex(Position position)
+    return (int)index of ally
+
+    'Get all possible target of a piece
+    Board -> Cell ++: ValidMove(Position origin)
+    Cell-> Piece ++: ValidMove(Position origin);
+    return List<Position>
+    return List<Position>
+
+    Board -> Board ++: ConvertToIndex(Position position)
+    return (int)index of ally
+
+    loop Remove all position out of board
+        Board -> Position ++: OutOfBounds
+        return List<Position>
+    end
+
+    Board -> Cell ++: CanOnlyAttackDiagonally()
+    Cell-> Piece ++: CanOnlyAttackDiagonally()
+    return false
+    return false
+
+    Board -> Cell ++: CanOnlyMoveForward()
+    Cell-> Piece ++: CanOnlyMoveForward()
+    return false
+    return false
+
+    loop For each move of the ally (origin = ally, target = each move)
+        Board -> Board ++:ValidMove(Position origin, Position target)
+        return true
+        Board -> Board ++: SelfChecks
+        return false
+    end
+end
+
+note right
+    This loop will return true if any ally can move.
+    Because all ally have different caracteristic I 
+    will just show move of a rook.
+end note
+
+
+return false
+
 

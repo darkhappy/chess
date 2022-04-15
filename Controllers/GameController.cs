@@ -89,22 +89,29 @@ namespace chess.Controllers
         }
       }
 
-      if (_match.Checkmate())
+      if (_match.Check())
       {
-        if (_match.CurrentPlayer == Colour.Black)
+        if (_match.Checkmate())
         {
-          _main.SetWinner(_playerA, _playerB, true);
-          _view.VictoryMessage(_playerA.Name);
+          if (_match.CurrentPlayer == Colour.Black)
+          {
+            _main.SetWinner(_playerA, _playerB, true);
+            _view.VictoryMessage(_playerA.Name);
+          }
+          else
+          {
+            _main.SetWinner(_playerA, _playerB, false);
+            _view.VictoryMessage(_playerB.Name);
+          }
         }
-        else
+        else 
         {
-          _main.SetWinner(_playerA, _playerB, false);
-          _view.VictoryMessage(_playerB.Name);
+          _view.CheckMessage(_match.CurrentPlayer == Colour.White ? _playerA.Name : _playerB.Name);
         }
       }
-      else if (_match.Check())
+      else if (_match.Stalemate())
       {
-        _view.CheckMessage(_match.CurrentPlayer == Colour.White ? _playerA.Name : _playerB.Name);
+        _view.StalemateMessage();
       }
       else if (_match.History.Count >= 50)
       {
@@ -113,10 +120,6 @@ namespace chess.Controllers
       else if (SameBoard())
       {
         _view.SameBoardMessage();
-      }
-      else if (_match.Stalemate())
-      {
-        _view.StalemateMessage();
       }
     }
 
