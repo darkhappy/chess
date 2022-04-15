@@ -65,7 +65,6 @@ namespace chess.Models
       return X == other.X && Y == other.Y;
     }
 
-
     /// <summary>
     ///   Compares if two positions are equal.
     /// </summary>
