@@ -34,7 +34,7 @@ namespace chess.Views
       var props = (MouseEventArgs) e;
       var image = (Panel) sender;
       var x = props.X / (image.Height / 8);
-      var y = Math.Abs(props.Y - (image.Height)) / (image.Height / 8);
+      var y = Math.Abs(props.Y - image.Height) / (image.Height / 8);
 
       var pos = new Position(x, y);
 
@@ -49,108 +49,63 @@ namespace chess.Views
     /// <param name="pos">Reprensents de position as a 2 dimentional table that starts by the bottom-left(starts with 0, 0)</param>
     public void DrawSelection(Position pos)
     {
-      Graphics boardGraph = ChessBoard.CreateGraphics();
-
+      var boardGraph = ChessBoard.CreateGraphics();
       var x = pos.X * (ChessBoard.Height / 8);
-
       var y = Math.Abs(pos.Y - 7) * (ChessBoard.Height / 8);
 
       boardGraph.DrawRectangle(new Pen(Color.CadetBlue, 4.0F), x, y, ChessBoard.Height / 8, ChessBoard.Height / 8);
     }
 
     /// <summary>
-    /// Draws the graphics of the given string board
+    ///   Draws the graphics of the given string board
     /// </summary>
     /// <param name="board">Represents the board as a 64 char string</param>
     public void DrawBoard(string board)
     {
-      Bitmap imgPiece = null;
-      Graphics boardGraph = ChessBoard.CreateGraphics();
-      SolidBrush darkCell = new SolidBrush(Color.DarkGray);
-      SolidBrush whiteCell = new SolidBrush(Color.White);
+      Bitmap? imgPiece = null;
+      var boardGraph = ChessBoard.CreateGraphics();
+      var darkCell = new SolidBrush(Color.DarkGray);
+      var whiteCell = new SolidBrush(Color.White);
 
-      char[] letters = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
-      TextBox txt = new TextBox();
-
-      float cellDim = ChessBoard.Height / 8;
+      var cellDim = ChessBoard.Height / 8;
       boardGraph.DrawRectangle(new Pen(Color.White), 0, 0, ChessBoard.Height, ChessBoard.Height);
-      Size cellSize = new Size(ChessBoard.Height / 8, ChessBoard.Height / 8);
-      int indexBoard = 0;
+      var cellSize = new Size(ChessBoard.Height / 8, ChessBoard.Height / 8);
+      var indexBoard = 0;
 
-      for (int r = 7; r >= 0; r--)
+      for (var r = 7; r >= 0; r--)
       {
-        for (int c = 0; c < 8; c++)
+        for (var c = 0; c < 8; c++)
         {
-          if ((c + r) % 2 == 1)
-            boardGraph.FillRectangle(darkCell, c * cellDim, r * cellDim, cellDim, cellDim);
-          else
-            boardGraph.FillRectangle(whiteCell, c * cellDim, r * cellDim, cellDim, cellDim);
+          boardGraph.FillRectangle((c + r) % 2 == 1 ? darkCell : whiteCell, c * cellDim, r * cellDim, cellDim, cellDim);
 
-          switch (board[indexBoard++])
+          imgPiece = board[indexBoard++] switch
           {
-            case 'P':
-              imgPiece = new Bitmap(Resources.b_pawn);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'p':
-              imgPiece = new Bitmap(Resources.w_pawn);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'N':
-              imgPiece = new Bitmap(Resources.b_knight);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'n':
-              imgPiece = new Bitmap(Resources.w_knight);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'R':
-              imgPiece = new Bitmap(Resources.b_rook);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'r':
-              imgPiece = new Bitmap(Resources.w_rook);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'B':
-              imgPiece = new Bitmap(Resources.b_bishop);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'b':
-              imgPiece = new Bitmap(Resources.w_bishop);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'Q':
-              imgPiece = new Bitmap(Resources.b_queen);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'q':
-              imgPiece = new Bitmap(Resources.w_queen);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'K':
-              imgPiece = new Bitmap(Resources.b_king);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case 'k':
-              imgPiece = new Bitmap(Resources.w_king);
-              imgPiece = new Bitmap(imgPiece, cellSize);
-              break;
-            case '.':
-              imgPiece = null;
-              break;
-          }
+            'P' => new Bitmap(Resources.b_pawn),
+            'p' => new Bitmap(Resources.w_pawn),
+            'N' => new Bitmap(Resources.b_knight),
+            'n' => new Bitmap(Resources.w_knight),
+            'R' => new Bitmap(Resources.b_rook),
+            'r' => new Bitmap(Resources.w_rook),
+            'B' => new Bitmap(Resources.b_bishop),
+            'b' => new Bitmap(Resources.w_bishop),
+            'Q' => new Bitmap(Resources.b_queen),
+            'q' => new Bitmap(Resources.w_queen),
+            'K' => new Bitmap(Resources.b_king),
+            'k' => new Bitmap(Resources.w_king),
+            '.' => null,
+            _ => imgPiece
+          };
 
-          if (imgPiece != null)
-          {
-            boardGraph.DrawImage(imgPiece, c * cellDim, r * cellDim);
-          }
+          if (imgPiece == null) continue;
+
+          boardGraph.DrawImage(imgPiece, c * cellDim, r * cellDim);
+          imgPiece = new Bitmap(imgPiece, cellSize);
         }
       }
     }
 
     /// <summary>
-    /// Loads the first view of the match
+    ///   Loads the first view of the match
     /// </summary>
     /// <param name="sender">Reprensent the form itself</param>
     /// <param name="e">Represents the events we have to listen to</param>
@@ -164,7 +119,7 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Loads the board from the match and calls DrawBoard
+    ///   Loads the board from the match and calls DrawBoard
     /// </summary>
     /// <param name="sender">Reprensent the form itself</param>
     /// <param name="e">Represents the events we have to listen to</param>
@@ -175,7 +130,7 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Calls Resign from GameController
+    ///   Calls Resign from GameController
     /// </summary>
     /// <param name="sender">Reprensent the form itself</param>
     /// <param name="e">Represents the events we have to listen to</param>
@@ -185,7 +140,7 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Calls the DrawMatch from GameController
+    ///   Calls the DrawMatch from GameController
     /// </summary>
     /// <param name="sender">Reprensent the form itself</param>
     /// <param name="e">Represents the events we have to listen to</param>
@@ -195,7 +150,7 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Message pops when a player wants to call a draw match
+    ///   Message pops when a player wants to call a draw match
     /// </summary>
     /// <param name="currentColor">The colour of the player that calls the draw</param>
     /// <returns>bool</returns>
@@ -209,7 +164,7 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Meesage pops when a player is in check
+    ///   Meesage pops when a player is in check
     /// </summary>
     /// <param name="currentColor">Colour of the player that is in check</param>
     public void CheckMessage(string player)
@@ -220,14 +175,11 @@ namespace chess.Views
 
       // Displays the MessageBox.
       var result = MessageBox.Show(message, caption, buttons);
-      if (result == DialogResult.OK)
-      {
-        Close();
-      }
+      if (result == DialogResult.OK) Close();
     }
 
     /// <summary>
-    /// Message posp when a player wins doing a checkmate
+    ///   Message posp when a player wins doing a checkmate
     /// </summary>
     /// <param name="winner">The winer of the match</param>
     public void VictoryMessage(string winner)
@@ -239,14 +191,11 @@ namespace chess.Views
 
       // Displays the MessageBox.
       var result = MessageBox.Show(message, caption, buttons);
-      if (result == DialogResult.OK)
-      {
-        Close();
-      }
+      if (result == DialogResult.OK) Close();
     }
 
     /// <summary>
-    /// Message pops when the same board is made 3 times
+    ///   Message pops when the same board is made 3 times
     /// </summary>
     public void SameBoardMessage()
     {
@@ -257,14 +206,11 @@ namespace chess.Views
 
       // Displays the MessageBox.
       var result = MessageBox.Show(message, caption, buttons);
-      if (result == DialogResult.OK)
-      {
-        Close();
-      }
+      if (result == DialogResult.OK) Close();
     }
 
     /// <summary>
-    /// Message pops when nothing happens after 50 turn
+    ///   Message pops when nothing happens after 50 turn
     /// </summary>
     public void FiftyTurnsMessage()
     {
@@ -276,14 +222,11 @@ namespace chess.Views
 
       // Displays the MessageBox.
       var result = MessageBox.Show(message, caption, buttons);
-      if (result == DialogResult.OK)
-      {
-        Close();
-      }
+      if (result == DialogResult.OK) Close();
     }
 
     /// <summary>
-    /// Message pops when there is a stalemate
+    ///   Message pops when there is a stalemate
     /// </summary>
     public void StalemateMessage()
     {
@@ -294,14 +237,11 @@ namespace chess.Views
 
       // Displays the MessageBox.
       var result = MessageBox.Show(message, caption, buttons);
-      if (result == DialogResult.OK)
-      {
-        Close();
-      }
+      if (result == DialogResult.OK) Close();
     }
 
     /// <summary>
-    /// Draws the number of the turns in the formMatch
+    ///   Draws the number of the turns in the formMatch
     /// </summary>
     public void DrawTurns()
     {

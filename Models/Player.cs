@@ -11,7 +11,7 @@ namespace chess.Models
     private int _victory;
 
     /// <summary>
-    /// Create a new player with its name
+    ///   Create a new player with its name
     /// </summary>
     /// <param name="name"></param>
     public Player(string name)
@@ -23,7 +23,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Create a new player with all its data
+    ///   Create a new player with all its data
     /// </summary>
     /// <param name="name"></param>
     public Player(string name, int victory, int defeat, int points)
@@ -35,7 +35,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Return or set the player name
+    ///   Return or set the player name
     /// </summary>
     public string Name
     {
@@ -44,7 +44,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// return or set the player victory count
+    ///   return or set the player victory count
     /// </summary>
     public int Victory
     {
@@ -53,7 +53,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// return or set the player defeat count
+    ///   return or set the player defeat count
     /// </summary>
     public int Defeat
     {
@@ -62,7 +62,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// return or set the player points
+    ///   return or set the player points
     /// </summary>
     public int Points
     {

@@ -11,7 +11,7 @@ namespace chess.Views
     private readonly PlayerController _controller;
 
     /// <summary>
-    /// Initialize the FormPlayer with its controller
+    ///   Initialize the FormPlayer with its controller
     /// </summary>
     /// <param name="controller"></param>
     public FormPlayer(PlayerController controller)
@@ -21,11 +21,11 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Prepare the listView to host all players
+    ///   Prepare the listView to host all players
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void FormPlayer_Load(object sender, System.EventArgs e)
+    private void FormPlayer_Load(object sender, EventArgs e)
     {
       listPlayer.View = View.Details;
       listPlayer.Columns.Add("Player", listPlayer.Width / 2);
@@ -33,13 +33,13 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Create a new player
+    ///   Create a new player
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void Add_Click(object sender, System.EventArgs e)
+    private void Add_Click(object sender, EventArgs e)
     {
-      if (String.IsNullOrEmpty(tbxName.Text))
+      if (string.IsNullOrEmpty(tbxName.Text))
       {
         labError.Visible = true;
         labError.Text = "The field needs a name.";
@@ -58,24 +58,24 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Go back to the menu
+    ///   Go back to the menu
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void Back_Click(object sender, System.EventArgs e)
+    private void Back_Click(object sender, EventArgs e)
     {
       _controller.Back();
     }
 
     /// <summary>
-    /// Delete all selected players
+    ///   Delete all selected players
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private void Remove_Click(object sender, EventArgs e)
     {
-      int[] indices = new int[listPlayer.SelectedIndices.Count];
-      int i = 0;
+      var indices = new int[listPlayer.SelectedIndices.Count];
+      var i = 0;
 
       foreach (int index in listPlayer.SelectedIndices)
       {
@@ -85,7 +85,7 @@ namespace chess.Views
 
       Array.Reverse(indices);
 
-      foreach (int index in indices)
+      foreach (var index in indices)
       {
         _controller.Remove(index);
         listPlayer.Items.RemoveAt(index);
@@ -93,26 +93,23 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Adding player to the listView
+    ///   Adding player to the listView
     /// </summary>
     /// <param name="player"></param>
     public void AddPlayer(Player player)
     {
-      string[] toAdd = new string[] { player.Name, player.Points.ToString()};
+      string[] toAdd = {player.Name, player.Points.ToString()};
       listPlayer.Items.Add(new ListViewItem(toAdd));
     }
 
     /// <summary>
-    /// Update the player list view with a list of player
+    ///   Update the player list view with a list of player
     /// </summary>
     /// <param name="playerList"></param>
     public void UpdatePlayerList(List<Player> playerList)
     {
       listPlayer.Items.Clear();
-      foreach (var player in playerList)
-      {
-        AddPlayer(player);
-      }
+      foreach (var player in playerList) AddPlayer(player);
     }
   }
 }

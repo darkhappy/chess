@@ -2,16 +2,22 @@ using System.Collections.Generic;
 
 namespace chess.Models
 {
+  /// <summary>
+  ///   Represents a cell on the chess board.
+  /// </summary>
   public class Cell
   {
-    private Piece? _piece;
+    /// <summary>
+    ///   Represents a piece that the cell is currently holding.
+    /// </summary>
+    private readonly Piece? _piece;
 
     /// <summary>
-    /// Create a new cell with a piece within.
+    ///   Create a new cell with a piece within.
     /// </summary>
     /// <param name="piece">The piece in the cell</param>
     /// <remarks>
-    /// The piece parameter can be set to null.
+    ///   The piece parameter can be set to null.
     /// </remarks>
     public Cell(char piece)
     {
@@ -29,12 +35,12 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Return the piece color in the cell
+    ///   Return the piece color in the cell
     /// </summary>
     public Colour? Colour => _piece?.Colour;
 
     /// <summary>
-    /// Check if the cell is empty
+    ///   Check if the cell is empty
     /// </summary>
     /// <returns>Whether the case is empty or not</returns>
     public bool IsEmpty()
@@ -43,7 +49,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Check if the piece in the cell can collide
+    ///   Check if the piece in the cell can collide
     /// </summary>
     /// <returns>Whether the piece can collide or not</returns>
     public bool HasCollision()
@@ -52,7 +58,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Check if the piece in the cell can promote
+    ///   Check if the piece in the cell can promote
     /// </summary>
     /// <returns>Whether the cell contains a promotable piece or not</returns>
     public bool HasPromotable()
@@ -61,7 +67,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Check if the piece in the cell has moved
+    ///   Check if the piece in the cell has moved
     /// </summary>
     /// <returns>Whether the piece has moved or not</returns>
     public bool HasMoved()
@@ -70,7 +76,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Check if the piece in the cell is an essential one
+    ///   Check if the piece in the cell is an essential one
     /// </summary>
     /// <returns>Whether the piece is essential or not</returns>
     public bool HasEssential()
@@ -79,7 +85,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Return all possible move for the piece within the cell
+    ///   Return all possible move for the piece within the cell
     /// </summary>
     /// <param name="origin">Piece position on the board</param>
     /// <returns>A list of valid move for a piece without considering collisions</returns>
@@ -89,7 +95,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Convert the cell into a string
+    ///   Convert the cell into a string
     /// </summary>
     /// <returns>String corresponding to the piece within the cell</returns>
     public override string ToString()
@@ -98,7 +104,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Sets the piece in the cell as having moved
+    ///   Sets the piece in the cell as having moved
     /// </summary>
     public void Moved()
     {
@@ -106,7 +112,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Check if the piece in the cell can only attack diagonally.
+    ///   Check if the piece in the cell can only attack diagonally.
     /// </summary>
     /// <returns>Wheter the piece can attack diagonally or not</returns>
     public bool CanOnlyAttackDiagonally()
@@ -115,7 +121,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Check if the piece in the cell can only move forward
+    ///   Check if the piece in the cell can only move forward
     /// </summary>
     /// <returns>Wheter the piece can only move forward or not</returns>
     public bool CanOnlyMoveForward()
@@ -124,7 +130,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    /// Check if the piece in the cell can castle
+    ///   Check if the piece in the cell can castle
     /// </summary>
     /// <returns>Wheter the piece can castle or not</returns>
     public bool CanCastle()
@@ -132,11 +138,19 @@ namespace chess.Models
       return _piece != null && _piece.CanCastle();
     }
 
+    /// <summary>
+    ///   Evaluates if the piece can undo their move (ie. if it can go to the previous position)
+    /// </summary>
+    /// <returns>True if it can, false otherwise.</returns>
     public bool CantGoBack()
     {
       return _piece != null && _piece.CantGoBack();
     }
 
+    /// <summary>
+    ///   Evaluates if the piece can do an en passant.
+    /// </summary>
+    /// <returns>True if it can, false otherwise.</returns>
     public bool CanEnPassant()
     {
       return _piece != null && _piece.CanEnPassant();

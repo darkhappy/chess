@@ -67,7 +67,7 @@ namespace chess.Models
       // Basic verification
       if (!_board.ValidMove(origin, target))
         return false;
-      if (!_board.SelfChecks(origin, target))
+      if (_board.SelfChecks(origin, target))
         return false;
 
       // If the origin piece is a king, handle castles
