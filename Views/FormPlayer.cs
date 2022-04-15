@@ -7,7 +7,7 @@ using chess.Models;
 namespace chess.Views
 {
   /// <summary>
-  ///   Represents the form to create and delete player. 
+  ///   Represents the form to create and delete player.
   ///   It can also be used as a leaderbord
   /// </summary>
   public partial class FormPlayer : Form

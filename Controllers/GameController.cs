@@ -5,20 +5,18 @@ using chess.Views;
 namespace chess.Controllers
 {
   /// <summary>
-  /// Represent the game controller of the chess game
+  ///   Represent the game controller of the chess game
   /// </summary>
   public class GameController
   {
     private readonly Chess _main;
     private readonly Match _match;
-    private readonly Player _playerA;
-    private readonly Player _playerB;
     private readonly FormMatch _view;
     private Position _selected;
     private Position _toPromote;
 
     /// <summary>
-    /// For testing purposes.
+    ///   For testing purposes.
     /// </summary>
     /// <param name="a">Player A</param>
     /// <param name="b">Player B</param>
@@ -27,13 +25,13 @@ namespace chess.Controllers
       _match = new Match();
       _view = new FormMatch(this);
       _selected = new Position(-1, -1);
-      _playerA = a;
-      _playerB = b;
+      PlayerA = a;
+      PlayerB = b;
       _view.Show();
     }
 
     /// <summary>
-    /// Initialize the PlayerController with its controller and the two players
+    ///   Initialize the PlayerController with its controller and the two players
     /// </summary>
     /// <param name="main">Chess controlller</param>
     /// <param name="a">Player A</param>
@@ -44,23 +42,23 @@ namespace chess.Controllers
       _main = main;
       _view = new FormMatch(this);
       _selected = new Position(-1, -1);
-      _playerA = a;
-      _playerB = b;
+      PlayerA = a;
+      PlayerB = b;
       _view.Show();
     }
 
     /// <summary>
-    /// Getter of PlayerA
+    ///   Getter of PlayerA
     /// </summary>
-    public Player PlayerA => _playerA;
+    public Player PlayerA { get; }
 
     /// <summary>
-    /// Getter of PlayerB
+    ///   Getter of PlayerB
     /// </summary>
-    public Player PlayerB => _playerB;
+    public Player PlayerB { get; }
 
     /// <summary>
-    /// Make all the actions when selecting a cell
+    ///   Make all the actions when selecting a cell
     /// </summary>
     /// <param name="cell">The selected cell</param>
     public void Selection(Position cell)
@@ -85,7 +83,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Make all actions for the second selection
+    ///   Make all actions for the second selection
     /// </summary>
     /// <param name="target">The cell you want to make your move on</param>
     private void Turn(Position target)
@@ -101,7 +99,6 @@ namespace chess.Controllers
 
       // Check if the selected cell has a promotable piece
       if (_match.HasPromotable(target))
-      {
         // Check if the target cell can promote
         if (_match.CanPromote(target))
         {
@@ -111,7 +108,6 @@ namespace chess.Controllers
           promotionView.ShowDialog();
           _view.DrawBoard(_match.Board);
         }
-      }
 
       //Check if the move provoked a check situation
       if (_match.Check())
@@ -121,18 +117,18 @@ namespace chess.Controllers
         {
           if (_match.CurrentPlayer == Colour.Black)
           {
-            _main.SetWinner(_playerA, _playerB, true);
-            _view.VictoryMessage(_playerA.Name);
+            _main.SetWinner(PlayerA, PlayerB, true);
+            _view.VictoryMessage(PlayerA.Name);
           }
           else
           {
-            _main.SetWinner(_playerA, _playerB, false);
-            _view.VictoryMessage(_playerB.Name);
+            _main.SetWinner(PlayerA, PlayerB, false);
+            _view.VictoryMessage(PlayerB.Name);
           }
         }
-        else 
+        else
         {
-          _view.CheckMessage(_match.CurrentPlayer == Colour.White ? _playerA.Name : _playerB.Name);
+          _view.CheckMessage(_match.CurrentPlayer == Colour.White ? PlayerA.Name : PlayerB.Name);
         }
       }
       //Check if the move provoked a stalemate
@@ -153,7 +149,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Get the current board in a string form
+    ///   Get the current board in a string form
     /// </summary>
     /// <returns>The bord in string</returns>
     public string GetBoard()
@@ -162,7 +158,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Get the number of turns without anything happening 
+    ///   Get the number of turns without anything happening
     /// </summary>
     /// <returns>The number of turn saved in the history</returns>
     public int HistoryCount()
@@ -171,7 +167,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Check if the same bord appeared 3 times
+    ///   Check if the same bord appeared 3 times
     /// </summary>
     /// <returns>Whether the same bord appeared 3 times or not </returns>
     private bool SameBoard()
@@ -181,7 +177,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Handle the promotion of a piece
+    ///   Handle the promotion of a piece
     /// </summary>
     /// <param name="piece">The char representing the promotion piece</param>
     public void Promote(char piece)
@@ -191,29 +187,26 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// handle the resign of the players
+    ///   handle the resign of the players
     /// </summary>
     public void Resign()
     {
       if (_match.CurrentPlayer == Colour.White)
-        _main.SetWinner(_playerA, _playerB, false);
+        _main.SetWinner(PlayerA, PlayerB, false);
       else
-        _main.SetWinner(_playerA, _playerB, true);
+        _main.SetWinner(PlayerA, PlayerB, true);
 
       _view.Close();
     }
 
     /// <summary>
-    /// Handle the draw case
+    ///   Handle the draw case
     /// </summary>
     public void Draw()
     {
-      var resigner = _match.CurrentPlayer == Colour.White ? _playerA : _playerB;
-      var opponent = _match.CurrentPlayer == Colour.White ? _playerB : _playerA;
-      if (_view.DrawMessage(resigner.Name, opponent.Name))
-      {
-        _view.Close();
-      }
+      var resigner = _match.CurrentPlayer == Colour.White ? PlayerA : PlayerB;
+      var opponent = _match.CurrentPlayer == Colour.White ? PlayerB : PlayerA;
+      if (_view.DrawMessage(resigner.Name, opponent.Name)) _view.Close();
     }
   }
 }

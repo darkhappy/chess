@@ -22,7 +22,7 @@ namespace chess.Views
     }
 
     /// <summary>
-    /// Loads the player list on form load 
+    ///   Loads the player list on form load
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>

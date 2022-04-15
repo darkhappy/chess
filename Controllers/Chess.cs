@@ -8,16 +8,16 @@ using chess.Views;
 namespace chess.Controllers
 {
   /// <summary>
-  /// Represent the main controller of the chess game
+  ///   Represent the main controller of the chess game
   /// </summary>
   public class Chess
   {
+    private readonly List<GameController> _listGames;
     private readonly FormMenu _menu;
     private readonly PlayerController _playerController;
-    private List<GameController> _listGames;
 
     /// <summary>
-    /// Create a new Chess controller and start the application
+    ///   Create a new Chess controller and start the application
     /// </summary>
     public Chess()
     {
@@ -29,7 +29,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Application entry point
+    ///   Application entry point
     /// </summary>
     [STAThread]
     public static void Main()
@@ -38,7 +38,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Update menu player list
+    ///   Update menu player list
     /// </summary>
     public void UpdatePlayerList()
     {
@@ -46,19 +46,19 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Show the form selection to start a game
+    ///   Show the form selection to start a game
     /// </summary>
     public void NewGame(string name1, string name2)
     {
-      Player player1 = _playerController.GetPlayer(name1);
-      Player player2 = _playerController.GetPlayer(name2);
+      var player1 = _playerController.GetPlayer(name1);
+      var player2 = _playerController.GetPlayer(name2);
 
-      GameController gameController = new GameController(this, player1, player2);
+      var gameController = new GameController(this, player1, player2);
       _listGames.Add(gameController);
     }
 
     /// <summary>
-    /// Convert a player list into a string list
+    ///   Convert a player list into a string list
     /// </summary>
     /// <param name="players">List of players</param>
     /// <returns>Player list converted to string list</returns>
@@ -68,7 +68,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Update players ELO rating
+    ///   Update players ELO rating
     /// </summary>
     /// <param name="player1"></param>
     /// <param name="player2"></param>
@@ -79,7 +79,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Show player form
+    ///   Show player form
     /// </summary>
     public void ManagePlayers()
     {
@@ -88,7 +88,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Close all windows and exit the application
+    ///   Close all windows and exit the application
     /// </summary>
     public void Exit()
     {

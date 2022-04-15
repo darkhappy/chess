@@ -8,7 +8,7 @@ using chess.Views;
 namespace chess.Controllers
 {
   /// <summary>
-  /// Represent the player controller of the chess game
+  ///   Represent the player controller of the chess game
   /// </summary>
   public class PlayerController
   {
@@ -17,7 +17,7 @@ namespace chess.Controllers
     private FormPlayer _frmPlayer;
 
     /// <summary>
-    /// Initialize the PlayerController with its controller
+    ///   Initialize the PlayerController with its controller
     /// </summary>
     /// <param name="main">Chess controller</param>
     public PlayerController(Chess main)
@@ -29,13 +29,10 @@ namespace chess.Controllers
         File.Create("players.txt").Close();
 
 
-      using (StreamReader sr = new StreamReader("players.txt"))
+      using (var sr = new StreamReader("players.txt"))
       {
         string line;
-        while ((line = sr.ReadLine()) != null)
-        {
-          _list.Add((Player) StringToObject(line));
-        }
+        while ((line = sr.ReadLine()) != null) _list.Add((Player) StringToObject(line));
       }
 
       SortPlayerByRanking();
@@ -43,18 +40,20 @@ namespace chess.Controllers
 
 
     /// <summary>
-    /// Add a player with its name
+    ///   Add a player with its name
     /// </summary>
     /// <param name="name">Name of the wanted player</param>
     public void Add(string name)
     {
-      Player newPlayer = new Player(name);
+      var newPlayer = new Player(name);
 
       _list.Add(newPlayer);
       _frmPlayer.AddPlayer(newPlayer);
 
-      using (StreamWriter sw = new StreamWriter("players.txt", true))
+      using (var sw = new StreamWriter("players.txt", true))
+      {
         sw.WriteLine(ObjectToString(newPlayer));
+      }
 
       SortPlayerByRanking();
       _frmPlayer.UpdatePlayerList(_list);
@@ -62,20 +61,20 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Remove a player
+    ///   Remove a player
     /// </summary>
     /// <param name="index">Index of the player we want to remove in the player list</param>
     public void Remove(int index)
     {
       string line = null;
 
-      using (StreamReader reader = new StreamReader("players.txt"))
+      using (var reader = new StreamReader("players.txt"))
       {
-        using (StreamWriter writer = new StreamWriter("newPlayers.txt"))
+        using (var writer = new StreamWriter("newPlayers.txt"))
         {
           while ((line = reader.ReadLine()) != null)
           {
-            if (String.Compare(line, ObjectToString(_list[index])) == 0)
+            if (string.Compare(line, ObjectToString(_list[index])) == 0)
               continue;
 
             writer.WriteLine(line);
@@ -91,13 +90,13 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Check if a player exists by its name
+    ///   Check if a player exists by its name
     /// </summary>
     /// <param name="name"></param>
     /// <returns>Return true if the player exist, false otherwise</returns>
     public bool Exists(string name)
     {
-      foreach (Player player in _list)
+      foreach (var player in _list)
         if (player.Name == name)
           return true;
 
@@ -105,7 +104,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Create the player form and show it
+    ///   Create the player form and show it
     /// </summary>
     public void Show()
     {
@@ -115,7 +114,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Close the player form
+    ///   Close the player form
     /// </summary>
     public void Back()
     {
@@ -123,7 +122,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Get all players
+    ///   Get all players
     /// </summary>
     /// <returns>A list of all existing players</returns>
     public List<Player> GetPlayerList()
@@ -132,7 +131,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Get a player by its name
+    ///   Get a player by its name
     /// </summary>
     /// <param name="name"></param>
     /// <returns>Returns the searched play by name</returns>
@@ -142,16 +141,16 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Update the player string in the datafile
+    ///   Update the player string in the datafile
     /// </summary>
     /// <param name="player">Player needing an update, that has been modified</param>
     private static void UpdatePlayer(Player player)
     {
       string line = null;
 
-      using (StreamReader reader = new StreamReader("players.txt"))
+      using (var reader = new StreamReader("players.txt"))
       {
-        using (StreamWriter writer = new StreamWriter("updatePlayer.txt"))
+        using (var writer = new StreamWriter("updatePlayer.txt"))
         {
           while ((line = reader.ReadLine()) != null)
           {
@@ -159,8 +158,6 @@ namespace chess.Controllers
               writer.WriteLine(ObjectToString(player));
             else
               writer.WriteLine(line);
-
-            continue;
           }
         }
       }
@@ -170,20 +167,20 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Update ELO rating of 2 players after their math
+    ///   Update ELO rating of 2 players after their math
     /// </summary>
     /// <param name="playerA">Fisrt player in the match</param>
     /// <param name="playerB">Second player in the match</param>
     /// <param name="playerAWon">If the first player has win or not</param>
     public static void UpdateEloRating(Player playerA, Player playerB, bool playerAWon)
     {
-      int K = 30;
+      var K = 30;
 
       float rankingA = playerA.Points;
       float rankingB = playerA.Points;
 
-      float winningProbA = Probability(rankingB, rankingA);
-      float winningProbB = Probability(rankingA, rankingB);
+      var winningProbA = Probability(rankingB, rankingA);
+      var winningProbB = Probability(rankingA, rankingB);
 
       //Updating the Elo Ratings with the winner
       if (playerAWon)
@@ -202,7 +199,7 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Return the probability of winning of a rating againts another
+    ///   Return the probability of winning of a rating againts another
     /// </summary>
     /// <param name="rating1">Points of the first player</param>
     /// <param name="rating2">Points of the second player</param>
@@ -210,12 +207,12 @@ namespace chess.Controllers
     private static float Probability(float rating1, float rating2)
     {
       return 1.0f * 1.0f / (1 + 1.0f *
-        (float) (Math.Pow(10, 1.0f *
-          (rating1 - rating2) / 400)));
+        (float) Math.Pow(10, 1.0f *
+          (rating1 - rating2) / 400));
     }
 
     /// <summary>
-    /// Bubble sort of all player, sorting by highest ranking to lowest
+    ///   Bubble sort of all player, sorting by highest ranking to lowest
     /// </summary>
     private void SortPlayerByRanking()
     {
@@ -223,14 +220,14 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Serialize an object returning the
-    /// bytes as a Base64 encoded string
+    ///   Serialize an object returning the
+    ///   bytes as a Base64 encoded string
     /// </summary>
     /// <param name="obj">Object that need to be serialized</param>
     /// <returns>Serialized form of the object in Base64 encoded string</returns>
     private static string ObjectToString(object obj)
     {
-      using (MemoryStream ms = new MemoryStream())
+      using (var ms = new MemoryStream())
       {
         new BinaryFormatter().Serialize(ms, obj);
         return Convert.ToBase64String(ms.ToArray());
@@ -238,15 +235,15 @@ namespace chess.Controllers
     }
 
     /// <summary>
-    /// Deserialize an object returning 
-    /// the decoded Base64 string of an object
+    ///   Deserialize an object returning
+    ///   the decoded Base64 string of an object
     /// </summary>
     /// <param name="obj"></param>
     /// <returns>Object from Base64 encoded string</returns>
     private static object StringToObject(string base64String)
     {
-      byte[] bytes = Convert.FromBase64String(base64String);
-      using (MemoryStream ms = new MemoryStream(bytes, 0, bytes.Length))
+      var bytes = Convert.FromBase64String(base64String);
+      using (var ms = new MemoryStream(bytes, 0, bytes.Length))
       {
         ms.Write(bytes, 0, bytes.Length);
         ms.Position = 0;

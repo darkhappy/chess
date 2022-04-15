@@ -76,33 +76,31 @@ namespace chess.Views
       var indexBoard = 0;
 
       for (var r = 7; r >= 0; r--)
+      for (var c = 0; c < 8; c++)
       {
-        for (var c = 0; c < 8; c++)
+        boardGraph.FillRectangle((c + r) % 2 == 1 ? darkCell : whiteCell, c * cellDim, r * cellDim, cellDim, cellDim);
+
+        imgPiece = board[indexBoard++] switch
         {
-          boardGraph.FillRectangle((c + r) % 2 == 1 ? darkCell : whiteCell, c * cellDim, r * cellDim, cellDim, cellDim);
+          'P' => new Bitmap(Resources.b_pawn),
+          'p' => new Bitmap(Resources.w_pawn),
+          'N' => new Bitmap(Resources.b_knight),
+          'n' => new Bitmap(Resources.w_knight),
+          'R' => new Bitmap(Resources.b_rook),
+          'r' => new Bitmap(Resources.w_rook),
+          'B' => new Bitmap(Resources.b_bishop),
+          'b' => new Bitmap(Resources.w_bishop),
+          'Q' => new Bitmap(Resources.b_queen),
+          'q' => new Bitmap(Resources.w_queen),
+          'K' => new Bitmap(Resources.b_king),
+          'k' => new Bitmap(Resources.w_king),
+          _ => null
+        };
 
-          imgPiece = board[indexBoard++] switch
-          {
-            'P' => new Bitmap(Resources.b_pawn),
-            'p' => new Bitmap(Resources.w_pawn),
-            'N' => new Bitmap(Resources.b_knight),
-            'n' => new Bitmap(Resources.w_knight),
-            'R' => new Bitmap(Resources.b_rook),
-            'r' => new Bitmap(Resources.w_rook),
-            'B' => new Bitmap(Resources.b_bishop),
-            'b' => new Bitmap(Resources.w_bishop),
-            'Q' => new Bitmap(Resources.b_queen),
-            'q' => new Bitmap(Resources.w_queen),
-            'K' => new Bitmap(Resources.b_king),
-            'k' => new Bitmap(Resources.w_king),
-            _ => null
-          };
+        if (imgPiece == null) continue;
 
-          if (imgPiece == null) continue;
-
-          imgPiece = new Bitmap(imgPiece, cellSize);
-          boardGraph.DrawImage(imgPiece, c * cellDim, r * cellDim);
-        }
+        imgPiece = new Bitmap(imgPiece, cellSize);
+        boardGraph.DrawImage(imgPiece, c * cellDim, r * cellDim);
       }
     }
 
