@@ -301,6 +301,7 @@ namespace chess.Models
 
       var list = enemies.Where(enemy => ValidMove(enemy, target)).ToList();
 
+      // If an enemy king is trying to attack, remove it from the list if performing the move will result in a check
       if (list.Contains(GetEssentialPiece(enemyColour)))
         list.RemoveAll(enemy => _cells[ConvertToIndex(enemy)].HasEssential() && !SelfChecks(enemy, target));
 
@@ -401,10 +402,15 @@ namespace chess.Models
         _cells[ConvertToIndex(new Position(target.X, origin.Y))] = new Cell('.');
 
       // Handle en passant 
-      if (_cells[ConvertToIndex(origin)].CanEnPassant() && target.X == origin.X && target.Y - origin.Y == 2)
-        _canBeEnPassant = new Position(target.X, target.Y - 1);
-      else if (_cells[ConvertToIndex(origin)].CanEnPassant() && target.X == origin.X && target.Y - origin.Y == -2)
-        _canBeEnPassant = new Position(target.X, target.Y + 1);
+      if (_cells[ConvertToIndex(origin)].CanEnPassant() && origin.X == target.X)
+      {
+        _canBeEnPassant = (target.Y - origin.Y) switch
+        {
+          2 => new Position(target.X, target.Y - 1),
+          -2 => new Position(target.X, target.Y + 1),
+          _ => null
+        };
+      }
       else
         _canBeEnPassant = null;
 

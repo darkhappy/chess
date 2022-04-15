@@ -135,6 +135,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Diagrams\Sequences\AttackOfBishop.puml"/>
     <Content Include="Resources\b_pawn.png" />
     <Content Include="Resources\b_knight.png" />
     <Content Include="Resources\b_bishop.png" />
