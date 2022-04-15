@@ -92,14 +92,13 @@ namespace chess.Views
             'q' => new Bitmap(Resources.w_queen),
             'K' => new Bitmap(Resources.b_king),
             'k' => new Bitmap(Resources.w_king),
-            '.' => null,
-            _ => imgPiece
+            _ => null
           };
 
           if (imgPiece == null) continue;
 
-          boardGraph.DrawImage(imgPiece, c * cellDim, r * cellDim);
           imgPiece = new Bitmap(imgPiece, cellSize);
+          boardGraph.DrawImage(imgPiece, c * cellDim, r * cellDim);
         }
       }
     }
