@@ -3,12 +3,12 @@ using System.Collections.Generic;
 namespace chess.Models
 {
   /// <summary>
-  /// Represents a bishop.
+  ///   Represents a bishop.
   /// </summary>
   public class Bishop : Piece
   {
     /// <summary>
-    /// initializes a new instance of the Bishop class.
+    ///   initializes a new instance of the Bishop class.
     /// </summary>
     /// <param name="colour">The colour of the piece.</param>
     public Bishop(Colour colour) : base(colour)

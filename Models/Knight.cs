@@ -3,12 +3,12 @@ using System.Collections.Generic;
 namespace chess.Models
 {
   /// <summary>
-  /// Represents a king.
+  ///   Represents a king.
   /// </summary>
   public class Knight : Piece
   {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Knight"/> class.
+    ///   Initializes a new instance of the <see cref="Knight" /> class.
     /// </summary>
     /// <param name="colour">The colour of the piece.</param>
     public Knight(Colour colour) : base(colour)
@@ -16,7 +16,7 @@ namespace chess.Models
     }
 
     /// <summary>
-    ///  Generates a list of all possible moves for the piece. The available moves are all moves that are in an L shape.
+    ///   Generates a list of all possible moves for the piece. The available moves are all moves that are in an L shape.
     /// </summary>
     /// <param name="position">The position to calculate from.</param>
     /// <returns>List containing all possible moves.</returns>
@@ -45,7 +45,8 @@ namespace chess.Models
       return _colour == Colour.Black ? "N" : "n";
     }
 
-    /// <inheritdoc cref="Piece.CanCollide" />/
+    /// <inheritdoc cref="Piece.CanCollide" />
+    /// /
     public override bool CanCollide()
     {
       return false;
