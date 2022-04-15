@@ -3,6 +3,9 @@ using System;
 namespace chess.Models
 {
   [Serializable]
+  /// <summary>
+  ///   Represents the players.
+  /// </summary>
   public class Player
   {
     private int _defeat;

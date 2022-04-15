@@ -5,6 +5,9 @@ using chess.Controllers;
 
 namespace chess.Views
 {
+  /// <summary>
+  ///   Represents the main menu form.
+  /// </summary>
   public partial class FormMenu : Form
   {
     private readonly Chess _main;

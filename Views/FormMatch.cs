@@ -7,6 +7,9 @@ using chess.Properties;
 
 namespace chess.Views
 {
+  /// <summary>
+  ///   Represents the form of a match.
+  /// </summary>
   public partial class FormMatch : Form
   {
     private readonly GameController _controller;
