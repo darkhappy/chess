@@ -342,9 +342,9 @@ loop For each ally until one can move (return false if not)
     return false
 
     loop For each move of the ally (origin = ally, target = each move)
-        Board -> Board ++:ValidMove(Position origin, Position target)
+        Board -> Board ++:ValidMove(Position origin, Position target)[...]
         return true
-        Board -> Board ++: SelfChecks
+        Board -> Board ++: SelfChecks()[...]
         return false
     end
 end
