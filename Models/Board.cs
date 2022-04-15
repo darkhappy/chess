@@ -403,14 +403,12 @@ namespace chess.Models
 
       // Handle en passant 
       if (_cells[ConvertToIndex(origin)].CanEnPassant() && origin.X == target.X)
-      {
         _canBeEnPassant = (target.Y - origin.Y) switch
         {
           2 => new Position(target.X, target.Y - 1),
           -2 => new Position(target.X, target.Y + 1),
           _ => null
         };
-      }
       else
         _canBeEnPassant = null;
 
