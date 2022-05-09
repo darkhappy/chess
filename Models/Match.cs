@@ -24,6 +24,16 @@ namespace chess.Models
     private Colour _current;
 
     /// <summary>
+    ///   Represents the history of the match, allowing to undo moves.
+    /// </summary>
+    private Stack<string> _historyStack;
+
+    /// <summary>
+    ///   Represents the initial state of the match.
+    /// </summary>
+    private string _initialState;
+
+    /// <summary>
     ///   Initializes a new instance of the <see cref="T:chess.Models.Match" /> class with the starting
     ///   <see cref="Models.Board" />.
     /// </summary>
@@ -32,6 +42,8 @@ namespace chess.Models
       _current = Colour.White;
       _history = new List<string>();
       _board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR");
+      _historyStack = new Stack<string>();
+      _initialState = _board.ToString();
       //test boards :
       //_board = new Board("rnbqkbnrpppp.pp...........B.p..p....P......P....PPP.PPPPRN.QKBNR"); //Sequence diagram case
       //_board = new Board("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR"); //En passant
@@ -87,6 +99,7 @@ namespace chess.Models
     /// <param name="target">The target of the move.</param>
     public void MakeTurn(Position origin, Position target)
     {
+      _historyStack.Push(Board);
       _current = _current == Colour.White ? Colour.Black : Colour.White;
 
       // Handle history
@@ -206,12 +219,23 @@ namespace chess.Models
     }
 
     /// <summary>
-    ///   For testing purposes, this changes the board to a new board.
+    ///   Changes the board to a new board.
     /// </summary>
     /// <param name="board">The new board.</param>
     public void ChangeBoard(string board)
     {
       _board = new Board(board);
+    }
+
+    /// <summary>
+    ///  Reverts the board to the previous board. 
+    /// </summary>
+    public void Undo()
+    {
+      if (_history.Count == 0)
+        return;
+      ChangeBoard(_historyStack.Pop());
+      _current = _current == Colour.White ? Colour.Black : Colour.White;
     }
   }
 }

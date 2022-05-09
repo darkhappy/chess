@@ -342,5 +342,44 @@ namespace tests
       _match.MakeTurn(new Position("h8"), new Position("h2"));
       Assert.That(_match.ValidTurn(new Position("e2"), new Position("d2")), Is.False);
     }
+
+    [Test]
+    public void UndoBoardHasCorrectBoard()
+    {
+      _match.MakeTurn(new Position("e4"), new Position("e5"));
+      _match.Undo();
+      Assert.That(_match.Board, Is.EqualTo("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR"));
+    }
+
+    [Test]
+    public void UndoingToWhitesMove()
+    {
+      _match.MakeTurn(new Position("e4"), new Position("e5"));
+      _match.Undo();
+      Assert.That(_match.CurrentPlayer, Is.EqualTo(Colour.White));
+    }
+
+    [Test]
+    public void UndoingNothingHasCorrectColour()
+    {
+      _match.Undo();
+      Assert.That(_match.CurrentPlayer, Is.EqualTo(Colour.White));
+    }
+
+    [Test]
+    public void UndoingNothingHasCorrectBoard()
+    {
+      _match.Undo();
+      Assert.That(_match.Board, Is.EqualTo("rnbqkbnrpppppppp................................PPPPPPPPRNBQKBNR"));
+    }
+
+    [Test]
+    public void UndoingToBlacksMove()
+    {
+      _match.MakeTurn(new Position("e4"), new Position("e5"));
+      _match.MakeTurn(new Position("a7"), new Position("a6"));
+      _match.Undo();
+      Assert.That(_match.CurrentPlayer, Is.EqualTo(Colour.Black));
+    }
   }
 }
